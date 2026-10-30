@@ -1,6 +1,6 @@
 # Runtime .ko · KNP-004
 
-Edição 1.1.0. O perfil `KONAET_KO_ASSERT_V1` compila uma linguagem limitada de
+O perfil `KONAET_KO_ASSERT_V1` compila uma linguagem limitada de
 assertions para um programa determinístico. O interpretador executa comparações
 inteiras e igualdade de hashes. Não usa `eval`, não executa JavaScript enviado
 pelo usuário, não possui funções, loops, I/O, custódia ou emissão monetária.
@@ -21,6 +21,31 @@ verifica assinatura ou finaliza transferência.** A integração no nó, descrit
 adiante, obtém contexto diretamente do evento e do estado local verificado.
 
 ## Fonte e limites
+
+### Linha de comando
+
+```sh
+npm run ko -- compile runtime/SindraRuntime.ko
+npm run ko -- run runtime/SindraRuntime.ko examples/ko-transfer-context.json
+npm run ko -- online runtime/SindraRuntime.ko examples/ko-transfer-context.json
+```
+
+`compile` produz o programa e seus hashes. `run` executa o contexto no motor
+do pacote. `online` envia fonte e contexto ao serviço público e confere se o
+programa executado corresponde ao hash compilado na sua máquina. O resultado
+identifica perfil, fase, regras e modo de execução. Uma recusa encerra o
+comando com código 1.
+
+No pacote Windows, o equivalente usa o Node incluído:
+
+```bat
+bin\node.exe tools\ko.mjs online runtime\SindraRuntime.ko examples\ko-transfer-context.json
+```
+
+O último argumento opcional seleciona `transfer` ou `closure`. O arquivo
+de exemplo contém dados de teste do contexto de transferência.
+
+### Formato da política
 
 [SindraRuntime.ko](runtime/SindraRuntime.ko) é a política padrão. Há no máximo
 16 KiB de fonte ASCII com LF e 32 regras. O cabeçalho e a identidade SND são
@@ -58,13 +83,16 @@ O código de estado, assinatura, autorização híbrida e quórum continua exigi
 A política `.ko` restringe a aceitação; não substitui essas verificações.
 Versões anteriores da gênese preservam seus compromissos e formatos.
 
-## Evidência
+## Código integrado e execução
 
-O workspace executou oito testes novos, incluindo alteração de política,
-rejeição de transferência assinada, atomicidade de lote, snapshot, WAL e
-convergência de quatro nós WebSocket com sincronização de nó atrasado. São
-testes locais, não operação independente em quatro máquinas.
+O compilador do nó está em
+[chain/vlock7sin-js/src/koPolicy.js](chain/vlock7sin-js/src/koPolicy.js).
+O [ledger](chain/vlock7sin-js/src/ledger.js) aplica a política durante a
+admissão, o fechamento e a recuperação. O
+[nó VLOCK7SIN](chain/network/sovereign/SovereignNode.js) recebe a política
+definida pela gênese v6.
 
-O código público desta pasta é o mesmo compilador/interpretador usado nessa
-integração. O nó completo não está incluído. Os testes públicos verificam o
-motor e seus limites; o recibo diferencia esses testes da integração local.
+O aplicativo Windows executa esses módulos em quatro processos validadores.
+O teste [console.test.mjs](tests/console.test.mjs) inicia os processos, envia
+transferências assinadas, confere raízes e saldos e reinicia a rede pelos WALs.
+Veja [Validação e execução](EVIDENCE.md) para os comandos de teste.

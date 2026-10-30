@@ -1,18 +1,18 @@
 # Konaet Soberana
 
-**Native Chain · Console 1.2.1 · Runtime .ko**
+**Native Chain · Console 1.2.2 · Runtime .ko**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
 e um console que inicia quatro processos validadores no seu computador.
 
 [Console online](https://konaet-ko-runtime.alkalipixie.chatgpt.site) ·
-[Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/download/v1.2.1/Konaet-Console-Windows-x64.zip) ·
+[Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/latest/download/Konaet-Console-Windows-x64.zip) ·
 [Releases](https://github.com/7dsol3/konaet-sovereign-spec/releases)
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.2.1.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.2.2.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
@@ -77,6 +77,17 @@ e recupera os mesmos saldos e raiz depois de reiniciar. Também testa o bloqueio
 de requisições sem autorização local e a aplicação de `.ko`.
 O CI executa os testes em Windows e Linux.
 
+## Executar `.ko` pela linha de comando
+
+```sh
+npm run ko -- compile runtime/SindraRuntime.ko
+npm run ko -- run runtime/SindraRuntime.ko examples/ko-transfer-context.json
+npm run ko -- online runtime/SindraRuntime.ko examples/ko-transfer-context.json
+```
+
+O comando `online` executa na API pública e confere o hash do programa
+retornado. [Formato, contexto e comandos](KO-RUNTIME.md).
+
 ## Documentação
 
 - [Operação e separação entre demonstração e rede pública](DEPLOYMENT.md)
@@ -87,8 +98,8 @@ O CI executa os testes em Windows e Linux.
 - [Segurança](SECURITY.md) e [licença ISC](LICENSE)
 
 O manifesto de distribuição confere a integridade dos arquivos publicados.
-Resultados de testes descrevem cenários executados; comparações com outras
-redes usam os [critérios de comparação](COMPARISON.md).
+Consulte a [arquitetura e os recursos da Konaet](COMPARISON.md) para acompanhar
+o caminho do fonte `.ko` até a execução pelos validadores.
 
 Projeto de [7dsol3](https://github.com/7dsol3). As edições anteriores permanecem
 nas tags. O [puzzle do dia](assets/puzzle-do-dia.png) continua como material de

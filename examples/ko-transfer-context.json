@@ -1,0 +1,10 @@
+{
+  "transfer.amountAtomic": "7",
+  "transfer.nonce": "1",
+  "transfer.networkId": "28673",
+  "transfer.previousRoot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "state.senderBalance": "100",
+  "state.nextNonce": "1",
+  "state.networkId": "28673",
+  "state.root": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

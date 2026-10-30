@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.2.1",
+  "edition": "1.2.2",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -22,8 +22,8 @@
     },
     {
       "path": "COMPARISON.md",
-      "bytes": 2763,
-      "sha256": "9bc93ed517c7ad2f40c6f8ef578fd2de6f56b8088aa8004bb5990dc61c60fc31"
+      "bytes": 3025,
+      "sha256": "636cafa8ae63c62fe4b70f339ab4b1f32b1bc2c843af0034cfea71a41a4c72a9"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -33,12 +33,12 @@
     {
       "path": "DEPLOYMENT.md",
       "bytes": 4446,
-      "sha256": "ef19ef3e58b2cb4b2a5e411d7e02da38a6620c04e1d9addf818d63a84f7c7b1f"
+      "sha256": "3116eacf4c86fff844fbee2e77606cc2f35e7855ea480adc63954ccdd5c69763"
     },
     {
       "path": "EVIDENCE.md",
-      "bytes": 5323,
-      "sha256": "c88da8a4215074985a8150082543c25b3f1049fa86b5f832e3a1f28c9f6923a1"
+      "bytes": 3264,
+      "sha256": "22032bc0803eea0c5adb0b96b75914f7d312a6e9cdbcf5291ac892a9c9c8b1fb"
     },
     {
       "path": "Iniciar-Konaet.bat",
@@ -47,13 +47,13 @@
     },
     {
       "path": "KO-RUNTIME.md",
-      "bytes": 3261,
-      "sha256": "01339b3213b8168d522da83b89a37f77d9a3fb185c99eb5b55dfb9244818a851"
+      "bytes": 4257,
+      "sha256": "d3297d33597cb1d7e9d5106b2984f258d5231281c699403d79abe551c61f8a7c"
     },
     {
       "path": "LEIA-ME.txt",
       "bytes": 1058,
-      "sha256": "6c57c05121b1566f12b021e659b6e4064dbc11757d9e4d26e47b0f6278838a57"
+      "sha256": "e7dcbc4f3d8d0ef2d54bdaf25c5e52a07d2fdffac01ad14461e99166895a0478"
     },
     {
       "path": "LICENSE",
@@ -62,8 +62,8 @@
     },
     {
       "path": "NOMENCLATURE.md",
-      "bytes": 9281,
-      "sha256": "4f9262b69fbf4fc719a715fe480f55506686441041d62ca5521c1c1aa1bbd20b"
+      "bytes": 9055,
+      "sha256": "3e51b58d536123414648da80c8030584d8629cac474960526451b9a53cc5877e"
     },
     {
       "path": "PROTOCOL.md",
@@ -72,13 +72,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 4370,
-      "sha256": "8791dcd2272637162d8b5675723c0f78305badaacd34dfa6e6c5f63423c3e4b0"
+      "bytes": 4762,
+      "sha256": "a0532e498414390678d5d124e45be95644a1bd2b4364883100e3be62116111e0"
     },
     {
       "path": "SECURITY.md",
       "bytes": 1768,
-      "sha256": "d78cdf4861cf5608f0ae177a3fbcb9da6040203cf20938d0e88012ee37f390ca"
+      "sha256": "88f16f38ce8f1692708abf8fbefab39d578eead57bea05d89dbcc8f599a9ab39"
     },
     {
       "path": "Verificar-Pacote.bat",
@@ -138,7 +138,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "5abddc19b80492bfe5ba71382bc973b63e35b992f755d8c4b2916de2b5b44658"
+      "sha256": "460999364262827e623a0cf35cea2b947bc2f139d3c84b8729c7ebd863a80d0f"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -363,7 +363,7 @@
     {
       "path": "console/index.html",
       "bytes": 3141,
-      "sha256": "29f17670ab2ba0b9ad50580f67d91188893291458c25ae63fb76ba2c605ebe32"
+      "sha256": "d1def9d442bf2ea1b7ede47336fe9ccb1fdcdd036c75b7794229e360629b6d52"
     },
     {
       "path": "console/style.css",
@@ -381,6 +381,11 @@
       "sha256": "2e1b0c59c06908d4eb7e3e18f3f58de15df2a6a6f88d901b3130b5d6102eac90"
     },
     {
+      "path": "examples/ko-transfer-context.json",
+      "bytes": 360,
+      "sha256": "a4a8d33f2ff7293bd53906c954286c5f31cb736e7a253a6cdcee1053b2846d20"
+    },
+    {
       "path": "examples/signed-transfer.json",
       "bytes": 1859,
       "sha256": "bf18182e3712b3449432515e73b214f16f2ab70e284d4c3d7cee219fb77275ce"
@@ -393,12 +398,12 @@
     {
       "path": "package-lock.json",
       "bytes": 836,
-      "sha256": "e13ab332cdec899f4fb3baae2f1f0425e7ba77c0330526fd07ad8dfb43a153b0"
+      "sha256": "1c0a32fbd1b90e46a1847cdd97655cc3a03f9f2925ae8309df1cdbe5febc5889"
     },
     {
       "path": "package.json",
-      "bytes": 549,
-      "sha256": "cf42316ebcc5d18cef625d4fd39d6d1dfb83035b2e12d3bd8d076db214efedb4"
+      "bytes": 580,
+      "sha256": "fa2d7b7adc5fc439fc3d9fed5d513889a4f9fa138c1031315935a7f392b48877"
     },
     {
       "path": "runtime/LICENSE",
@@ -426,6 +431,11 @@
       "sha256": "cab2ee0554a4ad1d188193081f8ef74159d99da7fa0470a2a41bf3cf5b7b4fe5"
     },
     {
+      "path": "tests/ko-cli.test.mjs",
+      "bytes": 2449,
+      "sha256": "21801520aa85175cc9da43abdd728ce91691d2622469de81e4baff437b44898e"
+    },
+    {
       "path": "tests/ko.test.mjs",
       "bytes": 2100,
       "sha256": "ff4c0f29c995e68b9b2708da232bc6b4c6e847f12decaf7446725b8ca785dd52"
@@ -438,7 +448,7 @@
     {
       "path": "tools/console.mjs",
       "bytes": 5608,
-      "sha256": "c54cdbd51edcbcdf751a8ba304ef17952829cece3d53a40171c6d3583f0f1d67"
+      "sha256": "bbbe2be0eadb712f139fa134bc4735ad5c96775de191fe84775850d27824e10e"
     },
     {
       "path": "tools/demo-network.mjs",
@@ -447,18 +457,23 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 5412,
-      "sha256": "48e9f6a7adfbb11769913309f595aa7cb158f3648b42872baaaf9525bd928e52"
+      "bytes": 5496,
+      "sha256": "18262d5e949694ec8373448d07dd657c8e5b0d24687131925b3cfb8ce3f6717b"
+    },
+    {
+      "path": "tools/ko.mjs",
+      "bytes": 3393,
+      "sha256": "aedb47b6fcec3d7960527de16f337d0b9fed416a76a738a6227a7f13f7e93403"
     },
     {
       "path": "tools/manifest.mjs",
       "bytes": 604,
-      "sha256": "5e83149cf399d4e9c140c1412f54faab83e16c8a4e09adcbe686592bf8e160a7"
+      "sha256": "9f062927b5fbe9e3731546f1f8fc8ae47f213347769a35f0eb76f067d5f4591e"
     },
     {
       "path": "tools/package-windows.mjs",
       "bytes": 2832,
-      "sha256": "a5c7dd66a3a8f0077d35c664e9d8c9b254cd4f6e2316844d706b5e0c9d9051e2"
+      "sha256": "e9ce630442422f30dd87907e2a3119713e28e648065b358ce8b2cd2429d1abbf"
     },
     {
       "path": "tools/validator-worker.cjs",

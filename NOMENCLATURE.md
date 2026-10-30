@@ -88,14 +88,12 @@ implementação e verificação, descritas em [EVIDENCE.md](EVIDENCE.md).
 | Intent | Declaração de resultado desejado. Precisa de regras de autorização, execução e liquidação para produzir efeito. |
 | Liquidação | Conclusão de obrigações segundo regras explícitas. Uma cotação ou interface não comprova sua execução. |
 
-## Como ler termos externos
+## Identidade do protocolo Konaet
 
-L1, L2 e L3 são classificações usadas por outros projetos. A identidade Konaet
-Soberana não exige inventar uma posição hierárquica acima dessas redes.
-Autonomia deve ser demonstrada pelas suas dependências de consenso e execução.
-Este documento é original e mais específico ao projeto; sua extensão não é um
-benchmark contra a rede Ethereum. Referência de vocabulário:
-[Ethereum L2 interoperability nomenclature](https://github.com/ethereum/L2-interop/blob/main/NOMENCLATURE.md).
+Konaet Soberana identifica a rede pelo seu protocolo, gênese, conjunto de
+validadores e regras de aceitação. A política `.ko` vinculada à gênese compõe
+essa identidade. Os módulos correspondentes estão descritos em
+[Arquitetura e recursos](COMPARISON.md).
 
 Uma alteração DEVE informar o termo afetado, sua razão, o estado de implementação
 e os exemplos de aceitação e rejeição. Não deve redefinir retroativamente a

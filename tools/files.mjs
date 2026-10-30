@@ -5,6 +5,9 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "tools/ko.mjs",
+  "tests/ko-cli.test.mjs",
+  "examples/ko-transfer-context.json",
   "chain/vlock7sin-js/tests/optimizer.test.js",
   "chain/vlock7sin-js/tests/causal.test.js",
   "chain/vlock7sin-js/tests/actum.test.js",
