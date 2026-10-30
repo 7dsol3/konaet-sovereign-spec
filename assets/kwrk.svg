@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Simbolo original do ativo Konaet Work</title>
+  <defs>
+    <linearGradient id="bg" x1="8" y1="5" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#362118"/>
+      <stop offset="0.5" stop-color="#a34d24"/>
+      <stop offset="1" stop-color="#ffb22e"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="17" y1="19" x2="47" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff8d7"/>
+      <stop offset="1" stop-color="#ffd66f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="17" fill="url(#bg)"/>
+  <path d="M17 21h30l-6 12H23z" fill="url(#metal)"/>
+  <path d="M28 32h8v10h8v6H20v-6h8z" fill="#fff7d4"/>
+  <path d="m22 16-4-4m24 4 4-4M32 14V8" fill="none" stroke="#fff3bd" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 29h20" stroke="#7a341c" stroke-opacity=".45" stroke-width="2" stroke-linecap="round"/>
+</svg>

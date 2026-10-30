@@ -22,7 +22,7 @@ for (const relative of [...ALLOWED_FILES, 'publication-manifest.json']) add(rela
 for (const row of ALLOWED_FILES.filter(name => name.startsWith('vendor/ws/'))) add(row.replace('vendor/ws/', 'node_modules/ws/'), fs.readFileSync(path.join(ROOT, row)));
 add('bin/node.exe', fs.readFileSync(node));
 add('bin/LICENSE', fs.readFileSync(path.join(path.dirname(node), 'LICENSE')));
-fs.writeFileSync(path.join(stage, 'package-manifest.json'), JSON.stringify({ schema: 'konaet.windows-console-package.v1', version: '1.2.2',
+fs.writeFileSync(path.join(stage, 'package-manifest.json'), JSON.stringify({ schema: 'konaet.windows-console-package.v1', version: '1.3.0',
   nodeVersion: runtime.stdout.trim(), privateKeysIncluded: false, files }, null, 2) + '\n');
 const destination = path.join(ROOT, 'dist', 'Konaet-Console-Windows-x64.zip');
 fs.mkdirSync(path.dirname(destination), { recursive: true });

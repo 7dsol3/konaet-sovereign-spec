@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Simbolo original do ativo Konaet Actum</title>
+  <defs>
+    <linearGradient id="bg" x1="7" y1="7" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10243b"/>
+      <stop offset="0.5" stop-color="#087d92"/>
+      <stop offset="1" stop-color="#6555dd"/>
+    </linearGradient>
+    <linearGradient id="pulse" x1="15" y1="18" x2="50" y2="45" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d9ffff"/>
+      <stop offset="1" stop-color="#a7f4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="17" fill="url(#bg)"/>
+  <path d="M17 32h9l4-10 6 20 4-10h8" fill="none" stroke="url(#pulse)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 20 32 12l14 8v24l-14 8-14-8z" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2"/>
+  <circle cx="18" cy="20" r="2.6" fill="#fff"/>
+  <circle cx="46" cy="20" r="2.6" fill="#bcf9ff"/>
+  <circle cx="32" cy="52" r="2.6" fill="#fff"/>
+</svg>

@@ -5,6 +5,17 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "KO-QUICKSTART.md",
+  "ECOSYSTEM.md",
+  "examples/ko-closure-context.json",
+  "examples/ko-request.json",
+  "examples/ko-use.cjs",
+  "assets/konaet-native-cover.svg",
+  "assets/konaet-architecture.svg",
+  "assets/snd.svg",
+  "assets/naet.svg",
+  "assets/kwrk.svg",
+  "assets/kact.svg",
   "tools/ko.mjs",
   "tests/ko-cli.test.mjs",
   "examples/ko-transfer-context.json",

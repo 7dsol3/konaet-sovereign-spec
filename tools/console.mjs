@@ -63,7 +63,7 @@ export async function startConsole({ dataDirectory, port = 0 } = {}) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const app = await startConsole();
-    console.log(`\nKONAET CONSOLE 1.2.2\n\nConsole: ${app.url}\nQuatro processos validadores locais. Dados de teste em .konaet-demo\nFeche pelo console ou pressione Ctrl+C para encerrar.\n`);
+    console.log(`\nKONAET CONSOLE 1.3.0\n\nConsole: ${app.url}\nQuatro processos validadores locais. Dados de teste em .konaet-demo\nFeche pelo console ou pressione Ctrl+C para encerrar.\n`);
     const stop = () => { void app.close().then(() => process.exit(0)); };
     process.on('SIGINT', stop); process.on('SIGTERM', stop);
     if (!process.argv.includes('--no-browser')) {

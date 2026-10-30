@@ -7,3 +7,5 @@ dist/
 bin/
 .packaging/
 package-manifest.json
+/minha-politica/
+/politica.compiled.json

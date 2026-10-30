@@ -1,18 +1,51 @@
+<div align="center">
+  <img src="assets/konaet-native-cover.svg" width="100%" alt="Konaet Soberana — tecnologia com identidade própria">
+
+  <p><a href="https://konaet-ko-runtime.alkalipixie.chatgpt.site">Ecossistema Konaet</a> · <a href="https://konaet-ko-runtime.alkalipixie.chatgpt.site/console">Console .ko online</a> · <a href="KO-QUICKSTART.md">Comece com .ko</a> · <a href="https://wa.me/message/43CXZJ7NW2FPDO">Projetos e parcerias</a></p>
+</div>
+
 # Konaet Soberana
 
-**Native Chain · Console 1.2.2 · Runtime .ko**
+**Native Chain · Console 1.3.0 · Runtime .ko**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
 e um console que inicia quatro processos validadores no seu computador.
 
-[Console online](https://konaet-ko-runtime.alkalipixie.chatgpt.site) ·
+[Console online](https://konaet-ko-runtime.alkalipixie.chatgpt.site/console) ·
 [Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/latest/download/Konaet-Console-Windows-x64.zip) ·
 [Releases](https://github.com/7dsol3/konaet-sovereign-spec/releases)
 
+![Mapa de alto nível: regras .ko, validação, VLOCK7SIN e estado; Money DNA e ativos com identidades próprias.](assets/konaet-architecture.svg)
+
+## Identidade do ecossistema
+
+| Ativo | Papel |
+|---|---|
+| <img src="assets/snd.svg" width="26" height="26" alt=""> **SINDRA · SND** | Unidade da gênese VLOCK7SIN, com política .ko e nove casas decimais |
+| <img src="assets/naet.svg" width="26" height="26" alt=""> **NAET** | Unidade do ledger da aplicação Konaet |
+| <img src="assets/kwrk.svg" width="26" height="26" alt=""> **Konaet Work · KWRK** | Unidade de trabalho do ecossistema |
+| <img src="assets/kact.svg" width="26" height="26" alt=""> **Konaet Actum · KACT** | Unidade ligada à execução contabilizada pela aplicação |
+
+**Money DNA:** `8.888.888.888.888` unidades simbólicas de referência da
+política, com significado distinto de saldo financeiro ou cotação.
+[Conheça as identidades e os fluxos](ECOSYSTEM.md).
+
+## Seu primeiro projeto .ko
+
+```sh
+npm ci --ignore-scripts
+npm run ko -- init minha-politica
+npm run ko -- run minha-politica/SindraRuntime.ko minha-politica/transfer.json
+npm run ko -- online minha-politica/SindraRuntime.ko minha-politica/transfer.json
+```
+
+O projeto inclui fonte, contexto de transferência e contexto de fechamento.
+[Guia com exemplos, artefatos compilados e integração](KO-QUICKSTART.md).
+
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.2.2.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.3.0.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
@@ -91,6 +124,8 @@ retornado. [Formato, contexto e comandos](KO-RUNTIME.md).
 ## Documentação
 
 - [Operação e separação entre demonstração e rede pública](DEPLOYMENT.md)
+- [Comece com .ko](KO-QUICKSTART.md)
+- [Ecossistema, ativos e Money DNA](ECOSYSTEM.md)
 - [Runtime .ko e formato da política](KO-RUNTIME.md)
 - [Nomenclatura Konaet](NOMENCLATURE.md)
 - [Perfil de evento assinado](PROTOCOL.md)

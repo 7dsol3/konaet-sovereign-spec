@@ -1,4 +1,4 @@
-KONAET CONSOLE 1.2.2 — WINDOWS X64
+KONAET CONSOLE 1.3.0 — WINDOWS X64
 
 1. Extraia TODO o ZIP antes de executar.
 2. Abra Iniciar-Konaet.bat com dois cliques.
@@ -20,4 +20,11 @@ O pacote de operador é outro produto: ele exige configuração de rede,
 identidade e certificados. Este console não exige roster ou certificados.
 
 Código: https://github.com/7dsol3/konaet-sovereign-spec
-Console online: https://konaet-ko-runtime.alkalipixie.chatgpt.site
+Console online: https://konaet-ko-runtime.alkalipixie.chatgpt.site/console
+Guia .ko: KO-QUICKSTART.md
+
+Para criar um projeto .ko pelo terminal na pasta extraida:
+bin\node.exe tools\ko.mjs init minha-politica
+
+Para executar o exemplo online:
+bin\node.exe tools\ko.mjs online minha-politica\SindraRuntime.ko minha-politica\transfer.json

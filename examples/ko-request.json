@@ -1,0 +1,14 @@
+{
+  "source": "contract SindraRuntime v1\nruntime: KONAET_KO_ASSERT_V1\nsymbol: SND\ndecimals: 9\nsupplyAtomic: 1000000000000000000\n\nrule transferPositive: transfer.amountAtomic > 0\nrule transferMaximum: transfer.amountAtomic <= 1000000000000000000\nrule transferBalance: transfer.amountAtomic <= state.senderBalance\nrule transferNonce: transfer.nonce == state.nextNonce\nrule transferNetwork: transfer.networkId == state.networkId\nrule transferRoot: transfer.previousRoot == state.root\nrule closureNonempty: closure.actCount > 0\nrule closureCount: closure.actCount <= 64\nrule closureBytes: closure.byteLength <= 262144\nend\n",
+  "phase": "transfer",
+  "context": {
+    "transfer.amountAtomic": "7",
+    "transfer.nonce": "1",
+    "transfer.networkId": "28673",
+    "transfer.previousRoot": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "state.senderBalance": "100",
+    "state.nextNonce": "1",
+    "state.networkId": "28673",
+    "state.root": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Console pronto para executar
 
-A edição 1.2.2 inclui os nós e o console. No Windows, extraia o asset
+A edição 1.3.0 inclui os nós e o console. No Windows, extraia o asset
 `Konaet-Console-Windows-x64.zip` e abra `Iniciar-Konaet.bat`. Pelo código,
 use `npm ci --ignore-scripts` e `npm start` com Node.js 24.7+ da série 24.
 Não é necessário criar um roster para essa demonstração.

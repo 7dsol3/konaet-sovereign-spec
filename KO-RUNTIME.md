@@ -7,7 +7,9 @@ pelo usuário, não possui funções, loops, I/O, custódia ou emissão monetár
 
 ## Executar online
 
-Interface: **https://konaet-ko-runtime.alkalipixie.chatgpt.site**.
+Interface: **https://konaet-ko-runtime.alkalipixie.chatgpt.site/console**.
+
+Para criar um projeto e executar os exemplos, veja [Comece com .ko](KO-QUICKSTART.md).
 
 - `GET /api/runtime`: perfil, fonte padrão e hashes.
 - `POST /api/ko`: recebe `source`, `phase` e `context` em JSON.
@@ -28,6 +30,9 @@ adiante, obtém contexto diretamente do evento e do estado local verificado.
 npm run ko -- compile runtime/SindraRuntime.ko
 npm run ko -- run runtime/SindraRuntime.ko examples/ko-transfer-context.json
 npm run ko -- online runtime/SindraRuntime.ko examples/ko-transfer-context.json
+npm run ko -- init minha-politica
+npm run ko -- compile runtime/SindraRuntime.ko --out politica.compiled.json
+npm run ko -- verify politica.compiled.json
 ```
 
 `compile` produz o programa e seus hashes. `run` executa o contexto no motor
@@ -60,6 +65,18 @@ Os operadores são `==`, `<=`, `>=`, `<`, `>`. Hashes permitem apenas igualdade
 entre campos de hash. Os nomes de campos e fases são uma lista fechada;
 operações desconhecidas, duplicatas, quantidades não canônicas e tipos
 incompatíveis são recusados.
+
+| Fase | Campos disponíveis | Tipo |
+|---|---|---|
+| Transferência | `transfer.amountAtomic`, `transfer.nonce`, `transfer.networkId` | Inteiros exatos |
+| Estado da transferência | `state.senderBalance`, `state.nextNonce`, `state.networkId` | Inteiros exatos |
+| Raízes da transferência | `transfer.previousRoot`, `state.root` | Hash hexadecimal canônico de 32 bytes |
+| Fechamento | `closure.actCount`, `closure.byteLength` | Inteiros exatos |
+
+O lado esquerdo da regra é um campo `transfer.*` ou `closure.*`; o lado
+direito pode ser um campo compatível ou uma constante inteira. Operandos
+das duas fases não são misturados. No JSON, os inteiros usam strings
+decimais canônicas, como `"7"` e `"100"`.
 
 O compilador produz fonte, AST, perfil, SHA-256 da fonte e SHA-256 do programa.
 O descritor recebido de outra parte é recompilado e comparado. Não basta
