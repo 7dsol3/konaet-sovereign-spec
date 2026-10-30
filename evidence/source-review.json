@@ -1,0 +1,76 @@
+{
+  "schema": "konaet.spec.source-review.v1",
+  "reviewedAt": "2026-10-30T21:52:38.147Z",
+  "scope": "Source review and prior local execution records; no public-network result",
+  "sourceHead": "b6decb7458c92def905829d11c80783d000e42e6",
+  "sourceWorkingTree": "modified-workspace",
+  "sourceFiles": [
+    {
+      "path": "tools/ko/ko-compiler.js",
+      "sha256": "566c257702a07fc5a732befb2e137d677420ec1e9d5cc82e696abe5ff6a1866d"
+    },
+    {
+      "path": "contracts-ko/Sindra.ko",
+      "sha256": "2c2b4858304f82f2f17c3521c0af0c0706a078e09027d3e5d8e8e92affa38101"
+    },
+    {
+      "path": "vlock7sin-js/src/codec.js",
+      "sha256": "faeb9dfdc92e8c3d9fc178fc920eba8b98cccbd868520561ff6c5c87bf80260a"
+    },
+    {
+      "path": "vlock7sin-js/src/crypto.js",
+      "sha256": "0d6a274dba07d151d75d306aec0f8906a2f90723788d119b0b56f6cd9e7403db"
+    },
+    {
+      "path": "vlock7sin-js/src/constants.js",
+      "sha256": "fb8c521d7a9c13e651b9cdb868f21a91bcbac17233b9cd1d112ae9dad8196db8"
+    },
+    {
+      "path": "vlock7sin-js/src/event.js",
+      "sha256": "4472f3ad5933550019a7d3a314b67529f06f9aac0ae2378e216bf8204241984f"
+    },
+    {
+      "path": "vlock7sin-js/src/ledger.js",
+      "sha256": "a2fa1828fed2ef0cb664d872f59fb762bed46340548292594d431849351cdd63"
+    },
+    {
+      "path": "network/sovereign/SovereignGenesis.js",
+      "sha256": "9a4f4d0469e4a503fb56b383208301f2026f2027414aa0f7eeb28ca465e5220a"
+    },
+    {
+      "path": "scripts/runIndependentValidator.js",
+      "sha256": "f3879f4203b53e59f5f50f428e07e85ed2322a962f7a6944b2102e01db3b1350"
+    },
+    {
+      "path": "quantum/economics.js",
+      "sha256": "77a52cdf137f8b3f27d7f71cd2963305a01db64aa6e0a1f60774d41f440cdcdb"
+    }
+  ],
+  "reportedPriorRuns": {
+    "node": {
+      "checkedAt": "2026-10-30T21:33:56.716Z",
+      "status": "PASS",
+      "testCases": 495,
+      "source": "node-unit-validation.json"
+    },
+    "jest": {
+      "suites": 130,
+      "tests": 1274,
+      "status": "PASS",
+      "source": "market-network-all-jest-20261030.log"
+    },
+    "browser": {
+      "tests": 13,
+      "status": "PASS",
+      "scope": "isolated SQL local browser scenarios",
+      "source": "market-network-browser-20261030.log"
+    }
+  },
+  "externalValidation": {
+    "independentOperators": false,
+    "publicDeployment": false,
+    "marketPriceEstablished": false,
+    "generalSuperiorityEstablished": false
+  },
+  "important": "Hashes identify reviewed source bytes; they are not signatures, not published source, and do not make the prior runs independently reproducible."
+}

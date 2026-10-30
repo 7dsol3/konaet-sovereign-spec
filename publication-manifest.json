@@ -1,0 +1,124 @@
+{
+  "schema": "konaet.spec.publication-manifest.v1",
+  "edition": "1.0.0",
+  "purpose": "Integrity inventory for the documentation and public verifier; not signed provenance",
+  "publicNetworkDeployed": false,
+  "containsProductionKeys": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 32,
+      "sha256": "23302dd90b8bb74b44d365fafef8df20f809b61cb347023951ecf60a88a29651"
+    },
+    {
+      "path": ".github/workflows/check.yml",
+      "bytes": 452,
+      "sha256": "e30b25e6b160fd9bb7d3153d939f4fa541a0eb63e49cdbcddf071f164fcfec71"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 40,
+      "sha256": "e95681cbcb10c8b8b838f0cd16c5cb32468cb1af2ff3a9717a3ff1a4b9775f93"
+    },
+    {
+      "path": "COMPARISON.md",
+      "bytes": 2763,
+      "sha256": "9bc93ed517c7ad2f40c6f8ef578fd2de6f56b8088aa8004bb5990dc61c60fc31"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 910,
+      "sha256": "a432d10006575163c8938175af1dc183e779a6fba7b77f8dbe7d57aedebb6f50"
+    },
+    {
+      "path": "DEPLOYMENT.md",
+      "bytes": 3334,
+      "sha256": "f736aaf5b766ce7c9b6d785aeee969c9d29cc81dc41e159a25c3e41423e463ec"
+    },
+    {
+      "path": "EVIDENCE.md",
+      "bytes": 4193,
+      "sha256": "d55e9414dedc2000388d53b7d374241000ef53bdf2008134c0eeb9cfba801e3e"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 787,
+      "sha256": "156333f607f94313bdd53ac0fbb2bbd77289375c8b00f97c5ca360baa40d3449"
+    },
+    {
+      "path": "NOMENCLATURE.md",
+      "bytes": 9172,
+      "sha256": "0cc1f2473d64662be6d3fbb9d319c5e85ff8d22408b471f94b5e15117d55b474"
+    },
+    {
+      "path": "PROTOCOL.md",
+      "bytes": 4911,
+      "sha256": "ea286a5564bb0e4af208e0261182d4dea85a27101506966d263b32529540e9d1"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3617,
+      "sha256": "84875b6a3ee5011c0d8786c37c01ffa58d7cc844f54f8f20a03e3df454157828"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 1152,
+      "sha256": "d444ddb5952a989e6d795e8b118a66f5718786775831c78b8477a45d27d758fa"
+    },
+    {
+      "path": "assets/puzzle-do-dia.png",
+      "bytes": 2306158,
+      "sha256": "278dc0b89a00e0c121d49e0921786a29754c412129208788add40357f241ba16"
+    },
+    {
+      "path": "evidence/source-review.json",
+      "bytes": 2561,
+      "sha256": "2e1b0c59c06908d4eb7e3e18f3f58de15df2a6a6f88d901b3130b5d6102eac90"
+    },
+    {
+      "path": "examples/signed-transfer.json",
+      "bytes": 1859,
+      "sha256": "bf18182e3712b3449432515e73b214f16f2ab70e284d4c3d7cee219fb77275ce"
+    },
+    {
+      "path": "lib/event.mjs",
+      "bytes": 6441,
+      "sha256": "6d559df1835975801d04588ff05dbb164eb048891ba009b8bbc21ceaa10d16a5"
+    },
+    {
+      "path": "package.json",
+      "bytes": 402,
+      "sha256": "96d8e71885986a93ac78a162702f8278b4b91ac8657d4beebfa9863b9dfc4ae9"
+    },
+    {
+      "path": "tests/event.test.mjs",
+      "bytes": 3544,
+      "sha256": "cab2ee0554a4ad1d188193081f8ef74159d99da7fa0470a2a41bf3cf5b7b4fe5"
+    },
+    {
+      "path": "tests/publication.test.mjs",
+      "bytes": 2068,
+      "sha256": "5616803fa74a47dad32245e41f685b76dae425398d05bafa305c41faa8379b85"
+    },
+    {
+      "path": "tools/files.mjs",
+      "bytes": 1959,
+      "sha256": "ec63533ece9c787f531a00d21dbce97c330946a63b2cb4a8544a1615a740c3e2"
+    },
+    {
+      "path": "tools/manifest.mjs",
+      "bytes": 636,
+      "sha256": "dbc438853f10b8e3aa954bfd4a54697fd7e707b923be48cbc2e2e0e0d327c1aa"
+    },
+    {
+      "path": "tools/verify-publication.mjs",
+      "bytes": 1610,
+      "sha256": "b7ffe913e1a65e172df1bd85dcebaf1974147b00661ecda435e516a114219d4c"
+    },
+    {
+      "path": "tools/verify-transfer.mjs",
+      "bytes": 640,
+      "sha256": "03dcf8d35968a1bd9c2d2797281e7d94a938784d99019597edc6a51ea8392a8f"
+    }
+  ]
+}

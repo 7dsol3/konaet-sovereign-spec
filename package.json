@@ -1,0 +1,14 @@
+{
+  "name": "konaet-sovereign-spec",
+  "version": "1.0.0",
+  "description": "Konaet Soberana: nomenclature, evidence boundaries and public signed-event verifier",
+  "private": true,
+  "type": "module",
+  "license": "ISC",
+  "engines": { "node": ">=24.7 <25" },
+  "scripts": {
+    "test": "node --test",
+    "manifest": "node tools/manifest.mjs",
+    "verify": "node tools/verify-publication.mjs"
+  }
+}
