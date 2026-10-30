@@ -1,14 +1,14 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.2.0",
+  "edition": "1.2.1",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 32,
-      "sha256": "23302dd90b8bb74b44d365fafef8df20f809b61cb347023951ecf60a88a29651"
+      "bytes": 44,
+      "sha256": "0caa9233114de0c24b33e3066211b67db3af0fc75f6c7b1cf493affa4d84fbff"
     },
     {
       "path": ".github/workflows/check.yml",
@@ -33,12 +33,12 @@
     {
       "path": "DEPLOYMENT.md",
       "bytes": 4446,
-      "sha256": "5e668839292e95b0f1cfe33cf20c815d3cd9881bf8acdbb8eb8a567518fb40e5"
+      "sha256": "ef19ef3e58b2cb4b2a5e411d7e02da38a6620c04e1d9addf818d63a84f7c7b1f"
     },
     {
       "path": "EVIDENCE.md",
       "bytes": 5323,
-      "sha256": "28ccc9f571d0a0a6ea33d6ec37ee9772ae8a2811a20d59d2a063c7a0b8216322"
+      "sha256": "c88da8a4215074985a8150082543c25b3f1049fa86b5f832e3a1f28c9f6923a1"
     },
     {
       "path": "Iniciar-Konaet.bat",
@@ -53,7 +53,7 @@
     {
       "path": "LEIA-ME.txt",
       "bytes": 1058,
-      "sha256": "0686c6cb9f0c47bf0e3ed1fe06e5d4ac243acf79276e6cf7bc99cd9e4a616c41"
+      "sha256": "6c57c05121b1566f12b021e659b6e4064dbc11757d9e4d26e47b0f6278838a57"
     },
     {
       "path": "LICENSE",
@@ -73,12 +73,12 @@
     {
       "path": "README.md",
       "bytes": 4370,
-      "sha256": "c5e08ebff565feef4e79dfe3ae071d1e6845046eb5187e8fc45b5ec3e130a56a"
+      "sha256": "8791dcd2272637162d8b5675723c0f78305badaacd34dfa6e6c5f63423c3e4b0"
     },
     {
       "path": "SECURITY.md",
       "bytes": 1768,
-      "sha256": "21a43ca3a4a334f73963039300153a869e9c2e5684cd46baa1c8f0833c29b1bf"
+      "sha256": "d78cdf4861cf5608f0ae177a3fbcb9da6040203cf20938d0e88012ee37f390ca"
     },
     {
       "path": "Verificar-Pacote.bat",
@@ -138,7 +138,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "303c6afa49694d30da109eb07e8f015a3262c4d64347e639d4ad2c6f5364f4d2"
+      "sha256": "5abddc19b80492bfe5ba71382bc973b63e35b992f755d8c4b2916de2b5b44658"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -363,7 +363,7 @@
     {
       "path": "console/index.html",
       "bytes": 3141,
-      "sha256": "0237c56a0f4494f13e33a9282773919519f4b7fb7a07523b39138864eea8e813"
+      "sha256": "29f17670ab2ba0b9ad50580f67d91188893291458c25ae63fb76ba2c605ebe32"
     },
     {
       "path": "console/style.css",
@@ -393,12 +393,12 @@
     {
       "path": "package-lock.json",
       "bytes": 836,
-      "sha256": "f83e39eeb44c4ff07ae4f73e1952cf294cd7e0388b5149f5583a9aab2318356a"
+      "sha256": "e13ab332cdec899f4fb3baae2f1f0425e7ba77c0330526fd07ad8dfb43a153b0"
     },
     {
       "path": "package.json",
       "bytes": 549,
-      "sha256": "c1dfbb33ff4bbf24c75615e4df7c3d08f38b8fbb44bee7aa7fba8e8f2499e6eb"
+      "sha256": "cf42316ebcc5d18cef625d4fd39d6d1dfb83035b2e12d3bd8d076db214efedb4"
     },
     {
       "path": "runtime/LICENSE",
@@ -438,7 +438,7 @@
     {
       "path": "tools/console.mjs",
       "bytes": 5608,
-      "sha256": "67e63b030eae3f1c375ac9afa20128147ec92e46f3b191e0bb7e47bd31cffaf5"
+      "sha256": "c54cdbd51edcbcdf751a8ba304ef17952829cece3d53a40171c6d3583f0f1d67"
     },
     {
       "path": "tools/demo-network.mjs",
@@ -453,12 +453,12 @@
     {
       "path": "tools/manifest.mjs",
       "bytes": 604,
-      "sha256": "e2032fefa0f584cefd30e11fa24867ce70c0590f61532e3a1dec4c2965fc1421"
+      "sha256": "5e83149cf399d4e9c140c1412f54faab83e16c8a4e09adcbe686592bf8e160a7"
     },
     {
       "path": "tools/package-windows.mjs",
       "bytes": 2832,
-      "sha256": "b806514e855c272c16141a3b39f6cc937ac1bb84d664781e1602f58fcb96a84c"
+      "sha256": "a5c7dd66a3a8f0077d35c664e9d8c9b254cd4f6e2316844d706b5e0c9d9051e2"
     },
     {
       "path": "tools/validator-worker.cjs",

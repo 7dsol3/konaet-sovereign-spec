@@ -1,18 +1,18 @@
 # Konaet Soberana
 
-**Native Chain · Console 1.2.0 · Runtime .ko**
+**Native Chain · Console 1.2.1 · Runtime .ko**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
 e um console que inicia quatro processos validadores no seu computador.
 
 [Console online](https://konaet-ko-runtime.alkalipixie.chatgpt.site) ·
-[Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/download/v1.2.0/Konaet-Console-Windows-x64.zip) ·
+[Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/download/v1.2.1/Konaet-Console-Windows-x64.zip) ·
 [Releases](https://github.com/7dsol3/konaet-sovereign-spec/releases)
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.2.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.2.1.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 

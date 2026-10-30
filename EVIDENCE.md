@@ -1,6 +1,6 @@
 # Testes e resultados · KNP-003
 
-## Execução da edição 1.2.0
+## Execução da edição 1.2.1
 
 O código dos nós e o console são distribuídos em `chain/`, `console/` e
 `tools/`. O teste `tests/console.test.mjs` inicia quatro processos reais,
