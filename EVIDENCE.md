@@ -1,4 +1,18 @@
-# Evidências e fronteiras · KNP-003
+# Testes e resultados · KNP-003
+
+## Execução da edição 1.2.0
+
+O código dos nós e o console são distribuídos em `chain/`, `console/` e
+`tools/`. O teste `tests/console.test.mjs` inicia quatro processos reais,
+finaliza transferências assinadas, confere saldo e raízes, recusa gasto sem
+saldo e requisições sem autorização, aplica `.ko` e recupera os WALs em novos
+processos. Execute `npm ci --ignore-scripts` e `npm test` para repetir.
+
+O CI repete essa execução em Windows e Linux. O resultado é próprio de uma
+rede local de demonstração. A API online executa o compilador e o interpretador;
+a implantação de validadores em hosts independentes é uma operação separada.
+
+## Histórico das edições anteriores
 
 Revisão de fonte: 30 de outubro de 2026. Os compromissos dos arquivos examinados
 estão em [source-review.json](evidence/source-review.json). O checkout de origem

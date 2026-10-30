@@ -1,81 +1,95 @@
 # Konaet Soberana
 
-**Especificação pública · edição 1.1.0**
+**Native Chain · Console 1.2.0 · Runtime .ko**
 
-Regras próprias. Termos precisos. Recibos verificáveis.
+Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
+persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
+e um console que inicia quatro processos validadores no seu computador.
 
-A Konaet Soberana é o projeto de uma rede com protocolo, identidade, estado e
-validadores próprios. Este repositório publica sua nomenclatura, o perfil de um
-evento VLOCK7SIN e verificações que qualquer pessoa pode executar sem conta,
-banco de dados, chave de produção ou dependências npm.
+[Console online](https://konaet-ko-runtime.alkalipixie.chatgpt.site) ·
+[Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/download/v1.2.0/Konaet-Console-Windows-x64.zip) ·
+[Releases](https://github.com/7dsol3/konaet-sovereign-spec/releases)
 
-**Esta é uma edição da documentação e do verificador de exemplos. A rede atual
-tem validação local; este repositório não anuncia uma mainnet operante.**
+## Usar no Windows
 
-| Documento | O que entrega |
-|---|---|
-| [Nomenclatura](NOMENCLATURE.md) | Identidade, consenso, ativos, provas, operações e interoperabilidade |
-| [Protocolo](PROTOCOL.md) | Bytes, domínios, assinatura e invariantes do exemplo público |
-| [Runtime .ko](KO-RUNTIME.md) | Compilador e interpretador de assertions, API pública e ativação no perfil v6 |
-| [Evidências](EVIDENCE.md) | O que foi observado, quem pode reproduzir e o que falta |
-| [Comparação](COMPARISON.md) | Critérios para comparar redes com a mesma carga e hipótese de segurança |
-| [Operação](DEPLOYMENT.md) | Caminho para uma rede entre máquinas e uma entrada pública |
-| [Segurança](SECURITY.md) | Limites do verificador e comunicação de problemas |
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.2.0.
+2. Clique com o botão direito → **Extrair tudo**.
+3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
-## Verifique agora
+O navegador abre o console. Envie SND de teste entre Alice e Bob, acompanhe
+os quatro processos, os fechamentos, a raiz e o histórico. O console também
+compila e executa `.ko`. Use **Encerrar console** para parar os validadores.
+Ao abrir novamente, a rede recupera os dados do WAL.
+
+O ZIP inclui Node.js: não precisa instalar Node, npm ou configurar um roster.
+As chaves de demonstração são geradas na primeira execução, dentro de
+`.konaet-demo/`. Os saldos de demonstração não têm valor monetário e são
+separados dos saldos da sua carteira Konaet.
+
+O download automático **Source code (zip)** do GitHub é o código-fonte.
+O aplicativo pronto para Windows é o asset **Konaet-Console-Windows-x64.zip**.
+
+## Executar pelo código — Windows, Linux e macOS
 
 Com Node.js 24.7 ou superior da série 24:
 
 ```sh
 git clone https://github.com/7dsol3/konaet-sovereign-spec.git
 cd konaet-sovereign-spec
+npm ci --ignore-scripts
+npm start
+```
+
+A única dependência é a cópia de runtime da biblioteca WebSocket `ws`, incluída
+em `vendor/ws` com licença MIT. `npm ci` instala essa cópia local.
+Para usar sem abrir o navegador automaticamente:
+
+```sh
+node tools/console.mjs --no-browser
+```
+
+## O que roda
+
+| Componente | Código | Comportamento |
+|---|---|---|
+| Nó VLOCK7SIN | [SovereignNode.js](chain/network/sovereign/SovereignNode.js) | Recebe eventos, troca votos, finaliza por quórum e sincroniza peers |
+| Ledger | [ledger.js](chain/vlock7sin-js/src/ledger.js) | Confere assinatura, saldo, nonce, estado e política `.ko` |
+| Runtime `.ko` | [koPolicy.js](chain/vlock7sin-js/src/koPolicy.js) | Compila e executa nove regras padrão com inteiros exatos |
+| Gênese v6 | [SovereignGenesis.js](chain/network/sovereign/SovereignGenesis.js) | Vincula fonte e programa `.ko` à identidade da rede |
+| Persistência | [persistence.js](chain/vlock7sin-js/src/persistence.js) | WAL, snapshots e recuperação do estado |
+| Console | [console.mjs](tools/console.mjs) | Interface HTTP local, transferências assinadas e quatro processos |
+| Operador | [runIndependentValidator.js](chain/scripts/runIndependentValidator.js) | Identidade individual, mTLS e configuração de malha privada |
+
+O console online executa políticas sobre o contexto informado. O console
+Windows executa também os nós e as transferências da sua própria rede local.
+Operadores em outras máquinas usam o [guia de operação](DEPLOYMENT.md).
+
+## Testar o funcionamento
+
+```sh
 npm test
 npm run verify
 ```
 
-Não é necessário instalar pacotes. Os testes adulteram bytes, assinaturas,
-rede, campos e checksum para conferir a rejeição. O comando `verify` valida a
-assinatura Ed25519, o identificador e a codificação do vetor sintético, além
-dos hashes do pacote documental. **Assinatura válida não comprova saldo,
-inclusão ou finalização por validadores.**
+O teste de integração inicia quatro processos distintos, envia transações
+assinadas, verifica convergência, rejeita gasto sem saldo, encerra os processos
+e recupera os mesmos saldos e raiz depois de reiniciar. Também testa o bloqueio
+de requisições sem autorização local e a aplicação de `.ko`.
+O CI executa os testes em Windows e Linux.
 
-## O que já existe
+## Documentação
 
-- VLOCK7SIN implementa eventos assinados, estado Merkle, persistência e
-  finalização por quórum. Há testes locais de troca de líder e sincronização.
-- O perfil de operadores oferece identidades separadas e transporte mTLS;
-  perfis híbridos usam Ed25519 e ML-DSA-65. A operação independente em outras
-  máquinas ainda requer instalação e evidência.
-- `.ko` possui definições declarativas e um novo perfil executável limitado,
-  `KONAET_KO_ASSERT_V1`, incluído nesta edição. O perfil v6 vincula a política à
-  gênese e a executa nos validadores. As redes anteriores conservam suas regras.
-- SND é a unidade da gênese VLOCK. NAET, KWRK e KACT têm operações no ledger
-  SQL da aplicação; sua presença na interface não os transforma em unidades
-  do consenso VLOCK.
+- [Operação e separação entre demonstração e rede pública](DEPLOYMENT.md)
+- [Runtime .ko e formato da política](KO-RUNTIME.md)
+- [Nomenclatura Konaet](NOMENCLATURE.md)
+- [Perfil de evento assinado](PROTOCOL.md)
+- [Testes, resultados e escopo](EVIDENCE.md)
+- [Segurança](SECURITY.md) e [licença ISC](LICENSE)
 
-O código integral do nó não é distribuído aqui. O verificador público foi
-escrito para conferir um perfil específico de evento e não substitui o nó.
-Os limites e estados de implementação estão em [EVIDENCE.md](EVIDENCE.md).
+O manifesto de distribuição confere a integridade dos arquivos publicados.
+Resultados de testes descrevem cenários executados; comparações com outras
+redes usam os [critérios de comparação](COMPARISON.md).
 
-O [runtime .ko online](https://konaet-ko-runtime.alkalipixie.chatgpt.site) compila
-e executa assertions sobre o contexto enviado. Esse serviço não hospeda
-validadores nem finaliza transferências. O motor correspondente está em
-[runtime/ko-policy.cjs](runtime/ko-policy.cjs), sem dependências npm.
-
-## O puzzle do dia
-
-![Meme: um engenheiro cercado por peças L1, L2 e L3 pergunta “Mais uma camada?”; outro segura um cubo .ko e pergunta “Cadê o recibo?”.](assets/puzzle-do-dia.png)
-
-Uma provocação sobre debates técnicos, produzida com geração de imagem.
-**Meme ≠ benchmark.** A referência visual ao Ethereum não implica parceria,
-endosso ou demonstração de superioridade. A proposta da Konaet é fazer cada
-afirmação vir acompanhada de um critério verificável.
-
-## Autoria e uso
-
-Projeto de [7dsol3](https://github.com/7dsol3). Texto e verificador desta edição
-sob [licença ISC](LICENSE). A nomenclatura é original; a documentação Ethereum
-é citada como referência para comunicação entre projetos, sem afiliação.
-
-Propostas de melhoria devem apresentar a regra, seu estado de implementação,
-um exemplo aceito e um exemplo rejeitado. Veja [CONTRIBUTING.md](CONTRIBUTING.md).
+Projeto de [7dsol3](https://github.com/7dsol3). As edições anteriores permanecem
+nas tags. O [puzzle do dia](assets/puzzle-do-dia.png) continua como material de
+humor do projeto.

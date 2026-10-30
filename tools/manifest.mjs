@@ -4,8 +4,8 @@ import { ROOT, inventory, verifyFilePolicy } from './files.mjs';
 
 const files = inventory();
 verifyFilePolicy(files);
-const manifest = { schema: 'konaet.spec.publication-manifest.v1', edition: '1.1.0',
-  purpose: 'Integrity inventory for the documentation and public verifier; not signed provenance',
+const manifest = { schema: 'konaet.spec.publication-manifest.v1', edition: '1.2.0',
+  purpose: 'Integrity inventory for executable nodes, console, runtime and documentation',
   publicNetworkDeployed: false, containsProductionKeys: false, files };
 fs.writeFileSync(path.join(ROOT, 'publication-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
-console.log(`Manifest created: ${files.length} files. No signing or network deployment performed.`);
+console.log(`Manifest created: ${files.length} distribution source files.`);

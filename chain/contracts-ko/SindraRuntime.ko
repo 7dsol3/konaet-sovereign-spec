@@ -1,0 +1,16 @@
+contract SindraRuntime v1
+runtime: KONAET_KO_ASSERT_V1
+symbol: SND
+decimals: 9
+supplyAtomic: 1000000000000000000
+
+rule transferPositive: transfer.amountAtomic > 0
+rule transferMaximum: transfer.amountAtomic <= 1000000000000000000
+rule transferBalance: transfer.amountAtomic <= state.senderBalance
+rule transferNonce: transfer.nonce == state.nextNonce
+rule transferNetwork: transfer.networkId == state.networkId
+rule transferRoot: transfer.previousRoot == state.root
+rule closureNonempty: closure.actCount > 0
+rule closureCount: closure.actCount <= 64
+rule closureBytes: closure.byteLength <= 262144
+end

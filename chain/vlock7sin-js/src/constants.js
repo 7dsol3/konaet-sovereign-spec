@@ -1,0 +1,166 @@
+'use strict';
+
+/**
+ * VLOCK7SIN constants.
+ *
+ * `LEGACY_DOMAINS` are byte-for-byte values printed in Livro Zero Phase-0.
+ * They are retained only for the legacy Principle codec and published vector.
+ * `DOMAINS` define this independent JavaScript format.  A JS-v1 record must
+ * never be presented as the missing Phase-0 `.v7e` artifact.
+ */
+
+const SYSTEM_NAME = 'VLOCK7SIN';
+const MAGIC = 'V7SN';
+const NETWORK_ID = 0x7001;
+
+const LEGACY_PROTOCOL_VERSION = Object.freeze({ major: 0, minor: 1, patch: 0 });
+const PROTOCOL_VERSION = Object.freeze({ major: 0, minor: 2, patch: 0 });
+const FORMAT_VERSION = Object.freeze({ major: 1, minor: 0, patch: 0 });
+
+const VERSION_STRING = `${PROTOCOL_VERSION.major}.${PROTOCOL_VERSION.minor}.${PROTOCOL_VERSION.patch}`;
+const NETWORK_VERSION = Object.freeze({
+  networkId: NETWORK_ID,
+  protocol: VERSION_STRING,
+  format: `${FORMAT_VERSION.major}.${FORMAT_VERSION.minor}.${FORMAT_VERSION.patch}`,
+});
+
+const LEGACY_DOMAINS = Object.freeze({
+  PRINCIPLE: 'VLOCK7SIN/PRINCIPLE/v0.1',
+  ADDRESS: 'VLOCK7SIN/IDENTITY/v0.1',
+  STATE: 'VLOCK7SIN/STATE/v0.1',
+  TRACE: 'VLOCK7SIN/TRACE/v0.1',
+  PCC: 'VLOCK7SIN/PCC/v0.1',
+  EVENT: 'VLOCK7SIN/EVENT/v0.1',
+});
+
+const DOMAINS = Object.freeze({
+  PRINCIPLE: 'VLOCK7SIN/PRINCIPLE/js-v1',
+  PRINCIPLE_TRANSITION: 'VLOCK7SIN/PRINCIPLE-TRANSITION/js-v1',
+  ADDRESS: LEGACY_DOMAINS.ADDRESS,
+  STATE: 'VLOCK7SIN/STATE/js-v1',
+  STATE_LEAF: 'VLOCK7SIN/STATE-LEAF/js-v1',
+  STATE_EMPTY_LEAF: 'VLOCK7SIN/STATE-EMPTY-LEAF/js-v1',
+  STATE_NODE: 'VLOCK7SIN/STATE-NODE/js-v1',
+  TRACE: 'VLOCK7SIN/TRACE/js-v1',
+  PCC: 'VLOCK7SIN/PCC/js-v1',
+  EVENT: 'VLOCK7SIN/EVENT/js-v1',
+  CONSTELLATION_TRANSITION: 'VLOCK7SIN/CONSTELLATION-TRANSITION/js-v1',
+  REPLAY: 'VLOCK7SIN/REPLAY/js-v1',
+  PARAMETERS_EMPTY: 'VLOCK7SIN/PARAMETERS-EMPTY/js-v1',
+  IDENTITIES_EMPTY: 'VLOCK7SIN/IDENTITIES-EMPTY/js-v1',
+  REPLAY_EMPTY: 'VLOCK7SIN/REPLAY-EMPTY/js-v1',
+  TEST_SEED: 'VLOCK7SIN/TEST-SEED/',
+});
+
+// Named aliases make direct imports explicit and keep runtime adapters simple.
+const DOMAIN_PRINCIPLE = DOMAINS.PRINCIPLE;
+const DOMAIN_ADDRESS = DOMAINS.ADDRESS;
+const DOMAIN_STATE = DOMAINS.STATE;
+const DOMAIN_TRACE = DOMAINS.TRACE;
+const DOMAIN_PCC = DOMAINS.PCC;
+const DOMAIN_EVENT = DOMAINS.EVENT;
+const DOMAIN_PRINCIPLE_LEGACY = LEGACY_DOMAINS.PRINCIPLE;
+const DOMAIN_STATE_LEGACY = LEGACY_DOMAINS.STATE;
+const DOMAIN_TRACE_LEGACY = LEGACY_DOMAINS.TRACE;
+const DOMAIN_PCC_LEGACY = LEGACY_DOMAINS.PCC;
+const DOMAIN_EVENT_LEGACY = LEGACY_DOMAINS.EVENT;
+
+const RECORD_KIND = Object.freeze({ PRINCIPLE: 0x01, EVENT: 0x02 });
+const CRYPTO_SUITE = Object.freeze({ SHA3_256_ED25519: 0x0001 });
+const STATE_SUITE = Object.freeze({ SORTED_MERKLE_V1: 0x0001 });
+
+const PRINCIPLE_FLAGS = Object.freeze({
+  TEST_VECTOR: 1 << 0,
+  SUPPLY_FIXED: 1 << 1,
+  CLOSED: 1 << 2,
+});
+const PRINCIPLE_FLAGS_MASK = PRINCIPLE_FLAGS.TEST_VECTOR
+  | PRINCIPLE_FLAGS.SUPPLY_FIXED
+  | PRINCIPLE_FLAGS.CLOSED;
+const PRINCIPLE_REQUIRED_FLAGS = PRINCIPLE_FLAGS.SUPPLY_FIXED | PRINCIPLE_FLAGS.CLOSED;
+
+// JS-v1 currently defines no event flags. Unknown bits are rejected.
+const EVENT_FLAGS_MASK = 0;
+
+const UNIT = Object.freeze({
+  name: 'SINDRA',
+  symbol: 'SND',
+  atomicName: 'NEXEL',
+  decimals: 9,
+  initialSupplyAtomic: 1_000_000_000_000_000_000n,
+});
+
+const LENGTHS = Object.freeze({
+  HASH: 32,
+  STATE_ROOT: 32,
+  TRACE: 32,
+  PUBLIC_KEY: 32,
+  PRIVATE_SEED: 32,
+  SIGNATURE: 64,
+  ADDRESS_HASH: 20,
+  LEGACY_CHECKSUM: 8,
+  CHECKSUM: 16,
+});
+
+const LIMITS = Object.freeze({
+  RECORD_BYTES: 64 * 1024,
+  // Full-state export is a separate, explicitly invoked format. Its upper
+  // bound covers one million maximum-length account entries plus metadata.
+  STATE_SERIALIZATION_BYTES: ((2 + 128 + 16 + 8) * 1_000_000) + 1024,
+  ALIAS_BYTES: 32,
+  LEGAL_NAME_BYTES: 96,
+  MESSAGE_BYTES: 512,
+  MEMO_BYTES: 256,
+  UNIT_SYMBOL_BYTES: 16,
+  ADDRESS_BYTES: 128,
+  NEXUS_COUNT: 256,
+  STATE_ACCOUNTS: 1_000_000,
+  PROOF_SIBLINGS: 32,
+});
+
+const MAX_U8 = 0xffn;
+const MAX_U16 = 0xffffn;
+const MAX_U32 = 0xffffffffn;
+const MAX_U64 = (1n << 64n) - 1n;
+const MAX_U128 = (1n << 128n) - 1n;
+const ZERO_HASH_HEX = '00'.repeat(LENGTHS.HASH);
+
+module.exports = Object.freeze({
+  SYSTEM_NAME,
+  MAGIC,
+  NETWORK_ID,
+  NETWORK_VERSION,
+  LEGACY_PROTOCOL_VERSION,
+  PROTOCOL_VERSION,
+  FORMAT_VERSION,
+  VERSION_STRING,
+  LEGACY_DOMAINS,
+  DOMAINS,
+  DOMAIN_PRINCIPLE,
+  DOMAIN_ADDRESS,
+  DOMAIN_STATE,
+  DOMAIN_TRACE,
+  DOMAIN_PCC,
+  DOMAIN_EVENT,
+  DOMAIN_PRINCIPLE_LEGACY,
+  DOMAIN_STATE_LEGACY,
+  DOMAIN_TRACE_LEGACY,
+  DOMAIN_PCC_LEGACY,
+  DOMAIN_EVENT_LEGACY,
+  RECORD_KIND,
+  CRYPTO_SUITE,
+  STATE_SUITE,
+  PRINCIPLE_FLAGS,
+  PRINCIPLE_FLAGS_MASK,
+  PRINCIPLE_REQUIRED_FLAGS,
+  EVENT_FLAGS_MASK,
+  UNIT,
+  LENGTHS,
+  LIMITS,
+  MAX_U8,
+  MAX_U16,
+  MAX_U32,
+  MAX_U64,
+  MAX_U128,
+  ZERO_HASH_HEX,
+});

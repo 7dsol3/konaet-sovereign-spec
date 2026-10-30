@@ -1,7 +1,7 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.1.0",
-  "purpose": "Integrity inventory for the documentation and public verifier; not signed provenance",
+  "edition": "1.2.0",
+  "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
   "files": [
@@ -12,13 +12,13 @@
     },
     {
       "path": ".github/workflows/check.yml",
-      "bytes": 452,
-      "sha256": "e30b25e6b160fd9bb7d3153d939f4fa541a0eb63e49cdbcddf071f164fcfec71"
+      "bytes": 589,
+      "sha256": "5f7ae9f289c72038aa36563d502ad9ad85b1063f06854ec1466f5d6c1f56f73f"
     },
     {
       "path": ".gitignore",
-      "bytes": 40,
-      "sha256": "e95681cbcb10c8b8b838f0cd16c5cb32468cb1af2ff3a9717a3ff1a4b9775f93"
+      "bytes": 99,
+      "sha256": "d30ad3123286ab8b248812f816c8a43015fa026e46ac06d4efc75b99b8e7893b"
     },
     {
       "path": "COMPARISON.md",
@@ -32,18 +32,28 @@
     },
     {
       "path": "DEPLOYMENT.md",
-      "bytes": 3334,
-      "sha256": "f736aaf5b766ce7c9b6d785aeee969c9d29cc81dc41e159a25c3e41423e463ec"
+      "bytes": 4446,
+      "sha256": "5e668839292e95b0f1cfe33cf20c815d3cd9881bf8acdbb8eb8a567518fb40e5"
     },
     {
       "path": "EVIDENCE.md",
-      "bytes": 4627,
-      "sha256": "48a5440cc4c2ea7f0a6820e6cd7abe31a587bb501485ce6b7af9337809f7ad84"
+      "bytes": 5323,
+      "sha256": "28ccc9f571d0a0a6ea33d6ec37ee9772ae8a2811a20d59d2a063c7a0b8216322"
+    },
+    {
+      "path": "Iniciar-Konaet.bat",
+      "bytes": 342,
+      "sha256": "9e6abd622264f45c2e9765073cfe6fbdabbee8a0fc855f877a042266fc5c2428"
     },
     {
       "path": "KO-RUNTIME.md",
       "bytes": 3261,
       "sha256": "01339b3213b8168d522da83b89a37f77d9a3fb185c99eb5b55dfb9244818a851"
+    },
+    {
+      "path": "LEIA-ME.txt",
+      "bytes": 1058,
+      "sha256": "0686c6cb9f0c47bf0e3ed1fe06e5d4ac243acf79276e6cf7bc99cd9e4a616c41"
     },
     {
       "path": "LICENSE",
@@ -62,18 +72,303 @@
     },
     {
       "path": "README.md",
-      "bytes": 4146,
-      "sha256": "2472183f269922857e31c177f303293979cb237a7f0ca3b5a3958cc61935ca3c"
+      "bytes": 4370,
+      "sha256": "c5e08ebff565feef4e79dfe3ae071d1e6845046eb5187e8fc45b5ec3e130a56a"
     },
     {
       "path": "SECURITY.md",
-      "bytes": 1152,
-      "sha256": "d444ddb5952a989e6d795e8b118a66f5718786775831c78b8477a45d27d758fa"
+      "bytes": 1768,
+      "sha256": "21a43ca3a4a334f73963039300153a869e9c2e5684cd46baa1c8f0833c29b1bf"
+    },
+    {
+      "path": "Verificar-Pacote.bat",
+      "bytes": 96,
+      "sha256": "389a526e5d085a4d5896eb9f079ed2dd5f467fc4a460829f24b91cb3f9fe3883"
     },
     {
       "path": "assets/puzzle-do-dia.png",
       "bytes": 2306158,
       "sha256": "278dc0b89a00e0c121d49e0921786a29754c412129208788add40357f241ba16"
+    },
+    {
+      "path": "chain/contracts-ko/SindraRuntime.ko",
+      "bytes": 603,
+      "sha256": "81ec0c351fd5f12aaba8b91b4c6b672f87fa780605d2e537326d2e429bbdc13e"
+    },
+    {
+      "path": "chain/network/sovereign/HybridRoundChangeQuorum.js",
+      "bytes": 13338,
+      "sha256": "f28dfb52a7ce8801fa03069ff4cd50d8c49c2d0d6976c5a26605a5cfef5d141f"
+    },
+    {
+      "path": "chain/network/sovereign/RoundChangeJournal.js",
+      "bytes": 6189,
+      "sha256": "6ed941535f3c3d357e7b85fc3d8cd67c109e09249ddd499aa3f725098885b688"
+    },
+    {
+      "path": "chain/network/sovereign/RoundChangeQuorum.js",
+      "bytes": 12554,
+      "sha256": "b8cda3170264665e20827f71bb10b3b9466aead4a2186a5300070fd131af63b5"
+    },
+    {
+      "path": "chain/network/sovereign/SovereignGenesis.js",
+      "bytes": 20767,
+      "sha256": "f9e33d95f9b4f4de5ab729f5dee71e9aaabc252a482327a791a95442731d5457"
+    },
+    {
+      "path": "chain/network/sovereign/SovereignNode.js",
+      "bytes": 43974,
+      "sha256": "8e1a1c0c83e9db936e0b09953a3875c60b300b80623ba95427d2ef4b23f6f356"
+    },
+    {
+      "path": "chain/network/sovereign/VlockWebSocketTransport.js",
+      "bytes": 34343,
+      "sha256": "b968af0625dfaf1cdee42df16c40065b9bc99c619a7866ff804cde0b88a9618b"
+    },
+    {
+      "path": "chain/network/sovereign/VoteJournal.js",
+      "bytes": 4325,
+      "sha256": "6f0735040f1a036a5b6e41dce66fa0b416de9928d3afdb8ac74c7cfdf4950f73"
+    },
+    {
+      "path": "chain/network/sovereign/index.js",
+      "bytes": 313,
+      "sha256": "36e9eaa86130bb8e0cdf63fa5aec01354c1abb3efbc5b81e8d363babf37765b0"
+    },
+    {
+      "path": "chain/package.json",
+      "bytes": 99,
+      "sha256": "303c6afa49694d30da109eb07e8f015a3262c4d64347e639d4ad2c6f5364f4d2"
+    },
+    {
+      "path": "chain/scripts/buildIndependentGenesis.js",
+      "bytes": 3208,
+      "sha256": "bb47b78aefabb0a95a6d2d5cbd31514e373dc8d88ddccec717a0d41b36c2b89c"
+    },
+    {
+      "path": "chain/scripts/captureOperatorObservation.js",
+      "bytes": 4642,
+      "sha256": "8aecb0a14ab6a67d3862389f7954dfe44dc9230f94e52a8d1e50406fd0c3e6ab"
+    },
+    {
+      "path": "chain/scripts/createOperatorIdentity.js",
+      "bytes": 2805,
+      "sha256": "614e6d07e47e493c2f882de35f50cce62375780a1e6d3d1c2efa445a80fff3fe"
+    },
+    {
+      "path": "chain/scripts/runIndependentValidator.js",
+      "bytes": 12651,
+      "sha256": "f3879f4203b53e59f5f50f428e07e85ed2322a962f7a6944b2102e01db3b1350"
+    },
+    {
+      "path": "chain/scripts/verifyOperatorAttestations.js",
+      "bytes": 5315,
+      "sha256": "cc0eb9781f9663b2619368717324520df3f7f105b1780762e350b4e1c0fe44c8"
+    },
+    {
+      "path": "chain/vlock7sin-js/LICENSE",
+      "bytes": 750,
+      "sha256": "9bda45559c47328f33df0fa377cee49b7c8ef27f111383e25edded323ef1644c"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/actum.js",
+      "bytes": 26870,
+      "sha256": "c316453b346a5e387b6fe0bb9097d80a6ff84e0c8118b7922e5be10f30c3aff6"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/causalGraph.js",
+      "bytes": 24300,
+      "sha256": "b0f2bb2902fd45d0e344be5840f1f37225b7a21bdbee94d47257160632982ca7"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/checkpoint.js",
+      "bytes": 17453,
+      "sha256": "3e0e91b76cd0ce938ce5a418d2f454f594e17133ef4c124daf46e674c30de42f"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/codec.js",
+      "bytes": 10095,
+      "sha256": "faeb9dfdc92e8c3d9fc178fc920eba8b98cccbd868520561ff6c5c87bf80260a"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/constants.js",
+      "bytes": 4822,
+      "sha256": "fb8c521d7a9c13e651b9cdb868f21a91bcbac17233b9cd1d112ae9dad8196db8"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/constellation.js",
+      "bytes": 8998,
+      "sha256": "038209d753fd352b23b628d8f7381ab3da37c8f2e2b64a81484de53003749c49"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/crypto.js",
+      "bytes": 7576,
+      "sha256": "0d6a274dba07d151d75d306aec0f8906a2f90723788d119b0b56f6cd9e7403db"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/errors.js",
+      "bytes": 1425,
+      "sha256": "060dd3b3c7fd156a0470fbe85633c6e55191373fef9a5c76b24aa633a4ae57e5"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/event.js",
+      "bytes": 14039,
+      "sha256": "4472f3ad5933550019a7d3a314b67529f06f9aac0ae2378e216bf8204241984f"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/hybridCrypto.js",
+      "bytes": 18569,
+      "sha256": "295cb74a9f267f8d0b1f29819bc8ddbc8bdd790293000b1adbde5d23bed7540c"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/hybridQuorum.js",
+      "bytes": 12383,
+      "sha256": "e4097b7dc86cfdbada95f6361a09b84f5f008b3a32e72171548857dfa7bf4b12"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/hybridTransferAuthorization.js",
+      "bytes": 2909,
+      "sha256": "5b06053ba3d6ca664fd6015c42ec1a462d603d92318f05fbb95e87c75a716e29"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/index.js",
+      "bytes": 5068,
+      "sha256": "8bafc24228b8c9095839e4a5dd450e15feab928f77d0138560c9a59b20a0be8f"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/koPolicy.js",
+      "bytes": 6322,
+      "sha256": "866a4322297e82a60ad462f4817dd682a593111743f2a3c1323b1c4937f18cfb"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/ledger.js",
+      "bytes": 40871,
+      "sha256": "5c9b5274ec27762d8cd214feb2df5d72f25edfe5d7f2945823ca8c8776a3e88a"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/network.js",
+      "bytes": 18934,
+      "sha256": "a679d6a87b13471983e53448beca79a3ebb8a1196f3fb7d8ec431cc128993fc3"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/optimizer.js",
+      "bytes": 25022,
+      "sha256": "61c382f9e97ec39c006cab7bcc30ebe7e786fd54df7b3adf30775d22709a2817"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/pcc.js",
+      "bytes": 10893,
+      "sha256": "957956ccce3fc495c589d45c05ff28645968a8f0fc4fcee680fa3f166287b5ec"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/persistence.js",
+      "bytes": 27177,
+      "sha256": "2bc70e99c9d5abc49d1c835de801568779134f0c8df69d38bbee2a823fb4c56c"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/principle.js",
+      "bytes": 31133,
+      "sha256": "8830df763be8e3f4e9cddbbb8b21d64e476b05e87fd6dfb2203bac3df898c059"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/privacy.js",
+      "bytes": 12176,
+      "sha256": "3de1517a48038c9c55e575bbfaa3771e1b023a1a510b1b64aa8d53fc0fafb32f"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/quorum.js",
+      "bytes": 16806,
+      "sha256": "976dd5c98c6511b2ad382a0fe28240caf4a4dd1969ca2611b64fe37533a732f6"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/state.js",
+      "bytes": 26607,
+      "sha256": "1311198d6d9b64be14f61fbc8700b5d77f06431c1b6caf5a998ce487d59b99d8"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/actum.test.js",
+      "bytes": 2945,
+      "sha256": "015865479205c995a4c7935a1dfa52af4186e35176a116ab5da00f12186c7cb7"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/causal.test.js",
+      "bytes": 3866,
+      "sha256": "2593f3af7ee9ed6c38c41ed4a7ae6c9f0d4c408938ebba3340e97f14d0f18752"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/checkpoint.test.js",
+      "bytes": 5928,
+      "sha256": "380faef7cc895d7bd03971b37b5e5dc3ad7f4f7ab8009070cdba571847fb33c8"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/core.test.js",
+      "bytes": 7518,
+      "sha256": "7e086ef5503efd2f88ee4648e20009e4e9c442eeb735900de3ca6eb8ab53eaaf"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/hardening.test.js",
+      "bytes": 8776,
+      "sha256": "d5e134080ea4c05e99edceb58947e4f6ea52361a37d7d369d16fca1822a610ef"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/hybrid-crypto.test.js",
+      "bytes": 4339,
+      "sha256": "bb5b93c0ae26e0315ab7750b7b6d67460dd96b02d8befec9612f30f918f5c06d"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/hybrid-quorum.test.js",
+      "bytes": 6769,
+      "sha256": "7575497b419e2119782f7b0017b1003df4debcbe940b0e7e8a2e066dcad74b51"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/optimizer.test.js",
+      "bytes": 2756,
+      "sha256": "337132865c0f7df06e0ad2525446c1015173d6f9dbb923203ae12350729b4b2c"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/privacy.test.js",
+      "bytes": 4077,
+      "sha256": "7899ec7aa2f0714d176cb5ec111455219733632c271c6a4d5378202bb311b8be"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/property.test.js",
+      "bytes": 4422,
+      "sha256": "7c24aeae0a89f7ca70490406a4961ee6e2fb653398cad1ee3e8dd92e24c6d4c8"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/quorum.test.js",
+      "bytes": 3752,
+      "sha256": "4775763264c3ae884f24e80c5afbcb19fafcf0af83f0a8a9eb07254f011ffe1a"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/runtime.test.js",
+      "bytes": 11680,
+      "sha256": "ae323cc5cefab14831dbed3b103de17e426d9517c57dde00cc52a2c4c601244c"
+    },
+    {
+      "path": "chain/vlock7sin-js/tests/security-regressions.test.js",
+      "bytes": 14364,
+      "sha256": "cf44bf6c46524eb5924d16f94fbb07888d2eb6c4af7a2efe7e4bbfeac504ac85"
+    },
+    {
+      "path": "console/app.js",
+      "bytes": 4960,
+      "sha256": "8f21d9e7d14b5a209489e8f97ab66ed6c21441508188aa8efadfcebf9b9e3829"
+    },
+    {
+      "path": "console/favicon.svg",
+      "bytes": 298,
+      "sha256": "d020312ff50f657f4e76a0d274686a8d16fc446bef430262b68362134455d837"
+    },
+    {
+      "path": "console/index.html",
+      "bytes": 3141,
+      "sha256": "0237c56a0f4494f13e33a9282773919519f4b7fb7a07523b39138864eea8e813"
+    },
+    {
+      "path": "console/style.css",
+      "bytes": 4839,
+      "sha256": "ec4a0846500c4f7529291e70069732d5ed5da0c37ff15004ab81dc35ab6d877f"
     },
     {
       "path": "evidence/ko-runtime.json",
@@ -96,9 +391,14 @@
       "sha256": "6d559df1835975801d04588ff05dbb164eb048891ba009b8bbc21ceaa10d16a5"
     },
     {
+      "path": "package-lock.json",
+      "bytes": 836,
+      "sha256": "f83e39eeb44c4ff07ae4f73e1952cf294cd7e0388b5149f5583a9aab2318356a"
+    },
+    {
       "path": "package.json",
-      "bytes": 408,
-      "sha256": "36f6ead131665d22053636b1d4df58c2d1ca3fd40d528b46dac6647face81d0e"
+      "bytes": 549,
+      "sha256": "c1dfbb33ff4bbf24c75615e4df7c3d08f38b8fbb44bee7aa7fba8e8f2499e6eb"
     },
     {
       "path": "runtime/LICENSE",
@@ -116,6 +416,11 @@
       "sha256": "866a4322297e82a60ad462f4817dd682a593111743f2a3c1323b1c4937f18cfb"
     },
     {
+      "path": "tests/console.test.mjs",
+      "bytes": 4033,
+      "sha256": "e8e2e21ca3b810113e74bfd5f345c181688063c68a06fa9712033188a850ed10"
+    },
+    {
       "path": "tests/event.test.mjs",
       "bytes": 3544,
       "sha256": "cab2ee0554a4ad1d188193081f8ef74159d99da7fa0470a2a41bf3cf5b7b4fe5"
@@ -131,14 +436,39 @@
       "sha256": "5616803fa74a47dad32245e41f685b76dae425398d05bafa305c41faa8379b85"
     },
     {
+      "path": "tools/console.mjs",
+      "bytes": 5608,
+      "sha256": "67e63b030eae3f1c375ac9afa20128147ec92e46f3b191e0bb7e47bd31cffaf5"
+    },
+    {
+      "path": "tools/demo-network.mjs",
+      "bytes": 9020,
+      "sha256": "dc80f8e7a2da62303481d360e135568b4cc2a87f9eadf9cbb5d2280b5f52b290"
+    },
+    {
       "path": "tools/files.mjs",
-      "bytes": 2101,
-      "sha256": "a17faece4ba5a90c7d8f8d7f311110b41142ec490a6a02c6fe9b5ea34a36a851"
+      "bytes": 5412,
+      "sha256": "48e9f6a7adfbb11769913309f595aa7cb158f3648b42872baaaf9525bd928e52"
     },
     {
       "path": "tools/manifest.mjs",
-      "bytes": 636,
-      "sha256": "b5d3626299552ed4847dbdd66a98e36f884c0338b9177683ed1165fe50115cd4"
+      "bytes": 604,
+      "sha256": "e2032fefa0f584cefd30e11fa24867ce70c0590f61532e3a1dec4c2965fc1421"
+    },
+    {
+      "path": "tools/package-windows.mjs",
+      "bytes": 2832,
+      "sha256": "b806514e855c272c16141a3b39f6cc937ac1bb84d664781e1602f58fcb96a84c"
+    },
+    {
+      "path": "tools/validator-worker.cjs",
+      "bytes": 2636,
+      "sha256": "de69ba50901f91a55a23bd4d83097d0c516d6db6a2aa215c002b900d02210199"
+    },
+    {
+      "path": "tools/verify-package.mjs",
+      "bytes": 1343,
+      "sha256": "d239b15b208a9fb7f5ff7d90f94e4b6a7a78235ebc07a7e9a0d24744af2ca758"
     },
     {
       "path": "tools/verify-publication.mjs",
@@ -149,6 +479,96 @@
       "path": "tools/verify-transfer.mjs",
       "bytes": 640,
       "sha256": "03dcf8d35968a1bd9c2d2797281e7d94a938784d99019597edc6a51ea8392a8f"
+    },
+    {
+      "path": "vendor/ws/LICENSE",
+      "bytes": 1183,
+      "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef"
+    },
+    {
+      "path": "vendor/ws/browser.js",
+      "bytes": 176,
+      "sha256": "010da44addea1d88b2b732540c3f1fd0cbcb28926b96623d4c64222e0ead2d0e"
+    },
+    {
+      "path": "vendor/ws/index.js",
+      "bytes": 796,
+      "sha256": "924564d5be26d59b9682c4263f68320e48dde7240bd2d1ad17ec305537429dd2"
+    },
+    {
+      "path": "vendor/ws/lib/buffer-util.js",
+      "bytes": 3056,
+      "sha256": "8b0a45739132f82e25ea13163780abf547ccfe989267f3eb7abb475beec92da3"
+    },
+    {
+      "path": "vendor/ws/lib/constants.js",
+      "bytes": 503,
+      "sha256": "391e823142b8b370e55a2fd32b022deaf03b8415c56000009674ebc86a0b4f86"
+    },
+    {
+      "path": "vendor/ws/lib/event-target.js",
+      "bytes": 7321,
+      "sha256": "c45d3c6e12d170c860c0c3f1a050aa0f864d9806632b609a1e607d675aba128c"
+    },
+    {
+      "path": "vendor/ws/lib/extension.js",
+      "bytes": 6183,
+      "sha256": "852564f0f6b460287043803eae732666fb5610f676874354fc89f06aa4e986ed"
+    },
+    {
+      "path": "vendor/ws/lib/limiter.js",
+      "bytes": 1034,
+      "sha256": "e0469d4b83f6ba764b15f80e1766b75c136fbff68f048f4c050f0b1c7f065f69"
+    },
+    {
+      "path": "vendor/ws/lib/permessage-deflate.js",
+      "bytes": 14669,
+      "sha256": "16a91536988a53c23047ee5882392068728a839a244178c3b09b8c54982f58b0"
+    },
+    {
+      "path": "vendor/ws/lib/receiver.js",
+      "bytes": 17439,
+      "sha256": "a6ada33c9a2d54eaf595824b821ea89ca2c6395f89aa06755c52142148274884"
+    },
+    {
+      "path": "vendor/ws/lib/sender.js",
+      "bytes": 16886,
+      "sha256": "d0791d30c3defd44dcabbddb879a901c757993fea2c00a7ffea01d53b23b4b77"
+    },
+    {
+      "path": "vendor/ws/lib/stream.js",
+      "bytes": 4204,
+      "sha256": "a56fcb6e2b152097ee820b6f5410b1f71e59819b45d08d9f8bda588fe39070ec"
+    },
+    {
+      "path": "vendor/ws/lib/subprotocol.js",
+      "bytes": 1498,
+      "sha256": "be3f6323d6f549568577dcba9004c1479d95c65a7abb0fe0c582875b9fac0b7c"
+    },
+    {
+      "path": "vendor/ws/lib/validation.js",
+      "bytes": 3903,
+      "sha256": "41ce8e83d0d434132e1704895fedb91f6703a701b42d91c80954ab29b2845593"
+    },
+    {
+      "path": "vendor/ws/lib/websocket-server.js",
+      "bytes": 17022,
+      "sha256": "6d8dd89a841748c80445fd5fcdb5ba8005369b53cc3525135e11304c8b9c55e5"
+    },
+    {
+      "path": "vendor/ws/lib/websocket.js",
+      "bytes": 37367,
+      "sha256": "de5add831db49e159d3ee0adb1c5e042eba3af13166374c5584f4fc520d1e734"
+    },
+    {
+      "path": "vendor/ws/package.json",
+      "bytes": 1273,
+      "sha256": "2e0fc1547036854bc7c87cd21b053a8595cffa8e6c1c38801e0e2affce2c61bc"
+    },
+    {
+      "path": "vendor/ws/wrapper.mjs",
+      "bytes": 554,
+      "sha256": "fe154662301fd558f935f9c217fccbe7a7dac02ff39e648a000589403ff27c7f"
     }
   ]
 }

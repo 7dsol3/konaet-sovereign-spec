@@ -1,0 +1,23 @@
+KONAET CONSOLE 1.2.0 — WINDOWS X64
+
+1. Extraia TODO o ZIP antes de executar.
+2. Abra Iniciar-Konaet.bat com dois cliques.
+3. Aguarde o endereço do console: o navegador abre automaticamente.
+
+No console você pode enviar SND de demonstração entre Alice e Bob,
+acompanhar quatro processos validadores e executar políticas .ko.
+Use Encerrar console ou Ctrl+C na janela de comandos para parar.
+Ao abrir novamente, os mesmos dados são recuperados.
+
+Não precisa instalar Node ou npm. O runtime está em bin/node.exe.
+Verificar-Pacote.bat confere os hashes dos arquivos incluídos.
+
+Os dados e as chaves da demonstração são gerados na pasta .konaet-demo.
+Não compartilhe essa pasta. Os saldos são de teste, sem valor monetário,
+e não alteram os saldos da sua carteira Konaet.
+
+O pacote de operador é outro produto: ele exige configuração de rede,
+identidade e certificados. Este console não exige roster ou certificados.
+
+Código: https://github.com/7dsol3/konaet-sovereign-spec
+Console online: https://konaet-ko-runtime.alkalipixie.chatgpt.site

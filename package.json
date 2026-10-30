@@ -1,7 +1,7 @@
 {
   "name": "konaet-sovereign-spec",
-  "version": "1.1.0",
-  "description": "Konaet Soberana: nomenclature, evidence boundaries and public signed-event verifier",
+  "version": "1.2.0",
+  "description": "Konaet Native Chain: executable VLOCK7SIN nodes, .ko runtime and portable console",
   "private": true,
   "type": "module",
   "license": "ISC",
@@ -9,8 +9,12 @@
     "node": ">=24.7 <25"
   },
   "scripts": {
-    "test": "node --test",
+    "start": "node tools/console.mjs",
+    "test": "node --test tests/*.test.mjs chain/vlock7sin-js/tests/*.test.js",
     "manifest": "node tools/manifest.mjs",
     "verify": "node tools/verify-publication.mjs"
+  },
+  "dependencies": {
+    "ws": "file:vendor/ws"
   }
 }

@@ -1,8 +1,29 @@
 # Caminho de operação da Konaet Soberana
 
-Publicar documentação no GitHub disponibiliza uma especificação. Não inicia
-validadores, não cria um RPC e não transfere saldos de uma máquina para uma
-rede pública. Esta publicação contém nenhum deploy automático.
+## Console pronto para executar
+
+A edição 1.2.0 inclui os nós e o console. No Windows, extraia o asset
+`Konaet-Console-Windows-x64.zip` e abra `Iniciar-Konaet.bat`. Pelo código,
+use `npm ci --ignore-scripts` e `npm start` com Node.js 24.7+ da série 24.
+Não é necessário criar um roster para essa demonstração.
+
+O console gera quatro identidades de validador e duas contas de teste. São
+quatro processos no mesmo computador, com uma gênese v6, política `.ko`,
+listeners loopback e diretórios WAL individuais. Não representam quatro
+operadores administrativamente independentes. O botão Encerrar console fecha
+os processos; o próximo início recupera o mesmo estado. Não apague
+`.konaet-demo/` se quiser preservar essa instância.
+
+O aplicativo usa SND de demonstração. Não importa saldos de sua carteira,
+não acessa SQL e não abre portas externas. O kit de operador é destinado à
+configuração de máquinas separadas e exige um roster e certificados próprios.
+
+## Operação entre máquinas
+
+O código do runner fica em `chain/scripts/runIndependentValidator.js`.
+As ferramentas de identidade e gênese estão em `chain/scripts/`. Cada operador
+mantém seu diretório de chaves e seu WAL; o console de demonstração não é usado
+como custódia de produção. A sequência abaixo descreve a publicação da rede.
 
 ## Arquitetura de entrada pública
 
