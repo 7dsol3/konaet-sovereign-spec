@@ -84,10 +84,10 @@ eventos declarados e regras textuais. Preserva quantidades decimais como texto,
 recusa duplicatas e gera manifestos com `executable: false` e
 `executableConsensus: false`.
 
-Não existe chamada ao parser `.ko` no caminho de serialização e validação
-VLOCK observado. Tornar uma regra `.ko` executável requer uma especificação de
-semântica, limites de execução, versionamento, ativação por consenso e testes
-diferenciais. Esta edição não cria tal máquina virtual.
+Nos perfis v1 a v5, essas declarações não participam da execução do consenso.
+A edição 1.1 inclui separadamente o perfil limitado [KONAET_KO_ASSERT_V1](KO-RUNTIME.md),
+integrado à validação no novo perfil v6. Isso não altera o formato EVENT/js-v1
+descrito acima nem converte declarações antigas em programas.
 
 ## Quórum e independência
 

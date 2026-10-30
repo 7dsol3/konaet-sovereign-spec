@@ -11,6 +11,8 @@ export const ALLOWED_FILES = Object.freeze([
   'assets/puzzle-do-dia.png', 'evidence/source-review.json', 'examples/signed-transfer.json',
   'lib/event.mjs', 'tools/files.mjs', 'tools/manifest.mjs', 'tools/verify-transfer.mjs',
   'tools/verify-publication.mjs', 'tests/event.test.mjs', 'tests/publication.test.mjs',
+  'KO-RUNTIME.md', 'runtime/ko-policy.cjs', 'runtime/SindraRuntime.ko', 'runtime/LICENSE',
+  'tests/ko.test.mjs', 'evidence/ko-runtime.json',
 ].sort());
 
 export function sha256(bytes) { return createHash('sha256').update(bytes).digest('hex'); }

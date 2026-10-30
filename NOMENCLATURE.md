@@ -77,7 +77,7 @@ implementação e verificação, descritas em [EVIDENCE.md](EVIDENCE.md).
 
 | Termo | Definição e critério observável |
 |---|---|
-| `.ko` | Extensão das definições declarativas Konaet. O parser atual produz manifestos e hashes, sem bytecode executável. |
+| `.ko` | Extensão de definições Konaet. Há manifestos declarativos e o perfil limitado de assertions `KONAET_KO_ASSERT_V1`, executável por um interpretador e ativado no consenso por gênese v6. Não é uma VM de propósito geral. |
 | Runtime | Implementação que executa e valida regras. No caminho VLOCK atual, essa implementação é JavaScript. |
 | Recibo de evidência | Registro do método, entradas, fonte, ambiente, resultado e limites de uma observação. Um hash é compromisso de integridade; não identifica sozinho quem produziu o dado. |
 | Evidência local | Resultado em ambiente controlado por um único operador. Deve informar essa condição. |

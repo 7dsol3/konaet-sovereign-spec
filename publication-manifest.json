@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.0.0",
+  "edition": "1.1.0",
   "purpose": "Integrity inventory for the documentation and public verifier; not signed provenance",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -37,8 +37,13 @@
     },
     {
       "path": "EVIDENCE.md",
-      "bytes": 4193,
-      "sha256": "d55e9414dedc2000388d53b7d374241000ef53bdf2008134c0eeb9cfba801e3e"
+      "bytes": 4627,
+      "sha256": "48a5440cc4c2ea7f0a6820e6cd7abe31a587bb501485ce6b7af9337809f7ad84"
+    },
+    {
+      "path": "KO-RUNTIME.md",
+      "bytes": 3261,
+      "sha256": "01339b3213b8168d522da83b89a37f77d9a3fb185c99eb5b55dfb9244818a851"
     },
     {
       "path": "LICENSE",
@@ -47,18 +52,18 @@
     },
     {
       "path": "NOMENCLATURE.md",
-      "bytes": 9172,
-      "sha256": "0cc1f2473d64662be6d3fbb9d319c5e85ff8d22408b471f94b5e15117d55b474"
+      "bytes": 9281,
+      "sha256": "4f9262b69fbf4fc719a715fe480f55506686441041d62ca5521c1c1aa1bbd20b"
     },
     {
       "path": "PROTOCOL.md",
-      "bytes": 4911,
-      "sha256": "ea286a5564bb0e4af208e0261182d4dea85a27101506966d263b32529540e9d1"
+      "bytes": 4929,
+      "sha256": "55361f146accec242d16dfcd335a6d2a8cfcc877a292b1e5030d48a12d340a9b"
     },
     {
       "path": "README.md",
-      "bytes": 3617,
-      "sha256": "84875b6a3ee5011c0d8786c37c01ffa58d7cc844f54f8f20a03e3df454157828"
+      "bytes": 4146,
+      "sha256": "2472183f269922857e31c177f303293979cb237a7f0ca3b5a3958cc61935ca3c"
     },
     {
       "path": "SECURITY.md",
@@ -69,6 +74,11 @@
       "path": "assets/puzzle-do-dia.png",
       "bytes": 2306158,
       "sha256": "278dc0b89a00e0c121d49e0921786a29754c412129208788add40357f241ba16"
+    },
+    {
+      "path": "evidence/ko-runtime.json",
+      "bytes": 710,
+      "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
     },
     {
       "path": "evidence/source-review.json",
@@ -87,13 +97,33 @@
     },
     {
       "path": "package.json",
-      "bytes": 402,
-      "sha256": "96d8e71885986a93ac78a162702f8278b4b91ac8657d4beebfa9863b9dfc4ae9"
+      "bytes": 408,
+      "sha256": "36f6ead131665d22053636b1d4df58c2d1ca3fd40d528b46dac6647face81d0e"
+    },
+    {
+      "path": "runtime/LICENSE",
+      "bytes": 750,
+      "sha256": "9bda45559c47328f33df0fa377cee49b7c8ef27f111383e25edded323ef1644c"
+    },
+    {
+      "path": "runtime/SindraRuntime.ko",
+      "bytes": 603,
+      "sha256": "81ec0c351fd5f12aaba8b91b4c6b672f87fa780605d2e537326d2e429bbdc13e"
+    },
+    {
+      "path": "runtime/ko-policy.cjs",
+      "bytes": 6322,
+      "sha256": "866a4322297e82a60ad462f4817dd682a593111743f2a3c1323b1c4937f18cfb"
     },
     {
       "path": "tests/event.test.mjs",
       "bytes": 3544,
       "sha256": "cab2ee0554a4ad1d188193081f8ef74159d99da7fa0470a2a41bf3cf5b7b4fe5"
+    },
+    {
+      "path": "tests/ko.test.mjs",
+      "bytes": 2100,
+      "sha256": "ff4c0f29c995e68b9b2708da232bc6b4c6e847f12decaf7446725b8ca785dd52"
     },
     {
       "path": "tests/publication.test.mjs",
@@ -102,13 +132,13 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 1959,
-      "sha256": "ec63533ece9c787f531a00d21dbce97c330946a63b2cb4a8544a1615a740c3e2"
+      "bytes": 2101,
+      "sha256": "a17faece4ba5a90c7d8f8d7f311110b41142ec490a6a02c6fe9b5ea34a36a851"
     },
     {
       "path": "tools/manifest.mjs",
       "bytes": 636,
-      "sha256": "dbc438853f10b8e3aa954bfd4a54697fd7e707b923be48cbc2e2e0e0d327c1aa"
+      "sha256": "b5d3626299552ed4847dbdd66a98e36f884c0338b9177683ed1165fe50115cd4"
     },
     {
       "path": "tools/verify-publication.mjs",

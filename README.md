@@ -1,6 +1,6 @@
 # Konaet Soberana
 
-**Especificação pública · edição 1.0.0**
+**Especificação pública · edição 1.1.0**
 
 Regras próprias. Termos precisos. Recibos verificáveis.
 
@@ -16,6 +16,7 @@ tem validação local; este repositório não anuncia uma mainnet operante.**
 |---|---|
 | [Nomenclatura](NOMENCLATURE.md) | Identidade, consenso, ativos, provas, operações e interoperabilidade |
 | [Protocolo](PROTOCOL.md) | Bytes, domínios, assinatura e invariantes do exemplo público |
+| [Runtime .ko](KO-RUNTIME.md) | Compilador e interpretador de assertions, API pública e ativação no perfil v6 |
 | [Evidências](EVIDENCE.md) | O que foi observado, quem pode reproduzir e o que falta |
 | [Comparação](COMPARISON.md) | Critérios para comparar redes com a mesma carga e hipótese de segurança |
 | [Operação](DEPLOYMENT.md) | Caminho para uma rede entre máquinas e uma entrada pública |
@@ -45,8 +46,9 @@ inclusão ou finalização por validadores.**
 - O perfil de operadores oferece identidades separadas e transporte mTLS;
   perfis híbridos usam Ed25519 e ML-DSA-65. A operação independente em outras
   máquinas ainda requer instalação e evidência.
-- `.ko` identifica definições declarativas. O consenso atual executa regras
-  JavaScript; o arquivo `.ko` não é uma máquina virtual.
+- `.ko` possui definições declarativas e um novo perfil executável limitado,
+  `KONAET_KO_ASSERT_V1`, incluído nesta edição. O perfil v6 vincula a política à
+  gênese e a executa nos validadores. As redes anteriores conservam suas regras.
 - SND é a unidade da gênese VLOCK. NAET, KWRK e KACT têm operações no ledger
   SQL da aplicação; sua presença na interface não os transforma em unidades
   do consenso VLOCK.
@@ -54,6 +56,11 @@ inclusão ou finalização por validadores.**
 O código integral do nó não é distribuído aqui. O verificador público foi
 escrito para conferir um perfil específico de evento e não substitui o nó.
 Os limites e estados de implementação estão em [EVIDENCE.md](EVIDENCE.md).
+
+O [runtime .ko online](https://konaet-ko-runtime.alkalipixie.chatgpt.site) compila
+e executa assertions sobre o contexto enviado. Esse serviço não hospeda
+validadores nem finaliza transferências. O motor correspondente está em
+[runtime/ko-policy.cjs](runtime/ko-policy.cjs), sem dependências npm.
 
 ## O puzzle do dia
 

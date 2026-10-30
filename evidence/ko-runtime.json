@@ -1,0 +1,14 @@
+{
+  "schema": "konaet.spec.ko-runtime-review.v1",
+  "reviewedAt": "2026-10-30T22:21:27.061Z",
+  "profile": "KONAET_KO_ASSERT_V1",
+  "protocolVersion": "0.5.0-sovereign-ko.1",
+  "genesisFormat": "konaet-sovereign-genesis-v6-ko-policy",
+  "engineSha256": "866a4322297e82a60ad462f4817dd682a593111743f2a3c1323b1c4937f18cfb",
+  "publicService": "https://konaet-ko-runtime.alkalipixie.chatgpt.site",
+  "publicApiExecutionVerified": true,
+  "publicValidatorConsensus": false,
+  "localIntegrationTestCases": 8,
+  "localIntegrationResult": "PASS",
+  "scope": "Bounded policy compiler and interpreter. Stateful integration tested locally; hosted API evaluates caller-provided context and does not finalize transfers."
+}

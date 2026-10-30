@@ -16,7 +16,7 @@ revisados; o código integral de origem não acompanha esta edição.
 | WAL e recuperação | Implementações de ledger e journals, cenários locais | Recuperação por operadores externos ainda não comprovada. |
 | Perfil híbrido e mTLS | Teste do pacote de operadores e perfis configuráveis | Não significa que todo artefato usa autorização híbrida. |
 | Custódia de chaves | Ferramentas de identidade e exportação | Custódia externa e cerimônia operacional pendentes. |
-| Fonte `.ko` | Parser declarativo, manifesto e hash | Não executa consenso nem transações. |
+| Fonte `.ko` | Parser declarativo e novo interpretador limitado de assertions | O perfil v6 executa assertions de transferência e fechamento; testes de integração locais e API pública de contexto separado. |
 | Money DNA | Avaliação determinística, SHA3-256 e compromisso H5D1 | Observação; estado de ancoragem `ready-not-anchored`. |
 | Ativos SQL | Operações e isolamento da aplicação | Autoridade contábil distinta da gênese VLOCK SND. |
 | Rede pública | Sem recibo de operação pública fornecido | Não estabelecida pelos resultados locais. |
@@ -45,6 +45,11 @@ apresentar sua aprovação como nova execução dos 1.274/495/13 testes do siste
 O manifesto de distribuição detecta divergência entre arquivos e hashes, mas
 **não substitui assinatura de release, procedência do mantenedor ou auditoria**.
 Quem puder substituir os arquivos e o manifesto pode recalcular seus hashes.
+
+A edição 1.1 adiciona [ko-runtime.json](evidence/ko-runtime.json), com o hash do
+motor publicado, a identidade do perfil e a separação entre execução da API
+pública e integração local no consenso. O serviço público não atesta saldo
+nem finalização e não representa operação pública dos validadores.
 
 ## O que falta para alegações maiores
 
