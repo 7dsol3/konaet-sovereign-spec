@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
-import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -9,6 +8,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { startGateway } from '../tools/operator-gateway.mjs';
+import { reserveFixturePorts } from './reserved-ports.mjs';
 const require = createRequire(import.meta.url);
 const { crypto: vcrypto, UNIT, PermissionedQuorum, recoverWal } = require('../chain/vlock7sin-js/src');
 const { compileKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
@@ -27,24 +27,16 @@ async function eventually(check, description, timeout = 20000) {
 
 for (const authorized of [false, true]) test(`v${authorized ? 8 : 7} signed .ko passes the gateway, finalizes over real operator mTLS, and recovers quorum after restart`, { timeout: 90000 }, async t => {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'konaet-gateway-network-'));
-  const nodes = [], configs = [], ports = new Set(); let gateway;
+  const nodes = [], configs = []; let gateway, reservations;
   t.after(async () => {
     if (gateway) await gateway.close();
     await Promise.all(nodes.map(node => node?.close()));
+    if (reservations) await reservations.close();
     const target = path.resolve(base);
     assert.equal(path.dirname(target), path.resolve(os.tmpdir()));
     assert.match(path.basename(target), /^konaet-gateway-network-/);
     fs.rmSync(target, { recursive: true, force: true });
   });
-  async function port() {
-    for (;;) {
-      const socket = net.createServer();
-      await new Promise(resolve => socket.listen(0, '127.0.0.1', resolve));
-      const candidate = socket.address().port;
-      await new Promise(resolve => socket.close(resolve));
-      if (!ports.has(candidate)) { ports.add(candidate); return candidate; }
-    }
-  }
   const openssl = ['openssl', ...(process.env.ProgramFiles ? [path.join(process.env.ProgramFiles, 'Git', 'usr', 'bin', 'openssl.exe')] : [])]
     .find(candidate => spawnSync(candidate, ['version'], { windowsHide: true, encoding: 'utf8' }).status === 0);
   assert.ok(openssl, 'OpenSSL is required for the real mTLS integration test');
@@ -67,7 +59,8 @@ for (const authorized of [false, true]) test(`v${authorized ? 8 : 7} signed .ko 
     ...(authorized ? { deploymentPolicy: { schema: 'konaet.contract-deployment-policy.v1', deployers: [{ address: owner.address(), maxContracts: 1 }] } } : {}),
     validators: identities.map((identity, index) => ({ id: `validator-${index}`, administratorId: `test-admin-${index}`, publicKey: identity.publicBytes().toString('hex') })),
     allocations: [{ address: owner.address(), amountAtomic: UNIT.initialSupplyAtomic.toString() }] });
-  const genesisBytes = Buffer.from(JSON.stringify(genesis)), meshPorts = await Promise.all(identities.map(() => port()));
+  reservations = await reserveFixturePorts(8);
+  const genesisBytes = Buffer.from(JSON.stringify(genesis)), meshPorts = reservations.ports.slice(0, 4), statusPorts = reservations.ports.slice(4);
   const tokens = identities.map(() => crypto.randomBytes(32).toString('hex'));
   for (let index = 0; index < 4; index++) {
     const directory = path.join(base, `validator-${index}`);
@@ -79,11 +72,12 @@ for (const authorized of [false, true]) test(`v${authorized ? 8 : 7} signed .ko 
     fs.writeFileSync(path.join(directory, 'genesis.json'), genesisBytes);
     fs.writeFileSync(path.join(directory, 'submit.token'), tokens[index]);
     const config = { schema: 'konaet.independent-validator.config.v1', scope: 'private-testnet-no-value', mutualTlsRequired: true,
-      validatorId: `validator-${index}`, host: '127.0.0.1', port: meshPorts[index], statusPort: await port(),
+      validatorId: `validator-${index}`, host: '127.0.0.1', port: meshPorts[index], statusPort: statusPorts[index],
       genesisFile: 'genesis.json', genesisSha256: crypto.createHash('sha256').update(genesisBytes).digest('hex'),
       seedFile: 'own.seed', caFile: 'ca.pem', certificateFile: 'own.pem', tlsKeyFile: 'own.key', submitTokenFile: 'submit.token', dataDirectory: 'data',
       peers: meshPorts.flatMap((peerPort, peer) => peer === index ? [] : [{ validatorId: `validator-${peer}`, url: `wss://127.0.0.1:${peerPort}/` }]) };
     const file = path.join(directory, 'operator.json'); fs.writeFileSync(file, JSON.stringify(config)); configs.push({ file, ...config });
+    await reservations.release(meshPorts[index]); await reservations.release(statusPorts[index]);
     nodes.push(await start(file));
   }
   await eventually(() => nodes.every(node => node.readiness().ready), 'All operator runtimes must observe a connected quorum');

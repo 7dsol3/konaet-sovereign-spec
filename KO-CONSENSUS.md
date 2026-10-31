@@ -26,7 +26,7 @@ flowchart LR
 
 ## Usar no console
 
-Baixe a versão 1.8.0, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
+Baixe a versão 1.8.1, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
 No código-fonte, execute `npm ci --ignore-scripts` e `npm start`.
 O console abre apenas em `127.0.0.1`, inicia quatro processos e usa uma
 instância própria em `.konaet-console-v7/`.

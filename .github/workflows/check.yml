@@ -7,6 +7,7 @@ permissions:
 jobs:
   verify:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -20,4 +21,6 @@ jobs:
           node-version: '24.22.2'
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm test
+      - name: Exercise concurrent deployment startup repeatedly
+        run: node tests/startup-stress.mjs 12
       - run: npm run verify

@@ -204,6 +204,32 @@ test('independent deployment processes cannot overwrite each other during initia
   assert.equal(store.recoverStore(dir).state.revision, '0');
 });
 
+test('deployment tolerates a recognized temporary disappearing after readdir without weakening exclusive publication', t => {
+  const base = directory(t), dir = path.join(base, 'contract'); fs.mkdirSync(dir);
+  const pending = path.join(dir, '.pending-00000000-0000-4000-8000-000000000000.json'); fs.writeFileSync(pending, '{}');
+  const original = fs.lstatSync; let intercepted = false;
+  t.mock.method(fs, 'lstatSync', function(file) {
+    if (file === pending && !intercepted) { intercepted = true; fs.unlinkSync(pending); }
+    return original.apply(this, arguments);
+  });
+  const options = { caller: 'v7' + 'a'.repeat(32), networkId: '77' };
+  store.createStore(dir, artifact, options); assert.equal(intercepted, true);
+  assert.equal(store.recoverStore(dir).state.revision, '0');
+  assert.throws(() => store.createStore(dir, artifact, options), { code: 'KO_STORE_EXISTS' });
+  assert.deepEqual(fs.readdirSync(dir), ['deployment.json']);
+});
+
+test('deployment does not ignore permission errors or non-regular pending entries', t => {
+  const base = directory(t), dir = path.join(base, 'contract'); fs.mkdirSync(dir);
+  const pending = path.join(dir, '.pending-00000000-0000-4000-8000-000000000000.json'); fs.mkdirSync(pending);
+  const options = { caller: 'v7' + 'a'.repeat(32), networkId: '77' };
+  assert.throws(() => store.createStore(dir, artifact, options), { code: 'KO_STORE_EXISTS' });
+  const original = fs.lstatSync;
+  t.mock.method(fs, 'lstatSync', function(file) { if (file === pending) { const error = Error('Permission refused'); error.code = 'EACCES'; throw error; } return original.apply(this, arguments); });
+  assert.throws(() => store.createStore(dir, artifact, options), { code: 'EACCES' });
+  assert.equal(fs.existsSync(path.join(dir, 'deployment.json')), false);
+});
+
 test('console shutdown has a deadline even if an authenticated client never finishes its body', async t => {
   const { startConsole } = await import(pathToFileURL(path.join(root, 'tools/console.mjs')).href);
   const app = await startConsole({ dataDirectory: path.join(directory(t), 'console'), shutdownGraceMs: 100, bodyTimeoutMs: 10000 });

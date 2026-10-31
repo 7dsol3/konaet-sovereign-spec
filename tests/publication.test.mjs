@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { ROOT, inventory, verifyFilePolicy } from '../tools/files.mjs';
-import { verifyVersionAgreement, verifyDocumentLinks, verifyPublicationMetadata } from '../tools/publication-checks.mjs';
+import { verifyVersionAgreement, verifyDocumentLinks, verifyPublicationMetadata, verifyLatestRequiredChecks } from '../tools/publication-checks.mjs';
 
 test('distribution versions and documentation agree with the publication manifest', () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'publication-manifest.json'), 'utf8'));
@@ -19,6 +19,16 @@ test('documentation verification catches broken HTML images and references outsi
 test('a mismatched distribution version cannot be presented as the current edition', () => {
   assert.throws(() => verifyVersionAgreement({ package: '1.6.1', chain: '1.6.0' }), /PUBLICATION_VERSION_MISMATCH/);
   assert.throws(() => verifyVersionAgreement({ package: 'not-a-version' }), /PACKAGE_VERSION_INVALID/);
+});
+
+test('publication readiness uses the newest required check rather than hiding a later failure behind an earlier pass', () => {
+  const pass = { id: 1, name: 'verify (ubuntu-latest)', app: { id: 15368 }, status: 'completed', conclusion: 'success' };
+  const fail = { ...pass, id: 2, conclusion: 'failure' };
+  assert.throws(() => verifyLatestRequiredChecks([pass, fail], [pass.name]), /LATEST_REQUIRED_CHECK_NOT_SUCCESSFUL/);
+  assert.throws(() => verifyLatestRequiredChecks([pass, { ...fail, conclusion: 'cancelled' }], [pass.name]), /LATEST_REQUIRED_CHECK_NOT_SUCCESSFUL/);
+  assert.throws(() => verifyLatestRequiredChecks([pass, { ...fail, status: 'in_progress', conclusion: null }], [pass.name]), /LATEST_REQUIRED_CHECK_NOT_SUCCESSFUL/);
+  assert.throws(() => verifyLatestRequiredChecks([{ ...pass, app: { id: 99 } }], [pass.name]), /REQUIRED_CHECK_MISSING/);
+  assert.equal(verifyLatestRequiredChecks([fail, { ...pass, id: 3 }], [pass.name])[0].id, 3);
 });
 
 test('publication uses an explicit file set and refuses unplanned content', () => {

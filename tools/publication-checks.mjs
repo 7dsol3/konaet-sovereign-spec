@@ -9,6 +9,18 @@ export function verifyVersionAgreement(versions) {
   }
 }
 
+export function verifyLatestRequiredChecks(checkRuns, requiredNames, appId = 15368) {
+  assert.ok(Array.isArray(checkRuns) && Array.isArray(requiredNames) && requiredNames.length > 0, 'CHECK_LIST_REQUIRED');
+  return requiredNames.map(name => {
+    const latest = checkRuns.filter(row => row.name === name && row.app?.id === appId)
+      .sort((a, b) => b.id - a.id)[0];
+    assert.ok(latest, `REQUIRED_CHECK_MISSING: ${name}`);
+    assert.ok(latest.status === 'completed' && latest.conclusion === 'success',
+      `LATEST_REQUIRED_CHECK_NOT_SUCCESSFUL: ${name}: ${latest.conclusion || latest.status}`);
+    return { name, conclusion: latest.conclusion, id: latest.id, url: latest.html_url };
+  });
+}
+
 export function verifyDocumentLinks(root, relative, source) {
   const links = [...source.matchAll(/!?\[[^\]]*\]\(([^)]+)\)/g)].map(match => match[1]);
   links.push(...[...source.matchAll(/\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)].map(match => match[1]));
