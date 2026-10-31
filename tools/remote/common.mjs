@@ -54,7 +54,10 @@ export async function jsonRequest(url, options = {}, timeout = 20000) {
     headers: { 'Content-Type': 'application/json', ...options.headers } });
   const chunks = []; let bytes = 0;
   for await (const chunk of response.body) { bytes += chunk.length; check(bytes <= 1024 * 1024, 'HTTP_RESPONSE_TOO_LARGE'); chunks.push(chunk); }
-  const body = JSON.parse(Buffer.concat(chunks).toString('utf8')); return { status: response.status, body };
+  let body;
+  try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
+  catch { throw Error('HTTP_JSON_RESPONSE_INVALID_' + response.status); }
+  return { status: response.status, body };
 }
 export async function github(ctx, suffix) {
   const response = await fetch(`https://api.github.com/repos/${ctx.repository}${suffix}`, {

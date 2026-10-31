@@ -112,8 +112,8 @@
     },
     {
       "path": "REMOTE-VALIDATION.md",
-      "bytes": 3994,
-      "sha256": "f02eaafa2cdda748030eabf511e738bbcbf1b45da305f6029aac6c63498920cb"
+      "bytes": 4131,
+      "sha256": "f82cf3c77a246d3e379958e45f2929a878af511739a42529b1fc17c4ebc4e4b0"
     },
     {
       "path": "SECURITY.md",
@@ -827,13 +827,13 @@
     },
     {
       "path": "tools/remote/common.mjs",
-      "bytes": 6710,
-      "sha256": "f3b77581c6e2d6cf5f5d4cc9e3b42e8417027ba9d83ebe4b850d654c3a486817"
+      "bytes": 6800,
+      "sha256": "b1c49817bb7864c584eba9f2b257e433a2824ffdb415aa349e63ec98286d898a"
     },
     {
       "path": "tools/remote/controller.mjs",
-      "bytes": 13104,
-      "sha256": "d05c9ecc008cb55b198ca2c23c922b9860911df011a352645fe376c1ecf7ca0f"
+      "bytes": 13341,
+      "sha256": "74c243596b8a4654852954bca4670d6a5910193584c9e38942948c1ff4900924"
     },
     {
       "path": "tools/remote/participant.mjs",

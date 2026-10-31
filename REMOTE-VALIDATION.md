@@ -58,6 +58,8 @@ O desenvolvimento na branch de validação começa com um smoke de conectividade
 antes do ensaio prolongado.
 
 O workflow usa runners padrão de repositório público e relays temporários.
+O gerador respeita o limite original de dez submissões por minuto do operador;
+esse controle não é desabilitado para a homologação.
 Os processos e endpoints são encerrados ao concluir ou cancelar o job.
 Os artefatos públicos intermediários têm retenção curta. O resumo final
 informa duração, operações, falhas aplicadas, memória observada e tempos de

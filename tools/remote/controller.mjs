@@ -22,7 +22,7 @@ export async function runController(ctx) {
     genesisId: genesis.genesisId, threshold: genesis.threshold, validators: genesis.validators });
   const mirror = new VlockLedger({ state: stateFromGenesis(genesis), protocolVersion: genesis.protocolVersion,
     nativePolicy: genesis.nativePolicy, quorum, requireCertificate: true, maxActs: genesis.parameters.maxActs, maxBytes: genesis.parameters.maxBytes });
-  let controlSeq = 0, offset = 8, latestBundle, transfers = 0, calls = 0, startedAt, stoppedAt, crashRestarted = false;
+  let controlSeq = 0, offset = 8, latestBundle, transfers = 0, calls = 0, startedAt, stoppedAt, crashRestarted = false, lastSubmissionAt = 0;
   const durations = [], faults = []; let lastStates = [], crashed = false;
   const active = new Set([0, 1, 2, 3]);
   async function status(index) {
@@ -94,6 +94,9 @@ export async function runController(ctx) {
       amountAtomic: 1n, senderPublicKey: sender.publicBytes(), receiverAddress: receiver.address(), memo: '' }, sender);
   }
   async function submit(event, wait = true) {
+    // Exercise the production runner's 10/minute admission limit unchanged.
+    const remaining = lastSubmissionAt + 6500 - Date.now(); if (remaining > 0) await pause(remaining);
+    lastSubmissionAt = Date.now();
     const start = performance.now(), token = fs.readFileSync(path.join(ctx.privateDir, 'operator/submit.token'), 'utf8').trim();
     const response = await jsonRequest('http://127.0.0.1:58401/submit', { method: 'POST', headers: { 'Content-Type': 'application/octet-stream', Authorization: 'Bearer ' + token }, body: event.canonicalBytes() });
     check(response.status === 202 && response.body.accepted === true && response.body.finalized === false, 'NATIVE_SUBMISSION_REJECTED');
