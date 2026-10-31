@@ -42,7 +42,9 @@ jobs:
         run: node tools/remote/linux-service-check.mjs
       - name: Stop the isolated service
         if: always()
-        run: sudo systemctl stop konaet-validator@0.service || true
+        run: |
+          sudo journalctl -u konaet-validator@0.service --no-pager -n 45
+          sudo systemctl stop konaet-validator@0.service || true
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
