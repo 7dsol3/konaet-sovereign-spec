@@ -5,6 +5,15 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "KO-CONSENSUS.md",
+  "chain/vlock7sin-js/src/koCausalGraph.js",
+  "chain/vlock7sin-js/src/contractEvent.js",
+  "chain/vlock7sin-js/src/koState.js",
+  "chain/vlock7sin-js/src/koConsensusProfile.js",
+  "chain/vlock7sin-js/src/koProgramRuntime.js",
+  "tests/ko-consensus.test.cjs",
+  "tests/ko-contract-console.test.mjs",
+  "tools/verify-contract-receipt.cjs",
   "KO-PROGRAM.md",
   "tools/build-program-browser.mjs",
   "tools/verify-program-session.mjs",
@@ -174,7 +183,7 @@ export function inventory(root = ROOT) {
   const files = [];
   function walk(directory) {
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-      if (['.git', 'node_modules', '.konaet-demo', '.packaging', 'dist', 'bin'].includes(entry.name)) continue;
+      if (['.git', 'node_modules', '.konaet-demo', '.konaet-console-v7', '.packaging', 'dist', 'bin'].includes(entry.name)) continue;
       const absolute = path.join(directory, entry.name);
       if (entry.isSymbolicLink()) throw new Error('PUBLICATION_SYMLINK_FORBIDDEN');
       if (entry.isDirectory()) { walk(absolute); continue; }

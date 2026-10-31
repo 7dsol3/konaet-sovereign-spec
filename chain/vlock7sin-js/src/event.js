@@ -390,12 +390,18 @@ function createTransfer(fields, privateKey) {
   return privateKey === undefined ? event : event.sign(privateKey);
 }
 
-function decodeEvent(bytes) { return TransferEvent.decode(bytes); }
+function decodeEvent(bytes) {
+  const { ContractEvent, PREFIX } = require('./contractEvent'); // eslint-disable-line global-require
+  const data = asBuffer(bytes, 'event record', { maxLength: LIMITS.RECORD_BYTES });
+  return data.subarray(0, PREFIX.length).equals(PREFIX) ? ContractEvent.decode(data) : TransferEvent.decode(data);
+}
 
 function normalizeAct(value) {
+  const { ContractEvent } = require('./contractEvent'); // eslint-disable-line global-require
+  if (value instanceof ContractEvent && Object.getPrototypeOf(value) === ContractEvent.prototype) return value;
   if (value instanceof TransferEvent) return value;
   if (Buffer.isBuffer(value) || value instanceof Uint8Array || value instanceof ArrayBuffer) {
-    return TransferEvent.decode(value);
+    return decodeEvent(value);
   }
   if (value && typeof value === 'object') return new TransferEvent(value);
   throw new ValidationError('act must be a TransferEvent, encoded bytes, or event object');

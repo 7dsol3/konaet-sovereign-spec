@@ -1,6 +1,7 @@
 'use strict';
 
 const { createHash } = require('node:crypto');
+const { ContractEvent } = require('./contractEvent');
 const {
   CausalGraph,
   canonicalBytes,
@@ -99,6 +100,7 @@ class ConstellationSelector {
     Object.defineProperties(this, {
       maxActs: { value: positiveLimit(options.maxActs, Number.MAX_SAFE_INTEGER, 'maxActs'), enumerable: true },
       maxBytes: { value: positiveLimit(options.maxBytes, Number.MAX_SAFE_INTEGER, 'maxBytes'), enumerable: true },
+      maxGas: { value: options.maxGas == null ? null : positiveLimit(options.maxGas, null, 'maxGas'), enumerable: true },
       networkId: { value: options.networkId == null ? null : String(options.networkId), enumerable: true },
       allowInternalDependencies: { value: options.allowInternalDependencies === true, enumerable: true },
     });
@@ -112,6 +114,7 @@ class ConstellationSelector {
 
     const maxActs = positiveLimit(options.maxActs, this.maxActs, 'maxActs');
     const maxBytes = positiveLimit(options.maxBytes, this.maxBytes, 'maxBytes');
+    const maxGas = options.maxGas == null ? this.maxGas : positiveLimit(options.maxGas, null, 'maxGas');
     const eligible = options.eligibleIds == null
       ? new Set(graph.topologicalOrder().filter((id) => !graph.isClosed(id)))
       : new Set(options.eligibleIds.map((id) => normalizeId(id)));
@@ -126,6 +129,7 @@ class ConstellationSelector {
     const selectedSet = new Set();
     const deferred = [];
     let totalBytes = 0;
+    let totalGas = 0;
 
     for (const id of candidates) {
       const node = graph.getNode(id);
@@ -172,10 +176,18 @@ class ConstellationSelector {
         deferred.push(Object.freeze({ actId: id, reason: 'MAX_BYTES', encodedSize }));
         continue;
       }
+      const reservedGas = node.act instanceof ContractEvent ? node.act.envelope.payload.gasLimit : 0;
+      if (maxGas !== null && reservedGas > maxGas - totalGas) {
+        deferred.push(Object.freeze({ actId: id, reason: 'MAX_GAS', reservedGas })); continue;
+      }
+      if (typeof options.canInclude === 'function' && !options.canInclude([...selected, id])) {
+        deferred.push(Object.freeze({ actId: id, reason: 'STATE_CAPACITY' })); continue;
+      }
 
       selected.push(id);
       selectedSet.add(id);
       totalBytes += encodedSize;
+      totalGas += reservedGas;
     }
 
     if (selected.length === 0 && options.allowEmpty !== true) {
@@ -199,12 +211,14 @@ class ConstellationSelector {
       previousRoot: rootHex(context.previousRoot),
       actIds: Object.freeze(selected),
       totalBytes,
+      ...(maxGas !== null ? { totalGas } : {}),
       locks: selectedLockSet(graph, selected),
       deferred: Object.freeze(deferred),
       policy: Object.freeze({
         strategy: 'TOPOLOGICAL_LEXICOGRAPHIC_GREEDY',
         maxActs,
         maxBytes,
+        ...(maxGas !== null ? { maxGas } : {}),
         allowInternalDependencies: options.allowInternalDependencies ?? this.allowInternalDependencies,
       }),
     });
@@ -218,11 +232,13 @@ class ConstellationSelector {
       eligibleIds: context.eligibleIds,
       maxActs: constellation.policy?.maxActs ?? this.maxActs,
       maxBytes: constellation.policy?.maxBytes ?? this.maxBytes,
+      maxGas: constellation.policy?.maxGas ?? this.maxGas,
       allowInternalDependencies: constellation.policy?.allowInternalDependencies === true,
       networkId: constellation.networkId,
       sequence: constellation.sequence,
       previousRoot: constellation.previousRoot,
       allowEmpty: constellation.actIds.length === 0,
+      canInclude: context.canInclude,
     });
     const actual = constellation.actIds.map((id) => normalizeId(id));
     if (rebuilt.actIds.length !== actual.length || rebuilt.actIds.some((id, index) => id !== actual[index])) {

@@ -1,6 +1,8 @@
 'use strict';
 
 const EventEmitter = require('node:events');
+const { ContractEvent } = require('../../vlock7sin-js/src/contractEvent');
+const { runtime: koRuntime, auth: koAuth } = require('../../vlock7sin-js/src/koProgramRuntime');
 const fs = require('node:fs');
 const path = require('node:path');
 const {
@@ -259,6 +261,38 @@ class SovereignNode extends EventEmitter {
 
   submitTransfer(eventLike, options = {}) {
     const event = normalizeAct(eventLike);
+    if (event instanceof ContractEvent) throw new SovereignNodeError('INVALID_TRANSFER_TYPE', 'Use submitContract for typed contract events.');
+    return this.#submitEvent(event, options);
+  }
+
+  createContractDeployment({ sender, source, salt = '0', gasLimit = 10000 }) {
+    if (!this.genesis.contractRuntime || !sender?.privateKeyObject) throw new SovereignNodeError('KO_PROGRAM_NOT_ACTIVE', 'v7 genesis and a signing identity are required.');
+    const artifact = koRuntime.compileContract(source), envelope = koAuth.signDeployment(artifact,
+      { networkId: this.genesis.networkId, salt, gasLimit }, sender.privateKeyObject());
+    return this.#contractEvent(sender, envelope, source);
+  }
+
+  createContractCall({ sender, contractId, method, args = [], gasLimit = 10000 }) {
+    if (!this.genesis.contractRuntime || !sender?.privateKeyObject) throw new SovereignNodeError('KO_PROGRAM_NOT_ACTIVE', 'v7 genesis and a signing identity are required.');
+    const record = this.ledger.getState().contract(contractId);
+    if (!record) throw new SovereignNodeError('CONTRACT_NOT_FOUND', 'Contract is not deployed in the current ledger.');
+    const envelope = koAuth.signCall(record.artifact, record.state, { method, args, gasLimit }, sender.privateKeyObject());
+    return this.#contractEvent(sender, envelope, null);
+  }
+
+  #contractEvent(sender, envelope, source) {
+    const state = this.ledger.getState();
+    return new ContractEvent({ envelope, source, sequence: (state.sequence + 1n).toString(),
+      nonce: (state.getNonce(sender.address()) + 1n).toString(), previousRoot: state.root().toString('hex'), signature: '' }).sign(sender);
+  }
+
+  submitContract(eventLike, options = {}) {
+    const event = normalizeAct(eventLike);
+    if (!(event instanceof ContractEvent)) throw new SovereignNodeError('INVALID_CONTRACT_TYPE', 'Typed contract event required.');
+    return this.#submitEvent(event, options);
+  }
+
+  #submitEvent(event, options) {
     const bytes = event.canonicalBytes();
     const evidence = options.authorization !== undefined || options.publicIdentity !== undefined
       ? { authorization: options.authorization, publicIdentity: options.publicIdentity } : undefined;
@@ -266,7 +300,7 @@ class SovereignNode extends EventEmitter {
     this.actBytes.set(id, bytes);
     this.notePendingAct(event.sequence);
     if (options.broadcast !== false) {
-      this.transport.broadcast('ACT', Object.freeze({ kind: 'KONAET_TRANSFER_V1', event: bytes,
+      this.transport.broadcast('ACT', Object.freeze({ kind: event instanceof ContractEvent ? event.kind : 'KONAET_TRANSFER_V1', event: bytes,
         ...(evidence ? { authorization: evidence.authorization, publicIdentity: evidence.publicIdentity } : {}) }));
     }
     this.emit('actAccepted', { id, event });
@@ -891,7 +925,9 @@ class SovereignNode extends EventEmitter {
     const { type, payload, senderId } = message;
     if (type === 'HELLO') return this.handleHello(senderId, payload);
     if (type === 'ACT') {
-      if (payload?.kind !== 'KONAET_TRANSFER_V1') throw new SovereignNodeError('INVALID_ACT_MESSAGE', 'ACT payload kind is invalid.');
+      if (!['KONAET_TRANSFER_V1', 'KONAET_KO_DEPLOY_V1', 'KONAET_KO_CALL_V1'].includes(payload?.kind)) throw new SovereignNodeError('INVALID_ACT_MESSAGE', 'ACT payload kind is invalid.');
+      const event = decodeEvent(exactBuffer(payload.event, 'event'));
+      if (payload.kind !== (event instanceof ContractEvent ? event.kind : 'KONAET_TRANSFER_V1')) throw new SovereignNodeError('INVALID_ACT_MESSAGE', 'ACT kind and event bytes differ.');
       const evidence = payload.authorization !== undefined || payload.publicIdentity !== undefined
         ? { authorization: payload.authorization, publicIdentity: payload.publicIdentity } : undefined;
       return this.receiveAct(payload.event, evidence);
@@ -943,6 +979,9 @@ class SovereignNode extends EventEmitter {
         enforced: true }) : null,
       root: this.ledger.root,
       accountCount: state.accountCount,
+      ...(this.genesis.contractRuntime ? { contractRuntime: Object.freeze({ ...this.genesis.contractRuntime,
+        enforced: true, contracts: state.contracts().length, contractsRoot: state.contractsRoot().toString('hex'),
+        receiptsRoot: state.receiptsRoot().toString('hex') }) } : {}),
       leaderForNext: this.expectedLeader(),
       fallbackLeaderForNext: this.expectedLeader(this.ledger.sequence + 1n, 1),
       peers: this.transport.status().peers,

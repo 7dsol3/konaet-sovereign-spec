@@ -1,6 +1,6 @@
 {
   "name": "konaet-sovereign-spec",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Konaet Native Chain: executable VLOCK7SIN nodes, .ko runtime and portable console",
   "private": true,
   "type": "module",

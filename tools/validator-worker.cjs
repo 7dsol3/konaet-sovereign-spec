@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { crypto: vcrypto } = require('../chain/vlock7sin-js/src');
 const { SovereignNode } = require('../chain/network/sovereign');
+const { verifyContractReceipt } = require('./verify-contract-receipt.cjs');
 let node;
 let stopping = false;
 async function close() { if (stopping) return; stopping = true; if (node) await node.close(); process.exit(0); }
@@ -34,6 +35,19 @@ process.on('message', async message => {
       result = { ...node.status(), pid: process.pid, accounts: message.addresses.map(address => ({ address,
         balanceAtomic: state.getBalance(address).toString(), nonce: state.getNonce(address).toString() })) };
     } else if (message.command === 'submit') result = node.submitTransfer(Buffer.from(message.base64, 'base64'));
+    else if (message.command === 'submit-contract') result = node.submitContract(Buffer.from(message.base64, 'base64'));
+    else if (message.command === 'state') result = node.ledger.getState().snapshot();
+    else if (message.command === 'contract') result = node.ledger.getState().contract(message.contractId);
+    else if (message.command === 'contracts') result = node.ledger.getState().contracts().map(record => ({ contractId: record.state.contractId,
+      name: record.artifact.program.contract, revision: record.state.revision, stateRoot: record.state.stateRoot }));
+    else if (message.command === 'receipt') {
+      const record = node.closureRecords(message.sequence)[0];
+      if (!record || record.sequence !== message.sequence) throw Error('CLOSURE_NOT_FOUND');
+      const proposal = Object.fromEntries(['networkId', 'protocolVersion', 'sequence', 'constellationId', 'previousRoot', 'nextRoot', 'transitionTrace', 'pcc'].map(key => [key, record[key]]));
+      result = { schema: 'konaet.ko-consensus-receipt.v1', genesis: node.genesis, beforeState: message.beforeState,
+        events: record.events.map(bytes => Buffer.from(bytes).toString('base64')), proposal, certificate: record.certificate, afterState: node.ledger.getState().snapshot() };
+      verifyContractReceipt(result);
+    }
     else if (message.command === 'wait') result = await node.waitForSequence(BigInt(message.sequence), 15000).then(() => true);
     else if (message.command === 'close') { await close(); return; }
     else throw Error('UNKNOWN_COMMAND');

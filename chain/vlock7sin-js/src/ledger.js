@@ -15,6 +15,10 @@ const { verifyHybridTransferAuthorization } = require('./hybridTransferAuthoriza
 const { LIMITS, NETWORK_ID, VERSION_STRING } = require('./constants');
 const { decodeRecord } = require('./persistence');
 const { validateKoPolicy, executeKoPolicy } = require('./koPolicy');
+const { KoGlobalState } = require('./koState');
+const { ContractEvent } = require('./contractEvent');
+const { PROFILE: KO_PROGRAM_PROFILE, PROTOCOL: KO_PROGRAM_PROTOCOL } = require('./koConsensusProfile');
+const { CausalGraph: KoCausalGraph } = require('./koCausalGraph');
 
 const DOMAIN_PREPARATION = Buffer.from('VLOCK7SIN/LEDGER-PREPARATION/v1\0', 'ascii');
 
@@ -71,6 +75,7 @@ function canonicalHash(value, label) {
 }
 
 function stateFromSnapshot(snapshot) {
+  if (snapshot?.format === KO_PROGRAM_PROFILE.stateFormat) return KoGlobalState.fromSnapshot(snapshot);
   assertExactKeys(snapshot, [
     'format', 'networkId', 'suite', 'sequence', 'parametersRoot', 'identitiesRoot',
     'replayRoot', 'root', 'accounts',
@@ -152,8 +157,11 @@ class VlockLedger {
       throw new LedgerError('WRONG_NETWORK', 'ledger network and state network differ');
     }
     const protocolVersion = String(options.protocolVersion ?? VERSION_STRING);
-    if ((protocolVersion === '0.5.0-sovereign-ko.1') !== Boolean(this.#nativePolicy)) {
+    if ((['0.5.0-sovereign-ko.1', KO_PROGRAM_PROTOCOL].includes(protocolVersion)) !== Boolean(this.#nativePolicy)) {
       throw new LedgerError('KO_POLICY_REQUIRED', 'This protocol requires its genesis-bound .ko policy.');
+    }
+    if ((protocolVersion === KO_PROGRAM_PROTOCOL) !== (this.#state instanceof KoGlobalState)) {
+      throw new LedgerError('KO_PROGRAM_PROFILE_REQUIRED', 'Contract state and protocol must be activated together.');
     }
     Object.defineProperties(this, {
       networkId: { value: networkId, enumerable: true },
@@ -163,13 +171,14 @@ class VlockLedger {
       requireHybridTransferAuthorization: { value: options.requireHybridTransferAuthorization === true, enumerable: true },
       nativePolicyHash: { value: this.#nativePolicy?.programSha256 ?? null, enumerable: true },
     });
+    const Graph = this.#state instanceof KoGlobalState ? KoCausalGraph : CausalGraph;
     if (options.graph !== undefined
-      && (!(options.graph instanceof CausalGraph) || Object.getPrototypeOf(options.graph) !== CausalGraph.prototype)) {
+      && (!(options.graph instanceof Graph) || Object.getPrototypeOf(options.graph) !== Graph.prototype)) {
       throw new LedgerError('INVALID_GRAPH', 'ledger graph must be an exact CausalGraph instance');
     }
     this.#graph = options.graph
-      ? CausalGraph.fromSnapshot(options.graph.snapshot())
-      : new CausalGraph({ requireExplicitLocks: true });
+      ? Graph.fromSnapshot(options.graph.snapshot())
+      : new Graph({ requireExplicitLocks: true });
     if (options.selector !== undefined
       && (!(options.selector instanceof ConstellationSelector)
         || Object.getPrototypeOf(options.selector) !== ConstellationSelector.prototype)) {
@@ -188,6 +197,7 @@ class VlockLedger {
         maxBytes: options.maxBytes,
         allowInternalDependencies: false,
       };
+    selectorOptions.maxGas = this.#state instanceof KoGlobalState ? KO_PROGRAM_PROFILE.gasPerClosure : null;
     if (String(selectorOptions.networkId) !== String(networkId)
       || selectorOptions.allowInternalDependencies === true) {
       throw new LedgerError('POLICY_MISMATCH', 'ledger selector must use this network and frontier-only dependencies');
@@ -243,6 +253,7 @@ class VlockLedger {
   }
 
   #assertNativeTransfer(act) {
+    if (act instanceof ContractEvent) return;
     if (!this.#nativePolicy) return;
     executeKoPolicy(this.#nativePolicy, 'transfer', {
       'transfer.amountAtomic': act.amountAtomic.toString(), 'transfer.nonce': act.nonce.toString(),
@@ -263,6 +274,10 @@ class VlockLedger {
   }
 
   #assertIndividuallyFeasible(act) {
+    if (act instanceof ContractEvent) {
+      if (!(this.#state instanceof KoGlobalState)) throw new LedgerError('KO_PROGRAM_NOT_ACTIVE', 'Contract transactions require a v7 genesis.');
+      this.#state.applyConstellation([act]); return;
+    }
     if (this.#state.getBalance(act.senderAddress) < act.amountAtomic) {
       throw new LedgerError('INSUFFICIENT_BALANCE', 'act sender cannot fund the transfer');
     }
@@ -400,11 +415,17 @@ class VlockLedger {
       eligibleIds: this.#eligibleIds(),
       maxActs: this.#selector.maxActs,
       maxBytes: this.#selector.maxBytes,
+      ...(this.#selector.maxGas !== null ? { maxGas: this.#selector.maxGas } : {}),
       networkId: String(this.networkId),
       sequence: this.#state.sequence + 1n,
       previousRoot: this.#state.root(),
       allowInternalDependencies: false,
+      ...(this.#state instanceof KoGlobalState ? { canInclude: ids => this.#fitsState(ids) } : {}),
     });
+  }
+
+  #fitsState(ids) {
+    try { this.#state.applyConstellation(ids.map(id => this.#graph.get(id))); return true; } catch { return false; }
   }
 
   prepareConstellation(candidate = undefined) {
@@ -434,11 +455,13 @@ class VlockLedger {
     }
     if (constellation.policy?.maxActs !== this.#selector.maxActs
       || constellation.policy?.maxBytes !== this.#selector.maxBytes
+      || (constellation.policy?.maxGas ?? null) !== this.#selector.maxGas
       || constellation.policy?.allowInternalDependencies === true) {
       throw new LedgerError('POLICY_MISMATCH', 'constellation policy differs from the fixed ledger policy');
     }
     try {
-      this.#selector.verify(this.#graph, constellation, { eligibleIds: this.#eligibleIds() });
+      this.#selector.verify(this.#graph, constellation, { eligibleIds: this.#eligibleIds(),
+        ...(this.#state instanceof KoGlobalState ? { canInclude: ids => this.#fitsState(ids) } : {}) });
     } catch (error) {
       throw new LedgerError('NON_CANONICAL_SELECTION', 'constellation is not the deterministic full-frontier selection', { cause: error.message });
     }
@@ -740,7 +763,7 @@ class VlockLedger {
 
   static fromSnapshot(snapshot, options = {}) {
     assertExactKeys(snapshot, ['format', 'networkId', 'protocolVersion', 'state', 'graph', 'root',
-      ...(snapshot?.protocolVersion === '0.5.0-sovereign-ko.1' ? ['nativePolicyHash'] : [])], 'ledger snapshot');
+      ...(['0.5.0-sovereign-ko.1', KO_PROGRAM_PROTOCOL].includes(snapshot?.protocolVersion) ? ['nativePolicyHash'] : [])], 'ledger snapshot');
     if (snapshot.format !== 'vlock7sin-ledger-js-v1') throw new LedgerError('INVALID_LEDGER_SNAPSHOT', 'unsupported ledger snapshot');
     if (typeof snapshot.networkId !== 'string' || typeof snapshot.protocolVersion !== 'string'
       || !/^[0-9a-f]{64}$/.test(String(snapshot.root))) {
@@ -759,7 +782,8 @@ class VlockLedger {
     }
     const state = stateFromSnapshot(snapshot.state);
     if (String(state.networkId) !== snapshot.networkId) throw new LedgerError('WRONG_NETWORK', 'snapshot state/ledger networks differ');
-    const graph = new CausalGraph({ requireExplicitLocks: true });
+    const Graph = state instanceof KoGlobalState ? KoCausalGraph : CausalGraph;
+    const graph = new Graph({ requireExplicitLocks: true });
     const acts = snapshot.graph.acts.map((bytes) => eventCore.decodeEvent(bytes));
     if (acts.length) graph.addBatch(acts);
     if (new Set(snapshot.graph.closed).size !== snapshot.graph.closed.length) throw new LedgerError('INVALID_LEDGER_SNAPSHOT', 'duplicate closed act id');
@@ -818,6 +842,7 @@ class VlockLedger {
         throw new LedgerError('INVALID_LEDGER_SNAPSHOT', `pending act ${id} is stale or has invalid nonce`);
       }
       ledger.#assertNativeTransfer(act);
+      ledger.#assertIndividuallyFeasible(act);
       const nonceKey = `${act.senderAddress}\u0000${act.nonce}`;
       if (ledger.#pendingNonces.has(nonceKey)) throw new LedgerError('INVALID_LEDGER_SNAPSHOT', 'pending acts reuse a sender nonce');
       ledger.#pendingNonces.set(nonceKey, id);

@@ -6,7 +6,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.4.0 · .ko Studio**
+**Native Chain · Console 1.5.0 · .ko Studio · Consenso v7**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -39,10 +39,15 @@ flowchart LR
   E --> F[Estado, eventos e recibo]
 ```
 
-Este perfil mantém seu próprio estado de contratos. A política nativa
-`ASSERT_V1` continua aplicada pelo VLOCK na gênese v6; o novo `PROGRAM_V1`
-ainda não é um tipo de transação desses validadores. Os saldos existentes
-da Konaet não participam dos exemplos do Studio.
+Na **gênese v7**, esse perfil participa de transações tipadas de implantação
+e chamada. Cada validador executa o programa; contas, contratos e recibos
+entram na raiz antes do voto e da persistência. O console roda quatro
+processos e exporta recibos com certificado de quórum.
+[Usar contratos no consenso](KO-CONSENSUS.md).
+
+O Studio público executa a VM no navegador. O console Windows/Node executa
+o consenso na sua instância local. Os saldos existentes da instalação
+principal Konaet não são migrados para esses exemplos.
 
 ## Identidade do ecossistema
 
@@ -71,7 +76,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.4.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.5.0.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
@@ -80,9 +85,13 @@ os quatro processos, os fechamentos, a raiz e o histórico. O console também
 compila e executa `.ko`. Use **Encerrar console** para parar os validadores.
 Ao abrir novamente, a rede recupera os dados do WAL.
 
+Em **Contratos .ko no consenso**, implante `Counter.ko` ou `RegistryToken.ko`,
+execute funções e exporte o certificado. Confira-o com
+`node tools/verify-contract-receipt.cjs RECEIPT.json`.
+
 O ZIP inclui Node.js: não precisa instalar Node, npm ou configurar um roster.
 As chaves de demonstração são geradas na primeira execução, dentro de
-`.konaet-demo/`. Os saldos de demonstração não têm valor monetário e são
+`.konaet-console-v7/`. Os saldos de demonstração não têm valor monetário e são
 separados dos saldos da sua carteira Konaet.
 
 O download automático **Source code (zip)** do GitHub é o código-fonte.
@@ -117,6 +126,8 @@ node tools/console.mjs --no-browser
 | Programas `.ko` | [runtime.js](chain/ko-program/runtime.js) | Compila funções, storage, mapas e eventos com orçamento e rollback |
 | Chamadas assinadas | [auth.js](chain/ko-program/auth.js) | Ed25519, endereço derivado da chave, domínio e proteção contra replay de escritas |
 | Journal de contratos | [store.js](chain/ko-program/store.js) | Persistência exclusiva e replay autenticado |
+| Consenso de contratos v7 | [koState.js](chain/vlock7sin-js/src/koState.js) | Estado e recibos comprometidos na raiz, execução em cada validador e replay WAL |
+| Evento de contrato | [contractEvent.js](chain/vlock7sin-js/src/contractEvent.js) | Envelope e assinatura externa vinculam programa, rede, nonce e raiz global |
 | Gênese v6 | [SovereignGenesis.js](chain/network/sovereign/SovereignGenesis.js) | Vincula fonte e programa `.ko` à identidade da rede |
 | Persistência | [persistence.js](chain/vlock7sin-js/src/persistence.js) | WAL, snapshots e recuperação do estado |
 | Console | [console.mjs](tools/console.mjs) | Interface HTTP local, transferências assinadas e quatro processos |

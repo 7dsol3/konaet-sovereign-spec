@@ -9,8 +9,8 @@ import { startDemo } from './demo-network.mjs';
 const require = createRequire(import.meta.url);
 const { compileKoPolicy, executeKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export async function startConsole({ dataDirectory, port = 0 } = {}) {
-  const demo = await startDemo({ directory: dataDirectory });
+export async function startConsole({ dataDirectory = path.join(root, '.konaet-console-v7'), port = 0 } = {}) {
+  const demo = await startDemo({ directory: dataDirectory, programs: true });
   const token = crypto.randomBytes(32).toString('hex');
   let origin;
   const source = fs.readFileSync(path.join(root, 'chain/contracts-ko/SindraRuntime.ko'), 'utf8');
@@ -29,22 +29,34 @@ export async function startConsole({ dataDirectory, port = 0 } = {}) {
         res.writeHead(200, { 'Content-Type': type }); res.end(bytes); return;
       }
       if (req.method === 'GET' && req.url === '/api/network') { json(200, await demo.status()); return; }
+      if (req.method === 'GET' && req.url === '/api/program') {
+        json(200, { examples: Object.fromEntries(['Counter', 'RegistryToken'].map(name => [name, fs.readFileSync(path.join(root, 'chain/ko-program/examples', name + '.ko'), 'utf8')])) }); return;
+      }
+      if (req.method === 'GET' && /^\/api\/contracts\/[0-9a-f]{64}$/.test(req.url)) {
+        const record = await demo.contract(req.url.slice('/api/contracts/'.length)); json(record ? 200 : 404, record ?? { code: 'CONTRACT_NOT_FOUND' }); return;
+      }
       if (req.method === 'GET' && req.url === '/api/runtime') {
         const policy = compileKoPolicy(source);
         json(200, { available: true, profile: policy.profile, rules: policy.program.rules.length, source, programSha256: policy.programSha256 }); return;
       }
-      if (req.method !== 'POST' || !['/api/transfer', '/api/ko', '/api/shutdown'].includes(req.url)) { req.resume(); json(404, { code: 'NOT_FOUND' }); return; }
+      if (req.method !== 'POST' || !['/api/transfer', '/api/ko', '/api/contracts/deploy', '/api/contracts/call', '/api/shutdown'].includes(req.url)) { req.resume(); json(404, { code: 'NOT_FOUND' }); return; }
       if ((req.headers.origin && req.headers.origin !== origin) || req.headers['x-konaet-token'] !== token) {
         req.resume(); json(403, { code: 'LOCAL_SESSION_REQUIRED' }); return;
       }
       if (req.headers['content-type'] !== 'application/json') { req.resume(); json(415, { code: 'JSON_REQUIRED' }); return; }
       const chunks = []; let size = 0;
-      for await (const chunk of req) { size += chunk.length; if (size > 32768) { json(413, { code: 'BODY_TOO_LARGE' }); req.resume(); return; } chunks.push(chunk); }
+      for await (const chunk of req) { size += chunk.length; if (size > 65536) { json(413, { code: 'BODY_TOO_LARGE' }); req.resume(); return; } chunks.push(chunk); }
       const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
       if (req.url === '/api/shutdown') { json(200, { closed: true }); setTimeout(() => { void close(); }, 30); return; }
       if (req.url === '/api/transfer') {
         if (!body || Object.keys(body).sort().join(',') !== 'amount,from') throw Error('INVALID_TRANSFER');
         json(200, { accepted: true, receipt: await demo.transfer(body) }); return;
+      }
+      if (req.url === '/api/contracts/deploy' || req.url === '/api/contracts/call') {
+        const deployment = req.url === '/api/contracts/deploy';
+        if (!body || typeof body !== 'object' || Array.isArray(body) || Object.keys(body).sort().join(',') !==
+          (deployment ? 'from,gasLimit,salt,source' : 'args,contractId,from,gasLimit,method')) throw Error('INVALID_CONTRACT_REQUEST');
+        json(200, { accepted: true, finalized: true, receipt: await demo.contractTransition({ ...body, operation: deployment ? 'deploy' : 'call' }) }); return;
       }
       if (!body || Object.keys(body).sort().join(',') !== 'context,phase,source') throw Error('INVALID_POLICY_REQUEST');
       const policy = compileKoPolicy(body.source); executeKoPolicy(policy, body.phase, body.context);
@@ -63,7 +75,7 @@ export async function startConsole({ dataDirectory, port = 0 } = {}) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const app = await startConsole();
-    console.log(`\nKONAET CONSOLE 1.3.0\n\nConsole: ${app.url}\nQuatro processos validadores locais. Dados de teste em .konaet-demo\nFeche pelo console ou pressione Ctrl+C para encerrar.\n`);
+    console.log(`\nKONAET CONSOLE 1.5.0\n\nConsole: ${app.url}\nQuatro processos validadores v7. Dados de teste em .konaet-console-v7\nFeche pelo console ou pressione Ctrl+C para encerrar.\n`);
     const stop = () => { void app.close().then(() => process.exit(0)); };
     process.on('SIGINT', stop); process.on('SIGTERM', stop);
     if (!process.argv.includes('--no-browser')) {

@@ -3,6 +3,7 @@ node_modules/
 Thumbs.db
 *.log
 .konaet-demo/
+.konaet-console-v7/
 dist/
 bin/
 .packaging/

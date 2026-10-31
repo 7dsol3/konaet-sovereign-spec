@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.4.0",
+  "edition": "1.5.0",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -17,8 +17,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 259,
-      "sha256": "98e3c16123e04a0f044af8fc0e0a4b39321a55ab72c9518a872234c8edf7bc1e"
+      "bytes": 279,
+      "sha256": "98042d861c018c10208adc0724b634f24c022de48bded8061f65b5b71e8bb6af"
     },
     {
       "path": "COMPARISON.md",
@@ -51,9 +51,14 @@
       "sha256": "9e6abd622264f45c2e9765073cfe6fbdabbee8a0fc855f877a042266fc5c2428"
     },
     {
+      "path": "KO-CONSENSUS.md",
+      "bytes": 5544,
+      "sha256": "591bce215dac691566b99094347c928aaa178a394a8742b3a369aabbd729bc4b"
+    },
+    {
       "path": "KO-PROGRAM.md",
-      "bytes": 7572,
-      "sha256": "e5da46eb4abd786fc01574935165c6eafaac3e15c3455ca578bc330295aa202e"
+      "bytes": 7639,
+      "sha256": "545b0feb5ba6848a3313902e71abcdb9054f90a4b2e09f329024f1a83506ea50"
     },
     {
       "path": "KO-QUICKSTART.md",
@@ -87,8 +92,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8156,
-      "sha256": "2d97072e48a0ba5ed77a05a2185571a86e6302b942bc0d7a788fe40aee22b75f"
+      "bytes": 8954,
+      "sha256": "551c4a7063a5a9b58a59a2a414ac1399fae88acfac78652a5c7e6712ff4c03d0"
     },
     {
       "path": "SECURITY.md",
@@ -177,8 +182,8 @@
     },
     {
       "path": "chain/ko-program/runtime.js",
-      "bytes": 28341,
-      "sha256": "200e204252b59001a194215c04f61ff33f82dea8b49cf98d748809ae0e1c092f"
+      "bytes": 28687,
+      "sha256": "36defdb3706dea400d5314b6f4407a0a180f91f1899418b879f5ffc560e2e30d"
     },
     {
       "path": "chain/ko-program/store.js",
@@ -202,13 +207,13 @@
     },
     {
       "path": "chain/network/sovereign/SovereignGenesis.js",
-      "bytes": 20767,
-      "sha256": "f9e33d95f9b4f4de5ab729f5dee71e9aaabc252a482327a791a95442731d5457"
+      "bytes": 22803,
+      "sha256": "071554e8a5859decf5e2a1108cb2f6c19827ba5c4167477730488ecd6632d05d"
     },
     {
       "path": "chain/network/sovereign/SovereignNode.js",
-      "bytes": 43974,
-      "sha256": "8e1a1c0c83e9db936e0b09953a3875c60b300b80623ba95427d2ef4b23f6f356"
+      "bytes": 46750,
+      "sha256": "1d0cfe8d49e27a76e4b183aa720fd35361ad380229e79f820c3b293306e42cb7"
     },
     {
       "path": "chain/network/sovereign/VlockWebSocketTransport.js",
@@ -228,12 +233,12 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "c17b9badf0d7ed7520c7b20b647940c2346595d7cd91fabe32be24a4190474ce"
+      "sha256": "36123bd87b6b77fcb59dfa086a5d7f2d34773ca9e304ec33cb80fb84e60b21fd"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
-      "bytes": 3208,
-      "sha256": "bb47b78aefabb0a95a6d2d5cbd31514e373dc8d88ddccec717a0d41b36c2b89c"
+      "bytes": 3292,
+      "sha256": "c0d2eb2e88a3cd5cb98da1c79079da13ed84cc678c1b24a4cbf41cf5a02cee6b"
     },
     {
       "path": "chain/scripts/captureOperatorObservation.js",
@@ -247,8 +252,8 @@
     },
     {
       "path": "chain/scripts/runIndependentValidator.js",
-      "bytes": 12651,
-      "sha256": "f3879f4203b53e59f5f50f428e07e85ed2322a962f7a6944b2102e01db3b1350"
+      "bytes": 13743,
+      "sha256": "b24c0fed98ad19cef5b8c2a576dd93ded2e9f1bf29d3624e53676027f86c398b"
     },
     {
       "path": "chain/scripts/verifyOperatorAttestations.js",
@@ -287,8 +292,13 @@
     },
     {
       "path": "chain/vlock7sin-js/src/constellation.js",
-      "bytes": 8998,
-      "sha256": "038209d753fd352b23b628d8f7381ab3da37c8f2e2b64a81484de53003749c49"
+      "bytes": 9987,
+      "sha256": "a7ac1373984d1dc2e3beb0abea70a0c04c69c805c3592783e92e0f38fa96819c"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/contractEvent.js",
+      "bytes": 5921,
+      "sha256": "a8b3931bbcc295fbab21138bda2c3c80c4dc1a96dabae0158e48fb107386d393"
     },
     {
       "path": "chain/vlock7sin-js/src/crypto.js",
@@ -302,8 +312,8 @@
     },
     {
       "path": "chain/vlock7sin-js/src/event.js",
-      "bytes": 14039,
-      "sha256": "4472f3ad5933550019a7d3a314b67529f06f9aac0ae2378e216bf8204241984f"
+      "bytes": 14501,
+      "sha256": "885d7f968bee2dd3009bd2b3d87af4680d62ae00007b01af5bab6afcf69e0f74"
     },
     {
       "path": "chain/vlock7sin-js/src/hybridCrypto.js",
@@ -326,14 +336,34 @@
       "sha256": "8bafc24228b8c9095839e4a5dd450e15feab928f77d0138560c9a59b20a0be8f"
     },
     {
+      "path": "chain/vlock7sin-js/src/koCausalGraph.js",
+      "bytes": 24622,
+      "sha256": "2710d70040c24ca99ab8ababf2198e7ccf15a4672547e289dd9dcdb9a14e84c2"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/koConsensusProfile.js",
+      "bytes": 656,
+      "sha256": "a6caa75bb43c683eadda6bee8f67bf8c6537eebc363cbbd127c08aa82d97d4d3"
+    },
+    {
       "path": "chain/vlock7sin-js/src/koPolicy.js",
       "bytes": 6322,
       "sha256": "866a4322297e82a60ad462f4817dd682a593111743f2a3c1323b1c4937f18cfb"
     },
     {
+      "path": "chain/vlock7sin-js/src/koProgramRuntime.js",
+      "bytes": 265,
+      "sha256": "e946654275212d941f69d3f208ee7dd847a04670dd785f6c1dc57eedeb6ccd1f"
+    },
+    {
+      "path": "chain/vlock7sin-js/src/koState.js",
+      "bytes": 10113,
+      "sha256": "81c53d41423994cdfa6e4ac1bf3f24382c3e78b960ec33e1d023560fd79516d1"
+    },
+    {
       "path": "chain/vlock7sin-js/src/ledger.js",
-      "bytes": 40871,
-      "sha256": "5c9b5274ec27762d8cd214feb2df5d72f25edfe5d7f2945823ca8c8776a3e88a"
+      "bytes": 42612,
+      "sha256": "926740e549e46347d63eb2871368e2b9b4a2506ff4640764b6e35442f207b11f"
     },
     {
       "path": "chain/vlock7sin-js/src/network.js",
@@ -442,8 +472,8 @@
     },
     {
       "path": "console/app.js",
-      "bytes": 4960,
-      "sha256": "8f21d9e7d14b5a209489e8f97ab66ed6c21441508188aa8efadfcebf9b9e3829"
+      "bytes": 8923,
+      "sha256": "ec4b00fd266f16cf784198d2f24313e26d8f6ec125f298d7380eb00b52f2127e"
     },
     {
       "path": "console/favicon.svg",
@@ -452,13 +482,13 @@
     },
     {
       "path": "console/index.html",
-      "bytes": 3141,
-      "sha256": "f96e07d0620bcae6d10346f3893574b4ca3037a3fa68f494f72169e36e06ca21"
+      "bytes": 4912,
+      "sha256": "06c5af03edd109c893345591d9b11ebe99789082c66f23aeebb94dccbc306a5c"
     },
     {
       "path": "console/style.css",
-      "bytes": 4839,
-      "sha256": "ec4a0846500c4f7529291e70069732d5ed5da0c37ff15004ab81dc35ab6d877f"
+      "bytes": 4982,
+      "sha256": "c81cc9f5d5a9895ad78524688bcde132a6ae78c9acca1bdfc42d76d7a4d5f1e4"
     },
     {
       "path": "docs/.nojekyll",
@@ -483,7 +513,7 @@
     {
       "path": "docs/index.html",
       "bytes": 5848,
-      "sha256": "421bf1d20acc53d8a11db915994bfa486f192c8ad8984c82560a0cd5b1416cd3"
+      "sha256": "06293f436f7c048899f478bc2bc5c70b8e2f48b84a62f804560db19925ad6ec6"
     },
     {
       "path": "docs/program-auth.mjs",
@@ -497,8 +527,8 @@
     },
     {
       "path": "docs/program-runtime.mjs",
-      "bytes": 29183,
-      "sha256": "f754be99993cfcf37cf2311f9fb9b76f63f4678f25057e44b0bfb6d2d33a1fed"
+      "bytes": 29529,
+      "sha256": "dc47a3e1b91c42cd1df249f56a833206236af1f5ced0c28393615610cf51e164"
     },
     {
       "path": "docs/studio.css",
@@ -593,12 +623,12 @@
     {
       "path": "package-lock.json",
       "bytes": 836,
-      "sha256": "bd02fdbd49594e2708006ce339797f8f3734b127d2da18302010e5ab3646d9f2"
+      "sha256": "2272fa929a3c8620f4cccbea7ea9441146204fbc5341f2442ecaa63b6e660d0b"
     },
     {
       "path": "package.json",
       "bytes": 644,
-      "sha256": "7bb191fa6f4c39fbb85782f65512948cbae843dcf44f2d1ee693526045ec1ed5"
+      "sha256": "00b252c06c428d292bf56b9c54b1557e786fcc6f52e34a9231549a335148aa0d"
     },
     {
       "path": "runtime/LICENSE",
@@ -629,6 +659,16 @@
       "path": "tests/ko-cli.test.mjs",
       "bytes": 5023,
       "sha256": "c78cf29829dde9a05d6d8dce1656af3d2eb2d020c539b644258151da8943a9f3"
+    },
+    {
+      "path": "tests/ko-consensus.test.cjs",
+      "bytes": 14141,
+      "sha256": "77b5294d9e8b750e8c3a4056c3ca3d61f46a5bd8b7f9a8ee3c2f8092bac01131"
+    },
+    {
+      "path": "tests/ko-contract-console.test.mjs",
+      "bytes": 4266,
+      "sha256": "c33cfc89a2fef5baa09dca7fbee15b84688a8b730776c1d5e666620f04350b91"
     },
     {
       "path": "tests/ko-program-auth.test.cjs",
@@ -667,18 +707,18 @@
     },
     {
       "path": "tools/console.mjs",
-      "bytes": 5608,
-      "sha256": "1cb52c03cc3752eb3a237542c6c62d793083a4985537883ed6d7b4a0d5c3ab09"
+      "bytes": 6802,
+      "sha256": "5c96e876dfe76ff13a0c63409ca324c88c9b3a8a6fd9357639a09f567278178a"
     },
     {
       "path": "tools/demo-network.mjs",
-      "bytes": 9020,
-      "sha256": "dc80f8e7a2da62303481d360e135568b4cc2a87f9eadf9cbb5d2280b5f52b290"
+      "bytes": 11949,
+      "sha256": "272388344efb75034ae775ddf2691d16c311cdad39a376139f496b47c7fbae47"
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 6885,
-      "sha256": "022471b91e455e21b14d2b48e9b05e756f7ca8c8a98289f3d7d3106a6e8bb2c4"
+      "bytes": 7267,
+      "sha256": "d7d8a35ed1699889e53d8d2ba859d1b43729c9fc55e4aa3c74906b88bf72a8e8"
     },
     {
       "path": "tools/ko.mjs",
@@ -688,17 +728,22 @@
     {
       "path": "tools/manifest.mjs",
       "bytes": 604,
-      "sha256": "a1fb0142c33ecb3a647757e1eb7ef9ac926dd81229efc2a43fdcce86ddbe264b"
+      "sha256": "38abef9b0505405ab33fb2d70d57f02551dbb8313674ff8bebc99ca1dfbdbe83"
     },
     {
       "path": "tools/package-windows.mjs",
       "bytes": 2832,
-      "sha256": "53c73d093425d70d90ed2ffe83bf3b0f5c1d3c94f2b5775e90b68423b7c9dae8"
+      "sha256": "8f0b42c2cfb5cb789e7986af81251c1cbf8bd419a4bc0749ec1e07837d926dd9"
     },
     {
       "path": "tools/validator-worker.cjs",
-      "bytes": 2636,
-      "sha256": "de69ba50901f91a55a23bd4d83097d0c516d6db6a2aa215c002b900d02210199"
+      "bytes": 4017,
+      "sha256": "b418ffa7d3547dc0fa9e52a349be12d0913b3a5c293bc7de96c376ec21dad8c3"
+    },
+    {
+      "path": "tools/verify-contract-receipt.cjs",
+      "bytes": 3714,
+      "sha256": "26b0caf8c6c34b239e1a2ec053c5b2425d3430a3539e9b88ff9b9f127bfc5386"
     },
     {
       "path": "tools/verify-package.mjs",

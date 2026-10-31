@@ -8,6 +8,9 @@ const require = createRequire(import.meta.url);
 const { crypto: vcrypto, UNIT, createTransfer, decodeEvent } = require('../chain/vlock7sin-js/src');
 const { compileKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
 const { createGenesis, validateGenesis } = require('../chain/network/sovereign');
+const { ContractEvent } = require('../chain/vlock7sin-js/src/contractEvent');
+const { runtime: koRuntime, auth: koAuth } = require('../chain/vlock7sin-js/src/koProgramRuntime');
+const { PROFILE, FORMAT } = require('../chain/vlock7sin-js/src/koConsensusProfile');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function atomic(text) {
   if (typeof text !== 'string' || !/^(?:0|[1-9][0-9]{0,17})(?:\.[0-9]{1,9})?$/.test(text)) throw Error('INVALID_AMOUNT');
@@ -20,7 +23,7 @@ function seedIdentity(file) {
   const seed = Buffer.from(fs.readFileSync(file, 'utf8').trim(), 'hex');
   try { return vcrypto.IdentityKeypair.fromSeed(seed); } finally { seed.fill(0); }
 }
-export async function startDemo({ directory = path.join(root, '.konaet-demo') } = {}) {
+export async function startDemo({ directory = path.join(root, '.konaet-demo'), programs = false } = {}) {
   const dir = path.resolve(directory);
   fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
   const lock = path.join(dir, 'console.lock');
@@ -59,13 +62,14 @@ export async function startDemo({ directory = path.join(root, '.konaet-demo') } 
           identities.push(vcrypto.IdentityKeypair.fromSeed(seed)); } finally { seed.fill(0); }
       }
       const nativePolicy = compileKoPolicy(fs.readFileSync(path.join(root, 'chain/contracts-ko/SindraRuntime.ko'), 'utf8'));
-      const genesis = createGenesis({ networkId: crypto.randomInt(1000000, 0x7fffffff), createdAt: new Date().toISOString(),
+      const genesis = createGenesis({ ...(programs ? { format: FORMAT, contractRuntime: PROFILE } : {}), networkId: crypto.randomInt(1000000, 0x7fffffff), createdAt: new Date().toISOString(),
         validators: identities.slice(0, 4).map((key, index) => ({ id: `validator-${index}`, publicKey: key.publicBytes() })),
         threshold: 3, allocations: [{ address: identities[4].address(), amountAtomic: UNIT.initialSupplyAtomic }],
         parameters: { maxActs: 64, maxBytes: 262144, stateSyncChunk: 4, messageRateLimit: 512 }, nativePolicy });
       fs.writeFileSync(genesisFile, JSON.stringify(genesis, null, 2) + '\n', { flag: 'wx' });
     }
     const genesis = validateGenesis(JSON.parse(fs.readFileSync(genesisFile, 'utf8')));
+    if (programs && !genesis.contractRuntime) throw Error('V7_DATA_DIRECTORY_REQUIRED');
     const accounts = ['alice', 'bob'].map(name => ({ name, identity: seedIdentity(path.join(dir, `${name}.seed`)) }));
     const addresses = accounts.map(account => account.identity.address());
     for (let index = 0; index < 4; index++) {
@@ -97,6 +101,8 @@ export async function startDemo({ directory = path.join(root, '.konaet-demo') } 
         genesisId: genesis.genesisId, networkId: genesis.networkId, threshold: genesis.threshold,
         converged: new Set(validators.map(item => item.root)).size === 1,
         sequence: validators[0].sequence, root: validators[0].root, nativePolicy: validators[0].nativePolicy,
+        contractRuntime: validators[0].contractRuntime ?? null,
+        contracts: genesis.contractRuntime ? await workers[0].request('contracts') : [],
         accounts: validators[0].accounts.map((account, index) => ({ ...account, name: accounts[index].name })),
         validators: validators.map(item => ({ validatorId: item.validatorId, pid: item.pid, sequence: item.sequence,
           root: item.root, peers: item.peers.length, policyEnforced: item.nativePolicy?.enforced === true })), history };
@@ -129,6 +135,32 @@ export async function startDemo({ directory = path.join(root, '.konaet-demo') } 
         return receipt;
       } finally { sending = false; }
     }
-    return { status, transfer, close, directory: dir };
+    async function contractTransition(request) {
+      if (closed) throw Error('DEMO_CLOSED'); if (sending) throw Error('TRANSFER_IN_PROGRESS'); if (!genesis.contractRuntime) throw Error('KO_PROGRAM_NOT_ACTIVE');
+      sending = true;
+      try {
+        const senderIndex = accounts.findIndex(account => account.name === request.from); if (senderIndex < 0) throw Error('INVALID_ACCOUNT');
+        const current = await status(); if (!current.converged) throw Error('VALIDATORS_SYNCING');
+        const beforeState = await workers[0].request('state'), sender = accounts[senderIndex].identity;
+        let envelope, source = null;
+        if (request.operation === 'deploy') {
+          source = request.source;
+          envelope = koAuth.signDeployment(koRuntime.compileContract(source), { networkId: genesis.networkId, salt: request.salt, gasLimit: request.gasLimit }, sender.privateKeyObject());
+        } else if (request.operation === 'call') {
+          const record = await workers[0].request('contract', { contractId: request.contractId }); if (!record) throw Error('CONTRACT_NOT_FOUND');
+          envelope = koAuth.signCall(record.artifact, record.state, { method: request.method, args: request.args, gasLimit: request.gasLimit }, sender.privateKeyObject());
+        } else throw Error('INVALID_CONTRACT_OPERATION');
+        const sequence = (BigInt(current.sequence) + 1n).toString();
+        const event = new ContractEvent({ source, envelope, previousRoot: current.root, sequence,
+          nonce: (BigInt(current.accounts[senderIndex].nonce) + 1n).toString(), signature: '' }).sign(sender);
+        await workers[0].request('submit-contract', { base64: event.canonicalBytes().toString('base64') });
+        await Promise.all(workers.map(worker => worker.request('wait', { sequence })));
+        const finalized = await status(); if (!finalized.converged) throw Error('FINALITY_ROOT_MISMATCH');
+        const bundle = await workers[0].request('receipt', { sequence, beforeState });
+        return { contractId: event.contractId, transactionId: event.id().toString('hex'), sequence, root: finalized.root, bundle };
+      } finally { sending = false; }
+    }
+    async function contract(contractId) { if (closed) throw Error('DEMO_CLOSED'); return workers[0].request('contract', { contractId }); }
+    return { status, transfer, contractTransition, contract, close, directory: dir };
   } catch (error) { await close(); throw error; }
 }

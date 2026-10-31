@@ -33,6 +33,7 @@ function build(roster) {
     ...(hybridTransfers ? { consensusSignatureProfile: HYBRID_PROFILE, transferAuthorizationProfile: HYBRID_TRANSFER_PROFILE } : {}),
     ...(hybridTransport ? { transportSignatureProfile: roster.transportSignatureProfile } : {}),
     ...(roster.nativePolicy ? { nativePolicy: roster.nativePolicy } : {}),
+    ...(roster.contractRuntime ? { contractRuntime: roster.contractRuntime } : {}),
     validators: roster.validators.map(row => ({ id: row.id, publicKey: row.publicKey,
       ...(hybridTransfers ? { publicIdentity: row.publicIdentity } : {}) })),
     allocations: roster.allocations, parameters: roster.parameters });

@@ -1,6 +1,6 @@
 # Contratos .ko com estado
 
-**KONAET_KO_PROGRAM_V1 · distribuição 1.4.0**
+**KONAET_KO_PROGRAM_V1 · distribuição 1.5.0**
 
 [Abrir o .ko Studio](https://7dsol3.github.io/konaet-sovereign-spec/) ·
 [Exemplo Counter](chain/ko-program/examples/Counter.ko) ·
@@ -168,11 +168,12 @@ Este perfil de programas é distribuído com o runtime, a CLI, o Studio e o
 journal autenticado. Seu estado é separado do ledger SND e da aplicação
 SQL: os exemplos não movimentam SND, NAET, KWRK ou KACT existentes.
 
-O perfil **KONAET_KO_ASSERT_V1** continua vinculado à gênese v6 e é executado
-pelos validadores nas transferências e fechamentos do ledger. O novo perfil
-**PROGRAM_V1** ainda precisa de um tipo versionado de transação e de um
-compromisso de estado de contratos na raiz de consenso para executar nessas
-mesmas condições. O Studio não anuncia finalização por validadores.
+O perfil **KONAET_KO_ASSERT_V1** permanece nas transferências e fechamentos
+do ledger. Na **gênese v7**, o perfil **PROGRAM_V1** também tem transações
+próprias: os validadores executam o programa e incluem estado e recibos na
+raiz. O console Windows/Node disponibiliza essa execução em quatro
+processos, com certificado e replay. [Guia do consenso v7](KO-CONSENSUS.md).
+O Studio em GitHub Pages continua executando na sessão do navegador.
 
 O contrato EVM `QuantumRNG.sol` permanece uma implementação distinta. Este
 interpretador determinístico não oferece aleatoriedade física ou quântica.

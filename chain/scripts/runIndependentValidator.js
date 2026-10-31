@@ -10,6 +10,8 @@ const path = require('node:path');
 const { crypto: vcrypto, HybridIdentity } = require('../vlock7sin-js/src');
 const { canonicalBytes } = require('../vlock7sin-js/src/causalGraph');
 const { SovereignNode, validateGenesis, HYBRID_PROFILE } = require('../network/sovereign');
+const { ContractEvent } = require('../vlock7sin-js/src/contractEvent');
+const { decodeEvent } = require('../vlock7sin-js/src/event');
 
 function privateAddress(host) {
   if (net.isIP(host) !== 4) return false;
@@ -133,6 +135,16 @@ async function start(file) {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Content-Type', 'application/json');
     if (req.method === 'GET' && req.url === '/status') { res.end(JSON.stringify(status())); return; }
+    if (req.method === 'GET' && /^\/account\/v7[a-z2-7]{32}$/.test(req.url)) {
+      const address = req.url.slice('/account/'.length), state = node.ledger.getState();
+      res.end(JSON.stringify({ address, nonce: state.getNonce(address).toString(), balanceAtomic: state.getBalance(address).toString(),
+        sequence: state.sequence.toString(), root: state.root().toString('hex') })); return;
+    }
+    if (req.method === 'GET' && node.genesis.contractRuntime && /^\/contract\/[0-9a-f]{64}$/.test(req.url)) {
+      const state = node.ledger.getState(), record = state.contract(req.url.slice('/contract/'.length));
+      if (!record) { res.writeHead(404).end(JSON.stringify({ code: 'CONTRACT_NOT_FOUND' })); return; }
+      res.end(JSON.stringify({ ...record, sequence: state.sequence.toString(), root: state.root().toString('hex') })); return;
+    }
     if (req.method !== 'POST' || req.url !== '/submit') { res.writeHead(404).end(); return; }
     const provided = Buffer.from(String(req.headers.authorization || '').replace(/^Bearer /, ''));
     const expected = Buffer.from(submitToken);
@@ -161,7 +173,8 @@ async function start(file) {
         transactionId = node.submitTransfer(eventBytes, { authorization: envelope.authorization,
           publicIdentity: envelope.publicIdentity });
       } else {
-        transactionId = node.submitTransfer(Buffer.concat(chunks));
+        const event = decodeEvent(Buffer.concat(chunks));
+        transactionId = event instanceof ContractEvent ? node.submitContract(event) : node.submitTransfer(event);
       }
       res.writeHead(202).end(JSON.stringify({ accepted: true, transactionId, finalized: false }));
     } catch { if (!res.destroyed) res.writeHead(400).end(JSON.stringify({ code: 'INVALID_SIGNED_TRANSFER' })); }

@@ -235,7 +235,9 @@ function compileContract(source) {
 function validateContract(input) {
   const artifact = plain(input); keys(artifact, ['schema', 'profile', 'source', 'sourceSha256', 'programSha256', 'program'], 'KO_ARTIFACT_INVALID');
   const expected = compileContract(artifact.source);
-  need(JSON.stringify(artifact) === JSON.stringify(expected), 'KO_ARTIFACT_MISMATCH', 'Source, program and hashes differ.'); return expected;
+  const ordered = value => Array.isArray(value) ? value.map(ordered) : value && typeof value === 'object'
+    ? Object.fromEntries(Object.keys(value).sort().map(key => [key, ordered(value[key])])) : value;
+  need(JSON.stringify(ordered(artifact)) === JSON.stringify(ordered(expected)), 'KO_ARTIFACT_MISMATCH', 'Source, program and hashes differ.'); return expected;
 }
 function policy(input) { return compiled.has(input) ? input : validateContract(input); }
 function seal(fields) { return freeze({ ...fields, stateRoot: hash(fields) }); }
@@ -348,4 +350,5 @@ function callContract(input, stateInput, options) {
     gasUsed: vm.gasUsed, events: vm.events, previousRoot: stateInput.stateRoot, state });
 }
 
-module.exports = Object.freeze({ PROFILE, SCHEMA, STATE_SCHEMA, KoProgramError, compileContract, validateContract, deployContract, callContract });
+function validateContractState(input, state) { return seal(validateState(policy(input), state)); }
+module.exports = Object.freeze({ PROFILE, SCHEMA, STATE_SCHEMA, KoProgramError, compileContract, validateContract, validateContractState, deployContract, callContract });
