@@ -1,3 +1,8 @@
+
+<img width="1536" height="1024" alt="exec-4b8918de-ec29-4ba1-96e0-626d1e516cde" src="https://github.com/user-attachments/assets/496ecf58-b3c9-4b6e-b2a4-8f41c0e34eab" />
+
+
+
 <div align="center">
   <img src="assets/konaet-native-cover.svg" width="100%" alt="Konaet Soberana — tecnologia com identidade própria">
 
