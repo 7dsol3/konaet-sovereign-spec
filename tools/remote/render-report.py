@@ -94,6 +94,10 @@ def main():
         'VMs sob a mesma conta/provedor; este gráfico não atesta administrações independentes.', fontsize=9, color='#a9b6d2')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.output, metadata={'Creator': 'Konaet remote operational validation', 'Date': None})
+    if args.output.suffix.lower() == '.svg':
+        # Keep generated vector bytes identical across Windows and Linux/Git.
+        normalized = '\n'.join(line.rstrip() for line in args.output.read_text(encoding='utf-8').splitlines()) + '\n'
+        args.output.write_text(normalized, encoding='utf-8', newline='\n')
     if args.preview:
         args.preview.parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(args.preview, dpi=120)

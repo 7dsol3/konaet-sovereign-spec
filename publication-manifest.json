@@ -167,8 +167,8 @@
     },
     {
       "path": "assets/remote-endurance.svg",
-      "bytes": 109736,
-      "sha256": "46e1d9e0cae854cc59131c2ea39ff3907a997d1d808f80e1f0a907f0664c3745"
+      "bytes": 104719,
+      "sha256": "c8f96737465d048190812c2a6ddb379464d61943407eeb736d08d337ead445e5"
     },
     {
       "path": "assets/snd.svg",
@@ -957,8 +957,8 @@
     },
     {
       "path": "tools/remote/render-report.py",
-      "bytes": 5617,
-      "sha256": "ab3044c6d9ed6668b50817d89778fbf0bb959ed5b519a90569d388ea603c2d53"
+      "bytes": 5933,
+      "sha256": "10aeb93305e933d118aeb469ce3dcc18a3522ed7209368756dd4c99484092020"
     },
     {
       "path": "tools/remote/verify-report.mjs",
