@@ -5,6 +5,17 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "GATEWAY.md",
+  "deploy/validator/README.md",
+  "deploy/validator/konaet-validator@.service",
+  "deploy/validator/konaet-gateway.service",
+  "deploy/validator/nginx-gateway.conf.example",
+  "chain/scripts/operatorHeartbeat.js",
+  "tests/operator-heartbeat.test.cjs",
+  "tests/operator-readiness.test.cjs",
+  "tests/operator-gateway.test.mjs",
+  "tests/operator-network.test.mjs",
+  "tools/operator-gateway.mjs",
   "KO-CONSENSUS.md",
   "chain/vlock7sin-js/src/koCausalGraph.js",
   "chain/vlock7sin-js/src/contractEvent.js",

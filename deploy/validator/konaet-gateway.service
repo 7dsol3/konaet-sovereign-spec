@@ -1,0 +1,44 @@
+[Unit]
+Description=Konaet signed transaction gateway
+Documentation=https://github.com/7dsol3/konaet-sovereign-spec/blob/main/GATEWAY.md
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=exec
+User=konaet-gateway
+Group=konaet-gateway
+WorkingDirectory=/opt/konaet
+Environment=NODE_ENV=production
+UMask=0077
+ExecStart=/usr/bin/node /opt/konaet/tools/operator-gateway.mjs /etc/konaet/gateway-config.json
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=15s
+KillSignal=SIGTERM
+KillMode=control-group
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectProc=invisible
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+InaccessiblePaths=-/var/lib/konaet
+
+[Install]
+WantedBy=multi-user.target

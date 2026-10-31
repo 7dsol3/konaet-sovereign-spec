@@ -2,17 +2,23 @@
 
 ## Console pronto para executar
 
-A edição 1.3.0 inclui os nós e o console. No Windows, extraia o asset
+A edição 1.6.0 inclui os nós e o console v7. No Windows, extraia o asset
 `Konaet-Console-Windows-x64.zip` e abra `Iniciar-Konaet.bat`. Pelo código,
 use `npm ci --ignore-scripts` e `npm start` com Node.js 24.7+ da série 24.
 Não é necessário criar um roster para essa demonstração.
 
 O console gera quatro identidades de validador e duas contas de teste. São
-quatro processos no mesmo computador, com uma gênese v6, política `.ko`,
+quatro processos no mesmo computador, com uma gênese v7, política `.ko`,
 listeners loopback e diretórios WAL individuais. Não representam quatro
 operadores administrativamente independentes. O botão Encerrar console fecha
-os processos; o próximo início recupera o mesmo estado. Não apague
-`.konaet-demo/` se quiser preservar essa instância.
+os processos; o próximo início recupera o mesmo estado. Preserve
+`.konaet-console-v7/` para recuperar essa instância. Os dados das versões
+anteriores em `.konaet-demo/` ficam separados, sem migração automática.
+
+O console v7 implanta e chama contratos `.ko` no consenso. Cada nó executa
+as regras e o certificado exige três assinaturas em quatro validadores.
+O [guia de contratos no consenso](KO-CONSENSUS.md) descreve a execução e a
+verificação dos recibos.
 
 O aplicativo usa SND de demonstração. Não importa saldos de sua carteira,
 não acessa SQL e não abre portas externas. O kit de operador é destinado à
@@ -24,6 +30,12 @@ O código do runner fica em `chain/scripts/runIndependentValidator.js`.
 As ferramentas de identidade e gênese estão em `chain/scripts/`. Cada operador
 mantém seu diretório de chaves e seu WAL; o console de demonstração não é usado
 como custódia de produção. A sequência abaixo descreve a publicação da rede.
+
+O [template de serviço Linux](deploy/validator/README.md) prepara execução
+com reinício por falha, usuário dedicado, diretórios restritos e logs no
+journal. Ele inclui o procedimento de configuração, custódia, atualização,
+backup e recuperação de um operador. Requer instalação no host escolhido;
+publicar o arquivo no repositório não ativa uma máquina.
 
 ## Arquitetura de entrada pública
 
@@ -40,6 +52,13 @@ flowchart TB
 rede privada. A decisão sobre participação no consenso deve ser explícita.
 O runner atual valida endereços privados e mantém `/status` e `/submit` em
 loopback. Remover essas restrições não implementa uma entrada pública completa.
+
+O [gateway incluído](GATEWAY.md) mantém a interface interna em loopback,
+encaminha somente os endpoints definidos e oferece consultas sanitizadas.
+Começa em modo de leitura; a ativação das submissões deve acompanhar
+autenticação e limites na entrada HTTPS. O endpoint `/health/ready` sinaliza
+perda de quórum observado, trabalho pendente paralisado e certificado perto
+do vencimento. `/genesis` permite conferir a identidade pública da rede.
 
 ## Sequência de entrega
 

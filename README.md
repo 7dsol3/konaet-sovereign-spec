@@ -6,7 +6,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.5.0 · .ko Studio · Consenso v7**
+**Native Chain · Console 1.6.0 · .ko Studio · Consenso v7**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -49,6 +49,25 @@ O Studio público executa a VM no navegador. O console Windows/Node executa
 o consenso na sua instância local. Os saldos existentes da instalação
 principal Konaet não são migrados para esses exemplos.
 
+## Operação e entrada HTTPS
+
+O [gateway](GATEWAY.md) consulta gênese, contas e contratos e encaminha
+eventos já assinados para um operador. A chave de assinatura permanece
+com quem envia a transação. Há limites de tamanho, tempo, concorrência e
+requisições; o token privado do operador fica no servidor.
+
+O gateway inicia em modo de leitura. Ative submissões somente atrás de
+uma entrada autenticada. Consulte a [instalação do serviço Linux](deploy/validator/README.md)
+para manter o processo do validador ativo, reiniciar em falhas e preservar
+seu WAL. A prontidão verifica conectividade suficiente para quórum,
+trabalho pendente e expiração de certificados. A malha supervisiona os
+peers com ping/pong e encerra conexões que deixam de responder.
+
+O teste de integração executa quatro operadores com mTLS, passa implantação
+e chamada `.ko` pelo gateway, confere certificados e testa perda de quórum
+e recuperação. O ensaio ocorre em loopback; os hosts externos continuam
+dependendo da instalação pelos operadores.
+
 ## Identidade do ecossistema
 
 | Ativo | Papel |
@@ -76,7 +95,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.5.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.6.0.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 

@@ -1,18 +1,19 @@
-KONAET CONSOLE 1.3.0 — WINDOWS X64
+KONAET CONSOLE 1.6.0 — WINDOWS X64
 
 1. Extraia TODO o ZIP antes de executar.
 2. Abra Iniciar-Konaet.bat com dois cliques.
 3. Aguarde o endereço do console: o navegador abre automaticamente.
 
 No console você pode enviar SND de demonstração entre Alice e Bob,
-acompanhar quatro processos validadores e executar políticas .ko.
+acompanhar quatro processos validadores e executar contratos .ko no consenso v7.
+O painel Contratos .ko no consenso implanta, chama e exporta certificados.
 Use Encerrar console ou Ctrl+C na janela de comandos para parar.
 Ao abrir novamente, os mesmos dados são recuperados.
 
 Não precisa instalar Node ou npm. O runtime está em bin/node.exe.
 Verificar-Pacote.bat confere os hashes dos arquivos incluídos.
 
-Os dados e as chaves da demonstração são gerados na pasta .konaet-demo.
+Os dados e as chaves da demonstração são gerados na pasta .konaet-console-v7.
 Não compartilhe essa pasta. Os saldos são de teste, sem valor monetário,
 e não alteram os saldos da sua carteira Konaet.
 
@@ -20,8 +21,15 @@ O pacote de operador é outro produto: ele exige configuração de rede,
 identidade e certificados. Este console não exige roster ou certificados.
 
 Código: https://github.com/7dsol3/konaet-sovereign-spec
-Console online: https://konaet-ko-runtime.alkalipixie.chatgpt.site/console
+Studio online no navegador: https://7dsol3.github.io/konaet-sovereign-spec/
 Guia .ko: KO-QUICKSTART.md
+Contratos no consenso: KO-CONSENSUS.md
+Gateway de eventos assinados: GATEWAY.md
+Serviço Linux de operadores: deploy/validator/README.md
+
+O Studio executa na sessão do navegador. O console Windows executa os
+quatro validadores localmente. Operação permanente exige instalar os
+serviços nos hosts dos operadores e configurar a entrada HTTPS.
 
 Para criar um projeto .ko pelo terminal na pasta extraida:
 bin\node.exe tools\ko.mjs init minha-politica

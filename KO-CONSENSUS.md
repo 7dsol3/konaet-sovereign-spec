@@ -19,7 +19,7 @@ flowchart LR
 
 ## Usar no console
 
-Baixe a versão 1.5.0, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
+Baixe a versão 1.6.0, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
 No código-fonte, execute `npm ci --ignore-scripts` e `npm start`.
 O console abre apenas em `127.0.0.1`, inicia quatro processos e usa uma
 instância própria em `.konaet-console-v7/`.
@@ -107,6 +107,13 @@ nas versões anteriores de gênese; v7 recusa ativar um perfil híbrido que
 ainda não integra esse novo estado de contratos.
 
 ## Estado da publicação
+
+A edição 1.6.0 acrescenta o [gateway de eventos assinados](GATEWAY.md),
+prontidão HTTP, supervisão ping/pong dos peers e um
+[serviço Linux para operadores](deploy/validator/README.md). A ativação
+do gateway começa em modo de leitura; submissões exigem configuração
+explícita e controle de acesso na entrada HTTPS. O serviço precisa ser
+instalado nos hosts dos operadores para manter os validadores online.
 
 O Studio público em GitHub Pages executa a VM na sessão do navegador.
 O console Windows/Node executa o consenso v7 em quatro processos locais.

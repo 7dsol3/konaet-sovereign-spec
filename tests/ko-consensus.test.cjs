@@ -50,6 +50,16 @@ test('v7 genesis binds contract runtime, isolated state and protocol without cha
   const operated = build(roster); assert.equal(operated.protocolVersion, PROTOCOL); assert.equal(operated.parameters.maxActs, 64); assert.equal(operated.parameters.maxBytes, 262144);
   assert.throws(() => createGenesis({ ...f.options, parameters: { maxActs: 65 } }), { code: 'KO_PROGRAM_CLOSURE_LIMIT' });
 });
+test('cached contract records preserve network isolation when reused across states', () => {
+  const f = fixture(), initial = stateFromGenesis(f.genesis), event = deploy(f, initial);
+  const deployed = initial.applyConstellation([event]), record = deployed.contract(event.contractId);
+  const cloned = deployed.clone(); assert.equal(cloned.root().toString('hex'), deployed.root().toString('hex'));
+  for (const contracts of [[record], [JSON.parse(JSON.stringify(record))]]) {
+    assert.throws(() => new KoGlobalState({ networkId: initial.networkId + 1, contracts }), { code: 'KO_CONSENSUS_STATE' });
+  }
+  assert.equal(deployed.contract(event.contractId), record);
+});
+
 test('typed wire events bind both signatures, root, nonce and source; canonical decode rejects edits', () => {
   const f = fixture(), event = deploy(f, stateFromGenesis(f.genesis));
   assert.ok(decodeEvent(event.canonicalBytes()) instanceof ContractEvent); assert.equal(decodeEvent(event.canonicalBytes()).id().toString('hex'), event.id().toString('hex'));

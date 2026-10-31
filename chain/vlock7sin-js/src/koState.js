@@ -18,7 +18,10 @@ function baseOptions(state) { return { networkId: state.networkId, suite: state.
   balances: state.entries().map(row => [row.address, row.balance]), nonces: state.entries().map(row => [row.address, row.nonce]),
   parametersRoot: state.parametersRoot, identitiesRoot: state.identitiesRoot, replayRoot: state.replayRoot }; }
 function contractRecord(input, networkId) {
-  if (knownRecords.has(input)) return input;
+  if (knownRecords.has(input)) {
+    if (input.state.networkId !== String(networkId)) fail('Contract belongs to another network or source profile.');
+    return input;
+  }
   exact(input, ['artifact', 'state']);
   const artifact = runtime.validateContract(input.artifact), state = runtime.validateContractState(artifact, input.state);
   if (state.networkId !== String(networkId) || Buffer.byteLength(artifact.source) > PROFILE.sourceBytes) fail('Contract belongs to another network or source profile.');

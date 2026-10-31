@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.5.0",
+  "edition": "1.6.0",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -32,8 +32,8 @@
     },
     {
       "path": "DEPLOYMENT.md",
-      "bytes": 4446,
-      "sha256": "a163e555ebded853870766ad111f39c998c6d661da42f3e6da332f06e22e9b82"
+      "bytes": 5624,
+      "sha256": "ec7606c785615fb24017053fb0ac8cd73bc568e21e0b1d268eb4fcbacb27ce1c"
     },
     {
       "path": "ECOSYSTEM.md",
@@ -46,19 +46,24 @@
       "sha256": "22032bc0803eea0c5adb0b96b75914f7d312a6e9cdbcf5291ac892a9c9c8b1fb"
     },
     {
+      "path": "GATEWAY.md",
+      "bytes": 8330,
+      "sha256": "ca0befc132d79d32928dc679d98ffe79fc609934ddb6c258ee68c56e8fd5bee8"
+    },
+    {
       "path": "Iniciar-Konaet.bat",
       "bytes": 342,
       "sha256": "9e6abd622264f45c2e9765073cfe6fbdabbee8a0fc855f877a042266fc5c2428"
     },
     {
       "path": "KO-CONSENSUS.md",
-      "bytes": 5544,
-      "sha256": "591bce215dac691566b99094347c928aaa178a394a8742b3a369aabbd729bc4b"
+      "bytes": 5964,
+      "sha256": "ccc56033a8afe0d56c88a700f66b387141b1e77cf0734f528eee967fe396d3d2"
     },
     {
       "path": "KO-PROGRAM.md",
       "bytes": 7639,
-      "sha256": "545b0feb5ba6848a3313902e71abcdb9054f90a4b2e09f329024f1a83506ea50"
+      "sha256": "e32a7a34d1155559255e626744a1c25d7e1c8cc4aa78b62e2b2a7a0e41795f89"
     },
     {
       "path": "KO-QUICKSTART.md",
@@ -72,8 +77,8 @@
     },
     {
       "path": "LEIA-ME.txt",
-      "bytes": 1326,
-      "sha256": "f261a9fc0f151e6709f710e09538a8afdd8879f88a1b09ec21c14ba844d7fba1"
+      "bytes": 1767,
+      "sha256": "410446d6333af9bb161313d3832b687b14475cfbfeb23991468880db14842770"
     },
     {
       "path": "LICENSE",
@@ -92,13 +97,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 8954,
-      "sha256": "551c4a7063a5a9b58a59a2a414ac1399fae88acfac78652a5c7e6712ff4c03d0"
+      "bytes": 9999,
+      "sha256": "6781e282a7ecad14d943566f9b3c6ae30fc23faad3986c3986e1562ad39512db"
     },
     {
       "path": "SECURITY.md",
-      "bytes": 1768,
-      "sha256": "7d05a95ca0db5af40a6da3ab06e225b59839246434205e7b9a0b4ec308c0c033"
+      "bytes": 2755,
+      "sha256": "0675ba72fc26b4f312f6b453e26a1bab003a1b2e2c0757a9333998b3c8043835"
     },
     {
       "path": "Verificar-Pacote.bat",
@@ -233,7 +238,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "36123bd87b6b77fcb59dfa086a5d7f2d34773ca9e304ec33cb80fb84e60b21fd"
+      "sha256": "6025ce30b788b0e91f1dc40c49ec6b461acda4714948c3174035f54b4ab7ff06"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -251,9 +256,14 @@
       "sha256": "614e6d07e47e493c2f882de35f50cce62375780a1e6d3d1c2efa445a80fff3fe"
     },
     {
+      "path": "chain/scripts/operatorHeartbeat.js",
+      "bytes": 2882,
+      "sha256": "1ac614e04517a70b2b7cd2cbaae066a4df2c3031d55cd1c4c149f687f0de594b"
+    },
+    {
       "path": "chain/scripts/runIndependentValidator.js",
-      "bytes": 13743,
-      "sha256": "b24c0fed98ad19cef5b8c2a576dd93ded2e9f1bf29d3624e53676027f86c398b"
+      "bytes": 15989,
+      "sha256": "cdf86ded0c0727dc7cf34b035df8efabfdff01158746fd03a56f7b77321404de"
     },
     {
       "path": "chain/scripts/verifyOperatorAttestations.js",
@@ -357,8 +367,8 @@
     },
     {
       "path": "chain/vlock7sin-js/src/koState.js",
-      "bytes": 10113,
-      "sha256": "81c53d41423994cdfa6e4ac1bf3f24382c3e78b960ec33e1d023560fd79516d1"
+      "bytes": 10240,
+      "sha256": "0660478368167b1392819afd7ad675b4b5ccf931296ced9117d0b73961384325"
     },
     {
       "path": "chain/vlock7sin-js/src/ledger.js",
@@ -483,12 +493,32 @@
     {
       "path": "console/index.html",
       "bytes": 4912,
-      "sha256": "06c5af03edd109c893345591d9b11ebe99789082c66f23aeebb94dccbc306a5c"
+      "sha256": "913dc149c8e1aa3d0a75c815db9fcf21cadc75cc963f440214aa7fe93c2cf309"
     },
     {
       "path": "console/style.css",
       "bytes": 4982,
       "sha256": "c81cc9f5d5a9895ad78524688bcde132a6ae78c9acca1bdfc42d76d7a4d5f1e4"
+    },
+    {
+      "path": "deploy/validator/README.md",
+      "bytes": 7484,
+      "sha256": "6257ba0fa8c150b778d2ad6f3cc02255454fc4d9c32c65327b1cfe2a26094920"
+    },
+    {
+      "path": "deploy/validator/konaet-gateway.service",
+      "bytes": 1073,
+      "sha256": "1f0f43f125726c9c46b4090db7af5ce86b90be11f679a4c8707a3942f62a8781"
+    },
+    {
+      "path": "deploy/validator/konaet-validator@.service",
+      "bytes": 1421,
+      "sha256": "9f1afc94dc9f92246cfba0d8bc002fc027accd647f1f5246fb44633e139c9691"
+    },
+    {
+      "path": "deploy/validator/nginx-gateway.conf.example",
+      "bytes": 2060,
+      "sha256": "ddf8d1bf56a0185710c174bf158a6af0a7e63a237b24a6e7e78f9537a65e5018"
     },
     {
       "path": "docs/.nojekyll",
@@ -513,7 +543,7 @@
     {
       "path": "docs/index.html",
       "bytes": 5848,
-      "sha256": "06293f436f7c048899f478bc2bc5c70b8e2f48b84a62f804560db19925ad6ec6"
+      "sha256": "72d65e9eaa28ee94fe2dedfb527dd2b4557df51999ea6a079eb3bf407416f536"
     },
     {
       "path": "docs/program-auth.mjs",
@@ -623,12 +653,12 @@
     {
       "path": "package-lock.json",
       "bytes": 836,
-      "sha256": "2272fa929a3c8620f4cccbea7ea9441146204fbc5341f2442ecaa63b6e660d0b"
+      "sha256": "2616ee2d8604d99b6ebefc5c8bef5664a78c02299046bcc16bd9252be926850e"
     },
     {
       "path": "package.json",
-      "bytes": 644,
-      "sha256": "00b252c06c428d292bf56b9c54b1557e786fcc6f52e34a9231549a335148aa0d"
+      "bytes": 694,
+      "sha256": "650209c3fb82645e8972fde7ea53b33957554cb174178cef0058add444582690"
     },
     {
       "path": "runtime/LICENSE",
@@ -662,8 +692,8 @@
     },
     {
       "path": "tests/ko-consensus.test.cjs",
-      "bytes": 14141,
-      "sha256": "77b5294d9e8b750e8c3a4056c3ca3d61f46a5bd8b7f9a8ee3c2f8092bac01131"
+      "bytes": 14812,
+      "sha256": "d851c134aa05bee550a68146f491df8bb9e0b11377747bb200c9f3c9d78ad757"
     },
     {
       "path": "tests/ko-contract-console.test.mjs",
@@ -696,6 +726,26 @@
       "sha256": "ff4c0f29c995e68b9b2708da232bc6b4c6e847f12decaf7446725b8ca785dd52"
     },
     {
+      "path": "tests/operator-gateway.test.mjs",
+      "bytes": 13175,
+      "sha256": "6b75cfb2ef8ee957147ddebb0029829d7680e5adedc2ec34a039e3fe782ab000"
+    },
+    {
+      "path": "tests/operator-heartbeat.test.cjs",
+      "bytes": 4115,
+      "sha256": "1bde637d8b578890e7fb90e3f0283fcc604b7eab1a0c4a00e9008f3b5864d5d5"
+    },
+    {
+      "path": "tests/operator-network.test.mjs",
+      "bytes": 9781,
+      "sha256": "6325535e45d514b20de1b5c07bc600cd973841b0c2f939051d0716b1725e0b31"
+    },
+    {
+      "path": "tests/operator-readiness.test.cjs",
+      "bytes": 1938,
+      "sha256": "de66c3e0b55e4c3b54340c914a99bae5f3739139362481e0970f1e959060690c"
+    },
+    {
       "path": "tests/publication.test.mjs",
       "bytes": 2068,
       "sha256": "5616803fa74a47dad32245e41f685b76dae425398d05bafa305c41faa8379b85"
@@ -708,7 +758,7 @@
     {
       "path": "tools/console.mjs",
       "bytes": 6802,
-      "sha256": "5c96e876dfe76ff13a0c63409ca324c88c9b3a8a6fd9357639a09f567278178a"
+      "sha256": "4ffd527ba0c888874b499f5f466405d20695597c637d5369b8db35405d8900fd"
     },
     {
       "path": "tools/demo-network.mjs",
@@ -717,8 +767,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 7267,
-      "sha256": "d7d8a35ed1699889e53d8d2ba859d1b43729c9fc55e4aa3c74906b88bf72a8e8"
+      "bytes": 7681,
+      "sha256": "912fbf0bc35cfbe47e87e3edd99c9b5f229068c5bbf7df807e2c52718e131b85"
     },
     {
       "path": "tools/ko.mjs",
@@ -728,12 +778,17 @@
     {
       "path": "tools/manifest.mjs",
       "bytes": 604,
-      "sha256": "38abef9b0505405ab33fb2d70d57f02551dbb8313674ff8bebc99ca1dfbdbe83"
+      "sha256": "b7f34e4766880c10ab38db069b6764c3cf24aab3ddd329e0dce653b5fb4d84b5"
+    },
+    {
+      "path": "tools/operator-gateway.mjs",
+      "bytes": 17486,
+      "sha256": "153738d19565ceefd3509743a1bac4fd12b37195b23c581d92ddde10c5c3622e"
     },
     {
       "path": "tools/package-windows.mjs",
       "bytes": 2832,
-      "sha256": "8f0b42c2cfb5cb789e7986af81251c1cbf8bd419a4bc0749ec1e07837d926dd9"
+      "sha256": "46d254d647799ffd8bbbd63408ec94533d41dc9ea449340914c514b1ae148e28"
     },
     {
       "path": "tools/validator-worker.cjs",

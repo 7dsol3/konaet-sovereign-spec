@@ -12,6 +12,7 @@ const { canonicalBytes } = require('../vlock7sin-js/src/causalGraph');
 const { SovereignNode, validateGenesis, HYBRID_PROFILE } = require('../network/sovereign');
 const { ContractEvent } = require('../vlock7sin-js/src/contractEvent');
 const { decodeEvent } = require('../vlock7sin-js/src/event');
+const { startPeerHeartbeat } = require('./operatorHeartbeat');
 
 function privateAddress(host) {
   if (net.isIP(host) !== 4) return false;
@@ -114,6 +115,22 @@ function readConfiguration(file) {
   return { config, genesis, identity, consensusIdentity, tls, submitToken, dataDir: owned(config.dataDirectory), base };
 }
 
+function operatorReadiness(node, { closing = false, tlsExpiresAt, now = Date.now() } = {}) {
+  const state = node.status();
+  const connectedValidators = 1 + new Set(state.peers).size;
+  const pendingTransactions = node.actBytes.size;
+  const firstPending = pendingTransactions ? Math.min(...node.pendingSince.values()) : now;
+  const pendingAgeMs = Math.max(0, now - firstPending);
+  const stalledAfterMs = Math.max(60000, node.genesis.validators.length * node.roundTimeoutMs * 4);
+  const expiresAt = Date.parse(tlsExpiresAt);
+  const reason = closing ? 'STOPPING' : !Number.isFinite(expiresAt) || expiresAt - now <= 3600000
+    ? 'CERTIFICATE_EXPIRING' : connectedValidators < node.genesis.threshold ? 'QUORUM_UNAVAILABLE'
+      : pendingTransactions && pendingAgeMs >= stalledAfterMs ? 'CONSENSUS_STALLED' : 'READY';
+  return { ready: reason === 'READY', reason, genesisId: state.genesisId, validatorId: state.validatorId,
+    sequence: state.sequence, root: state.root, connectedValidators, requiredValidators: node.genesis.threshold,
+    pendingTransactions, pendingAgeMs, tlsExpiresAt, localObservationOnly: true };
+}
+
 async function start(file) {
   const loaded = readConfiguration(file);
   const { config, genesis, identity, consensusIdentity, tls, dataDir, submitToken } = loaded;
@@ -123,6 +140,9 @@ async function start(file) {
   node.on('protocolError', () => { if (errors.length < 20) errors.push('PROTOCOL_ERROR'); });
   const connecting = new Set();
   let closing = false;
+  const stopHeartbeat = startPeerHeartbeat(node.transport);
+  const tlsExpiresAt = new Date(Math.min(...[tls.cert, tls.ca].map(pem => Date.parse(new crypto.X509Certificate(pem).validTo)))).toISOString();
+  const readiness = () => operatorReadiness(node, { closing, tlsExpiresAt });
   const status = () => ({ schema: 'konaet.independent-validator-status.v1', scope: config.scope,
     validatorId: config.validatorId, genesisId: genesis.genesisId,
     hybridTransferAuthorizationRequired: node.ledger.requireHybridTransferAuthorization,
@@ -131,9 +151,15 @@ async function start(file) {
     allValidatorKeysLoaded: false, administrativeIndependenceVerified: false,
     publicNetwork: false, monetaryValue: false, errors: [...errors] });
   let submitWindow = Date.now(), submissions = 0;
-  const server = http.createServer(async (req, res) => {
+  const server = http.createServer({ maxHeaderSize: 8192, headersTimeout: 10000, requestTimeout: 15000,
+    keepAliveTimeout: 2000, connectionsCheckingInterval: 1000 }, async (req, res) => {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    if (req.method === 'GET' && req.url === '/genesis') { res.end(JSON.stringify(genesis)); return; }
+    if (req.method === 'GET' && req.url === '/health/ready') {
+      const health = readiness(); res.writeHead(health.ready ? 200 : 503).end(JSON.stringify(health)); return;
+    }
     if (req.method === 'GET' && req.url === '/status') { res.end(JSON.stringify(status())); return; }
     if (req.method === 'GET' && /^\/account\/v7[a-z2-7]{32}$/.test(req.url)) {
       const address = req.url.slice('/account/'.length), state = node.ledger.getState();
@@ -179,6 +205,9 @@ async function start(file) {
       res.writeHead(202).end(JSON.stringify({ accepted: true, transactionId, finalized: false }));
     } catch { if (!res.destroyed) res.writeHead(400).end(JSON.stringify({ code: 'INVALID_SIGNED_TRANSFER' })); }
   });
+  server.maxConnections = 128;
+  server.maxRequestsPerSocket = 100;
+  server.setTimeout(15000, socket => socket.destroy());
   async function connect() {
     for (const peer of config.peers) {
       if (closing || connecting.has(peer.validatorId) || node.status().peers.includes(peer.validatorId)) continue;
@@ -190,7 +219,9 @@ async function start(file) {
   async function close() {
     if (closing) return;
     closing = true; clearInterval(timer);
-    await new Promise(resolve => server.close(resolve));
+    stopHeartbeat();
+    const force = setTimeout(() => server.closeAllConnections(), 5000); force.unref();
+    try { await new Promise(resolve => server.close(resolve)); } finally { clearTimeout(force); }
     await node.close();
   }
   try {
@@ -198,7 +229,7 @@ async function start(file) {
     await new Promise((resolve, reject) => { server.once('error', reject); server.listen(config.statusPort, '127.0.0.1', resolve); });
     timer = setInterval(() => { void connect(); }, 5000);
     void connect();
-    return { status, close };
+    return { status, readiness, close };
   } catch (error) { await close(); throw error; }
 }
 
@@ -217,4 +248,4 @@ if (require.main === module) {
   })().catch(() => { console.error('INDEPENDENT_VALIDATOR_FAILED; inspect the operator configuration locally'); process.exitCode = 1; });
 }
 
-module.exports = { privateAddress, validateShape, readConfiguration, start };
+module.exports = { privateAddress, validateShape, readConfiguration, operatorReadiness, start };

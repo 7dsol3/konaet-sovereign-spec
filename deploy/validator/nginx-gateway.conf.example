@@ -1,0 +1,55 @@
+# Include in nginx's http context. Replace domain, certificate and password paths.
+# The operator HTTP listener must remain loopback and MUST NOT be proxied directly.
+limit_req_zone $binary_remote_addr zone=konaet_reads:10m rate=30r/m;
+limit_req_zone $binary_remote_addr zone=konaet_writes:10m rate=4r/m;
+limit_conn_zone $binary_remote_addr zone=konaet_clients:10m;
+
+upstream konaet_gateway {
+    server 127.0.0.1:58120;
+    keepalive 8;
+}
+
+server {
+    listen 443 ssl;
+    server_name rpc.yourdomain.example;
+    ssl_certificate /etc/letsencrypt/live/rpc.yourdomain.example/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/rpc.yourdomain.example/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    server_tokens off;
+    client_max_body_size 64k;
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 10s;
+    limit_conn konaet_clients 8;
+    limit_req_status 429;
+    add_header X-Content-Type-Options nosniff always;
+
+    # Authenticated, signed submissions only. The gateway also needs allowSubmissions:true.
+    location = /api/transactions {
+        auth_basic "Konaet operators";
+        auth_basic_user_file /etc/nginx/konaet-clients.htpasswd;
+        limit_req zone=konaet_writes burst=1 nodelay;
+        proxy_http_version 1.1;
+        proxy_set_header Host 127.0.0.1:58120;
+        proxy_set_header Connection "";
+        proxy_set_header Authorization "";
+        proxy_connect_timeout 2s;
+        proxy_read_timeout 12s;
+        proxy_send_timeout 12s;
+        proxy_pass http://konaet_gateway;
+    }
+
+    location ~ "^/(api/(status|genesis|account/v7[a-z2-7]{32}|contract/[0-9a-f]{64})|health/ready)$" {
+        limit_except GET { deny all; }
+        limit_req zone=konaet_reads burst=5 nodelay;
+        proxy_http_version 1.1;
+        proxy_set_header Host 127.0.0.1:58120;
+        proxy_set_header Connection "";
+        proxy_set_header Authorization "";
+        proxy_connect_timeout 2s;
+        proxy_read_timeout 12s;
+        proxy_pass http://konaet_gateway;
+    }
+
+    location / { return 404; }
+}

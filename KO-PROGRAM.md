@@ -1,6 +1,6 @@
 # Contratos .ko com estado
 
-**KONAET_KO_PROGRAM_V1 · distribuição 1.5.0**
+**KONAET_KO_PROGRAM_V1 · distribuição 1.6.0**
 
 [Abrir o .ko Studio](https://7dsol3.github.io/konaet-sovereign-spec/) ·
 [Exemplo Counter](chain/ko-program/examples/Counter.ko) ·
