@@ -944,6 +944,7 @@ class SovereignNode extends EventEmitter {
     if (payload?.kind !== 'KONAET_SOVEREIGN_HELLO_V1' || payload.genesisId !== this.genesis.genesisId) return;
     const peerSequence = BigInt(canonicalU64(payload.sequence, 'peer sequence'));
     if (peerSequence > this.ledger.sequence) this.requestState(senderId);
+    else if (peerSequence === this.ledger.sequence && this.actBytes.size) this.scheduleConsensus();
   }
 
   handleMessage(message) {

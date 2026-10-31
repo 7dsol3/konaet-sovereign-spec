@@ -1,0 +1,78 @@
+name: Konaet Linux service validation
+on:
+  workflow_dispatch:
+  push:
+    branches: [validation/linux-service]
+    paths:
+      - .github/workflows/linux-service.yml
+      - tools/remote/linux-service-*.mjs
+      - deploy/validator/**
+permissions:
+  contents: read
+jobs:
+  systemd:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install the proxy without opening its default listener
+        run: |
+          sudo systemctl mask nginx.service
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq nginx
+      - name: Prepare isolated systemd host with the published unit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat /proc/1/comm)" = systemd
+          test ! -e /opt/konaet
+          sudo install -d -m 0755 /opt/konaet
+          tar --exclude=.git --exclude=.packaging --exclude=dist -cf - . | sudo tar -xf - -C /opt/konaet
+          sudo install -m 0755 "$(command -v node)" /usr/bin/node
+          sudo useradd --system --user-group --home-dir /nonexistent --no-create-home --shell /usr/sbin/nologin konaet-validator
+          sudo useradd --system --user-group --home-dir /nonexistent --no-create-home --shell /usr/sbin/nologin konaet-gateway
+          sudo env GITHUB_ACTIONS=true RUNNER_TEMP="$RUNNER_TEMP" /usr/bin/node /opt/konaet/tools/remote/linux-service-fixture.mjs
+          sudo chown "$(id -u):$(id -g)" "$RUNNER_TEMP/konaet-nginx/client-password"
+          sudo chown -R root:konaet-validator /var/lib/konaet/validator-0
+          sudo chown -R konaet-validator:konaet-validator /var/lib/konaet/validator-0/data
+          sudo chown -R root:konaet-gateway /etc/konaet
+          sudo chown root:www-data /etc/nginx/konaet-validation.htpasswd
+          sudo -u konaet-validator /usr/bin/node /opt/konaet/chain/scripts/runIndependentValidator.js check /var/lib/konaet/validator-0/operator-config.json
+          sudo install -m 0644 deploy/validator/konaet-validator@.service /etc/systemd/system/konaet-validator@.service
+          sudo systemd-analyze verify /etc/systemd/system/konaet-validator@.service
+          sudo systemctl daemon-reload
+          sudo systemctl start konaet-validator@0.service
+      - name: Verify sandbox, supervised SIGKILL recovery and graceful restart
+        run: node tools/remote/linux-service-check.mjs
+      - name: Start the separate gateway service and loopback HTTPS proxy
+        run: |
+          sudo install -m 0644 deploy/validator/konaet-gateway.service /etc/systemd/system/konaet-gateway.service
+          sudo systemd-analyze verify /etc/systemd/system/konaet-gateway.service
+          sudo systemctl daemon-reload
+          sudo systemctl start konaet-validator@0.service konaet-gateway.service
+          sudo nginx -t -c "$RUNNER_TEMP/konaet-nginx/nginx.conf"
+          sudo nginx -c "$RUNNER_TEMP/konaet-nginx/nginx.conf"
+      - name: Verify TLS, authentication, redaction and private routes
+        run: node tools/remote/linux-gateway-check.mjs
+      - name: Stop the isolated service
+        if: always()
+        run: |
+          sudo journalctl -u konaet-validator@0.service --no-pager -n 45
+          sudo journalctl -u konaet-gateway.service --no-pager -n 20
+          sudo systemctl stop konaet-validator@0.service konaet-gateway.service || true
+          if test -f "$RUNNER_TEMP/konaet-nginx/nginx.pid"; then sudo nginx -s quit -c "$RUNNER_TEMP/konaet-nginx/nginx.conf"; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: konaet-linux-service-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/konaet-service-result.json
+            ${{ runner.temp }}/konaet-gateway-result.json
+          if-no-files-found: warn
+          retention-days: 7

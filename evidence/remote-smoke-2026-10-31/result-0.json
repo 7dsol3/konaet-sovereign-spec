@@ -1,0 +1,35 @@
+{
+  "body": {
+    "schema": "konaet.remote-node-result.v1",
+    "runId": "41210093390-1",
+    "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+    "index": 0,
+    "hostHash": "43a08a5ea381c51728df69e4b74b91f7913682ecd37975b0c55e0325e3e17c81",
+    "passed": true,
+    "stoppedCleanly": true,
+    "state": {
+      "schema": "konaet.remote-status.v1",
+      "runId": "41210093390-1",
+      "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+      "index": 0,
+      "hostHash": "43a08a5ea381c51728df69e4b74b91f7913682ecd37975b0c55e0325e3e17c81",
+      "online": true,
+      "sequence": "28",
+      "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+      "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1",
+      "peers": [
+        "validator-1",
+        "validator-2",
+        "validator-3"
+      ],
+      "observedAt": 1793456958617,
+      "uptimeMs": 192616,
+      "peakRssKb": 91728,
+      "unexpectedExits": 0,
+      "lastExit": null
+    },
+    "faults": [],
+    "publicKey": "13e2809e7c7fc253d019e0c7d0ef9d3c691f7d255399e8ad8766e9fca4c37fca"
+  },
+  "signature": "2ed3cb2253bd08dbc1b2c5b2beec10e8996c7862244d3c2e1d88e0c3d03dac036608755d05caea15dbb99a9230f8839f9ad6cf3328de90f68b7a3e2dff01b10d"
+}

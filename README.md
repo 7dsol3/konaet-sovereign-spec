@@ -8,7 +8,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.7.0 · .ko Studio · Consenso v8**
+**Native Chain · Console 1.7.1 · .ko Studio · Consenso v8**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -52,6 +52,18 @@ por participante ficam comprometidas na gênese e na raiz do estado. Uma conta
 não autorizada não ocupa o catálogo de contratos. Redes v7 existentes mantêm
 suas regras e seus dados; não há migração automática de saldos ou gênese.
 [Recuperação, capacidade e mudanças da edição 1.7](RECOVERY.md).
+
+A edição 1.7.1 retoma automaticamente trabalho pendente quando o quórum
+volta a se conectar. A homologação inclui VMs separadas com mTLS de ponta
+a ponta, perda de quórum e recuperação de processo interrompido.
+[Roteiro e critérios verificáveis](REMOTE-VALIDATION.md).
+
+**Homologação de uma hora concluída:** quatro VMs Ubuntu, 415 transferências,
+138 chamadas `.ko`, 554 fechamentos e a mesma raiz final. O roteiro incluiu
+perda/retorno do quórum e SIGKILL com recuperação do estado.
+[Resultados, relatos assinados e reprodução](VALIDATION-RESULTS.md).
+
+![Execução real de uma hora: disponibilidade dos quatro processos, sequência finalizada e pico de memória observado.](assets/remote-endurance.svg)
 
 Ao conferir um certificado recebido, fixe a identidade da rede com
 `--genesis-id` e, quando disponível, a raiz anterior com `--previous-root`.
@@ -108,7 +120,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.7.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.7.1.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 

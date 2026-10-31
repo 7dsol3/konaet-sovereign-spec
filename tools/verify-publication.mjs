@@ -4,6 +4,7 @@ import path from 'node:path';
 import { ROOT, inventory, verifyFilePolicy } from './files.mjs';
 import { verifyTransferVector } from '../lib/event.mjs';
 import { verifyPublicationMetadata } from './publication-checks.mjs';
+import { verifyRemoteResults } from './remote/verify-report.mjs';
 
 try {
   const files = inventory();
@@ -23,9 +24,17 @@ try {
   }
   const vector = JSON.parse(fs.readFileSync(path.join(ROOT, 'examples/signed-transfer.json'), 'utf8'));
   const result = verifyTransferVector(vector);
+  const readRemote = name => JSON.parse(fs.readFileSync(path.join(ROOT, 'evidence/remote-smoke-2026-10-31', name), 'utf8'));
+  const remote = verifyRemoteResults(readRemote('controller.json'), [0, 1, 2, 3].map(index => readRemote(`result-${index}.json`)),
+    '8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91', '41210093390-1');
+  const readHour = name => JSON.parse(fs.readFileSync(path.join(ROOT, 'evidence/remote-hour-2026-10-31', name), 'utf8'));
+  const hour = verifyRemoteResults(readHour('controller.json'), [0, 1, 2, 3].map(index => readHour(`result-${index}.json`)),
+    '8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91', '41210381147-1');
   console.log(JSON.stringify({ edition: manifest.edition, filesVerified: files.length,
-    eventVerified: result.cryptographicallyValid, ledgerFinalityProven: false,
-    sourceRunCountsIndependentlyReproduced: false, publicNetworkDeployed: false }, null, 2));
+    syntheticTransferVector: { signatureVerified: result.cryptographicallyValid, inclusionAndFinalityChecked: false },
+    remoteSmokeValidation: remote,
+    remoteConsensusValidation: hour,
+    permanentPublicNetworkHosted: manifest.publicNetworkDeployed }, null, 2));
 } catch (error) {
   console.error(`FAIL ${error.message}`);
   process.exitCode = 1;

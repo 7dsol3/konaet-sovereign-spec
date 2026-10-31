@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.7.0",
+  "edition": "1.7.1",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -14,6 +14,16 @@
       "path": ".github/workflows/check.yml",
       "bytes": 594,
       "sha256": "2faa6fe37a3cd61b3027a061980633f1d413dbe040e08b86b6bd52c735a04b29"
+    },
+    {
+      "path": ".github/workflows/linux-service.yml",
+      "bytes": 4100,
+      "sha256": "dda9c3ae3ccdee23068f5606472e47a89841db751a4a16f85fb0e850994a2443"
+    },
+    {
+      "path": ".github/workflows/remote-endurance.yml",
+      "bytes": 4111,
+      "sha256": "e5ca62c16ac8ec0e400961ba620c6d888c5cb9afe9403180e175829040ae11c0"
     },
     {
       "path": ".gitignore",
@@ -33,7 +43,7 @@
     {
       "path": "DEPLOYMENT.md",
       "bytes": 5645,
-      "sha256": "5fbd0c66fc5071d1b1cbc31d063117d75c2e4f4ca733e42d5e8537e77a553b2d"
+      "sha256": "a143400dfc79b950821c5eb44096ba46dceeb98446989f0b069356df17d562d0"
     },
     {
       "path": "ECOSYSTEM.md",
@@ -58,12 +68,12 @@
     {
       "path": "KO-CONSENSUS.md",
       "bytes": 7162,
-      "sha256": "e41a75c3e02bcb3a96e9112589afbbf145d2ae08e106057ae987bf00213f13cf"
+      "sha256": "a569a18ae13c65fd940b9b70f58c02088839d3a3a24da53f12e6d840035cb45e"
     },
     {
       "path": "KO-PROGRAM.md",
       "bytes": 7951,
-      "sha256": "3e428c3775f1daf5b1cd80d96cfb009431e1fc4374838f47798c3ba35b84f16b"
+      "sha256": "cadade3bbb58687a29067ae4062895eb47dbff880148da7f7ac3d09f852ccfcb"
     },
     {
       "path": "KO-QUICKSTART.md",
@@ -78,7 +88,7 @@
     {
       "path": "LEIA-ME.txt",
       "bytes": 1921,
-      "sha256": "0d847ac5fc4ccfd3a6c3bf16e1c916b1a8ddba1ae3734cdd5769b9856bb7cbb3"
+      "sha256": "6c509afa00564aca4325c388c214ebbe27930a0cea8a2b69e587a75bca8fb706"
     },
     {
       "path": "LICENSE",
@@ -97,8 +107,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 10970,
-      "sha256": "fa38245b9f5e956e4292b6db064327ebe60e3ceaea3c8e8aa340a4c6c4ba539f"
+      "bytes": 11696,
+      "sha256": "eff6ccb7f5edf2ba806cb464a20f80fc009f39f337498ab789a76f8cf7b81d46"
     },
     {
       "path": "RECOVERY.md",
@@ -106,9 +116,19 @@
       "sha256": "cae086a9eebedb83a25985e4768f960946925b775e67a3f97b26f0ec9d81ca0f"
     },
     {
+      "path": "REMOTE-VALIDATION.md",
+      "bytes": 4502,
+      "sha256": "90a006e4bc93581fb3472aa917028ad068f22aa3021fe230946a35dad7486d03"
+    },
+    {
       "path": "SECURITY.md",
       "bytes": 3116,
-      "sha256": "5667b365dbe6d6dd7f0bb9098448a6c17bc3f8d255fc07f244925b4d36fdd907"
+      "sha256": "4edb80d3c6993c391c9559d15d6d2dfe41fda35eb3d770f30703c9d713408e1b"
+    },
+    {
+      "path": "VALIDATION-RESULTS.md",
+      "bytes": 5986,
+      "sha256": "c073ef1d24986ad9e90eae3040170efa01e8203a6113398c386bbcc281a77b63"
     },
     {
       "path": "Verificar-Pacote.bat",
@@ -144,6 +164,11 @@
       "path": "assets/puzzle-do-dia.png",
       "bytes": 2306158,
       "sha256": "278dc0b89a00e0c121d49e0921786a29754c412129208788add40357f241ba16"
+    },
+    {
+      "path": "assets/remote-endurance.svg",
+      "bytes": 104719,
+      "sha256": "c8f96737465d048190812c2a6ddb379464d61943407eeb736d08d337ead445e5"
     },
     {
       "path": "assets/snd.svg",
@@ -222,8 +247,8 @@
     },
     {
       "path": "chain/network/sovereign/SovereignNode.js",
-      "bytes": 48535,
-      "sha256": "9bff0c818fae63cc2c8bf8aa8e5ea4b80425b97d937fa0a9a73696b823fe2ee6"
+      "bytes": 48635,
+      "sha256": "0539c931b1405a9ff8462f392653e246c91d60f2db300be3bdf4d3d0367f8a3d"
     },
     {
       "path": "chain/network/sovereign/VlockWebSocketTransport.js",
@@ -243,7 +268,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "6619a4b4ba617739cabc561953ae965fdcf7febc49cddda282d3a57fa2f29e6d"
+      "sha256": "fbdf60b0336d5b6353b114002943eb86727dcbdc723b09730b7659f72ff6f165"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -498,7 +523,7 @@
     {
       "path": "console/index.html",
       "bytes": 4912,
-      "sha256": "59a2228cb0ef98392a290721c43612e6fbbd9f45e5174703d72fbfa3eb33d41a"
+      "sha256": "2d1b30f3330fc7072f3815bb004a435244e079bd9d4a76c87c4ed152ffc13d27"
     },
     {
       "path": "console/style.css",
@@ -507,8 +532,8 @@
     },
     {
       "path": "deploy/validator/README.md",
-      "bytes": 7859,
-      "sha256": "95ce5d98ae51fb6906b97a2208d6e1bc136508e866f9d53818d06c072cd67985"
+      "bytes": 8403,
+      "sha256": "e466c33bfbd49f5277fc4e4c26735ed5f15f39b57f5166f6b3b00a640bb32fe7"
     },
     {
       "path": "deploy/validator/konaet-gateway.service",
@@ -522,8 +547,8 @@
     },
     {
       "path": "deploy/validator/nginx-gateway.conf.example",
-      "bytes": 2060,
-      "sha256": "ddf8d1bf56a0185710c174bf158a6af0a7e63a237b24a6e7e78f9537a65e5018"
+      "bytes": 2106,
+      "sha256": "6b9a9f0d728b2420b90a72c8aac6d1bab7df90ad52a733a88b8e722559add050"
     },
     {
       "path": "docs/.nojekyll",
@@ -548,7 +573,7 @@
     {
       "path": "docs/index.html",
       "bytes": 5848,
-      "sha256": "2f8b3f5eb408ae9c15ae365f381dc1bac33579a1c0b96c40edc15fc1355166a8"
+      "sha256": "24aaf7b5855aedd95e77655946131f4da3302c53e9890a744a8ce82917415545"
     },
     {
       "path": "docs/program-auth.mjs",
@@ -621,6 +646,86 @@
       "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
     },
     {
+      "path": "evidence/linux-gateway-2026-10-31.json",
+      "bytes": 391,
+      "sha256": "7d79053e2b598aa0fb7232ed6abe4334b5aa82d5ccd2478c9d5f73601b821c0d"
+    },
+    {
+      "path": "evidence/linux-service-2026-10-31.json",
+      "bytes": 550,
+      "sha256": "efe4fa56457ee249577f7a5fa921456b30ab47a76cca86bc43f8717fc90f4d46"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/controller.json",
+      "bytes": 63295,
+      "sha256": "992d8990ce2defbd296f081cde84c7a9aa6bafa7e0631573568f8f350b892932"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/external-observations.jsonl",
+      "bytes": 75241,
+      "sha256": "a585922cc4f935091067ceebcef98d863be84a3dc23289534bf61d48f57e8324"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/provenance.json",
+      "bytes": 1127,
+      "sha256": "b5bef169657e0c82808c02b99ff2ab0c5678ccf3c04574509a6695e65f20d9e3"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-0.json",
+      "bytes": 1216,
+      "sha256": "b102afe4d869648fe1537008af25f21e1fedb4722ea2f5d166438e977a64cb4a"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-1.json",
+      "bytes": 1262,
+      "sha256": "3d2eeac006145e5476742d2df67170b8ba914dfe6d8b384b5aeecdb5300ee77a"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-2.json",
+      "bytes": 1487,
+      "sha256": "7a6fbd59f6815d33beb53d0751ff3f74bfad1f5969bb0d8072832bc9c76e40eb"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-3.json",
+      "bytes": 1638,
+      "sha256": "89c54e8d08adafee0240159adb4d369b10ea3639bf59ebe532d6e7709bda33be"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/verified-summary.json",
+      "bytes": 780,
+      "sha256": "945a3dbe12c5b2b893be37c96f21d0ca01a37725e6178393301ca7512da06708"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/controller.json",
+      "bytes": 64092,
+      "sha256": "a5faa04368e7afc639851328e34f64884a9069485391e7c88b39dfcedb820e9d"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-0.json",
+      "bytes": 1259,
+      "sha256": "df620515b568994619e068cf62cb9bca297e6991cc428c8b65761686cedf6f02"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-1.json",
+      "bytes": 1259,
+      "sha256": "b4e0f88d89e0422d3a771c5f4ee31822f4c1895f1c24077d96a7d5eda6d37ae4"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-2.json",
+      "bytes": 1507,
+      "sha256": "fd69ee92be62d4f37dff2911fd4e1d52f0b62057cfefd994a98560806ab6f198"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-3.json",
+      "bytes": 1583,
+      "sha256": "ef5f7656fd4d51dc156c56dfb2add51805df5fd0fdcb199efaa004686adc8e84"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/verified-summary.json",
+      "bytes": 772,
+      "sha256": "106ccb2601e1b88cd9f0e7ea6d59b6844e15ce5105a712ecd6c28d4f18dd7aab"
+    },
+    {
       "path": "evidence/source-review.json",
       "bytes": 2561,
       "sha256": "2e1b0c59c06908d4eb7e3e18f3f58de15df2a6a6f88d901b3130b5d6102eac90"
@@ -658,12 +763,12 @@
     {
       "path": "package-lock.json",
       "bytes": 839,
-      "sha256": "87b8ce69133413e4ef160f106d6616d9c94c79e20909507f0a8affdd07be45ab"
+      "sha256": "75b8c2b87f007610b7b127558ee6bcb3266eac419d166983cf1163e4ce1c1c7f"
     },
     {
       "path": "package.json",
       "bytes": 697,
-      "sha256": "24808546b75cabaabcb6def3611852c342164c18a8eab47757647d8775f554c2"
+      "sha256": "b77909ae4c065089b03b6b988c9bfbe2470ce7e7515f1efab3fac8a7f992bce5"
     },
     {
       "path": "runtime/LICENSE",
@@ -761,6 +866,11 @@
       "sha256": "921de2e94eb61da45fb13b5b9d3c4b09fed30b5dc90fd05d8c48059399e3b6a5"
     },
     {
+      "path": "tests/remote-validation.test.mjs",
+      "bytes": 7348,
+      "sha256": "c1664517caa3e5dc7fa8de51c46f27fcdcf0af782119c8073178859e9eb7225e"
+    },
+    {
       "path": "tools/build-program-browser.mjs",
       "bytes": 2156,
       "sha256": "29d366c7dee3794fbba364dc3b1530dad59fb9fcdf0e9bf532589ace165d53f9"
@@ -777,8 +887,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 7774,
-      "sha256": "d36eaf96d914544894324cdb642a8425e1feb53d1cafd0579f506b0bc6bc3c7f"
+      "bytes": 9178,
+      "sha256": "5f3daa29a753bbe49d3f8b4119b368a224862ef22f0f4aad6f1761d4d1644187"
     },
     {
       "path": "tools/ko.mjs",
@@ -806,6 +916,56 @@
       "sha256": "5801ee04641b4622a68e8afaee21edc410b612277d642ebbad33c4d67b135806"
     },
     {
+      "path": "tools/remote/agent.mjs",
+      "bytes": 10732,
+      "sha256": "2f00febf9383def74ea89400a406296485564bf5d567439b951b2feedc8cdfad"
+    },
+    {
+      "path": "tools/remote/common.mjs",
+      "bytes": 6800,
+      "sha256": "b1c49817bb7864c584eba9f2b257e433a2824ffdb415aa349e63ec98286d898a"
+    },
+    {
+      "path": "tools/remote/controller.mjs",
+      "bytes": 13341,
+      "sha256": "74c243596b8a4654852954bca4670d6a5910193584c9e38942948c1ff4900924"
+    },
+    {
+      "path": "tools/remote/linux-gateway-check.mjs",
+      "bytes": 2809,
+      "sha256": "7c667b0d9c564b5a4719f20162eece0d1be51b3714353b9c035fce1d7a80215a"
+    },
+    {
+      "path": "tools/remote/linux-service-check.mjs",
+      "bytes": 2682,
+      "sha256": "6d78b68c03f026f2bae90cad28b15f836e835749c3867ceb961c8c949203c534"
+    },
+    {
+      "path": "tools/remote/linux-service-fixture.mjs",
+      "bytes": 6216,
+      "sha256": "09f1825f7076eebec03791e3f895d4a6b3afaca895d2efeee3ad82042ff828f2"
+    },
+    {
+      "path": "tools/remote/participant.mjs",
+      "bytes": 7923,
+      "sha256": "14e7cdf4c3f491f867def7a553432a6c9e30fda32fc749219fa8e4fb2e79d7a7"
+    },
+    {
+      "path": "tools/remote/relay.mjs",
+      "bytes": 2126,
+      "sha256": "cb50c00d2c6141903feb91c170866cb45010e12b016670d4a06f5b474aca5e74"
+    },
+    {
+      "path": "tools/remote/render-report.py",
+      "bytes": 5933,
+      "sha256": "10aeb93305e933d118aeb469ce3dcc18a3522ed7209368756dd4c99484092020"
+    },
+    {
+      "path": "tools/remote/verify-report.mjs",
+      "bytes": 4809,
+      "sha256": "0c10f5a2aed231258fa6e4fd5459cde83183f9c3680789303f01fee35ca7c3d1"
+    },
+    {
       "path": "tools/validator-worker.cjs",
       "bytes": 4107,
       "sha256": "30c718cce79456d6119fc400009e37263e8d60d42d4c9f13f4079676050115c8"
@@ -827,8 +987,8 @@
     },
     {
       "path": "tools/verify-publication.mjs",
-      "bytes": 1725,
-      "sha256": "91dddae164c76f97e25287f5a9a89ca5a3d461fe4ea025d64df5567f2dcacb67"
+      "bytes": 2523,
+      "sha256": "00c838b67eb951d2dda1c296448d9eb703e6eca88ca7dfa1a41d3cfbc75b4a75"
     },
     {
       "path": "tools/verify-transfer.mjs",

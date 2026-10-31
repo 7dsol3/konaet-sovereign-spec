@@ -1,0 +1,102 @@
+name: Konaet remote endurance
+on:
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: Duration after initial convergence (180 to 7200 seconds)
+        type: number
+        default: 3600
+        required: true
+  push:
+    branches: [validation/remote-endurance]
+    paths:
+      - .github/workflows/remote-endurance.yml
+      - tools/remote/**
+      - chain/**
+      - tests/remote-validation.test.mjs
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: konaet-remote-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validators:
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [0, 1, 2, 3]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      QA_NODE: ${{ matrix.node }}
+      QA_SECONDS: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.seconds) || '180' }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Generate local identity and ciphertext relay
+        run: node tools/remote/participant.mjs init
+      - name: Exchange public identity and CSR only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: konaet-node-${{ matrix.node }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/konaet-remote-validation/public/node-${{ matrix.node }}.json
+          retention-days: 2
+          if-no-files-found: error
+      - name: Agree genesis and public certificates
+        run: node tools/remote/participant.mjs network
+      - name: Publish public genesis and certificates
+        if: matrix.node == 0
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: konaet-network-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/konaet-remote-validation/public/network.json
+          retention-days: 2
+          if-no-files-found: error
+      - name: Execute cross-host traffic, quorum-loss and crash-recovery criteria
+        run: node tools/remote/participant.mjs run
+      - name: Stop owned processes
+        if: always()
+        run: node tools/remote/participant.mjs cleanup
+      - name: Export signed public results only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: konaet-result-${{ matrix.node }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/konaet-remote-validation/public/result-${{ matrix.node }}.json
+            ${{ runner.temp }}/konaet-remote-validation/public/controller.json
+          retention-days: 2
+          if-no-files-found: warn
+  verify:
+    needs: validators
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: konaet-result-*-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/konaet-public-results
+          merge-multiple: true
+      - name: Verify four host identities, signatures, finality and duration
+        run: node tools/remote/verify-report.mjs "$RUNNER_TEMP/konaet-public-results"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: konaet-verified-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/konaet-public-results/verified-summary.json
+          retention-days: 7

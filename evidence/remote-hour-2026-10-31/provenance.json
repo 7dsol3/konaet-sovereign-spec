@@ -1,0 +1,33 @@
+{
+  "workflow": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41210381147",
+  "measuredCommit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+  "runtimeFilesChecked": 66,
+  "runtimeUnchanged": true,
+  "jobs": [
+    {
+      "name": "validators (1)",
+      "conclusion": "success",
+      "url": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41210381147/job/124563953095"
+    },
+    {
+      "name": "validators (2)",
+      "conclusion": "success",
+      "url": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41210381147/job/124563953116"
+    },
+    {
+      "name": "validators (3)",
+      "conclusion": "success",
+      "url": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41210381147/job/124563953144"
+    },
+    {
+      "name": "validators (0)",
+      "conclusion": "success",
+      "url": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41210381147/job/124563953150"
+    },
+    {
+      "name": "verify",
+      "conclusion": "success",
+      "url": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41210381147/job/124578067244"
+    }
+  ]
+}
