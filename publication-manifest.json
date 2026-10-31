@@ -16,6 +16,11 @@
       "sha256": "2faa6fe37a3cd61b3027a061980633f1d413dbe040e08b86b6bd52c735a04b29"
     },
     {
+      "path": ".github/workflows/linux-service.yml",
+      "bytes": 2358,
+      "sha256": "9d739a3a763bda14fe9c8a5c0fd840343bd3873e300f8b319eec44d24ce57610"
+    },
+    {
       "path": ".github/workflows/remote-endurance.yml",
       "bytes": 4111,
       "sha256": "e5ca62c16ac8ec0e400961ba620c6d888c5cb9afe9403180e175829040ae11c0"
@@ -792,8 +797,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 8070,
-      "sha256": "da2d7193a70b0aa8f60f7ca7a646bbe11cca0f1c4194b5dddc3877023fc9a5b3"
+      "bytes": 8197,
+      "sha256": "53fa2bec2c9928cc4476767536469d68f3838b0a5e206ab43649716d5068b9df"
     },
     {
       "path": "tools/ko.mjs",
@@ -834,6 +839,16 @@
       "path": "tools/remote/controller.mjs",
       "bytes": 13341,
       "sha256": "74c243596b8a4654852954bca4670d6a5910193584c9e38942948c1ff4900924"
+    },
+    {
+      "path": "tools/remote/linux-service-check.mjs",
+      "bytes": 2682,
+      "sha256": "6d78b68c03f026f2bae90cad28b15f836e835749c3867ceb961c8c949203c534"
+    },
+    {
+      "path": "tools/remote/linux-service-fixture.mjs",
+      "bytes": 3929,
+      "sha256": "9cbee41a68f785d0fd9fe13f1c653b1935aac7224de9bdf8a9f9caf430f55bd0"
     },
     {
       "path": "tools/remote/participant.mjs",
