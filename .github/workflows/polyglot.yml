@@ -17,7 +17,6 @@ jobs:
       KONAET_TOOL_CC: clang
       KONAET_TOOL_CXX: clang++
       KONAET_TOOL_PYTHON: python3
-      KONAET_POLYGLOT_REPORT: ${{ runner.temp }}/konaet-polyglot-${{ matrix.language }}.json
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -34,11 +33,13 @@ jobs:
       - name: Execute vectors, malformed inputs, mismatch checks and real .ko finality
         env:
           LANGUAGE: ${{ matrix.language }}
-        run: node polyglot/conformance.mjs "$LANGUAGE"
+        run: |
+          export KONAET_POLYGLOT_REPORT="$RUNNER_TEMP/konaet-polyglot-$LANGUAGE.json"
+          node polyglot/conformance.mjs "$LANGUAGE"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: konaet-polyglot-${{ matrix.language }}-${{ github.run_id }}
-          path: ${{ env.KONAET_POLYGLOT_REPORT }}
+          path: ${{ runner.temp }}/konaet-polyglot-${{ matrix.language }}.json
           if-no-files-found: warn
           retention-days: 30

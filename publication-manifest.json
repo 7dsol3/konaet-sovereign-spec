@@ -22,8 +22,8 @@
     },
     {
       "path": ".github/workflows/polyglot.yml",
-      "bytes": 1518,
-      "sha256": "8658a1c9e2f02cca8b1ea55fbf247a98701178d89384d3b20a353e77c4757571"
+      "bytes": 1552,
+      "sha256": "a1d4b49f898186bcfa3a7410e7c94ff33c263db18449d49b8ac9a09549d8bb43"
     },
     {
       "path": ".github/workflows/remote-endurance.yml",
