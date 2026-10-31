@@ -537,8 +537,8 @@
     },
     {
       "path": "deploy/validator/nginx-gateway.conf.example",
-      "bytes": 2060,
-      "sha256": "ddf8d1bf56a0185710c174bf158a6af0a7e63a237b24a6e7e78f9537a65e5018"
+      "bytes": 2106,
+      "sha256": "6b9a9f0d728b2420b90a72c8aac6d1bab7df90ad52a733a88b8e722559add050"
     },
     {
       "path": "docs/.nojekyll",

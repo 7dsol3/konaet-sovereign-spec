@@ -22,6 +22,7 @@ server {
     keepalive_timeout 10s;
     limit_conn konaet_clients 8;
     limit_req_status 429;
+    proxy_hide_header X-Content-Type-Options;
     add_header X-Content-Type-Options nosniff always;
 
     # Authenticated, signed submissions only. The gateway also needs allowSubmissions:true.
