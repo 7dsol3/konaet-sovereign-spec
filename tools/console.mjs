@@ -32,7 +32,7 @@ export async function startConsole({ dataDirectory = path.join(root, '.konaet-co
       }
       if (req.method === 'GET' && req.url === '/api/network') { json(200, await demo.status()); return; }
       if (req.method === 'GET' && req.url === '/api/program') {
-        json(200, { examples: Object.fromEntries(['Counter', 'RegistryToken'].map(name => [name, fs.readFileSync(path.join(root, 'chain/ko-program/examples', name + '.ko'), 'utf8')])) }); return;
+        json(200, { examples: Object.fromEntries(['Counter', 'RegistryToken', 'SocialReceiptRegistry'].map(name => [name, fs.readFileSync(path.join(root, 'chain/ko-program/examples', name + '.ko'), 'utf8')])) }); return;
       }
       if (req.method === 'GET' && /^\/api\/contracts\/[0-9a-f]{64}$/.test(req.url)) {
         const record = await demo.contract(req.url.slice('/api/contracts/'.length)); json(record ? 200 : 404, record ?? { code: 'CONTRACT_NOT_FOUND' }); return;

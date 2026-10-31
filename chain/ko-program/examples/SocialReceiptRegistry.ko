@@ -1,0 +1,33 @@
+contract SocialReceiptRegistry v1
+runtime: KONAET_KO_PROGRAM_V1
+
+storage owner: address = caller;
+storage count: u128 = 0;
+mapping high: u128 => u128;
+mapping low: u128 => u128;
+
+event Recorded(index: u128, digestHigh: u128, digestLow: u128);
+
+fn record(digestHigh: u128, digestLow: u128) -> u128 {
+  require caller == owner;
+  require count < 128;
+  let index: u128 = count + 1;
+  set high[index] = digestHigh;
+  set low[index] = digestLow;
+  set count = index;
+  emit Recorded(index, digestHigh, digestLow);
+  return index;
+}
+
+view fn readHigh(index: u128) -> u128 {
+  require index > 0;
+  require index <= count;
+  return high[index];
+}
+
+view fn readLow(index: u128) -> u128 {
+  require index > 0;
+  require index <= count;
+  return low[index];
+}
+end

@@ -8,7 +8,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.7.1 · .ko Studio · Consenso v8**
+**Native Chain · Console 1.7.2 · .ko Studio · Consenso v8**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -53,7 +53,7 @@ não autorizada não ocupa o catálogo de contratos. Redes v7 existentes mantêm
 suas regras e seus dados; não há migração automática de saldos ou gênese.
 [Recuperação, capacidade e mudanças da edição 1.7](RECOVERY.md).
 
-A edição 1.7.1 retoma automaticamente trabalho pendente quando o quórum
+A edição 1.7.2 retoma automaticamente trabalho pendente quando o quórum
 volta a se conectar. A homologação inclui VMs separadas com mTLS de ponta
 a ponta, perda de quórum e recuperação de processo interrompido.
 [Roteiro e critérios verificáveis](REMOTE-VALIDATION.md).
@@ -73,6 +73,24 @@ Essas referências devem vir de um canal confiável independente do recibo.
 O Studio público executa a VM no navegador. O console Windows/Node executa
 o consenso na sua instância local. Os saldos existentes da instalação
 principal Konaet não são migrados para esses exemplos.
+
+## Operação e entrada HTTPS
+
+## Recibos da rede social
+
+`SocialReceiptRegistry.ko` recebe compromissos criptográficos de eventos
+autorizados. O documento e seu salt ficam fora da cadeia; os validadores
+executam o registro e produzem um certificado verificável. O SDK confere
+gênese, contrato, assinatura, transição e inclusão do compromisso.
+[Integração e proteção dos dados](SOCIAL-RECEIPTS.md).
+
+As distribuições novas são construídas, testadas e assinadas pelo
+[workflow de release](.github/workflows/signed-release.yml). O arquivo
+`.sigstore.json` permite conferir a identidade de origem do pacote:
+
+```sh
+gh attestation verify Konaet-Console-Windows-x64.zip --repo 7dsol3/konaet-sovereign-spec --signer-workflow 7dsol3/konaet-sovereign-spec/.github/workflows/signed-release.yml
+```
 
 ## Operação e entrada HTTPS
 
@@ -120,7 +138,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.7.1.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.7.2.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
