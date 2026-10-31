@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+  "runId": "41210381147-1",
+  "hostCount": 4,
+  "independentAdministrators": false,
+  "requestedSeconds": 3600,
+  "observedMs": 3603784,
+  "transfers": 415,
+  "calls": 138,
+  "sequence": "554",
+  "stateRoot": "bb9cd59b44be0d9b606279186cb519dc8208fcd102763694d13516b3195afea7",
+  "signers": [
+    "validator-0",
+    "validator-1",
+    "validator-3"
+  ],
+  "timing": {
+    "definition": "submission-through-all-active-node-root-convergence-plus-controller-polling",
+    "samples": 553,
+    "p50Ms": 988.3607120001689,
+    "p95Ms": 1095.4133600001223,
+    "p99Ms": 1184.2777060000226
+  },
+  "operationalScope": "four-ephemeral-github-hosted-vms-with-end-to-end-mtls",
+  "permanentHostingValidated": false
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "konaet.linux-gateway-validation.v1",
+  "passed": true,
+  "commit": "bb43255c7e54c72c58ba56c053c94766914ee7d3",
+  "verifiedTls": true,
+  "basicAuthRequired": true,
+  "readOnlyEnforced": true,
+  "rawOperatorRouteBlocked": true,
+  "readinessReportsNoQuorum": true,
+  "statusSanitized": true,
+  "networkExposure": "isolated-ci-loopback-only",
+  "at": "2026-10-31T14:50:31.847Z"
+}

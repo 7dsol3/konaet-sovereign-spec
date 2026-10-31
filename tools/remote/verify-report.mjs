@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { check, verified, NETWORK_DOMAIN, REPORT_DOMAIN, writeJson, require } from './common.mjs';
 const { validateGenesis } = require('../../chain/network/sovereign');
 const { verifyContractReceipt } = require('../verify-contract-receipt.cjs');
+const { KoGlobalState } = require('../../chain/vlock7sin-js/src/koState');
+const { UNIT } = require('../../chain/vlock7sin-js/src');
 export function verifyRemoteResults(controllerPacket, packets, expectedCommit, expectedRun) {
   check(controllerPacket?.body?.network, 'REMOTE_CONTROLLER_REPORT_REQUIRED');
   const networkPacket = controllerPacket.body.network, controlPublicKey = networkPacket.body.controlPublicKey;
@@ -32,6 +34,11 @@ export function verifyRemoteResults(controllerPacket, packets, expectedCommit, e
     && body.faults.some(fault => fault.kind === 'validator-3-restored-and-synchronized' && fault.passed), 'REMOTE_ACCEPTANCE_CRITERIA_FAILED');
   const receipt = verifyContractReceipt(body.lastReceipt, { expectedGenesisId: genesis.genesisId, expectedPreviousRoot: body.lastReceipt.proposal.previousRoot });
   check(receipt.stateRoot === body.finalRoot, 'REMOTE_FINAL_CERTIFICATE_MISMATCH');
+  const finalState = KoGlobalState.fromSnapshot(body.lastReceipt.afterState);
+  check(finalState.entries().reduce((sum, row) => sum + row.balance, 0n) === UNIT.initialSupplyAtomic, 'REMOTE_FINAL_SUPPLY_MISMATCH');
+  const counter = finalState.contracts().filter(record => record.artifact.program.contract === 'Counter');
+  check(counter.length === 1 && counter[0].state.storage.total === String(body.contractCallCount * 2)
+    && body.finalContractValue === counter[0].state.storage.total, 'REMOTE_FINAL_CONTRACT_VALUE_MISMATCH');
   return { passed: true, commit: expectedCommit, runId: expectedRun, hostCount: hosts.size, independentAdministrators: false,
     requestedSeconds: body.requestedSeconds, observedMs: body.elapsedMs, transfers: body.transferCount, calls: body.contractCallCount,
     sequence: body.finalSequence, stateRoot: body.finalRoot, signers: receipt.signers, timing: body.timing,

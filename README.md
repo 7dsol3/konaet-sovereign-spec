@@ -58,6 +58,13 @@ volta a se conectar. A homologação inclui VMs separadas com mTLS de ponta
 a ponta, perda de quórum e recuperação de processo interrompido.
 [Roteiro e critérios verificáveis](REMOTE-VALIDATION.md).
 
+**Homologação de uma hora concluída:** quatro VMs Ubuntu, 415 transferências,
+138 chamadas `.ko`, 554 fechamentos e a mesma raiz final. O roteiro incluiu
+perda/retorno do quórum e SIGKILL com recuperação do estado.
+[Resultados, relatos assinados e reprodução](VALIDATION-RESULTS.md).
+
+![Execução real de uma hora: disponibilidade dos quatro processos, sequência finalizada e pico de memória observado.](assets/remote-endurance.svg)
+
 Ao conferir um certificado recebido, fixe a identidade da rede com
 `--genesis-id` e, quando disponível, a raiz anterior com `--previous-root`.
 Essas referências devem vir de um canal confiável independente do recibo.

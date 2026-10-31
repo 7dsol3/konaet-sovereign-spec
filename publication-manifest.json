@@ -107,8 +107,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 11250,
-      "sha256": "8fb7e447827dd530f23acfc549b58fc145f566387394cf62401ce5da8568e375"
+      "bytes": 11696,
+      "sha256": "eff6ccb7f5edf2ba806cb464a20f80fc009f39f337498ab789a76f8cf7b81d46"
     },
     {
       "path": "RECOVERY.md",
@@ -117,13 +117,18 @@
     },
     {
       "path": "REMOTE-VALIDATION.md",
-      "bytes": 4131,
-      "sha256": "f82cf3c77a246d3e379958e45f2929a878af511739a42529b1fc17c4ebc4e4b0"
+      "bytes": 4502,
+      "sha256": "90a006e4bc93581fb3472aa917028ad068f22aa3021fe230946a35dad7486d03"
     },
     {
       "path": "SECURITY.md",
       "bytes": 3116,
       "sha256": "4edb80d3c6993c391c9559d15d6d2dfe41fda35eb3d770f30703c9d713408e1b"
+    },
+    {
+      "path": "VALIDATION-RESULTS.md",
+      "bytes": 5986,
+      "sha256": "c073ef1d24986ad9e90eae3040170efa01e8203a6113398c386bbcc281a77b63"
     },
     {
       "path": "Verificar-Pacote.bat",
@@ -159,6 +164,11 @@
       "path": "assets/puzzle-do-dia.png",
       "bytes": 2306158,
       "sha256": "278dc0b89a00e0c121d49e0921786a29754c412129208788add40357f241ba16"
+    },
+    {
+      "path": "assets/remote-endurance.svg",
+      "bytes": 109736,
+      "sha256": "46e1d9e0cae854cc59131c2ea39ff3907a997d1d808f80e1f0a907f0664c3745"
     },
     {
       "path": "assets/snd.svg",
@@ -522,8 +532,8 @@
     },
     {
       "path": "deploy/validator/README.md",
-      "bytes": 7963,
-      "sha256": "e6a67ce7e1d3086c762daec6cfceb2c9acd6f5f83895f71e7f81da4ae40681c1"
+      "bytes": 8403,
+      "sha256": "e466c33bfbd49f5277fc4e4c26735ed5f15f39b57f5166f6b3b00a640bb32fe7"
     },
     {
       "path": "deploy/validator/konaet-gateway.service",
@@ -636,9 +646,54 @@
       "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
     },
     {
+      "path": "evidence/linux-gateway-2026-10-31.json",
+      "bytes": 391,
+      "sha256": "7d79053e2b598aa0fb7232ed6abe4334b5aa82d5ccd2478c9d5f73601b821c0d"
+    },
+    {
       "path": "evidence/linux-service-2026-10-31.json",
       "bytes": 550,
-      "sha256": "11ec61ea4623c57856338af591b20f1bcde8d6483ce5f0463c24769e6d945191"
+      "sha256": "efe4fa56457ee249577f7a5fa921456b30ab47a76cca86bc43f8717fc90f4d46"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/controller.json",
+      "bytes": 63295,
+      "sha256": "992d8990ce2defbd296f081cde84c7a9aa6bafa7e0631573568f8f350b892932"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/external-observations.jsonl",
+      "bytes": 75241,
+      "sha256": "a585922cc4f935091067ceebcef98d863be84a3dc23289534bf61d48f57e8324"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/provenance.json",
+      "bytes": 1127,
+      "sha256": "b5bef169657e0c82808c02b99ff2ab0c5678ccf3c04574509a6695e65f20d9e3"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-0.json",
+      "bytes": 1216,
+      "sha256": "b102afe4d869648fe1537008af25f21e1fedb4722ea2f5d166438e977a64cb4a"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-1.json",
+      "bytes": 1262,
+      "sha256": "3d2eeac006145e5476742d2df67170b8ba914dfe6d8b384b5aeecdb5300ee77a"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-2.json",
+      "bytes": 1487,
+      "sha256": "7a6fbd59f6815d33beb53d0751ff3f74bfad1f5969bb0d8072832bc9c76e40eb"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/result-3.json",
+      "bytes": 1638,
+      "sha256": "89c54e8d08adafee0240159adb4d369b10ea3639bf59ebe532d6e7709bda33be"
+    },
+    {
+      "path": "evidence/remote-hour-2026-10-31/verified-summary.json",
+      "bytes": 780,
+      "sha256": "945a3dbe12c5b2b893be37c96f21d0ca01a37725e6178393301ca7512da06708"
     },
     {
       "path": "evidence/remote-smoke-2026-10-31/controller.json",
@@ -812,8 +867,8 @@
     },
     {
       "path": "tests/remote-validation.test.mjs",
-      "bytes": 6663,
-      "sha256": "f6a06531a19ef0cd5d86c0419cb586fb2128dd4cf6d122e4866872509d78b2a3"
+      "bytes": 7348,
+      "sha256": "c1664517caa3e5dc7fa8de51c46f27fcdcf0af782119c8073178859e9eb7225e"
     },
     {
       "path": "tools/build-program-browser.mjs",
@@ -832,8 +887,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 8605,
-      "sha256": "a91fe07873b9a726ecb589851cb8e0d9e67f0212f612a33fd2a8321f99fad571"
+      "bytes": 9178,
+      "sha256": "5f3daa29a753bbe49d3f8b4119b368a224862ef22f0f4aad6f1761d4d1644187"
     },
     {
       "path": "tools/ko.mjs",
@@ -901,9 +956,14 @@
       "sha256": "cb50c00d2c6141903feb91c170866cb45010e12b016670d4a06f5b474aca5e74"
     },
     {
+      "path": "tools/remote/render-report.py",
+      "bytes": 5617,
+      "sha256": "ab3044c6d9ed6668b50817d89778fbf0bb959ed5b519a90569d388ea603c2d53"
+    },
+    {
       "path": "tools/remote/verify-report.mjs",
-      "bytes": 4145,
-      "sha256": "1990ef8efffe256f0e8aec85456ce7a27da3eb9f30da6a7a35a669f0c9c8e753"
+      "bytes": 4809,
+      "sha256": "0c10f5a2aed231258fa6e4fd5459cde83183f9c3680789303f01fee35ca7c3d1"
     },
     {
       "path": "tools/validator-worker.cjs",
@@ -927,8 +987,8 @@
     },
     {
       "path": "tools/verify-publication.mjs",
-      "bytes": 1725,
-      "sha256": "91dddae164c76f97e25287f5a9a89ca5a3d461fe4ea025d64df5567f2dcacb67"
+      "bytes": 2523,
+      "sha256": "00c838b67eb951d2dda1c296448d9eb703e6eca88ca7dfa1a41d3cfbc75b4a75"
     },
     {
       "path": "tools/verify-transfer.mjs",

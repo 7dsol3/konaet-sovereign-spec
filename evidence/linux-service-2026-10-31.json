@@ -1,7 +1,7 @@
 {
   "schema": "konaet.linux-service-validation.v1",
   "passed": true,
-  "commit": "6df8bf848ebfdbc749257e18c24fd2c0a47854d8",
+  "commit": "bb43255c7e54c72c58ba56c053c94766914ee7d3",
   "runner": "ubuntu-24.04-systemd",
   "unit": "deploy/validator/konaet-validator@.service",
   "rootPreserved": true,
@@ -15,5 +15,5 @@
     "KillMode": "control-group"
   },
   "independentNetworkValidated": false,
-  "at": "2026-10-31T14:35:02.459Z"
+  "at": "2026-10-31T14:50:26.142Z"
 }

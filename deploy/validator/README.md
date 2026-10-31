@@ -126,9 +126,15 @@ Programe renovação de certificados antes do vencimento e reaplique apenas
 o material daquele operador. Valide com `check`, reinicie um nó por vez e
 confirme a malha. Não distribua a chave privada da CA junto com os certificados.
 
-O template foi preparado no Windows e precisa de `systemd-analyze verify`
-e de um ensaio de inicialização, parada, falha e recuperação no Linux alvo.
-Nenhum servidor Linux foi instalado ou iniciado por esta publicação.
+O template passou por `systemd-analyze verify`, instalação, parada, reinício
+controlado e recuperação de SIGKILL em uma VM Ubuntu 24.04 com systemd.
+O gateway separado e o proxy Nginx passaram em TLS, autenticação, rotas
+permitidas e isolamento de escrita nessa VM. O workflow reproduzível está
+em [linux-service.yml](../../.github/workflows/linux-service.yml); os
+relatórios ficam em [serviço](../../evidence/linux-service-2026-10-31.json)
+e [gateway](../../evidence/linux-gateway-2026-10-31.json).
+Instalações em outro host devem conferir permissões, paths, certificados e
+supervisão naquele ambiente. As VMs de CI são encerradas ao final do job.
 
 Referências: [configuração de serviços systemd](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html),
 [isolamento e permissões](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html).

@@ -42,6 +42,14 @@ test('remote control signatures bind domain, run, action and key', () => {
   assert.throws(() => endpoint('http://127.0.0.1/')); assert.throws(() => endpoint('https://one.trycloudflare.com/?x=1'));
 });
 
+test('the one-hour four-VM report verifies finality, duration, supply and stateful contract totals', () => {
+  const read = name => JSON.parse(fs.readFileSync(new URL('../evidence/remote-hour-2026-10-31/' + name, import.meta.url), 'utf8'));
+  const controller = read('controller.json'), nodes = [0, 1, 2, 3].map(index => read(`result-${index}.json`));
+  const result = verifyRemoteResults(controller, nodes, '8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91', '41210381147-1');
+  assert.deepEqual(result, read('verified-summary.json')); assert.ok(result.observedMs >= 3600000);
+  assert.equal(result.transfers, 415); assert.equal(result.calls, 138); assert.equal(result.sequence, '554');
+});
+
 test('a remote TCP-over-WebSocket relay preserves byte order and backpressure', async t => {
   const echo = net.createServer(socket => { socket.on('error', () => {}); socket.pipe(socket); });
   await new Promise(resolve => echo.listen(0, '127.0.0.1', resolve));

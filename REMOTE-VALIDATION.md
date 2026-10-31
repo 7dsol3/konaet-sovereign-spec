@@ -1,5 +1,7 @@
 # Homologação operacional entre máquinas
 
+[Resultado concluído da execução de uma hora](VALIDATION-RESULTS.md).
+
 O workflow **Konaet remote endurance** executa quatro validadores em quatro
 VMs Ubuntu separadas do GitHub Actions. Cada VM gera sua própria chave
 Ed25519 e chave TLS. São máquinas sob a mesma conta e provedor; a execução
@@ -70,6 +72,11 @@ Os relays temporários atendem à execução de duração definida. Hospedagem
 permanente, distribuição entre provedores, administração por operadores
 distintos, restauração de backups e revisão externa exigem critérios e
 infraestrutura próprios.
+
+`npm run verify` também confere as assinaturas dos quatro relatos arquivados,
+a duração, o certificado final, a oferta SND e o valor final do contrato.
+O gráfico é reproduzível com `tools/remote/render-report.py` e matplotlib,
+usando os arquivos da pasta `evidence/remote-hour-2026-10-31`.
 
 Referências de infraestrutura: [runners do GitHub](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)
 e [Cloudflare Quick Tunnels](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/).
