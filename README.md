@@ -1,22 +1,48 @@
 <div align="center">
   <img src="assets/konaet-native-cover.svg" width="100%" alt="Konaet Soberana — tecnologia com identidade própria">
 
-  <p><a href="https://konaet-ko-runtime.alkalipixie.chatgpt.site">Ecossistema Konaet</a> · <a href="https://konaet-ko-runtime.alkalipixie.chatgpt.site/console">Console .ko online</a> · <a href="KO-QUICKSTART.md">Comece com .ko</a> · <a href="https://wa.me/message/43CXZJ7NW2FPDO">Projetos e parcerias</a></p>
+  <p><a href="https://konaet-ko-runtime.alkalipixie.chatgpt.site">Ecossistema Konaet</a> · <a href="https://7dsol3.github.io/konaet-sovereign-spec/">.ko Studio</a> · <a href="KO-PROGRAM.md">Criar contratos</a> · <a href="https://wa.me/message/43CXZJ7NW2FPDO">Projetos e parcerias</a></p>
 </div>
 
 # Konaet Soberana
 
-**Native Chain · Console 1.3.0 · Runtime .ko**
+**Native Chain · Console 1.4.0 · .ko Studio**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
 e um console que inicia quatro processos validadores no seu computador.
 
-[Console online](https://konaet-ko-runtime.alkalipixie.chatgpt.site/console) ·
+[.ko Studio online](https://7dsol3.github.io/konaet-sovereign-spec/) ·
 [Baixar para Windows](https://github.com/7dsol3/konaet-sovereign-spec/releases/latest/download/Konaet-Console-Windows-x64.zip) ·
 [Releases](https://github.com/7dsol3/konaet-sovereign-spec/releases)
 
 ![Mapa de alto nível: regras .ko, validação, VLOCK7SIN e estado; Money DNA e ativos com identidades próprias.](assets/konaet-architecture.svg)
+
+## Contratos .ko com estado e assinatura
+
+O perfil **KONAET_KO_PROGRAM_V1** executa funções tipadas, storage, mapas,
+eventos e chamadas internas, com inteiros `u128`, orçamento e rollback.
+Chamadas Ed25519 vinculam o programa, o contrato, a rede e o estado ao pedido.
+O journal Node revalida assinaturas e reproduz as transições ao recuperar.
+
+Abra o **[.ko Studio](https://7dsol3.github.io/konaet-sovereign-spec/)**,
+crie uma instância de `Counter.ko` e execute `increment` com `["7"]`.
+O Studio roda no navegador e exporta recibos que o Node verifica e reproduz.
+[Guia completo, exemplos e chave cifrada](KO-PROGRAM.md).
+
+```mermaid
+flowchart LR
+  A["Fonte .ko"] --> B[Compilar e tipar]
+  B --> C[Assinar Ed25519]
+  C --> D[Verificar identidade e estado]
+  D --> E[Executar com orçamento]
+  E --> F[Estado, eventos e recibo]
+```
+
+Este perfil mantém seu próprio estado de contratos. A política nativa
+`ASSERT_V1` continua aplicada pelo VLOCK na gênese v6; o novo `PROGRAM_V1`
+ainda não é um tipo de transação desses validadores. Os saldos existentes
+da Konaet não participam dos exemplos do Studio.
 
 ## Identidade do ecossistema
 
@@ -45,7 +71,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.3.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.4.0.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
@@ -88,6 +114,9 @@ node tools/console.mjs --no-browser
 | Nó VLOCK7SIN | [SovereignNode.js](chain/network/sovereign/SovereignNode.js) | Recebe eventos, troca votos, finaliza por quórum e sincroniza peers |
 | Ledger | [ledger.js](chain/vlock7sin-js/src/ledger.js) | Confere assinatura, saldo, nonce, estado e política `.ko` |
 | Runtime `.ko` | [koPolicy.js](chain/vlock7sin-js/src/koPolicy.js) | Compila e executa nove regras padrão com inteiros exatos |
+| Programas `.ko` | [runtime.js](chain/ko-program/runtime.js) | Compila funções, storage, mapas e eventos com orçamento e rollback |
+| Chamadas assinadas | [auth.js](chain/ko-program/auth.js) | Ed25519, endereço derivado da chave, domínio e proteção contra replay de escritas |
+| Journal de contratos | [store.js](chain/ko-program/store.js) | Persistência exclusiva e replay autenticado |
 | Gênese v6 | [SovereignGenesis.js](chain/network/sovereign/SovereignGenesis.js) | Vincula fonte e programa `.ko` à identidade da rede |
 | Persistência | [persistence.js](chain/vlock7sin-js/src/persistence.js) | WAL, snapshots e recuperação do estado |
 | Console | [console.mjs](tools/console.mjs) | Interface HTTP local, transferências assinadas e quatro processos |

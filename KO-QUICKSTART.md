@@ -1,5 +1,10 @@
 # Comece com .ko
 
+Para funções, storage, mapas, eventos e chamadas Ed25519, use o
+**[guia de contratos com estado](KO-PROGRAM.md)** e o
+**[.ko Studio](https://7dsol3.github.io/konaet-sovereign-spec/)**.
+O guia abaixo descreve o perfil de políticas `ASSERT_V1`.
+
 Use `.ko` para definir regras de aceitação, executá-las com dados de teste e
 integrá-las ao perfil nativo da Konaet. Este guia usa o motor distribuído no
 repositório e na versão Windows.

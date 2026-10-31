@@ -9,3 +9,10 @@ bin/
 package-manifest.json
 /minha-politica/
 /politica.compiled.json
+*.pem
+/counter-state/
+/Counter.json
+/deploy-options.json
+/increment-request.json
+/signed-deploy.json
+/signed-call.json

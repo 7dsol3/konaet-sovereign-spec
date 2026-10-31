@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Escreva, compile e execute contratos Konaet .ko com estado, eventos e chamadas Ed25519 no navegador.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Konaet · .ko Studio</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="studio.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><img src="favicon.svg" alt="" width="38" height="38">KONAET<span>.ko Studio</span></a><nav aria-label="Navegação"><a href="https://konaet-ko-runtime.alkalipixie.chatgpt.site">Ecossistema</a><a href="https://github.com/7dsol3/konaet-sovereign-spec/blob/main/KO-PROGRAM.md">Documentação ↗</a><a href="https://github.com/7dsol3/konaet-sovereign-spec">GitHub ↗</a></nav></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">LINGUAGEM NATIVA KONAET / 01</p><h1>Sua regra.<br>Seu estado. <em>Seu .ko.</em></h1><p class="lead">Do código ao recibo assinado. Compile um contrato, execute funções e acompanhe cada mudança de estado.</p></div><div class="identity-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="cube">.ko</div><span>ESTADO · REGRAS · IDENTIDADE</span></div></section>
+    <div class="features"><span><i></i> Runtime KONAET_KO_PROGRAM_V1</span><span>u128 exato</span><span>Estado + eventos</span><span>Ed25519</span><span>Execução neste navegador</span></div>
+    <section class="workspace" aria-label="Editor e execução de contratos">
+      <div class="panel source-panel"><div class="panel-head"><div><p class="eyebrow">01 / FONTE</p><h2>Escreva o contrato</h2></div><label class="sr-only" for="example">Exemplo de contrato</label><select id="example"><option value="Counter">Counter.ko</option><option value="RegistryToken">RegistryToken.ko</option></select></div>
+        <label for="source" class="sr-only">Código fonte .ko</label><textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+        <div class="source-footer"><span>LF · ASCII · até 64 KiB</span><button id="deploy" class="primary">Compilar e criar instância <span aria-hidden="true">↗</span></button></div>
+      </div>
+      <div class="execution-column"><div class="panel call-panel"><div class="panel-head"><div><p class="eyebrow">02 / EXECUÇÃO</p><h2>Chamada assinada</h2></div><span id="badge" class="badge">Aguardando contrato</span></div>
+          <div class="call-body"><label for="signer">Identidade da sessão</label><select id="signer" disabled><option value="owner">Dono · Alice</option><option value="visitor">Visitante · Bob</option></select>
+          <p id="address" class="address">As identidades são criadas ao compilar.</p><div class="call-grid"><div><label for="method">Função</label><select id="method" disabled></select></div><div><label for="gas">Limite de execução</label><input id="gas" type="number" min="1" max="100000" value="10000"></div></div>
+          <label for="args">Argumentos JSON</label><textarea id="args" rows="3" spellcheck="false" disabled>["7"]</textarea><p id="signature" class="hint">Inteiros em texto: ["7"]. A assinatura vincula função, argumentos, rede, revisão e raiz.</p>
+          <button id="execute" class="primary wide" disabled>Assinar e executar <span aria-hidden="true">→</span></button></div>
+        </div>
+        <div class="panel receipt-panel"><div class="panel-head"><div><p class="eyebrow">03 / RECIBO</p><h2 id="result-title">Tudo começa no fonte</h2></div><button id="download" class="text-button" disabled>Baixar recibos ↓</button></div><p id="message" role="status" aria-live="polite">Escolha um exemplo ou escreva o seu. Depois, crie uma instância.</p><div class="metrics"><div><span>Revisão</span><strong id="revision">—</strong></div><div><span>Unidades de execução</span><strong id="gas-used">—</strong></div><div><span>Assinatura</span><strong id="verified">—</strong></div></div><details><summary>Estado, eventos e recibo</summary><pre id="receipt">{}</pre></details></div>
+      </div>
+    </section>
+    <section class="flow" aria-label="Caminho da chamada"><div><span>01</span><h3>Compilação tipada</h3><p>Funções, storage e mapas. Fonte e programa vinculados por SHA-256.</p></div><b aria-hidden="true">→</b><div><span>02</span><h3>Identidade verificada</h3><p>Chave Ed25519 gerada na sessão. O endereço vem da chave pública.</p></div><b aria-hidden="true">→</b><div><span>03</span><h3>Transição atômica</h3><p>A execução aceita publica o novo estado. Erros preservam a raiz anterior.</p></div><b aria-hidden="true">→</b><div><span>04</span><h3>Recibo exportável</h3><p>Programa, chamadas, assinaturas e estado para conferir e reproduzir.</p></div></section>
+    <aside class="session-note"><strong>Seu laboratório de contratos.</strong><p>O Studio executa na memória deste navegador. Recarregar encerra a sessão; baixe os recibos para guardá-los. As chaves da sessão não são exportadas nem enviadas a um servidor. Os exemplos usam unidades de teste próprias do contrato. Este Studio não envia transações aos validadores VLOCK7SIN.</p><a href="https://github.com/7dsol3/konaet-sovereign-spec/blob/main/KO-PROGRAM.md">Usar assinatura e persistência no Node.js ↗</a></aside>
+  </main><footer><a class="brand" href="https://github.com/7dsol3">KONAET<span>Identidade própria. Execução verificável.</span></a><span>.ko Studio · 1.4.0</span></footer><script type="module" src="studio.mjs"></script>
+</body></html>

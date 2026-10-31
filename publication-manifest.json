@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.3.0",
+  "edition": "1.4.0",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -17,8 +17,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 140,
-      "sha256": "13c488cf1bd7a3517a2aa996d937ea823cabdac5c47ba44a2dd77c0a83e65d04"
+      "bytes": 259,
+      "sha256": "98e3c16123e04a0f044af8fc0e0a4b39321a55ab72c9518a872234c8edf7bc1e"
     },
     {
       "path": "COMPARISON.md",
@@ -51,9 +51,14 @@
       "sha256": "9e6abd622264f45c2e9765073cfe6fbdabbee8a0fc855f877a042266fc5c2428"
     },
     {
+      "path": "KO-PROGRAM.md",
+      "bytes": 7572,
+      "sha256": "e5da46eb4abd786fc01574935165c6eafaac3e15c3455ca578bc330295aa202e"
+    },
+    {
       "path": "KO-QUICKSTART.md",
-      "bytes": 5270,
-      "sha256": "e6715c4084c6ee722e36674a265934a1ecb78cdf284516ae6b1084590006efa4"
+      "bytes": 5517,
+      "sha256": "d491369b01310cd770a34e3703ad890ad320ab01f3e4d46aae3ae73a4309ecea"
     },
     {
       "path": "KO-RUNTIME.md",
@@ -82,8 +87,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6672,
-      "sha256": "1907e4fdc89105ca3923284f26d0857bb52cdc0ae5ac7f9886bc1cf8e8f33012"
+      "bytes": 8156,
+      "sha256": "2d97072e48a0ba5ed77a05a2185571a86e6302b942bc0d7a788fe40aee22b75f"
     },
     {
       "path": "SECURITY.md",
@@ -136,6 +141,51 @@
       "sha256": "81ec0c351fd5f12aaba8b91b4c6b672f87fa780605d2e537326d2e429bbdc13e"
     },
     {
+      "path": "chain/ko-program/auth.js",
+      "bytes": 2945,
+      "sha256": "12afb6c7fd55df79d3d1e3aa71e2945291a2f4e84a70c0147c5e7a37162f65e9"
+    },
+    {
+      "path": "chain/ko-program/cli.js",
+      "bytes": 4521,
+      "sha256": "b2b6ce119ffd09f98442dd51d77cf1590c450e5df957226cf541753184a5f408"
+    },
+    {
+      "path": "chain/ko-program/examples/Counter.ko",
+      "bytes": 585,
+      "sha256": "4e6ebe4f89038c9ff9c41e27eb623511c1a6ae605e23e3ebd09fcc5a27a798fe"
+    },
+    {
+      "path": "chain/ko-program/examples/RegistryToken.ko",
+      "bytes": 1121,
+      "sha256": "c4187435834a920e6ef28be52fea431d5940107b6a2ec14b3f04294a9b72eff3"
+    },
+    {
+      "path": "chain/ko-program/examples/deployment.json",
+      "bytes": 110,
+      "sha256": "db95274a76beb7b32fdcad8d246f83cfe848ae2eeced410d8dc2e8fa18ddfb61"
+    },
+    {
+      "path": "chain/ko-program/examples/increment.json",
+      "bytes": 143,
+      "sha256": "7893b81410a68f1b0341115a0e2475891f2ad69fdd4111f2a00b8d0d64c8e9d8"
+    },
+    {
+      "path": "chain/ko-program/messages.js",
+      "bytes": 4921,
+      "sha256": "3683313f6331c32e5fdc39ba3c5edbb27942c25d58abd06110eda88c3b407cfb"
+    },
+    {
+      "path": "chain/ko-program/runtime.js",
+      "bytes": 28341,
+      "sha256": "200e204252b59001a194215c04f61ff33f82dea8b49cf98d748809ae0e1c092f"
+    },
+    {
+      "path": "chain/ko-program/store.js",
+      "bytes": 6543,
+      "sha256": "3fa0d770a04eabd55defcc8885abcac12624ddab2436aa64530d0f26ff73b25b"
+    },
+    {
       "path": "chain/network/sovereign/HybridRoundChangeQuorum.js",
       "bytes": 13338,
       "sha256": "f28dfb52a7ce8801fa03069ff4cd50d8c49c2d0d6976c5a26605a5cfef5d141f"
@@ -178,7 +228,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "f1c7c4e6c068405120b86696197b177158dd482c3d79a573dd6431f6a51fed4d"
+      "sha256": "c17b9badf0d7ed7520c7b20b647940c2346595d7cd91fabe32be24a4190474ce"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -411,6 +461,96 @@
       "sha256": "ec4a0846500c4f7529291e70069732d5ed5da0c37ff15004ab81dc35ab6d877f"
     },
     {
+      "path": "docs/.nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/examples/Counter.ko",
+      "bytes": 585,
+      "sha256": "4e6ebe4f89038c9ff9c41e27eb623511c1a6ae605e23e3ebd09fcc5a27a798fe"
+    },
+    {
+      "path": "docs/examples/RegistryToken.ko",
+      "bytes": 1121,
+      "sha256": "c4187435834a920e6ef28be52fea431d5940107b6a2ec14b3f04294a9b72eff3"
+    },
+    {
+      "path": "docs/favicon.svg",
+      "bytes": 298,
+      "sha256": "d020312ff50f657f4e76a0d274686a8d16fc446bef430262b68362134455d837"
+    },
+    {
+      "path": "docs/index.html",
+      "bytes": 5848,
+      "sha256": "421bf1d20acc53d8a11db915994bfa486f192c8ad8984c82560a0cd5b1416cd3"
+    },
+    {
+      "path": "docs/program-auth.mjs",
+      "bytes": 3732,
+      "sha256": "07c872b6c27cb316ddccca056e6475ef80919d37f56d304b78fdc6f37f692a6b"
+    },
+    {
+      "path": "docs/program-messages.mjs",
+      "bytes": 5125,
+      "sha256": "56d0f0d509d4853d49aba27cfbf7d044fcd155ceefc024a7fba9b72ba5d20f5a"
+    },
+    {
+      "path": "docs/program-runtime.mjs",
+      "bytes": 29183,
+      "sha256": "f754be99993cfcf37cf2311f9fb9b76f63f4678f25057e44b0bfb6d2d33a1fed"
+    },
+    {
+      "path": "docs/studio.css",
+      "bytes": 7270,
+      "sha256": "d345a4cc8723ca6ff1772dc2b72e3c564abf45a6cf84a66d56d7cc92da29008a"
+    },
+    {
+      "path": "docs/studio.mjs",
+      "bytes": 4797,
+      "sha256": "7f8809f517535b7742ee9841493d61f38a1926f563e1d76ca299241f68c9c4c8"
+    },
+    {
+      "path": "docs/vendor/hashes/LICENSE",
+      "bytes": 1109,
+      "sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec"
+    },
+    {
+      "path": "docs/vendor/hashes/_assert.js",
+      "bytes": 1332,
+      "sha256": "03c9c6487053cc079fd8fdee3f4287fc388cab92e18e1cef3a395a7cffc09574"
+    },
+    {
+      "path": "docs/vendor/hashes/_sha2.js",
+      "bytes": 4327,
+      "sha256": "f3120c3b08d315155ec0f1e282ff9da82a5f95aec6fe13988cb353e5d7409c66"
+    },
+    {
+      "path": "docs/vendor/hashes/_u64.js",
+      "bytes": 2935,
+      "sha256": "45235902ea7c2b4d8e3531cc73f3c09c887bac8472ab2d36b1a0415f18431e91"
+    },
+    {
+      "path": "docs/vendor/hashes/crypto.js",
+      "bytes": 112,
+      "sha256": "87bea3ec8d754506a254c1bd8a311d68e97893ab856a435556b6508025aabdd7"
+    },
+    {
+      "path": "docs/vendor/hashes/sha256.js",
+      "bytes": 4969,
+      "sha256": "450f62fddb3f7612023ae02b888f65b1f32babd5bee3eb873db52f48b4d15828"
+    },
+    {
+      "path": "docs/vendor/hashes/sha3.js",
+      "bytes": 7749,
+      "sha256": "5504ab7cd5154ec1973abbb5bab41f8f16deb847d30ace7099b8a76d619ee35a"
+    },
+    {
+      "path": "docs/vendor/hashes/utils.js",
+      "bytes": 5970,
+      "sha256": "b611e93928b698835e80caf90e3386b1be8675d43319c8f330f0a07266c9dc78"
+    },
+    {
       "path": "evidence/ko-runtime.json",
       "bytes": 710,
       "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
@@ -453,12 +593,12 @@
     {
       "path": "package-lock.json",
       "bytes": 836,
-      "sha256": "3097a43626ec8e40c3bf8e94e8939ca2488ddaa2fe759ade8baf5c6958c5b8dd"
+      "sha256": "bd02fdbd49594e2708006ce339797f8f3734b127d2da18302010e5ab3646d9f2"
     },
     {
       "path": "package.json",
-      "bytes": 580,
-      "sha256": "cc26fb65f84c3feba499b24017f1020324085d05a823868e142f09d3db2969ba"
+      "bytes": 644,
+      "sha256": "7bb191fa6f4c39fbb85782f65512948cbae843dcf44f2d1ee693526045ec1ed5"
     },
     {
       "path": "runtime/LICENSE",
@@ -491,6 +631,26 @@
       "sha256": "c78cf29829dde9a05d6d8dce1656af3d2eb2d020c539b644258151da8943a9f3"
     },
     {
+      "path": "tests/ko-program-auth.test.cjs",
+      "bytes": 8334,
+      "sha256": "de34acfa13b4639dd34a197efe72bb062199c5dd7dd12a95db1d8f5db3049bbe"
+    },
+    {
+      "path": "tests/ko-program-browser.test.mjs",
+      "bytes": 3648,
+      "sha256": "57211f43f906cd25d480ad4ea3da22763bfedd54e0c775c63446796dab344401"
+    },
+    {
+      "path": "tests/ko-program-store.test.cjs",
+      "bytes": 6732,
+      "sha256": "a5bd588f8148a3d5fa06bd75f4da4206aa778ea5284b16bc7bc8784c7c00f8c6"
+    },
+    {
+      "path": "tests/ko-program.test.cjs",
+      "bytes": 11383,
+      "sha256": "c862a5f955544bbd8e1e9f3973810980e7318d8d9980a4512332c0a345baba2d"
+    },
+    {
       "path": "tests/ko.test.mjs",
       "bytes": 2100,
       "sha256": "ff4c0f29c995e68b9b2708da232bc6b4c6e847f12decaf7446725b8ca785dd52"
@@ -499,6 +659,11 @@
       "path": "tests/publication.test.mjs",
       "bytes": 2068,
       "sha256": "5616803fa74a47dad32245e41f685b76dae425398d05bafa305c41faa8379b85"
+    },
+    {
+      "path": "tools/build-program-browser.mjs",
+      "bytes": 2156,
+      "sha256": "29d366c7dee3794fbba364dc3b1530dad59fb9fcdf0e9bf532589ace165d53f9"
     },
     {
       "path": "tools/console.mjs",
@@ -512,8 +677,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 5784,
-      "sha256": "cc2d062963530cc50edaf96436f2ba1716a4d6a8e8012ca134ecdcc2f5ae7731"
+      "bytes": 6885,
+      "sha256": "022471b91e455e21b14d2b48e9b05e756f7ca8c8a98289f3d7d3106a6e8bb2c4"
     },
     {
       "path": "tools/ko.mjs",
@@ -523,12 +688,12 @@
     {
       "path": "tools/manifest.mjs",
       "bytes": 604,
-      "sha256": "48c55fa2d729e348177ba503672ae6aff83ff8cd1939897fec4ab810216bffe1"
+      "sha256": "a1fb0142c33ecb3a647757e1eb7ef9ac926dd81229efc2a43fdcce86ddbe264b"
     },
     {
       "path": "tools/package-windows.mjs",
       "bytes": 2832,
-      "sha256": "3ad1fb0a2333b86dee759ff897f2bb035521aa3b0a2e095608c96872fb1bd089"
+      "sha256": "53c73d093425d70d90ed2ffe83bf3b0f5c1d3c94f2b5775e90b68423b7c9dae8"
     },
     {
       "path": "tools/validator-worker.cjs",
@@ -539,6 +704,11 @@
       "path": "tools/verify-package.mjs",
       "bytes": 1343,
       "sha256": "d239b15b208a9fb7f5ff7d90f94e4b6a7a78235ebc07a7e9a0d24744af2ca758"
+    },
+    {
+      "path": "tools/verify-program-session.mjs",
+      "bytes": 2167,
+      "sha256": "0dac33bf15ace07027a7b4608a38cc757eb6cd22078b6eb811e9df964d3f5abb"
     },
     {
       "path": "tools/verify-publication.mjs",

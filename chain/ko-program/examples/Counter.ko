@@ -1,0 +1,31 @@
+contract Counter v1
+runtime: KONAET_KO_PROGRAM_V1
+
+storage owner: address = caller;
+storage total: u128 = 0;
+event Changed(actor: address, value: u128);
+
+internal view fn twice(amount: u128) -> u128 {
+  return amount * 2;
+}
+
+fn increment(amount: u128) -> u128 {
+  require caller == owner;
+  require amount > 0;
+  set total = total + twice(amount);
+  emit Changed(caller, total);
+  return total;
+}
+
+fn boundedBatch(amount: u128) -> u128 {
+  require caller == owner;
+  repeat 3 {
+    set total = total + amount;
+  }
+  return total;
+}
+
+view fn readTotal() -> u128 {
+  return total;
+}
+end

@@ -1,0 +1,44 @@
+contract RegistryToken v1
+runtime: KONAET_KO_PROGRAM_V1
+
+storage owner: address = caller;
+storage supply: u128 = 0;
+storage paused: bool = false;
+mapping balances: address => u128;
+event Minted(recipient: address, amount: u128);
+event Moved(sender: address, recipient: address, amount: u128);
+
+fn mint(recipient: address, amount: u128) -> u128 {
+  require caller == owner;
+  require amount > 0;
+  set supply = supply + amount;
+  set balances[recipient] = balances[recipient] + amount;
+  emit Minted(recipient, amount);
+  return supply;
+}
+
+fn transfer(recipient: address, amount: u128) -> u128 {
+  require !paused;
+  require amount > 0;
+  require recipient != caller;
+  require balances[caller] >= amount;
+  set balances[caller] = balances[caller] - amount;
+  set balances[recipient] = balances[recipient] + amount;
+  emit Moved(caller, recipient, amount);
+  return balances[caller];
+}
+
+fn setPaused(flag: bool) -> bool {
+  require caller == owner;
+  set paused = flag;
+  return paused;
+}
+
+view fn balanceOf(account: address) -> u128 {
+  return balances[account];
+}
+
+view fn totalSupply() -> u128 {
+  return supply;
+}
+end
