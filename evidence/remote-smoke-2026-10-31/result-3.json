@@ -1,0 +1,53 @@
+{
+  "body": {
+    "schema": "konaet.remote-node-result.v1",
+    "runId": "41210093390-1",
+    "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+    "index": 3,
+    "hostHash": "fa5259d0cf4705bb748b1d0ebefb5aeca35c645277b7331fa8d8e73b65e994c6",
+    "passed": true,
+    "stoppedCleanly": true,
+    "state": {
+      "schema": "konaet.remote-status.v1",
+      "runId": "41210093390-1",
+      "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+      "index": 3,
+      "hostHash": "fa5259d0cf4705bb748b1d0ebefb5aeca35c645277b7331fa8d8e73b65e994c6",
+      "online": true,
+      "sequence": "28",
+      "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+      "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1",
+      "peers": [],
+      "observedAt": 1793456958773,
+      "uptimeMs": 194266,
+      "peakRssKb": 89040,
+      "unexpectedExits": 0,
+      "lastExit": {
+        "code": null,
+        "signal": "SIGKILL",
+        "at": 1793456906612,
+        "planned": true
+      }
+    },
+    "faults": [
+      {
+        "action": "stop",
+        "at": 1793456841081
+      },
+      {
+        "action": "start",
+        "at": 1793456858199
+      },
+      {
+        "action": "kill",
+        "at": 1793456906605
+      },
+      {
+        "action": "start",
+        "at": 1793456933274
+      }
+    ],
+    "publicKey": "4c935ded8a48012b643fe2d35db38e88001373dbc2c18cc4624396899656dddb"
+  },
+  "signature": "4943061b63e5824baa2f4ffb6259c0fccfca58eda24a6a5f7759faf298d4828c1637ec44b79079ba692a7f4764a9648e82dd79119ec4a61f3659b4e6f17f7b05"
+}

@@ -5,6 +5,14 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "tools/remote/linux-gateway-check.mjs",
+  "evidence/linux-service-2026-10-31.json",
+  "evidence/remote-smoke-2026-10-31/controller.json",
+  "evidence/remote-smoke-2026-10-31/result-0.json",
+  "evidence/remote-smoke-2026-10-31/result-1.json",
+  "evidence/remote-smoke-2026-10-31/result-2.json",
+  "evidence/remote-smoke-2026-10-31/result-3.json",
+  "evidence/remote-smoke-2026-10-31/verified-summary.json",
   ".github/workflows/linux-service.yml",
   "tools/remote/linux-service-fixture.mjs",
   "tools/remote/linux-service-check.mjs",

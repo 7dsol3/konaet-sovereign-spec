@@ -37,4 +37,23 @@ fs.writeFileSync(path.join(directory, 'operator-config.json'), JSON.stringify({ 
   genesisFile: 'genesis.json', genesisSha256: crypto.createHash('sha256').update(bytes).digest('hex'), seedFile: 'own.seed',
   caFile: 'ca.pem', certificateFile: 'own.pem', tlsKeyFile: 'own.key', submitTokenFile: 'submit.token', dataDirectory: 'data',
   peers: [1, 2, 3].map(index => ({ validatorId: 'validator-' + index, url: `wss://127.0.0.1:${58600 + index * 2}/` })) }), { mode: 0o640 });
+fs.mkdirSync('/etc/konaet', { mode: 0o750 });
+fs.copyFileSync(path.join(directory, 'submit.token'), '/etc/konaet/submit.token'); fs.chmodSync('/etc/konaet/submit.token', 0o640);
+fs.writeFileSync('/etc/konaet/gateway-config.json', JSON.stringify({ schema: 'konaet.operator-gateway.v1', port: 58120,
+  upstream: 'http://127.0.0.1:58601', tokenFile: 'submit.token', publicOrigin: 'https://rpc.validation.example', allowSubmissions: false }), { mode: 0o640 });
+const proxyDirectory = path.join(process.env.RUNNER_TEMP, 'konaet-nginx'); fs.mkdirSync(proxyDirectory, { mode: 0o755 });
+const password = crypto.randomBytes(24).toString('hex');
+const hash = execFileSync('openssl', ['passwd', '-apr1', '-stdin'], { input: password, encoding: 'utf8' }).trim();
+fs.writeFileSync(path.join(proxyDirectory, 'clients.htpasswd'), 'validation:' + hash + '\n', { mode: 0o644 });
+fs.writeFileSync(path.join(proxyDirectory, 'client-password'), password, { mode: 0o600 });
+execFileSync('openssl', ['req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-subj', '/CN=rpc.validation.example',
+  '-addext', 'subjectAltName=DNS:rpc.validation.example', '-keyout', path.join(proxyDirectory, 'server.key'), '-out', path.join(proxyDirectory, 'server.pem'), '-days', '1'], { stdio: 'pipe' });
+const proxy = fs.readFileSync('/opt/konaet/deploy/validator/nginx-gateway.conf.example', 'utf8')
+  .replace('listen 443 ssl;', 'listen 127.0.0.1:58843 ssl;')
+  .replaceAll('rpc.yourdomain.example', 'rpc.validation.example')
+  .replace('/etc/letsencrypt/live/rpc.validation.example/fullchain.pem', path.join(proxyDirectory, 'server.pem'))
+  .replace('/etc/letsencrypt/live/rpc.validation.example/privkey.pem', path.join(proxyDirectory, 'server.key'))
+  .replace('/etc/nginx/konaet-clients.htpasswd', path.join(proxyDirectory, 'clients.htpasswd'));
+fs.writeFileSync(path.join(proxyDirectory, 'nginx.conf'), 'user www-data;\nworker_processes 1;\npid ' + path.join(proxyDirectory, 'nginx.pid')
+  + ';\nerror_log stderr;\nevents { worker_connections 128; }\nhttp { access_log off;\n' + proxy + '\n}\n');
 console.log(JSON.stringify({ prepared: true, genesisId: genesis.genesisId, privateKeysExported: false }));

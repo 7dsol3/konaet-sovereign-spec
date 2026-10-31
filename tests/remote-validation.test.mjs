@@ -9,11 +9,26 @@ import test from 'node:test';
 import { createRequire } from 'node:module';
 import { signed, verified, endpoint, REPORT_DOMAIN, CONTROL_DOMAIN } from '../tools/remote/common.mjs';
 import { incomingRelay, outgoingProxy } from '../tools/remote/relay.mjs';
+import { verifyRemoteResults } from '../tools/remote/verify-report.mjs';
 const require = createRequire(import.meta.url);
 const { crypto: vcrypto, UNIT } = require('../chain/vlock7sin-js/src');
 const { createGenesis, SovereignNode } = require('../chain/network/sovereign');
 const { AUTHORIZED_PROFILE } = require('../chain/vlock7sin-js/src/koConsensusProfile');
 const { compileKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
+
+test('signed reports from the four-VM run verify and reject tampering or a different workflow identity', () => {
+  const read = name => JSON.parse(fs.readFileSync(new URL('../evidence/remote-smoke-2026-10-31/' + name, import.meta.url), 'utf8'));
+  const controller = read('controller.json'), packets = [0, 1, 2, 3].map(index => read('result-' + index + '.json'));
+  const commit = '8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91', run = '41210093390-1';
+  assert.deepEqual(verifyRemoteResults(controller, packets, commit, run), read('verified-summary.json'));
+  assert.throws(() => verifyRemoteResults(controller, [packets[0], packets[0], ...packets.slice(2)], commit, run));
+  assert.throws(() => verifyRemoteResults(controller, packets, '0'.repeat(40), run));
+  assert.throws(() => verifyRemoteResults(controller, packets, commit, 'other-run'));
+  const changed = structuredClone(controller); changed.body.elapsedMs = 3600000;
+  assert.throws(() => verifyRemoteResults(changed, packets, commit, run));
+  const modifiedNode = structuredClone(packets); modifiedNode[0].body.state.root = '0'.repeat(64);
+  assert.throws(() => verifyRemoteResults(controller, modifiedNode, commit, run));
+});
 
 test('remote control signatures bind domain, run, action and key', () => {
   const key = vcrypto.IdentityKeypair.generate(), other = vcrypto.IdentityKeypair.generate();

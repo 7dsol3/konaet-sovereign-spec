@@ -1,0 +1,19 @@
+{
+  "schema": "konaet.linux-service-validation.v1",
+  "passed": true,
+  "commit": "6df8bf848ebfdbc749257e18c24fd2c0a47854d8",
+  "runner": "ubuntu-24.04-systemd",
+  "unit": "deploy/validator/konaet-validator@.service",
+  "rootPreserved": true,
+  "processChangedAfterSigkill": true,
+  "recoveredSequence": "0",
+  "sandbox": {
+    "NoNewPrivileges": "yes",
+    "PrivateTmp": "yes",
+    "ProtectSystem": "strict",
+    "ProtectHome": "yes",
+    "KillMode": "control-group"
+  },
+  "independentNetworkValidated": false,
+  "at": "2026-10-31T14:35:02.459Z"
+}

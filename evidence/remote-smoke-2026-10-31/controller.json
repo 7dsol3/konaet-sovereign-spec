@@ -1,0 +1,1390 @@
+{
+  "body": {
+    "schema": "konaet.remote-controller-result.v1",
+    "runId": "41210093390-1",
+    "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+    "passed": true,
+    "requestedSeconds": 180,
+    "startedAt": 1793456775385,
+    "stoppedAt": 1793456958582,
+    "elapsedMs": 183197,
+    "infrastructure": "four-github-hosted-vms-via-temporary-ciphertext-relays",
+    "independentAdministrators": false,
+    "network": {
+      "body": {
+        "schema": "konaet.remote-network.v1",
+        "runId": "41210093390-1",
+        "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+        "seconds": 180,
+        "controlPublicKey": "2d8b821a3b208fc4738fd0509249df583c86addf72c7a96a0fdf98c10cfc1c60",
+        "nodes": [
+          {
+            "body": {
+              "schema": "konaet.remote-bootstrap.v1",
+              "runId": "41210093390-1",
+              "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+              "index": 0,
+              "endpoint": "https://yours-bat-computed-bicycle.trycloudflare.com",
+              "publicKey": "13e2809e7c7fc253d019e0c7d0ef9d3c691f7d255399e8ad8766e9fca4c37fca",
+              "controlPublicKey": "2d8b821a3b208fc4738fd0509249df583c86addf72c7a96a0fdf98c10cfc1c60",
+              "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIICWzCCAUMCAQAwFjEUMBIGA1UEAwwLdmFsaWRhdG9yLTAwggEiMA0GCSqGSIb3\nDQEBAQUAA4IBDwAwggEKAoIBAQCaFpxxVX1Lfa3lOnq9DtiVS2mylZQKP9vCbtKc\nBXI/f4C+CGDVjV9tmounIpBl4sDowCegNG/VNkJvyGn/+pdxNsxM/8Lau3IvW8Zn\nJP+I+X30gvBoTugYqxVTGpLWMw7L5bqIY+jkWuspG8LvAYevMCb13MVWXuJYSRd5\nc0VUfIUyu1BWer/CtVIDxSp5ws6w5+cfXhtlVEylZoD7JbOGuuDam0CRAjFd54/+\nZH6IejUFMadV7d1GKjZ9JPSBWbd9BcjJgrSsYQS1QnJxZvanrFZsE5h3gPCnkkF0\nZ5MeE7xnqvol44Ykx7iZNFbm4I0Ihln8xgGTgTaJl5cDfqGZAgMBAAGgADANBgkq\nhkiG9w0BAQsFAAOCAQEAjulu+Ft6rnqqz3Zwz39db3NSgbE4WAXqfmIVrjl+RUe6\nNwFtAyLL+VueyqiQbJPAc7jE8frDZwV6dsOYYdxsXJ4tQ686uwrDGlfXNT0542fh\ndvhYAlHrlotYnfCBIEXrfS7PMcwuzRpNeQxfJaepGohqu5Sae7FeK8gDrYtxkC9j\nHI9gV8GHP33BulcIB89kOTyOLs7w6g84umP9qGZ2WUdLHr0l0iz2gczajcS05j+S\n8tF7PIb70T7NZ9k614SLGXnd144n04EUTZY8lVAWVLSoyESrmuHKdyqvaVCRzvie\nDrBiV4mrDV2C8kalZVGZ1yzvCSa9+VPpkgJj8d9+6g==\n-----END CERTIFICATE REQUEST-----\n",
+              "hostHash": "43a08a5ea381c51728df69e4b74b91f7913682ecd37975b0c55e0325e3e17c81",
+              "hostname": "runnervm48cm3",
+              "os": "7.0.0-1017-azure",
+              "architecture": "x64"
+            },
+            "signature": "2b1e82a4e57b8c2eb9e5cfdf678f3381dc8799668d5eeb6b0aa305bc76e5424acb5bee7430c3947836504327cd6d5990206acfd329c1e3e03bc23e8406249607"
+          },
+          {
+            "body": {
+              "schema": "konaet.remote-bootstrap.v1",
+              "runId": "41210093390-1",
+              "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+              "index": 1,
+              "endpoint": "https://marsh-mistress-thumbs-indiana.trycloudflare.com",
+              "publicKey": "d3048cfbf4fc3aca8d232ef14e93f9c43def25ceb5ec968c5ba158a698eceba9",
+              "controlPublicKey": null,
+              "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIICWzCCAUMCAQAwFjEUMBIGA1UEAwwLdmFsaWRhdG9yLTEwggEiMA0GCSqGSIb3\nDQEBAQUAA4IBDwAwggEKAoIBAQDSejDyxz0Y4XaMKOtqhr2Fs7FAyhbqpa3LEzAi\naczhU7HqgNfacaqx6rA+jajzM6FvDVaXerQQm2aH/FNKc7NKs0kxjDOA4XVRRqZ3\nEHJeoxncnnLZfeO0wVASZgfM6pPiZxAvHjQNpM+58JimX9RiJIEsttk63jwaQ/SD\npsPWvtc0LzHUaB1eu+eiDAlropDoN0QhmyJYoRCsmEUhfk612QdYi0ksnKuK60Xb\nnyqsWHp1QHJZeSoOWG4AGTKVNzEFb70lHiI1CxFnix0bxJufGHsgNEEcfEvdP+8o\no7ehzlAu1YlQBRASHaM9kp7TFcgHjinDPMTxeMhT6s9pQQSLAgMBAAGgADANBgkq\nhkiG9w0BAQsFAAOCAQEAGN0aQO5hOyQFB84BacVflc0BW23qbnjuh1KzcGwXrSUk\n8XkxGRGUhr6Fr9pZ6ZnmLVzvZHK8u+9aXTAJT1haqEtKH8ZtNdGOdMon7/PmKrrz\nlQ5nxzHE3j/2z4lWIbj+4QT5YwmyVBtuRu0nRP1MLSFAM4g7Fsl9MMYrrE9+OY1D\nHnwtrkjEDQc/oyS2W4o9u8mUc33lIp2bPzu4RLwrHA3nTi1KY++kLV4IULj4609I\n20PfjN+j7NVc4whT3L0YR2odM85lSOJm54ry8vKdSsd+7K4NYq8T5Cyl6Ev0sjIK\nuTbo+3i0L9+haNNQda9g+McS57Ve+N5cXEqK+IsdNQ==\n-----END CERTIFICATE REQUEST-----\n",
+              "hostHash": "a01d5abade275cc968aa16d2eaac992bbe56cf04d9dc83d43df6ea3f134c23ed",
+              "hostname": "runnervm48cm3",
+              "os": "7.0.0-1017-azure",
+              "architecture": "x64"
+            },
+            "signature": "70c2f0e4b11990afe6ca5c35fa80aeb6efa402b663777d10481d808efd3ecfa04bb0ae45669cf8a9a5e9a38581099ac452004fde3bf2d99770c6b454007a730d"
+          },
+          {
+            "body": {
+              "schema": "konaet.remote-bootstrap.v1",
+              "runId": "41210093390-1",
+              "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+              "index": 2,
+              "endpoint": "https://economy-performance-consisting-bennett.trycloudflare.com",
+              "publicKey": "278c6ebeadc3e76d0ed81995053b7c6259e75cda2ba228d0d6d41cab3d2eaced",
+              "controlPublicKey": null,
+              "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIICWzCCAUMCAQAwFjEUMBIGA1UEAwwLdmFsaWRhdG9yLTIwggEiMA0GCSqGSIb3\nDQEBAQUAA4IBDwAwggEKAoIBAQChtUBZ57Ajct3QDSk96LkuC1MnqLio1dtUrk1r\nwMl1pSe8Avam3UKDT5POFMLHCGhWQyjDersDgy90XhNBD63Xl4300SrwW7cAezoX\n3qdgQdpU8+1Co24Aauw1eZCqOsyrgVwCIC0yCGCTimCzzLTWbGLJ6Vj97QOaF7/e\n42mdxPdtPcI2dxPFJJPH7ufHdSjF9FQc7mbjoeVRkoes5h2DbwUNty+MY/NFbdEu\nY/dDqtp880yk63sbSjgw0i8miQRVMHOS/63exse2+sUM9m7Wsmv8RJBYXLKgnJIq\nG29ntrxWtJn/8s0gyCRqDtDRuw4z8L8+BjRg8mrUEZ6Ri5HzAgMBAAGgADANBgkq\nhkiG9w0BAQsFAAOCAQEAdMtULwADLvSj00vaIEtWBhl0uSgqUdsqoEhySychyjkn\nXdvDU4FmJr6eJa3S9j+ZIkX1Zmd+9MOAy0vSEueA/ActxkqfY33DjSAai87EqG8+\n+Ar3RuHfD0Stqo9hcc1oRpWQHCWessQMVNy4UBfiABaDbM3E2XiNCRJLuHdLvqws\nPp/2E38lFgYmdm6PwEIqHErClMHgz4j9XB6GQtuQzRoNzXNmolsE1pP1lZGsSCjm\nPqx6W5THKuNY/Z6RR6QZ+8Yd+UIs1iGLRVpgEZOc5U7f+sh7xDC73mMLoWI1x92g\nbJVN52ty7mCTrSnSXjH0NtWarTtvkZnw8Cfu/ufuWg==\n-----END CERTIFICATE REQUEST-----\n",
+              "hostHash": "6df30eca64a8d06f9e8d0031f26a7083bbdf9de273cb26e9c1aba51c238cd3aa",
+              "hostname": "runnervm48cm3",
+              "os": "7.0.0-1017-azure",
+              "architecture": "x64"
+            },
+            "signature": "a56c3995fc1f06d01aee08b88212afb57554ca6642b7a5c9a019969a56221e5668afb3db66a2920766083596af76dd3c2f1a84f5ede36c939e1c887f29dfce02"
+          },
+          {
+            "body": {
+              "schema": "konaet.remote-bootstrap.v1",
+              "runId": "41210093390-1",
+              "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+              "index": 3,
+              "endpoint": "https://refresh-persistent-buys-notices.trycloudflare.com",
+              "publicKey": "4c935ded8a48012b643fe2d35db38e88001373dbc2c18cc4624396899656dddb",
+              "controlPublicKey": null,
+              "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIICWzCCAUMCAQAwFjEUMBIGA1UEAwwLdmFsaWRhdG9yLTMwggEiMA0GCSqGSIb3\nDQEBAQUAA4IBDwAwggEKAoIBAQClTK8E0a3e1Ia72SThq6MuPjZEovVeTOkV8W+c\nolpUcuj8OqnFY9fzALhNDEbQDJxJaOPAqfJpPQcNwZGgg46fb9ZkPQ5FlUxhQFMk\no8dXThw2SpNhRe+euKXGLuV2xgEemvZn8orG4bIQClDjYwO0++UlOrY9VecjlARp\nxVrLrOe7iYOG2yL9WZWko7UM1gdFOLRI6NpTuzS/QNSTM+wRtoFQKdVH8tt1oyhd\nWh95vo4DbFoJVEe64Udv6LiFhmZDRYE4MYoS6rmBbfToSEePXD+bwMVGku0mxsCn\nFBje6sk4WlYo6m9YVY92juMBx1O33aVEm7LUGWFuj2+etjhlAgMBAAGgADANBgkq\nhkiG9w0BAQsFAAOCAQEAKgPcC0duc7zmXJLkXJlYUZ1QxAoO+DkWTjVs77WOMPJ3\nwhMI+vLr6gZZ8Fzlt4w1v+MVKFFhKjvUSglzIRuNyqxcdsY3VD6CXuFd/i51foMg\nDejymftzGWfYQTIUOt9aW0D+UL5FTxfI8uYrfZrgyJjhoJaJ3rhGdsmcyO8jQgsd\ndYqw4TO/TmsuHLx8pTFgwyUFHjbURk6RErd0H1AI78mOjXVaFiO4XsVb/v1N9jmP\nVj29XEe62VbWUQ861ZFhKXbYVRHev6JW/S/tuSX/lUHcyT1aLNLDuMSbtdwS0rXy\nVm0qj5MUnpKo8g4qh1WxmUhATh7AsHMNGUD80dpBHw==\n-----END CERTIFICATE REQUEST-----\n",
+              "hostHash": "fa5259d0cf4705bb748b1d0ebefb5aeca35c645277b7331fa8d8e73b65e994c6",
+              "hostname": "runnervm48cm3",
+              "os": "7.0.0-1017-azure",
+              "architecture": "x64"
+            },
+            "signature": "fc765ec41747242fde541a1eb1e176d9e72ff0a7d9508781d00ce80902fc39ee898751185202dba6309f9f8959aa320d5e9af77a6b20daef55feaf4e945bbc04"
+          }
+        ],
+        "ca": "-----BEGIN CERTIFICATE-----\nMIIDMzCCAhugAwIBAgIUPdTlZhq+t5rCPLWE9Sr6WKEYdZswDQYJKoZIhvcNAQEL\nBQAwKTEnMCUGA1UEAwweS29uYWV0VmFsaWRhdGlvbi00MTIxMDA5MzM5MC0xMB4X\nDTI2MTAzMTE0MjYxMVoXDTI2MTEwMTE0MjYxMVowKTEnMCUGA1UEAwweS29uYWV0\nVmFsaWRhdGlvbi00MTIxMDA5MzM5MC0xMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A\nMIIBCgKCAQEAl3qjXsYahc1x1rRUx8h6VIhPgHru2v+q59xMC3xvp5F56o72qF+6\n1I1UbZseXZbMeiSoa0sk9TEDaAfmseMfJtOOW8rmhi7D0+nSmE/ldd9mQTBBQAlq\nChSjAbg2RlQAjHFjj4mAAJAMPq4K2RtSsQNl7Vw+Bw6+QSNHZeVAGWx0fVJSAbha\nEymGoMFlWQo2f4PPFFFvSHlJ+mqgPS53UPe0Yi1frU6fPcOz2W/AKrB/8Kzn++RU\nvVr+XadiZI4dci83pCs1jflJAynPYvIHEMyrcbhRN3hgrOqqI95NvJPGqcZE02AK\nys/qdhMy5lN72rnhJSaghY2XSqm4Mxb+eQIDAQABo1MwUTAdBgNVHQ4EFgQUJbr2\nP/CvKDf9PjQEKjhJkm5XGRQwHwYDVR0jBBgwFoAUJbr2P/CvKDf9PjQEKjhJkm5X\nGRQwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEATs/5OBsGjJbZ\nXzJMdGTeIulPlXWUJqHrSF59/w3QqI9IU91x/0rSG6ByRuO8CLGLwDwTzSjekLx0\n3pSQPjccPeudQVEeY6silrbZEiKqp4rIaT9+OkJRvnlmSoRKBqG7EKW64LNDJZet\n9RoO1UQbH23YworxUoERnUSbNAtfTcqBHdSmkf+wMIeO45kQ2499yM3UQrRxfjZR\n/ymU6CZaWqiCA0YgX3w2qWjLHvQaUSYBwRRQokUG+s9jZeWcj+kIXc+w7LCZopGq\nOoIE1dGAXh50AZm6owt6siFck/0s9TuRj022rijaaab2Qe4UGRe0UQa/N7u+DzSR\nfkiFxC2WMg==\n-----END CERTIFICATE-----\n",
+        "certificates": [
+          "-----BEGIN CERTIFICATE-----\nMIIDNzCCAh+gAwIBAgIBATANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDDB5Lb25h\nZXRWYWxpZGF0aW9uLTQxMjEwMDkzMzkwLTEwHhcNMjYxMDMxMTQyNjExWhcNMjYx\nMTAxMTQyNjExWjAWMRQwEgYDVQQDDAt2YWxpZGF0b3ItMDCCASIwDQYJKoZIhvcN\nAQEBBQADggEPADCCAQoCggEBAJoWnHFVfUt9reU6er0O2JVLabKVlAo/28Ju0pwF\ncj9/gL4IYNWNX22ai6cikGXiwOjAJ6A0b9U2Qm/Iaf/6l3E2zEz/wtq7ci9bxmck\n/4j5ffSC8GhO6BirFVMaktYzDsvluohj6ORa6ykbwu8Bh68wJvXcxVZe4lhJF3lz\nRVR8hTK7UFZ6v8K1UgPFKnnCzrDn5x9eG2VUTKVmgPsls4a64NqbQJECMV3nj/5k\nfoh6NQUxp1Xt3UYqNn0k9IFZt30FyMmCtKxhBLVCcnFm9qesVmwTmHeA8KeSQXRn\nkx4TvGeq+iXjhiTHuJk0VubgjQiGWfzGAZOBNomXlwN+oZkCAwEAAaN9MHswCQYD\nVR0TBAIwADAPBgNVHREECDAGhwR/AAABMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggr\nBgEFBQcDAjAdBgNVHQ4EFgQUlixe1Zup7GCIa6V+Kg6c7szM55AwHwYDVR0jBBgw\nFoAUJbr2P/CvKDf9PjQEKjhJkm5XGRQwDQYJKoZIhvcNAQELBQADggEBAHPcRKdc\npdyvc2aMlaqgbmTy98FZZ8GtUo/zihLV7G9n7XdJyJA9fm3t/KQnsJdvYBuGVUYP\nAzGL2TsKzWm1tzeDtqvRXKa8Salqmojgxk3v5jFAJcFzo3tBkqrk8nh0Iv2X0vba\nv2X04XaCYzeyU1YWD3rEC/WT9TPBrP9hqH/QkTHxwmnsHdEio6KbYzKU3rIXL35j\nYchiVPfKWCIHH9U0JnXM0scdmz8evUOkC9jgtIXHiqOpRLKCXz+iWBTom1twFcrV\nQt19O9m7njwV/kOnPcNrp3JSVU+ePPdm2kXcFs+992CSbCq0hcSrIuhdOt+3JBEY\n2ol2TkdIiAu1Qkc=\n-----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\nMIIDNzCCAh+gAwIBAgIBAjANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDDB5Lb25h\nZXRWYWxpZGF0aW9uLTQxMjEwMDkzMzkwLTEwHhcNMjYxMDMxMTQyNjExWhcNMjYx\nMTAxMTQyNjExWjAWMRQwEgYDVQQDDAt2YWxpZGF0b3ItMTCCASIwDQYJKoZIhvcN\nAQEBBQADggEPADCCAQoCggEBANJ6MPLHPRjhdowo62qGvYWzsUDKFuqlrcsTMCJp\nzOFTseqA19pxqrHqsD6NqPMzoW8NVpd6tBCbZof8U0pzs0qzSTGMM4DhdVFGpncQ\ncl6jGdyectl947TBUBJmB8zqk+JnEC8eNA2kz7nwmKZf1GIkgSy22TrePBpD9IOm\nw9a+1zQvMdRoHV6756IMCWuikOg3RCGbIlihEKyYRSF+TrXZB1iLSSycq4rrRduf\nKqxYenVAcll5Kg5YbgAZMpU3MQVvvSUeIjULEWeLHRvEm58YeyA0QRx8S90/7yij\nt6HOUC7ViVAFEBIdoz2SntMVyAeOKcM8xPF4yFPqz2lBBIsCAwEAAaN9MHswCQYD\nVR0TBAIwADAPBgNVHREECDAGhwR/AAABMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggr\nBgEFBQcDAjAdBgNVHQ4EFgQUpaJZgpbu4nQZFWMMgrGRQ+E52iMwHwYDVR0jBBgw\nFoAUJbr2P/CvKDf9PjQEKjhJkm5XGRQwDQYJKoZIhvcNAQELBQADggEBAJHSqVcI\nA9DO92XtGZM/8o9n5I/51JJLz8HIh5MiJZXE7/hYJ/8R1H97cQrkDr35ONP9tcSk\nzax+tlL96TyVWsKWmEZuiQQLulXu0AzTfeFE6yi6LlivYARgGoR+EndQUXBsYwA1\nUHbbTkBCYqozL8jnIdXUMdmDg7unUcUB6J7QtsF+EY2zMK8q/nRs322/QRb/UVpg\nul6Aob5JOWUiLGrtcpgXu8NzPZJxN716KGbzaRf9GdFpbKf7fUiHqcov7drpXLj2\n0b/mOn06YwjV5/s+FDNSEZT811tkjkLHNTptYD4KMyx6MJyDQWFy/ldG5Clh2mvK\nufq35JQgwS4hg50=\n-----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\nMIIDNzCCAh+gAwIBAgIBAzANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDDB5Lb25h\nZXRWYWxpZGF0aW9uLTQxMjEwMDkzMzkwLTEwHhcNMjYxMDMxMTQyNjExWhcNMjYx\nMTAxMTQyNjExWjAWMRQwEgYDVQQDDAt2YWxpZGF0b3ItMjCCASIwDQYJKoZIhvcN\nAQEBBQADggEPADCCAQoCggEBAKG1QFnnsCNy3dANKT3ouS4LUyeouKjV21SuTWvA\nyXWlJ7wC9qbdQoNPk84UwscIaFZDKMN6uwODL3ReE0EPrdeXjfTRKvBbtwB7Ohfe\np2BB2lTz7UKjbgBq7DV5kKo6zKuBXAIgLTIIYJOKYLPMtNZsYsnpWP3tA5oXv97j\naZ3E9209wjZ3E8Ukk8fu58d1KMX0VBzuZuOh5VGSh6zmHYNvBQ23L4xj80Vt0S5j\n90Oq2nzzTKTrextKODDSLyaJBFUwc5L/rd7Gx7b6xQz2btaya/xEkFhcsqCckiob\nb2e2vFa0mf/yzSDIJGoO0NG7DjPwvz4GNGDyatQRnpGLkfMCAwEAAaN9MHswCQYD\nVR0TBAIwADAPBgNVHREECDAGhwR/AAABMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggr\nBgEFBQcDAjAdBgNVHQ4EFgQUM0FQLhuKnypW6WMDV1vhRZF/05EwHwYDVR0jBBgw\nFoAUJbr2P/CvKDf9PjQEKjhJkm5XGRQwDQYJKoZIhvcNAQELBQADggEBAHpjrxAk\nYKnWZU/YQVWyjWXJ1ELSiy82hpnvMMSHUE777eZtoTLrkNSv9lz93FxqWL4opPPE\nkg+lNXnTxkyngYIZWvqr0mqqHCWnubzURnlmgloHcmPMG18RPQwt0gPr9BmWo9vg\nu1Rx3rVnhHHthMIlOOuNwCTHpmpOd1GNDY95jrBZ8LjaJKTjbe/wq7G8P+XTWQMJ\nMPmd0T7NQIQUthPv6jlsY5nQM7mfNhmwk6aMU0o3gXD4cYwv7bphBGFeUbCIy4ch\nrXBrQ66/wGFW0W2IsKMSsKugB4yazfNgJ4iPt7zR0e5IRQftd5z1HMwyK9W0mZN2\n+vSX6vnFhXxipAU=\n-----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\nMIIDNzCCAh+gAwIBAgIBBDANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDDB5Lb25h\nZXRWYWxpZGF0aW9uLTQxMjEwMDkzMzkwLTEwHhcNMjYxMDMxMTQyNjExWhcNMjYx\nMTAxMTQyNjExWjAWMRQwEgYDVQQDDAt2YWxpZGF0b3ItMzCCASIwDQYJKoZIhvcN\nAQEBBQADggEPADCCAQoCggEBAKVMrwTRrd7UhrvZJOGroy4+NkSi9V5M6RXxb5yi\nWlRy6Pw6qcVj1/MAuE0MRtAMnElo48Cp8mk9Bw3BkaCDjp9v1mQ9DkWVTGFAUySj\nx1dOHDZKk2FF7564pcYu5XbGAR6a9mfyisbhshAKUONjA7T75SU6tj1V5yOUBGnF\nWsus57uJg4bbIv1ZlaSjtQzWB0U4tEjo2lO7NL9A1JMz7BG2gVAp1Ufy23WjKF1a\nH3m+jgNsWglUR7rhR2/ouIWGZkNFgTgxihLquYFt9OhIR49cP5vAxUaS7SbGwKcU\nGN7qyThaVijqb1hVj3aO4wHHU7fdpUSbstQZYW6Pb562OGUCAwEAAaN9MHswCQYD\nVR0TBAIwADAPBgNVHREECDAGhwR/AAABMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggr\nBgEFBQcDAjAdBgNVHQ4EFgQU3KDnx9eNuQXECqYoeJWI+qNMR+EwHwYDVR0jBBgw\nFoAUJbr2P/CvKDf9PjQEKjhJkm5XGRQwDQYJKoZIhvcNAQELBQADggEBAJRPGy7n\nC48HFZx8HRawCDt/T79YINoeWFvXbVEsLlwt+QVOD0dX7hdS49MlT4DhkptB1R3f\n1lulT0YQ0W9dcbOw8S814glOES2QW70TopaAr++fc43VOPyfJHwN+TlSkox8V1L6\nJFVi+bSNmMva+i8S6s0C+ftw7wxF5kgX3ONZHl/y137rTUqLDCQqpfw3TfNe1l+Y\ngCFXb9947ouVMFUtLzf0GUUwv/8G+7U0DuJkPd08Hn7vdBphvzNFlXCLNPJg8qjv\nkm7jslxlANqsYu/fpqAyXOzFfI+WHC1MjrmdVNCLTjLaOXtNkwyno0rbKLPLJiDS\nzbLjqR/e/Y+0QBQ=\n-----END CERTIFICATE-----\n"
+        ],
+        "genesis": {
+          "format": "konaet-sovereign-genesis-v8-ko-admission",
+          "networkId": "78093390",
+          "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+          "chainName": "Konaet remote operational validation",
+          "createdAt": "2026-10-31T14:26:11.767Z",
+          "asset": {
+            "name": "SINDRA",
+            "symbol": "SND",
+            "atomicName": "NEXEL",
+            "decimals": 9,
+            "fixedSupplyAtomic": "1000000000000000000"
+          },
+          "validators": [
+            {
+              "id": "validator-0",
+              "publicKey": "13e2809e7c7fc253d019e0c7d0ef9d3c691f7d255399e8ad8766e9fca4c37fca"
+            },
+            {
+              "id": "validator-1",
+              "publicKey": "d3048cfbf4fc3aca8d232ef14e93f9c43def25ceb5ec968c5ba158a698eceba9"
+            },
+            {
+              "id": "validator-2",
+              "publicKey": "278c6ebeadc3e76d0ed81995053b7c6259e75cda2ba228d0d6d41cab3d2eaced"
+            },
+            {
+              "id": "validator-3",
+              "publicKey": "4c935ded8a48012b643fe2d35db38e88001373dbc2c18cc4624396899656dddb"
+            }
+          ],
+          "threshold": 3,
+          "allocations": [
+            {
+              "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "amountAtomic": "1000000000000000000"
+            }
+          ],
+          "parameters": {
+            "maxActs": 64,
+            "maxBytes": 262144,
+            "stateSyncChunk": 4,
+            "messageRateWindowMs": 10000,
+            "messageRateLimit": 512
+          },
+          "consensusSignatureProfile": "ED25519_V1",
+          "transferAuthorizationProfile": null,
+          "transportSignatureProfile": null,
+          "nativePolicy": {
+            "schema": "konaet.ko-native-policy.v1",
+            "profile": "KONAET_KO_ASSERT_V1",
+            "source": "contract SindraRuntime v1\nruntime: KONAET_KO_ASSERT_V1\nsymbol: SND\ndecimals: 9\nsupplyAtomic: 1000000000000000000\n\nrule transferPositive: transfer.amountAtomic > 0\nrule transferMaximum: transfer.amountAtomic <= 1000000000000000000\nrule transferBalance: transfer.amountAtomic <= state.senderBalance\nrule transferNonce: transfer.nonce == state.nextNonce\nrule transferNetwork: transfer.networkId == state.networkId\nrule transferRoot: transfer.previousRoot == state.root\nrule closureNonempty: closure.actCount > 0\nrule closureCount: closure.actCount <= 64\nrule closureBytes: closure.byteLength <= 262144\nend\n",
+            "sourceSha256": "81ec0c351fd5f12aaba8b91b4c6b672f87fa780605d2e537326d2e429bbdc13e",
+            "programSha256": "68d1ec4d29e9f347e2bed6655e8bbe3bcce79f74013836e14b2b3d728edc8edb",
+            "program": {
+              "profile": "KONAET_KO_ASSERT_V1",
+              "metadata": {
+                "runtime": "KONAET_KO_ASSERT_V1",
+                "symbol": "SND",
+                "decimals": "9",
+                "supplyAtomic": "1000000000000000000"
+              },
+              "rules": [
+                {
+                  "name": "transferPositive",
+                  "phase": "transfer",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "transfer.amountAtomic"
+                  },
+                  "operator": ">",
+                  "right": {
+                    "kind": "integer",
+                    "value": "0"
+                  }
+                },
+                {
+                  "name": "transferMaximum",
+                  "phase": "transfer",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "transfer.amountAtomic"
+                  },
+                  "operator": "<=",
+                  "right": {
+                    "kind": "integer",
+                    "value": "1000000000000000000"
+                  }
+                },
+                {
+                  "name": "transferBalance",
+                  "phase": "transfer",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "transfer.amountAtomic"
+                  },
+                  "operator": "<=",
+                  "right": {
+                    "kind": "integer-field",
+                    "value": "state.senderBalance"
+                  }
+                },
+                {
+                  "name": "transferNonce",
+                  "phase": "transfer",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "transfer.nonce"
+                  },
+                  "operator": "==",
+                  "right": {
+                    "kind": "integer-field",
+                    "value": "state.nextNonce"
+                  }
+                },
+                {
+                  "name": "transferNetwork",
+                  "phase": "transfer",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "transfer.networkId"
+                  },
+                  "operator": "==",
+                  "right": {
+                    "kind": "integer-field",
+                    "value": "state.networkId"
+                  }
+                },
+                {
+                  "name": "transferRoot",
+                  "phase": "transfer",
+                  "left": {
+                    "kind": "hash-field",
+                    "value": "transfer.previousRoot"
+                  },
+                  "operator": "==",
+                  "right": {
+                    "kind": "hash-field",
+                    "value": "state.root"
+                  }
+                },
+                {
+                  "name": "closureNonempty",
+                  "phase": "closure",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "closure.actCount"
+                  },
+                  "operator": ">",
+                  "right": {
+                    "kind": "integer",
+                    "value": "0"
+                  }
+                },
+                {
+                  "name": "closureCount",
+                  "phase": "closure",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "closure.actCount"
+                  },
+                  "operator": "<=",
+                  "right": {
+                    "kind": "integer",
+                    "value": "64"
+                  }
+                },
+                {
+                  "name": "closureBytes",
+                  "phase": "closure",
+                  "left": {
+                    "kind": "integer-field",
+                    "value": "closure.byteLength"
+                  },
+                  "operator": "<=",
+                  "right": {
+                    "kind": "integer",
+                    "value": "262144"
+                  }
+                }
+              ]
+            }
+          },
+          "contractRuntime": {
+            "profile": "KONAET_KO_PROGRAM_V1",
+            "eventFormat": "vlock7sin-ko-event-v1",
+            "stateFormat": "vlock7sin-ko-state-v2",
+            "sourceBytes": 16384,
+            "transactionBytes": 65536,
+            "gasPerTransaction": 100000,
+            "gasPerClosure": 1000000,
+            "actsPerClosure": 64,
+            "closureBytes": 262144,
+            "contracts": 128,
+            "stateBytes": 4194304,
+            "deploymentAuthorization": "genesis-quota-v1"
+          },
+          "deploymentPolicy": {
+            "schema": "konaet.contract-deployment-policy.v1",
+            "deployers": [
+              {
+                "address": "v7lt3uubu5lplwpv4iw3y562457nwzejih",
+                "maxContracts": 64
+              },
+              {
+                "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+                "maxContracts": 64
+              }
+            ]
+          },
+          "parametersRoot": "12608376f5616bb84c07dee94473ce0507e1d84020a8a83228026a0b65e384d1",
+          "identitiesRoot": "aa4cde63d9697f28caefcf1c582aa8c9145092043d8d2b830b8cb5b011f3bb9c",
+          "replayRoot": "68a59bdb22fe6934054a1fa5f2122f92c54526cc359561bed28190f0654f2cae",
+          "stateRoot": "0718d4ee08464790b567243d6550e3453e8b4ae060aaff942ee6d1991f77bfef",
+          "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1"
+        },
+        "genesisSha256": "3311ef19ffc61f2ee0354eab17660e89109be4f829afa399405240121d4fc72e"
+      },
+      "signature": "c180e66447c68311ed3a2e4c524e436e7533d221b0bb5bed2a64e5c058ce4de9d8e289e7d0d422dd6e847933f0f872168bea17c9678d4c70c50ee8398222ad08"
+    },
+    "transferCount": 21,
+    "contractCallCount": 6,
+    "finalSequence": "28",
+    "finalRoot": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+    "supplyPreserved": true,
+    "finalContractValue": "12",
+    "faults": [
+      {
+        "kind": "quorum-loss-and-pending-recovery",
+        "passed": true,
+        "sequenceBefore": "11",
+        "sequenceAfter": "12"
+      },
+      {
+        "kind": "validator-3-sigkill",
+        "at": 1793456906651
+      },
+      {
+        "kind": "validator-3-restored-and-synchronized",
+        "passed": true,
+        "sequence": "24"
+      }
+    ],
+    "finalStates": [
+      {
+        "schema": "konaet.remote-status.v1",
+        "runId": "41210093390-1",
+        "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+        "index": 0,
+        "hostHash": "43a08a5ea381c51728df69e4b74b91f7913682ecd37975b0c55e0325e3e17c81",
+        "online": true,
+        "sequence": "28",
+        "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+        "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1",
+        "peers": [
+          "validator-1",
+          "validator-2",
+          "validator-3"
+        ],
+        "observedAt": 1793456958508,
+        "uptimeMs": 192507,
+        "peakRssKb": 91728,
+        "unexpectedExits": 0,
+        "lastExit": null
+      },
+      {
+        "schema": "konaet.remote-status.v1",
+        "runId": "41210093390-1",
+        "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+        "index": 1,
+        "hostHash": "a01d5abade275cc968aa16d2eaac992bbe56cf04d9dc83d43df6ea3f134c23ed",
+        "online": true,
+        "sequence": "28",
+        "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+        "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1",
+        "peers": [
+          "validator-0",
+          "validator-2",
+          "validator-3"
+        ],
+        "observedAt": 1793456958507,
+        "uptimeMs": 193136,
+        "peakRssKb": 93248,
+        "unexpectedExits": 0,
+        "lastExit": null
+      },
+      {
+        "schema": "konaet.remote-status.v1",
+        "runId": "41210093390-1",
+        "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+        "index": 2,
+        "hostHash": "6df30eca64a8d06f9e8d0031f26a7083bbdf9de273cb26e9c1aba51c238cd3aa",
+        "online": true,
+        "sequence": "28",
+        "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+        "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1",
+        "peers": [
+          "validator-0",
+          "validator-1",
+          "validator-3"
+        ],
+        "observedAt": 1793456958511,
+        "uptimeMs": 192774,
+        "peakRssKb": 90960,
+        "unexpectedExits": 0,
+        "lastExit": {
+          "code": 0,
+          "signal": null,
+          "at": 1793456841002,
+          "planned": true
+        }
+      },
+      {
+        "schema": "konaet.remote-status.v1",
+        "runId": "41210093390-1",
+        "commit": "8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91",
+        "index": 3,
+        "hostHash": "fa5259d0cf4705bb748b1d0ebefb5aeca35c645277b7331fa8d8e73b65e994c6",
+        "online": true,
+        "sequence": "28",
+        "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+        "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1",
+        "peers": [
+          "validator-0",
+          "validator-1",
+          "validator-2"
+        ],
+        "observedAt": 1793456958535,
+        "uptimeMs": 194028,
+        "peakRssKb": 89040,
+        "unexpectedExits": 0,
+        "lastExit": {
+          "code": null,
+          "signal": "SIGKILL",
+          "at": 1793456906612,
+          "planned": true
+        }
+      }
+    ],
+    "lastReceipt": {
+      "schema": "konaet.ko-consensus-receipt.v1",
+      "genesis": {
+        "format": "konaet-sovereign-genesis-v8-ko-admission",
+        "networkId": "78093390",
+        "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+        "chainName": "Konaet remote operational validation",
+        "createdAt": "2026-10-31T14:26:11.767Z",
+        "asset": {
+          "name": "SINDRA",
+          "symbol": "SND",
+          "atomicName": "NEXEL",
+          "decimals": 9,
+          "fixedSupplyAtomic": "1000000000000000000"
+        },
+        "validators": [
+          {
+            "id": "validator-0",
+            "publicKey": "13e2809e7c7fc253d019e0c7d0ef9d3c691f7d255399e8ad8766e9fca4c37fca"
+          },
+          {
+            "id": "validator-1",
+            "publicKey": "d3048cfbf4fc3aca8d232ef14e93f9c43def25ceb5ec968c5ba158a698eceba9"
+          },
+          {
+            "id": "validator-2",
+            "publicKey": "278c6ebeadc3e76d0ed81995053b7c6259e75cda2ba228d0d6d41cab3d2eaced"
+          },
+          {
+            "id": "validator-3",
+            "publicKey": "4c935ded8a48012b643fe2d35db38e88001373dbc2c18cc4624396899656dddb"
+          }
+        ],
+        "threshold": 3,
+        "allocations": [
+          {
+            "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+            "amountAtomic": "1000000000000000000"
+          }
+        ],
+        "parameters": {
+          "maxActs": 64,
+          "maxBytes": 262144,
+          "stateSyncChunk": 4,
+          "messageRateWindowMs": 10000,
+          "messageRateLimit": 512
+        },
+        "consensusSignatureProfile": "ED25519_V1",
+        "transferAuthorizationProfile": null,
+        "transportSignatureProfile": null,
+        "nativePolicy": {
+          "schema": "konaet.ko-native-policy.v1",
+          "profile": "KONAET_KO_ASSERT_V1",
+          "source": "contract SindraRuntime v1\nruntime: KONAET_KO_ASSERT_V1\nsymbol: SND\ndecimals: 9\nsupplyAtomic: 1000000000000000000\n\nrule transferPositive: transfer.amountAtomic > 0\nrule transferMaximum: transfer.amountAtomic <= 1000000000000000000\nrule transferBalance: transfer.amountAtomic <= state.senderBalance\nrule transferNonce: transfer.nonce == state.nextNonce\nrule transferNetwork: transfer.networkId == state.networkId\nrule transferRoot: transfer.previousRoot == state.root\nrule closureNonempty: closure.actCount > 0\nrule closureCount: closure.actCount <= 64\nrule closureBytes: closure.byteLength <= 262144\nend\n",
+          "sourceSha256": "81ec0c351fd5f12aaba8b91b4c6b672f87fa780605d2e537326d2e429bbdc13e",
+          "programSha256": "68d1ec4d29e9f347e2bed6655e8bbe3bcce79f74013836e14b2b3d728edc8edb",
+          "program": {
+            "profile": "KONAET_KO_ASSERT_V1",
+            "metadata": {
+              "runtime": "KONAET_KO_ASSERT_V1",
+              "symbol": "SND",
+              "decimals": "9",
+              "supplyAtomic": "1000000000000000000"
+            },
+            "rules": [
+              {
+                "name": "transferPositive",
+                "phase": "transfer",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "transfer.amountAtomic"
+                },
+                "operator": ">",
+                "right": {
+                  "kind": "integer",
+                  "value": "0"
+                }
+              },
+              {
+                "name": "transferMaximum",
+                "phase": "transfer",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "transfer.amountAtomic"
+                },
+                "operator": "<=",
+                "right": {
+                  "kind": "integer",
+                  "value": "1000000000000000000"
+                }
+              },
+              {
+                "name": "transferBalance",
+                "phase": "transfer",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "transfer.amountAtomic"
+                },
+                "operator": "<=",
+                "right": {
+                  "kind": "integer-field",
+                  "value": "state.senderBalance"
+                }
+              },
+              {
+                "name": "transferNonce",
+                "phase": "transfer",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "transfer.nonce"
+                },
+                "operator": "==",
+                "right": {
+                  "kind": "integer-field",
+                  "value": "state.nextNonce"
+                }
+              },
+              {
+                "name": "transferNetwork",
+                "phase": "transfer",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "transfer.networkId"
+                },
+                "operator": "==",
+                "right": {
+                  "kind": "integer-field",
+                  "value": "state.networkId"
+                }
+              },
+              {
+                "name": "transferRoot",
+                "phase": "transfer",
+                "left": {
+                  "kind": "hash-field",
+                  "value": "transfer.previousRoot"
+                },
+                "operator": "==",
+                "right": {
+                  "kind": "hash-field",
+                  "value": "state.root"
+                }
+              },
+              {
+                "name": "closureNonempty",
+                "phase": "closure",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "closure.actCount"
+                },
+                "operator": ">",
+                "right": {
+                  "kind": "integer",
+                  "value": "0"
+                }
+              },
+              {
+                "name": "closureCount",
+                "phase": "closure",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "closure.actCount"
+                },
+                "operator": "<=",
+                "right": {
+                  "kind": "integer",
+                  "value": "64"
+                }
+              },
+              {
+                "name": "closureBytes",
+                "phase": "closure",
+                "left": {
+                  "kind": "integer-field",
+                  "value": "closure.byteLength"
+                },
+                "operator": "<=",
+                "right": {
+                  "kind": "integer",
+                  "value": "262144"
+                }
+              }
+            ]
+          }
+        },
+        "contractRuntime": {
+          "profile": "KONAET_KO_PROGRAM_V1",
+          "eventFormat": "vlock7sin-ko-event-v1",
+          "stateFormat": "vlock7sin-ko-state-v2",
+          "sourceBytes": 16384,
+          "transactionBytes": 65536,
+          "gasPerTransaction": 100000,
+          "gasPerClosure": 1000000,
+          "actsPerClosure": 64,
+          "closureBytes": 262144,
+          "contracts": 128,
+          "stateBytes": 4194304,
+          "deploymentAuthorization": "genesis-quota-v1"
+        },
+        "deploymentPolicy": {
+          "schema": "konaet.contract-deployment-policy.v1",
+          "deployers": [
+            {
+              "address": "v7lt3uubu5lplwpv4iw3y562457nwzejih",
+              "maxContracts": 64
+            },
+            {
+              "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "maxContracts": 64
+            }
+          ]
+        },
+        "parametersRoot": "12608376f5616bb84c07dee94473ce0507e1d84020a8a83228026a0b65e384d1",
+        "identitiesRoot": "aa4cde63d9697f28caefcf1c582aa8c9145092043d8d2b830b8cb5b011f3bb9c",
+        "replayRoot": "68a59bdb22fe6934054a1fa5f2122f92c54526cc359561bed28190f0654f2cae",
+        "stateRoot": "0718d4ee08464790b567243d6550e3453e8b4ae060aaff942ee6d1991f77bfef",
+        "genesisId": "2b27b58c8757533d2189cc31f6cbf13630a821c6314fd7552300323950e933c1"
+      },
+      "beforeState": {
+        "format": "vlock7sin-ko-state-v2",
+        "deploymentPolicy": {
+          "schema": "konaet.contract-deployment-policy.v1",
+          "deployers": [
+            {
+              "address": "v7lt3uubu5lplwpv4iw3y562457nwzejih",
+              "maxContracts": 64
+            },
+            {
+              "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "maxContracts": 64
+            }
+          ]
+        },
+        "accountState": {
+          "format": "vlock7sin-state-js-v1",
+          "networkId": 78093390,
+          "suite": 1,
+          "sequence": "27",
+          "parametersRoot": "12608376f5616bb84c07dee94473ce0507e1d84020a8a83228026a0b65e384d1",
+          "identitiesRoot": "aa4cde63d9697f28caefcf1c582aa8c9145092043d8d2b830b8cb5b011f3bb9c",
+          "replayRoot": "848c761a0d0a57c03b7648e19992bacfb7e3244f0538cc0fa6399f61f7a90594",
+          "root": "3ac261e2bfa97ed99c2830744857c0a9852e59a5270c852dd134ab1ba7af2df3",
+          "accounts": [
+            {
+              "address": "v7lt3uubu5lplwpv4iw3y562457nwzejih",
+              "balance": "1",
+              "nonce": "10"
+            },
+            {
+              "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "balance": "999999999999999999",
+              "nonce": "17"
+            }
+          ]
+        },
+        "contracts": [
+          {
+            "artifact": {
+              "schema": "konaet.ko-program.v1",
+              "profile": "KONAET_KO_PROGRAM_V1",
+              "source": "contract Counter v1\nruntime: KONAET_KO_PROGRAM_V1\n\nstorage owner: address = caller;\nstorage total: u128 = 0;\nevent Changed(actor: address, value: u128);\n\ninternal view fn twice(amount: u128) -> u128 {\n  return amount * 2;\n}\n\nfn increment(amount: u128) -> u128 {\n  require caller == owner;\n  require amount > 0;\n  set total = total + twice(amount);\n  emit Changed(caller, total);\n  return total;\n}\n\nfn boundedBatch(amount: u128) -> u128 {\n  require caller == owner;\n  repeat 3 {\n    set total = total + amount;\n  }\n  return total;\n}\n\nview fn readTotal() -> u128 {\n  return total;\n}\nend\n",
+              "sourceSha256": "4e6ebe4f89038c9ff9c41e27eb623511c1a6ae605e23e3ebd09fcc5a27a798fe",
+              "programSha256": "976092db44dcbb0736b695a5737ab617a994a388f091dbaa6bdc3f5d1c18dbc1",
+              "program": {
+                "profile": "KONAET_KO_PROGRAM_V1",
+                "contract": "Counter",
+                "version": "1",
+                "storage": [
+                  {
+                    "name": "owner",
+                    "type": "address",
+                    "initial": {
+                      "kind": "name",
+                      "name": "caller",
+                      "depth": 1
+                    }
+                  },
+                  {
+                    "name": "total",
+                    "type": "u128",
+                    "initial": {
+                      "kind": "literal",
+                      "type": "u128",
+                      "value": "0",
+                      "depth": 1
+                    }
+                  }
+                ],
+                "mappings": [],
+                "events": [
+                  {
+                    "name": "Changed",
+                    "fields": [
+                      {
+                        "name": "actor",
+                        "type": "address"
+                      },
+                      {
+                        "name": "value",
+                        "type": "u128"
+                      }
+                    ]
+                  }
+                ],
+                "functions": [
+                  {
+                    "name": "twice",
+                    "internal": true,
+                    "view": true,
+                    "args": [
+                      {
+                        "name": "amount",
+                        "type": "u128"
+                      }
+                    ],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "binary",
+                          "operator": "*",
+                          "left": {
+                            "kind": "name",
+                            "name": "amount",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "literal",
+                            "type": "u128",
+                            "value": "2",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "increment",
+                    "internal": false,
+                    "view": false,
+                    "args": [
+                      {
+                        "name": "amount",
+                        "type": "u128"
+                      }
+                    ],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "require",
+                        "condition": {
+                          "kind": "binary",
+                          "operator": "==",
+                          "left": {
+                            "kind": "name",
+                            "name": "caller",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "name",
+                            "name": "owner",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      },
+                      {
+                        "kind": "require",
+                        "condition": {
+                          "kind": "binary",
+                          "operator": ">",
+                          "left": {
+                            "kind": "name",
+                            "name": "amount",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "literal",
+                            "type": "u128",
+                            "value": "0",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      },
+                      {
+                        "kind": "set",
+                        "name": "total",
+                        "key": null,
+                        "value": {
+                          "kind": "binary",
+                          "operator": "+",
+                          "left": {
+                            "kind": "name",
+                            "name": "total",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "call",
+                            "name": "twice",
+                            "args": [
+                              {
+                                "kind": "name",
+                                "name": "amount",
+                                "depth": 1
+                              }
+                            ],
+                            "depth": 2
+                          },
+                          "depth": 3
+                        }
+                      },
+                      {
+                        "kind": "emit",
+                        "name": "Changed",
+                        "args": [
+                          {
+                            "kind": "name",
+                            "name": "caller",
+                            "depth": 1
+                          },
+                          {
+                            "kind": "name",
+                            "name": "total",
+                            "depth": 1
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "name",
+                          "name": "total",
+                          "depth": 1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "boundedBatch",
+                    "internal": false,
+                    "view": false,
+                    "args": [
+                      {
+                        "name": "amount",
+                        "type": "u128"
+                      }
+                    ],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "require",
+                        "condition": {
+                          "kind": "binary",
+                          "operator": "==",
+                          "left": {
+                            "kind": "name",
+                            "name": "caller",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "name",
+                            "name": "owner",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      },
+                      {
+                        "kind": "repeat",
+                        "count": 3,
+                        "body": [
+                          {
+                            "kind": "set",
+                            "name": "total",
+                            "key": null,
+                            "value": {
+                              "kind": "binary",
+                              "operator": "+",
+                              "left": {
+                                "kind": "name",
+                                "name": "total",
+                                "depth": 1
+                              },
+                              "right": {
+                                "kind": "name",
+                                "name": "amount",
+                                "depth": 1
+                              },
+                              "depth": 2
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "name",
+                          "name": "total",
+                          "depth": 1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "readTotal",
+                    "internal": false,
+                    "view": true,
+                    "args": [],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "name",
+                          "name": "total",
+                          "depth": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "state": {
+              "schema": "konaet.ko-program-state.v1",
+              "programSha256": "976092db44dcbb0736b695a5737ab617a994a388f091dbaa6bdc3f5d1c18dbc1",
+              "contractId": "9bbac4e6b8c83c71eaec41b604780f3f485794c7ba30a8969f43f8b7c9d0144c",
+              "networkId": "78093390",
+              "deployer": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "salt": "0",
+              "revision": "5",
+              "storage": {
+                "owner": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+                "total": "10"
+              },
+              "mappings": {},
+              "stateRoot": "7af8a62bac1a54abaf825192f9676b97f3b08ace7bd847ff42e14baafd1da863"
+            }
+          }
+        ],
+        "receipts": [],
+        "contractsRoot": "456d607368e575db8ae74189828c5a1d3cf0fbb85f4be460542029d534475359",
+        "receiptsRoot": "0966ba650ca7357f3b695a1fd469ee63d4cf05c76ada4be2be3423d83c0aaf48",
+        "root": "4d89cfedd3011e8ee052a57f269d1faa73db46e32dec90c165b04d4b948a7694"
+      },
+      "events": [
+        "VkxPQ0s3U0lOL0tPLUVWRU5UL3YxCnsiZW52ZWxvcGUiOnsicGF5bG9hZCI6eyJhcmdzIjpbIjEiXSwiY29udHJhY3RJZCI6IjliYmFjNGU2YjhjODNjNzFlYWVjNDFiNjA0NzgwZjNmNDg1Nzk0YzdiYTMwYTg5NjlmNDNmOGI3YzlkMDE0NGMiLCJleHBlY3RlZFJldmlzaW9uIjoiNSIsImV4cGVjdGVkU3RhdGVSb290IjoiN2FmOGE2MmJhYzFhNTRhYmFmODI1MTkyZjk2NzZiOTdmM2IwOGFjZTdiZDg0N2ZmNDJlMTRiYWFmZDFkYTg2MyIsImdhc0xpbWl0IjoxMDAwMCwibWV0aG9kIjoiaW5jcmVtZW50IiwibmV0d29ya0lkIjoiNzgwOTMzOTAiLCJwcm9ncmFtU2hhMjU2IjoiOTc2MDkyZGI0NGRjYmIwNzM2YjY5NWE1NzM3YWI2MTdhOTk0YTM4OGYwOTFkYmFhNmJkYzNmNWQxYzE4ZGJjMSJ9LCJwdWJsaWNLZXkiOiIyNGU2YWM3Y2E4NTFhNjJhZGIxZWZkYjJiMGNhZGJlZDU5ZDdlZDg1ODdlMTRiMDUzNzE3NzY2ZDMwYjI4NTQ0Iiwic2NoZW1hIjoia29uYWV0LmtvLXByb2dyYW0tc2lnbmVkLWNhbGwudjEiLCJzaWduYXR1cmUiOiI3ODg5ZWNjZDBjNTQ1ZGM3NjhiZjhiZmI5MTU0MzdlYjE4OTE4OTU1MDg2NGU2YmU2ODgwN2Y1NzJjZTVjMTNjZGI0YzhmZjVhNGQxMWQwMTRjY2JiZWQxMjdiOTBkOTgyZGY2NmE2MGRiZWVjYjM4N2FmMGE2YjZjNGRhZGYwZCJ9LCJzb3VyY2UiOm51bGwsInNlcXVlbmNlIjoiMjgiLCJub25jZSI6IjE4IiwicHJldmlvdXNSb290IjoiNGQ4OWNmZWRkMzAxMWU4ZWUwNTJhNTdmMjY5ZDFmYWE3M2RiNDZlMzJkZWM5MGMxNjViMDRkNGI5NDhhNzY5NCIsInNpZ25hdHVyZSI6IjA4ZTc3YTcwODM1MzM4OTg4M2Y5YTU0OGY3ZjQxNjY2NDk2M2ZjOTQ2NTg1ZmU0OGMxZTNiZTA0MTg4NmRkNjZkMDk1ODVmODgxNWFkYjQ4YjhlYWY3NWRkM2RlYzkzMjEzNWFjMzhlZTliNmU1M2UwZDZlNmM2NDA1NmMxZDBjIn0="
+      ],
+      "proposal": {
+        "networkId": "78093390",
+        "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+        "sequence": "28",
+        "constellationId": "abaa67d1d91d8a27f3eeab3f5763e549ca8e7b0ac595c4f0f574b90b720cefe9",
+        "previousRoot": "4d89cfedd3011e8ee052a57f269d1faa73db46e32dec90c165b04d4b948a7694",
+        "nextRoot": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+        "transitionTrace": "02bdac294a280392af91af16ee55e025f733934e7c10559b45cd1af7e0a5a2bb",
+        "pcc": "f78e95e2c13ba9d5dab0211edf01854032f0a692880358b202912cf7014e5d2f"
+      },
+      "certificate": {
+        "allowlistRoot": "63f5860b77af950fc9d1af467793151faedfde5c2770bee88f44f046e21123c5",
+        "id": "1953dba45c8e25e020389737ee569b79dd15726c10b24cc9f48f7207b9d5f5f1",
+        "policy": "PERMISSIONED_K_OF_N_V1",
+        "scope": "permissioned-k-of-n",
+        "signatures": [
+          {
+            "signature": "020f7ac82b1587e7238e4b25f6eca7bd1d601a696f729fa586d89c172bb41831ce7b5edffcd3dfd4feda580b226bb9cab71624e485f4ce0fbc0a260490990403",
+            "signerId": "validator-0"
+          },
+          {
+            "signature": "a1b54728f20b758b60e9ef0005872bd66e1bfd1544148a8ae405bd3471ffb948b009f9e6061af736c317c1e350bf0e0a48e9cbbcaa4966380f81842ef896110b",
+            "signerId": "validator-2"
+          },
+          {
+            "signature": "0e0604c9ca006b12f8eca2f04b2b893e76de4c455245913f41d86af9d31a4bfe732e6c4fcff648db05ce4f14ff4000320a1458ac121ff55c632470ca91b3bb06",
+            "signerId": "validator-3"
+          }
+        ],
+        "statement": {
+          "constellationId": "abaa67d1d91d8a27f3eeab3f5763e549ca8e7b0ac595c4f0f574b90b720cefe9",
+          "networkId": "78093390",
+          "nextRoot": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a",
+          "pcc": "f78e95e2c13ba9d5dab0211edf01854032f0a692880358b202912cf7014e5d2f",
+          "previousRoot": "4d89cfedd3011e8ee052a57f269d1faa73db46e32dec90c165b04d4b948a7694",
+          "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+          "sequence": "28",
+          "transitionTrace": "02bdac294a280392af91af16ee55e025f733934e7c10559b45cd1af7e0a5a2bb"
+        },
+        "statementHash": "a8487d7a1fcf969ba29cff985b425abb9339222689a403942f05cf8da5dc1fdf",
+        "threshold": 3,
+        "validatorCount": 4,
+        "version": 1
+      },
+      "afterState": {
+        "format": "vlock7sin-ko-state-v2",
+        "deploymentPolicy": {
+          "schema": "konaet.contract-deployment-policy.v1",
+          "deployers": [
+            {
+              "address": "v7lt3uubu5lplwpv4iw3y562457nwzejih",
+              "maxContracts": 64
+            },
+            {
+              "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "maxContracts": 64
+            }
+          ]
+        },
+        "accountState": {
+          "format": "vlock7sin-state-js-v1",
+          "networkId": 78093390,
+          "suite": 1,
+          "sequence": "28",
+          "parametersRoot": "12608376f5616bb84c07dee94473ce0507e1d84020a8a83228026a0b65e384d1",
+          "identitiesRoot": "aa4cde63d9697f28caefcf1c582aa8c9145092043d8d2b830b8cb5b011f3bb9c",
+          "replayRoot": "aac73f73327d921a5fc35722c5d31e5e839535d2ea850a965bdf9fdf2a15b801",
+          "root": "4561e30410d469164927c02e40ed72dc1e0f9839c2f0f035a39ff3d8f371444c",
+          "accounts": [
+            {
+              "address": "v7lt3uubu5lplwpv4iw3y562457nwzejih",
+              "balance": "1",
+              "nonce": "10"
+            },
+            {
+              "address": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "balance": "999999999999999999",
+              "nonce": "18"
+            }
+          ]
+        },
+        "contracts": [
+          {
+            "artifact": {
+              "schema": "konaet.ko-program.v1",
+              "profile": "KONAET_KO_PROGRAM_V1",
+              "source": "contract Counter v1\nruntime: KONAET_KO_PROGRAM_V1\n\nstorage owner: address = caller;\nstorage total: u128 = 0;\nevent Changed(actor: address, value: u128);\n\ninternal view fn twice(amount: u128) -> u128 {\n  return amount * 2;\n}\n\nfn increment(amount: u128) -> u128 {\n  require caller == owner;\n  require amount > 0;\n  set total = total + twice(amount);\n  emit Changed(caller, total);\n  return total;\n}\n\nfn boundedBatch(amount: u128) -> u128 {\n  require caller == owner;\n  repeat 3 {\n    set total = total + amount;\n  }\n  return total;\n}\n\nview fn readTotal() -> u128 {\n  return total;\n}\nend\n",
+              "sourceSha256": "4e6ebe4f89038c9ff9c41e27eb623511c1a6ae605e23e3ebd09fcc5a27a798fe",
+              "programSha256": "976092db44dcbb0736b695a5737ab617a994a388f091dbaa6bdc3f5d1c18dbc1",
+              "program": {
+                "profile": "KONAET_KO_PROGRAM_V1",
+                "contract": "Counter",
+                "version": "1",
+                "storage": [
+                  {
+                    "name": "owner",
+                    "type": "address",
+                    "initial": {
+                      "kind": "name",
+                      "name": "caller",
+                      "depth": 1
+                    }
+                  },
+                  {
+                    "name": "total",
+                    "type": "u128",
+                    "initial": {
+                      "kind": "literal",
+                      "type": "u128",
+                      "value": "0",
+                      "depth": 1
+                    }
+                  }
+                ],
+                "mappings": [],
+                "events": [
+                  {
+                    "name": "Changed",
+                    "fields": [
+                      {
+                        "name": "actor",
+                        "type": "address"
+                      },
+                      {
+                        "name": "value",
+                        "type": "u128"
+                      }
+                    ]
+                  }
+                ],
+                "functions": [
+                  {
+                    "name": "twice",
+                    "internal": true,
+                    "view": true,
+                    "args": [
+                      {
+                        "name": "amount",
+                        "type": "u128"
+                      }
+                    ],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "binary",
+                          "operator": "*",
+                          "left": {
+                            "kind": "name",
+                            "name": "amount",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "literal",
+                            "type": "u128",
+                            "value": "2",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "increment",
+                    "internal": false,
+                    "view": false,
+                    "args": [
+                      {
+                        "name": "amount",
+                        "type": "u128"
+                      }
+                    ],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "require",
+                        "condition": {
+                          "kind": "binary",
+                          "operator": "==",
+                          "left": {
+                            "kind": "name",
+                            "name": "caller",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "name",
+                            "name": "owner",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      },
+                      {
+                        "kind": "require",
+                        "condition": {
+                          "kind": "binary",
+                          "operator": ">",
+                          "left": {
+                            "kind": "name",
+                            "name": "amount",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "literal",
+                            "type": "u128",
+                            "value": "0",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      },
+                      {
+                        "kind": "set",
+                        "name": "total",
+                        "key": null,
+                        "value": {
+                          "kind": "binary",
+                          "operator": "+",
+                          "left": {
+                            "kind": "name",
+                            "name": "total",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "call",
+                            "name": "twice",
+                            "args": [
+                              {
+                                "kind": "name",
+                                "name": "amount",
+                                "depth": 1
+                              }
+                            ],
+                            "depth": 2
+                          },
+                          "depth": 3
+                        }
+                      },
+                      {
+                        "kind": "emit",
+                        "name": "Changed",
+                        "args": [
+                          {
+                            "kind": "name",
+                            "name": "caller",
+                            "depth": 1
+                          },
+                          {
+                            "kind": "name",
+                            "name": "total",
+                            "depth": 1
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "name",
+                          "name": "total",
+                          "depth": 1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "boundedBatch",
+                    "internal": false,
+                    "view": false,
+                    "args": [
+                      {
+                        "name": "amount",
+                        "type": "u128"
+                      }
+                    ],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "require",
+                        "condition": {
+                          "kind": "binary",
+                          "operator": "==",
+                          "left": {
+                            "kind": "name",
+                            "name": "caller",
+                            "depth": 1
+                          },
+                          "right": {
+                            "kind": "name",
+                            "name": "owner",
+                            "depth": 1
+                          },
+                          "depth": 2
+                        }
+                      },
+                      {
+                        "kind": "repeat",
+                        "count": 3,
+                        "body": [
+                          {
+                            "kind": "set",
+                            "name": "total",
+                            "key": null,
+                            "value": {
+                              "kind": "binary",
+                              "operator": "+",
+                              "left": {
+                                "kind": "name",
+                                "name": "total",
+                                "depth": 1
+                              },
+                              "right": {
+                                "kind": "name",
+                                "name": "amount",
+                                "depth": 1
+                              },
+                              "depth": 2
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "name",
+                          "name": "total",
+                          "depth": 1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "readTotal",
+                    "internal": false,
+                    "view": true,
+                    "args": [],
+                    "returns": "u128",
+                    "body": [
+                      {
+                        "kind": "return",
+                        "value": {
+                          "kind": "name",
+                          "name": "total",
+                          "depth": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "state": {
+              "schema": "konaet.ko-program-state.v1",
+              "programSha256": "976092db44dcbb0736b695a5737ab617a994a388f091dbaa6bdc3f5d1c18dbc1",
+              "contractId": "9bbac4e6b8c83c71eaec41b604780f3f485794c7ba30a8969f43f8b7c9d0144c",
+              "networkId": "78093390",
+              "deployer": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+              "salt": "0",
+              "revision": "6",
+              "storage": {
+                "owner": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+                "total": "12"
+              },
+              "mappings": {},
+              "stateRoot": "658cf29881586b5c9a4100799170e3b3fc9b250656047a15b561320c7b9b66a3"
+            }
+          }
+        ],
+        "receipts": [
+          {
+            "eventId": "fb5f072fe3f2fafbc2c9d891c037ed988d0e1101b7f3cdb39711e0a389596bc5",
+            "contractId": "9bbac4e6b8c83c71eaec41b604780f3f485794c7ba30a8969f43f8b7c9d0144c",
+            "caller": "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+            "method": "increment",
+            "result": "12",
+            "gasUsed": 62,
+            "events": [
+              {
+                "name": "Changed",
+                "values": [
+                  "v7t6ientvfb35u5ee5jwcp7sptesuc3jjz",
+                  "12"
+                ]
+              }
+            ],
+            "contractStateRoot": "658cf29881586b5c9a4100799170e3b3fc9b250656047a15b561320c7b9b66a3"
+          }
+        ],
+        "contractsRoot": "6025faedc3247a46fae69d3b4fde4aa6786eec5ae00cbc8b01116bec1f978b10",
+        "receiptsRoot": "1aff131ac7d720d206d3a2feb15d257cda7b335e29373aaaa85ab5d87b8edc48",
+        "root": "0db53916f5ac6e53bf88370d95c5d3e88adb89286563e2b784b2cebf781dad3a"
+      }
+    },
+    "timing": {
+      "definition": "submission-through-all-active-node-root-convergence-plus-controller-polling",
+      "samples": 27,
+      "p50Ms": 969.464168999999,
+      "p95Ms": 1534.0686229999992,
+      "p99Ms": 1686.5022409999801
+    }
+  },
+  "signature": "628eb95b65f4a1d3bd0e937a8a6b86d30132ca1a0120fa8af959d95f3614bdfd3553b2fa853d1716823962860c766d2d7c984da399bd02d46396e4a32a68a40e"
+}

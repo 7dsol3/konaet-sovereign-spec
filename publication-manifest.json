@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.7.0",
+  "edition": "1.7.1",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/linux-service.yml",
-      "bytes": 2600,
-      "sha256": "1ca975e2db5d8c9beca874639faab8e053c87f3cbebb5683c2efc4474f8e5686"
+      "bytes": 3942,
+      "sha256": "1f3f745a6d45174df8e91796ab23184b11edd4864f6bfb2bc7059c9a4ae5c843"
     },
     {
       "path": ".github/workflows/remote-endurance.yml",
@@ -43,7 +43,7 @@
     {
       "path": "DEPLOYMENT.md",
       "bytes": 5645,
-      "sha256": "5fbd0c66fc5071d1b1cbc31d063117d75c2e4f4ca733e42d5e8537e77a553b2d"
+      "sha256": "a143400dfc79b950821c5eb44096ba46dceeb98446989f0b069356df17d562d0"
     },
     {
       "path": "ECOSYSTEM.md",
@@ -68,12 +68,12 @@
     {
       "path": "KO-CONSENSUS.md",
       "bytes": 7162,
-      "sha256": "e41a75c3e02bcb3a96e9112589afbbf145d2ae08e106057ae987bf00213f13cf"
+      "sha256": "a569a18ae13c65fd940b9b70f58c02088839d3a3a24da53f12e6d840035cb45e"
     },
     {
       "path": "KO-PROGRAM.md",
       "bytes": 7951,
-      "sha256": "3e428c3775f1daf5b1cd80d96cfb009431e1fc4374838f47798c3ba35b84f16b"
+      "sha256": "cadade3bbb58687a29067ae4062895eb47dbff880148da7f7ac3d09f852ccfcb"
     },
     {
       "path": "KO-QUICKSTART.md",
@@ -88,7 +88,7 @@
     {
       "path": "LEIA-ME.txt",
       "bytes": 1921,
-      "sha256": "0d847ac5fc4ccfd3a6c3bf16e1c916b1a8ddba1ae3734cdd5769b9856bb7cbb3"
+      "sha256": "6c509afa00564aca4325c388c214ebbe27930a0cea8a2b69e587a75bca8fb706"
     },
     {
       "path": "LICENSE",
@@ -107,8 +107,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 10970,
-      "sha256": "fa38245b9f5e956e4292b6db064327ebe60e3ceaea3c8e8aa340a4c6c4ba539f"
+      "bytes": 11250,
+      "sha256": "8fb7e447827dd530f23acfc549b58fc145f566387394cf62401ce5da8568e375"
     },
     {
       "path": "RECOVERY.md",
@@ -123,7 +123,7 @@
     {
       "path": "SECURITY.md",
       "bytes": 3116,
-      "sha256": "5667b365dbe6d6dd7f0bb9098448a6c17bc3f8d255fc07f244925b4d36fdd907"
+      "sha256": "4edb80d3c6993c391c9559d15d6d2dfe41fda35eb3d770f30703c9d713408e1b"
     },
     {
       "path": "Verificar-Pacote.bat",
@@ -258,7 +258,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "6619a4b4ba617739cabc561953ae965fdcf7febc49cddda282d3a57fa2f29e6d"
+      "sha256": "fbdf60b0336d5b6353b114002943eb86727dcbdc723b09730b7659f72ff6f165"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -513,7 +513,7 @@
     {
       "path": "console/index.html",
       "bytes": 4912,
-      "sha256": "59a2228cb0ef98392a290721c43612e6fbbd9f45e5174703d72fbfa3eb33d41a"
+      "sha256": "2d1b30f3330fc7072f3815bb004a435244e079bd9d4a76c87c4ed152ffc13d27"
     },
     {
       "path": "console/style.css",
@@ -563,7 +563,7 @@
     {
       "path": "docs/index.html",
       "bytes": 5848,
-      "sha256": "2f8b3f5eb408ae9c15ae365f381dc1bac33579a1c0b96c40edc15fc1355166a8"
+      "sha256": "24aaf7b5855aedd95e77655946131f4da3302c53e9890a744a8ce82917415545"
     },
     {
       "path": "docs/program-auth.mjs",
@@ -636,6 +636,41 @@
       "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
     },
     {
+      "path": "evidence/linux-service-2026-10-31.json",
+      "bytes": 550,
+      "sha256": "11ec61ea4623c57856338af591b20f1bcde8d6483ce5f0463c24769e6d945191"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/controller.json",
+      "bytes": 64092,
+      "sha256": "a5faa04368e7afc639851328e34f64884a9069485391e7c88b39dfcedb820e9d"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-0.json",
+      "bytes": 1259,
+      "sha256": "df620515b568994619e068cf62cb9bca297e6991cc428c8b65761686cedf6f02"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-1.json",
+      "bytes": 1259,
+      "sha256": "b4e0f88d89e0422d3a771c5f4ee31822f4c1895f1c24077d96a7d5eda6d37ae4"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-2.json",
+      "bytes": 1507,
+      "sha256": "fd69ee92be62d4f37dff2911fd4e1d52f0b62057cfefd994a98560806ab6f198"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/result-3.json",
+      "bytes": 1583,
+      "sha256": "ef5f7656fd4d51dc156c56dfb2add51805df5fd0fdcb199efaa004686adc8e84"
+    },
+    {
+      "path": "evidence/remote-smoke-2026-10-31/verified-summary.json",
+      "bytes": 772,
+      "sha256": "106ccb2601e1b88cd9f0e7ea6d59b6844e15ce5105a712ecd6c28d4f18dd7aab"
+    },
+    {
       "path": "evidence/source-review.json",
       "bytes": 2561,
       "sha256": "2e1b0c59c06908d4eb7e3e18f3f58de15df2a6a6f88d901b3130b5d6102eac90"
@@ -673,12 +708,12 @@
     {
       "path": "package-lock.json",
       "bytes": 839,
-      "sha256": "87b8ce69133413e4ef160f106d6616d9c94c79e20909507f0a8affdd07be45ab"
+      "sha256": "75b8c2b87f007610b7b127558ee6bcb3266eac419d166983cf1163e4ce1c1c7f"
     },
     {
       "path": "package.json",
       "bytes": 697,
-      "sha256": "24808546b75cabaabcb6def3611852c342164c18a8eab47757647d8775f554c2"
+      "sha256": "b77909ae4c065089b03b6b988c9bfbe2470ce7e7515f1efab3fac8a7f992bce5"
     },
     {
       "path": "runtime/LICENSE",
@@ -777,8 +812,8 @@
     },
     {
       "path": "tests/remote-validation.test.mjs",
-      "bytes": 5405,
-      "sha256": "9c6cac27d9320174bbcc1a0ae67d45ceeee43f3e33152b142eac209f80104e6a"
+      "bytes": 6663,
+      "sha256": "f6a06531a19ef0cd5d86c0419cb586fb2128dd4cf6d122e4866872509d78b2a3"
     },
     {
       "path": "tools/build-program-browser.mjs",
@@ -797,8 +832,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 8197,
-      "sha256": "53fa2bec2c9928cc4476767536469d68f3838b0a5e206ab43649716d5068b9df"
+      "bytes": 8605,
+      "sha256": "a91fe07873b9a726ecb589851cb8e0d9e67f0212f612a33fd2a8321f99fad571"
     },
     {
       "path": "tools/ko.mjs",
@@ -841,14 +876,19 @@
       "sha256": "74c243596b8a4654852954bca4670d6a5910193584c9e38942948c1ff4900924"
     },
     {
+      "path": "tools/remote/linux-gateway-check.mjs",
+      "bytes": 2755,
+      "sha256": "a2538e331aca29b0bf1c60cab19a8ba9ae70243c259b36095ddcd138552899aa"
+    },
+    {
       "path": "tools/remote/linux-service-check.mjs",
       "bytes": 2682,
       "sha256": "6d78b68c03f026f2bae90cad28b15f836e835749c3867ceb961c8c949203c534"
     },
     {
       "path": "tools/remote/linux-service-fixture.mjs",
-      "bytes": 3996,
-      "sha256": "0e30b00df9fd6846571b226a623bee48c78043cc7d6ab490fa33795d32de7393"
+      "bytes": 6055,
+      "sha256": "86ee6fa851be6bfd1fb395465eb0193b61d5b311e776c6f040fd24aa4f4b9dcd"
     },
     {
       "path": "tools/remote/participant.mjs",
