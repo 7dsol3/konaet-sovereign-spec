@@ -1,6 +1,6 @@
 # Segurança
 
-## Console 1.7.2
+## Console 1.8.0
 
 O console abre HTTP e quatro listeners WebSocket em `127.0.0.1`, com portas
 automáticas. As requisições que assinam transferências exigem um token aleatório
@@ -73,4 +73,4 @@ Abra uma issue com versão, entradas de teste, passos e resultado esperado.
 Para vulnerabilidades sensíveis, utilize os advisories privados do repositório
 quando disponíveis. Não publique seeds, credenciais ou dados reais.
 
-Artefatos suportados nesta edição: nós, runtime, console, gateway e documentação 1.7.2.
+Artefatos suportados nesta edição: nós, runtime, console, gateway e documentação 1.8.0.

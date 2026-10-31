@@ -5,6 +5,8 @@ import { ROOT, inventory, verifyFilePolicy } from './files.mjs';
 import { verifyTransferVector } from '../lib/event.mjs';
 import { verifyPublicationMetadata } from './publication-checks.mjs';
 import { verifyRemoteResults } from './remote/verify-report.mjs';
+import { createRequire } from 'node:module';
+const { verifyPolyglotReport } = createRequire(import.meta.url)('../polyglot/verify-report.cjs');
 
 try {
   const files = inventory();
@@ -30,10 +32,13 @@ try {
   const readHour = name => JSON.parse(fs.readFileSync(path.join(ROOT, 'evidence/remote-hour-2026-10-31', name), 'utf8'));
   const hour = verifyRemoteResults(readHour('controller.json'), [0, 1, 2, 3].map(index => readHour(`result-${index}.json`)),
     '8cdf7e01767e3b9e4df92323e4fd7ca1d350ef91', '41210381147-1');
+  const polyglot = ['c', 'cpp', 'csharp', 'python', 'rust', 'perl', 'go', 'shell', 'node'].map(name =>
+    verifyPolyglotReport(JSON.parse(fs.readFileSync(path.join(ROOT, 'evidence/polyglot-2026-10-31', name + '.json'), 'utf8'))));
   console.log(JSON.stringify({ edition: manifest.edition, filesVerified: files.length,
     syntheticTransferVector: { signatureVerified: result.cryptographicallyValid, inclusionAndFinalityChecked: false },
     remoteSmokeValidation: remote,
     remoteConsensusValidation: hour,
+    polyglotFinalityValidation: polyglot,
     permanentPublicNetworkHosted: manifest.publicNetworkDeployed }, null, 2));
 } catch (error) {
   console.error(`FAIL ${error.message}`);

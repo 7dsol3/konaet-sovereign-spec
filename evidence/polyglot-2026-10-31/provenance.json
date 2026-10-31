@@ -1,0 +1,120 @@
+{
+  "schema": "konaet.polyglot-provenance.v1",
+  "workflowRun": 41222093406,
+  "workflowUrl": "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/41222093406",
+  "measuredCommit": "91ce48e4b45a102c5f01bf97b84011fc573bc819",
+  "reportsIndependentlyReverified": true,
+  "artifacts": [
+    {
+      "name": "konaet-polyglot-node-41222093406",
+      "id": 13050875057,
+      "digest": "sha256:83f1e84851e0556305a559523e7ebee6f74e0f39ccba4ab73e0a41e91bfa8cda"
+    },
+    {
+      "name": "konaet-polyglot-c-41222093406",
+      "id": 13050835441,
+      "digest": "sha256:b8cbba359571481cc55c4f8b04698149e4b72dee522fe106af96dae94c102429"
+    },
+    {
+      "name": "konaet-polyglot-csharp-41222093406",
+      "id": 13050810535,
+      "digest": "sha256:c9aab4fb96cb9feae409af41b4f443f3c05090e0b28f432929d26f977fc8afaa"
+    },
+    {
+      "name": "konaet-polyglot-rust-41222093406",
+      "id": 13050466966,
+      "digest": "sha256:8277d239961fb71114bd87e564a3781e8453682490b0ea2d39a2f3964248a8ad"
+    },
+    {
+      "name": "konaet-polyglot-go-41222093406",
+      "id": 13050432102,
+      "digest": "sha256:1c6b48cbfa87ec165cff104ab47a1a66640bb4f24d278f8263e5c03ee0ad34ac"
+    },
+    {
+      "name": "konaet-polyglot-cpp-41222093406",
+      "id": 13050212873,
+      "digest": "sha256:6c8c737d4fa5f6a57368b3d0897fc0db7316c7a440b5160397001223663a689a"
+    },
+    {
+      "name": "konaet-polyglot-perl-41222093406",
+      "id": 13050087936,
+      "digest": "sha256:cc19fce242b6d6bff861d8e007a08d6be2b7c596a6e151300c4e097c7b790380"
+    },
+    {
+      "name": "konaet-polyglot-shell-41222093406",
+      "id": 13050078030,
+      "digest": "sha256:d5fecd2b69c04edc9dc5c573a9f066469e5495dcd65a00077c4dbcfd2d5a178c"
+    },
+    {
+      "name": "konaet-polyglot-python-41222093406",
+      "id": 13049899970,
+      "digest": "sha256:6155f4b0efd03147c2e2897c3d5f8821da68686fcca4db9ce9dc7cf9aa2d102f"
+    }
+  ],
+  "sourceParity": [
+    {
+      "path": "tools/social-receipt.cjs",
+      "sha256": "edadb526da090e12b18ded2a624b9a860888a1b5550accf3233ba388c5aef6a7"
+    },
+    {
+      "path": "polyglot/conformance.mjs",
+      "sha256": "1ece1ab3c33fa823ff569d7592313dedbd8bb8ead52a56cdf062e10233612779"
+    },
+    {
+      "path": "polyglot/c/receipt.c",
+      "sha256": "b95b8d82ba16a5d6f2341dd6eb0cddbbe95910eec09bd276049cd76ed3a098fe"
+    },
+    {
+      "path": "polyglot/c/receipt.h",
+      "sha256": "8958f234a366c275b702f897fd905d0a3a0118913728848a4d91161c44489bf5"
+    },
+    {
+      "path": "polyglot/cpp/receipt.cpp",
+      "sha256": "c942277d6b9319b2f7d36d8882982ab7ab73b9841a2cc1d750f4e3035275a8eb"
+    },
+    {
+      "path": "polyglot/csharp/Program.cs",
+      "sha256": "92c0fca89d4dbab5edb8c49b4679cb8ec5709ae6c8e9998bb9cc616d55e818d4"
+    },
+    {
+      "path": "polyglot/csharp/Konaet.Receipt.csproj",
+      "sha256": "62e311a078b9bf3aaf7ce5bfaa3ae8d720a4e2852f788aa474d5c9b608e79d32"
+    },
+    {
+      "path": "polyglot/go/main.go",
+      "sha256": "3f0b49436f035217ef7b539de70a638f07dfddd8b1effd05b3c37b9f1a8fce03"
+    },
+    {
+      "path": "polyglot/node/receipt.cjs",
+      "sha256": "4d5295e482e8abc93e59789e21c7221c273b3c218fdf0a84079365ab35d7449b"
+    },
+    {
+      "path": "polyglot/python/receipt.py",
+      "sha256": "d220c2d41225bff0e615f0b157065511a7aa6dfcec20a2c4ef90cbfe21e2c1ed"
+    },
+    {
+      "path": "polyglot/perl/receipt.pl",
+      "sha256": "5ebc7d951275125942e1b65129b0c9f4c92940ec3cd2a32d8546b5f621304648"
+    },
+    {
+      "path": "polyglot/rust/Cargo.toml",
+      "sha256": "d837c239f36bc38a7293daa8ee28da878d20f0f78fa2e15cf5f8a35e0f6985f5"
+    },
+    {
+      "path": "polyglot/rust/Cargo.lock",
+      "sha256": "43a8696ea2c824d32eda6deaf99d13b32440f0ae6adecafafa6854a177110ab5"
+    },
+    {
+      "path": "polyglot/rust/src/main.rs",
+      "sha256": "5fc763f361e90e1108b4b6e88f3cf7ffd001d640d84a16826bb82b4e8eebf569"
+    },
+    {
+      "path": "polyglot/shell/receipt.sh",
+      "sha256": "983e2450bc5773eef996cc99f8a0d7daa6d3794315bb3822de8a7934c0a2a71b"
+    },
+    {
+      "path": "polyglot/vectors.json",
+      "sha256": "529d864a7ea3022b4edeb5284f5d9562530451b08a4baf0537e742ccfc6d0984"
+    }
+  ]
+}

@@ -46,6 +46,12 @@ function verifySocialOpening(opening, expectedCommitment) {
   const expected = Buffer.from(digest(expectedCommitment), 'hex');
   return crypto.timingSafeEqual(Buffer.from(createSocialCommitment(opening).commitment, 'hex'), expected);
 }
+function encodeSocialCommitmentFrame(opening, { verify = true } = {}) {
+  need(typeof verify === 'boolean', 'SOCIAL_FRAME_OPTIONS_INVALID');
+  const commitment = createSocialCommitment(opening);
+  return opening.salt + '\n' + documentBytes(opening.document).toString('hex') + '\n'
+    + (verify ? commitment.commitment : '-') + '\n';
+}
 function verifySocialReceipt(bundle, { expectedGenesisId, expectedContractId, expectedCommitment } = {}) {
   digest(expectedGenesisId); digest(expectedContractId); digest(expectedCommitment);
   const { verifyContractReceipt } = require('./verify-contract-receipt.cjs');
@@ -63,4 +69,4 @@ function verifySocialReceipt(bundle, { expectedGenesisId, expectedContractId, ex
     sequence: verified.sequence, stateRoot: verified.stateRoot, signers: verified.signers,
     proves: 'commitment-inclusion-and-permissioned-finality', contentTruthVerified: false, plaintextDocumentIncluded: false };
 }
-module.exports = Object.freeze({ createSocialOpening, createSocialCommitment, verifySocialOpening, verifySocialReceipt });
+module.exports = Object.freeze({ createSocialOpening, createSocialCommitment, verifySocialOpening, verifySocialReceipt, encodeSocialCommitmentFrame });

@@ -1,0 +1,1133 @@
+{
+  "schema": "konaet.polyglot-conformance.v1",
+  "language": "csharp",
+  "platform": "linux",
+  "versions": {
+    "compiler": "10.0.403"
+  },
+  "checkedAt": "2026-10-31T16:57:06.520Z",
+  "elapsedMs": 12093,
+  "vectorCases": 12,
+  "validAndMismatchChecks": 37,
+  "malformedFramesRejected": 20,
+  "realFourProcessFinality": true,
+  "finalityVerification": {
+    "schema": "konaet.social-finality-verification.v1",
+    "verified": true,
+    "commitment": "f6cf740a416fe9a783dc0c8925c2da49c4316cb0fd06cecd8166a451073bc7b0",
+    "genesisId": "0159174198470e78ef8a0e76bcba0ebd5f90bd9a6b40aa42b3f51b32db8dc9a8",
+    "contractId": "b22dc5c453c416b7f83afacff1ceb56e93a27eb99bb9718e98e320d401b51578",
+    "eventId": "525506c4bfb282b294238547d8bdd78ae4e9da908d69c182f191597091b6d9b7",
+    "index": "1",
+    "sequence": "2",
+    "stateRoot": "2098e1852d24b8883c63e171cd8b4730f85b18a0724d2e2eebde575c3a03d002",
+    "signers": [
+      "validator-0",
+      "validator-1",
+      "validator-2"
+    ],
+    "proves": "commitment-inclusion-and-permissioned-finality",
+    "contentTruthVerified": false,
+    "plaintextDocumentIncluded": false
+  },
+  "receiptBundle": {
+    "schema": "konaet.ko-consensus-receipt.v1",
+    "genesis": {
+      "format": "konaet-sovereign-genesis-v8-ko-admission",
+      "networkId": "65968376",
+      "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+      "chainName": "Konaet VLOCK7SIN Sovereign Devnet",
+      "createdAt": "2026-10-31T16:57:05.401Z",
+      "asset": {
+        "name": "SINDRA",
+        "symbol": "SND",
+        "atomicName": "NEXEL",
+        "decimals": 9,
+        "fixedSupplyAtomic": "1000000000000000000"
+      },
+      "validators": [
+        {
+          "id": "validator-0",
+          "publicKey": "af334df88fc0441696617b5e2ccf16e33ae4acc80b32005e87dff21a0a3f153c"
+        },
+        {
+          "id": "validator-1",
+          "publicKey": "5e89adf539e86333eb82ae38b487b667fac0b03d9761374a879542b7cab66418"
+        },
+        {
+          "id": "validator-2",
+          "publicKey": "72fdb3bc3dbe02fa9047cd890df7faa839159dd7709839c55c42346e2eea68a7"
+        },
+        {
+          "id": "validator-3",
+          "publicKey": "d96f09d74d1b188107c19c76d4eff4a8f7ea553db732abd9e9b33924762f0859"
+        }
+      ],
+      "threshold": 3,
+      "allocations": [
+        {
+          "address": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+          "amountAtomic": "1000000000000000000"
+        }
+      ],
+      "parameters": {
+        "maxActs": 64,
+        "maxBytes": 262144,
+        "stateSyncChunk": 4,
+        "messageRateWindowMs": 10000,
+        "messageRateLimit": 512
+      },
+      "consensusSignatureProfile": "ED25519_V1",
+      "transferAuthorizationProfile": null,
+      "transportSignatureProfile": null,
+      "nativePolicy": {
+        "schema": "konaet.ko-native-policy.v1",
+        "profile": "KONAET_KO_ASSERT_V1",
+        "source": "contract SindraRuntime v1\nruntime: KONAET_KO_ASSERT_V1\nsymbol: SND\ndecimals: 9\nsupplyAtomic: 1000000000000000000\n\nrule transferPositive: transfer.amountAtomic > 0\nrule transferMaximum: transfer.amountAtomic <= 1000000000000000000\nrule transferBalance: transfer.amountAtomic <= state.senderBalance\nrule transferNonce: transfer.nonce == state.nextNonce\nrule transferNetwork: transfer.networkId == state.networkId\nrule transferRoot: transfer.previousRoot == state.root\nrule closureNonempty: closure.actCount > 0\nrule closureCount: closure.actCount <= 64\nrule closureBytes: closure.byteLength <= 262144\nend\n",
+        "sourceSha256": "81ec0c351fd5f12aaba8b91b4c6b672f87fa780605d2e537326d2e429bbdc13e",
+        "programSha256": "68d1ec4d29e9f347e2bed6655e8bbe3bcce79f74013836e14b2b3d728edc8edb",
+        "program": {
+          "profile": "KONAET_KO_ASSERT_V1",
+          "metadata": {
+            "runtime": "KONAET_KO_ASSERT_V1",
+            "symbol": "SND",
+            "decimals": "9",
+            "supplyAtomic": "1000000000000000000"
+          },
+          "rules": [
+            {
+              "name": "transferPositive",
+              "phase": "transfer",
+              "left": {
+                "kind": "integer-field",
+                "value": "transfer.amountAtomic"
+              },
+              "operator": ">",
+              "right": {
+                "kind": "integer",
+                "value": "0"
+              }
+            },
+            {
+              "name": "transferMaximum",
+              "phase": "transfer",
+              "left": {
+                "kind": "integer-field",
+                "value": "transfer.amountAtomic"
+              },
+              "operator": "<=",
+              "right": {
+                "kind": "integer",
+                "value": "1000000000000000000"
+              }
+            },
+            {
+              "name": "transferBalance",
+              "phase": "transfer",
+              "left": {
+                "kind": "integer-field",
+                "value": "transfer.amountAtomic"
+              },
+              "operator": "<=",
+              "right": {
+                "kind": "integer-field",
+                "value": "state.senderBalance"
+              }
+            },
+            {
+              "name": "transferNonce",
+              "phase": "transfer",
+              "left": {
+                "kind": "integer-field",
+                "value": "transfer.nonce"
+              },
+              "operator": "==",
+              "right": {
+                "kind": "integer-field",
+                "value": "state.nextNonce"
+              }
+            },
+            {
+              "name": "transferNetwork",
+              "phase": "transfer",
+              "left": {
+                "kind": "integer-field",
+                "value": "transfer.networkId"
+              },
+              "operator": "==",
+              "right": {
+                "kind": "integer-field",
+                "value": "state.networkId"
+              }
+            },
+            {
+              "name": "transferRoot",
+              "phase": "transfer",
+              "left": {
+                "kind": "hash-field",
+                "value": "transfer.previousRoot"
+              },
+              "operator": "==",
+              "right": {
+                "kind": "hash-field",
+                "value": "state.root"
+              }
+            },
+            {
+              "name": "closureNonempty",
+              "phase": "closure",
+              "left": {
+                "kind": "integer-field",
+                "value": "closure.actCount"
+              },
+              "operator": ">",
+              "right": {
+                "kind": "integer",
+                "value": "0"
+              }
+            },
+            {
+              "name": "closureCount",
+              "phase": "closure",
+              "left": {
+                "kind": "integer-field",
+                "value": "closure.actCount"
+              },
+              "operator": "<=",
+              "right": {
+                "kind": "integer",
+                "value": "64"
+              }
+            },
+            {
+              "name": "closureBytes",
+              "phase": "closure",
+              "left": {
+                "kind": "integer-field",
+                "value": "closure.byteLength"
+              },
+              "operator": "<=",
+              "right": {
+                "kind": "integer",
+                "value": "262144"
+              }
+            }
+          ]
+        }
+      },
+      "contractRuntime": {
+        "profile": "KONAET_KO_PROGRAM_V1",
+        "eventFormat": "vlock7sin-ko-event-v1",
+        "stateFormat": "vlock7sin-ko-state-v2",
+        "sourceBytes": 16384,
+        "transactionBytes": 65536,
+        "gasPerTransaction": 100000,
+        "gasPerClosure": 1000000,
+        "actsPerClosure": 64,
+        "closureBytes": 262144,
+        "contracts": 128,
+        "stateBytes": 4194304,
+        "deploymentAuthorization": "genesis-quota-v1"
+      },
+      "deploymentPolicy": {
+        "schema": "konaet.contract-deployment-policy.v1",
+        "deployers": [
+          {
+            "address": "v76uybtvo5gi7ri65cndqul56l2hqy2asy",
+            "maxContracts": 64
+          },
+          {
+            "address": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "maxContracts": 64
+          }
+        ]
+      },
+      "parametersRoot": "69d1f309d274eed92deb099e9dccab8ab36b8b1b9a9d4f7d6d8d6afcd726d422",
+      "identitiesRoot": "03611f878f992c5aa7df91b9dbb4e820dc7a359e80254faa7173858092f4b84d",
+      "replayRoot": "992639ef084d2c0c95f26353b558075605b0444efa3d2a4b31675a7086c675b4",
+      "stateRoot": "f0ca0d426ed52d41519dbbadcf009cadcebcd66ebf8e9fb784518b2712b11dc9",
+      "genesisId": "0159174198470e78ef8a0e76bcba0ebd5f90bd9a6b40aa42b3f51b32db8dc9a8"
+    },
+    "beforeState": {
+      "format": "vlock7sin-ko-state-v2",
+      "deploymentPolicy": {
+        "schema": "konaet.contract-deployment-policy.v1",
+        "deployers": [
+          {
+            "address": "v76uybtvo5gi7ri65cndqul56l2hqy2asy",
+            "maxContracts": 64
+          },
+          {
+            "address": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "maxContracts": 64
+          }
+        ]
+      },
+      "accountState": {
+        "format": "vlock7sin-state-js-v1",
+        "networkId": 65968376,
+        "suite": 1,
+        "sequence": "1",
+        "parametersRoot": "69d1f309d274eed92deb099e9dccab8ab36b8b1b9a9d4f7d6d8d6afcd726d422",
+        "identitiesRoot": "03611f878f992c5aa7df91b9dbb4e820dc7a359e80254faa7173858092f4b84d",
+        "replayRoot": "60eb7806b65083686d4d7e66f1cc29ef2dc919249cd772ba8237b9bf4682ded9",
+        "root": "9999d1e4cddf52492dc405c7307306193701f1ed36cecae658326978a9cd04fa",
+        "accounts": [
+          {
+            "address": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "balance": "1000000000000000000",
+            "nonce": "1"
+          }
+        ]
+      },
+      "contracts": [
+        {
+          "artifact": {
+            "schema": "konaet.ko-program.v1",
+            "profile": "KONAET_KO_PROGRAM_V1",
+            "source": "contract SocialReceiptRegistry v1\nruntime: KONAET_KO_PROGRAM_V1\n\nstorage owner: address = caller;\nstorage count: u128 = 0;\nmapping high: u128 => u128;\nmapping low: u128 => u128;\n\nevent Recorded(index: u128, digestHigh: u128, digestLow: u128);\n\nfn record(digestHigh: u128, digestLow: u128) -> u128 {\n  require caller == owner;\n  require count < 128;\n  let index: u128 = count + 1;\n  set high[index] = digestHigh;\n  set low[index] = digestLow;\n  set count = index;\n  emit Recorded(index, digestHigh, digestLow);\n  return index;\n}\n\nview fn readHigh(index: u128) -> u128 {\n  require index > 0;\n  require index <= count;\n  return high[index];\n}\n\nview fn readLow(index: u128) -> u128 {\n  require index > 0;\n  require index <= count;\n  return low[index];\n}\nend\n",
+            "sourceSha256": "ebb9d9d1cd13dee22e73923d5f4cf35dc48973943f0631cfcf02460639fe46fa",
+            "programSha256": "a111f3019a7968bf908f1bae1d01838105dd26faf0f6837b831f3355fa1505bc",
+            "program": {
+              "profile": "KONAET_KO_PROGRAM_V1",
+              "contract": "SocialReceiptRegistry",
+              "version": "1",
+              "storage": [
+                {
+                  "name": "owner",
+                  "type": "address",
+                  "initial": {
+                    "kind": "name",
+                    "name": "caller",
+                    "depth": 1
+                  }
+                },
+                {
+                  "name": "count",
+                  "type": "u128",
+                  "initial": {
+                    "kind": "literal",
+                    "type": "u128",
+                    "value": "0",
+                    "depth": 1
+                  }
+                }
+              ],
+              "mappings": [
+                {
+                  "name": "high",
+                  "keyType": "u128",
+                  "type": "u128"
+                },
+                {
+                  "name": "low",
+                  "keyType": "u128",
+                  "type": "u128"
+                }
+              ],
+              "events": [
+                {
+                  "name": "Recorded",
+                  "fields": [
+                    {
+                      "name": "index",
+                      "type": "u128"
+                    },
+                    {
+                      "name": "digestHigh",
+                      "type": "u128"
+                    },
+                    {
+                      "name": "digestLow",
+                      "type": "u128"
+                    }
+                  ]
+                }
+              ],
+              "functions": [
+                {
+                  "name": "record",
+                  "internal": false,
+                  "view": false,
+                  "args": [
+                    {
+                      "name": "digestHigh",
+                      "type": "u128"
+                    },
+                    {
+                      "name": "digestLow",
+                      "type": "u128"
+                    }
+                  ],
+                  "returns": "u128",
+                  "body": [
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "==",
+                        "left": {
+                          "kind": "name",
+                          "name": "caller",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "name",
+                          "name": "owner",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "<",
+                        "left": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "128",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "let",
+                      "name": "index",
+                      "type": "u128",
+                      "value": {
+                        "kind": "binary",
+                        "operator": "+",
+                        "left": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "1",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "set",
+                      "name": "high",
+                      "key": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      },
+                      "value": {
+                        "kind": "name",
+                        "name": "digestHigh",
+                        "depth": 1
+                      }
+                    },
+                    {
+                      "kind": "set",
+                      "name": "low",
+                      "key": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      },
+                      "value": {
+                        "kind": "name",
+                        "name": "digestLow",
+                        "depth": 1
+                      }
+                    },
+                    {
+                      "kind": "set",
+                      "name": "count",
+                      "key": null,
+                      "value": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      }
+                    },
+                    {
+                      "kind": "emit",
+                      "name": "Recorded",
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        {
+                          "kind": "name",
+                          "name": "digestHigh",
+                          "depth": 1
+                        },
+                        {
+                          "kind": "name",
+                          "name": "digestLow",
+                          "depth": 1
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "return",
+                      "value": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "readHigh",
+                  "internal": false,
+                  "view": true,
+                  "args": [
+                    {
+                      "name": "index",
+                      "type": "u128"
+                    }
+                  ],
+                  "returns": "u128",
+                  "body": [
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": ">",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "0",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "<=",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "return",
+                      "value": {
+                        "kind": "map",
+                        "name": "high",
+                        "key": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "readLow",
+                  "internal": false,
+                  "view": true,
+                  "args": [
+                    {
+                      "name": "index",
+                      "type": "u128"
+                    }
+                  ],
+                  "returns": "u128",
+                  "body": [
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": ">",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "0",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "<=",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "return",
+                      "value": {
+                        "kind": "map",
+                        "name": "low",
+                        "key": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "state": {
+            "schema": "konaet.ko-program-state.v1",
+            "programSha256": "a111f3019a7968bf908f1bae1d01838105dd26faf0f6837b831f3355fa1505bc",
+            "contractId": "b22dc5c453c416b7f83afacff1ceb56e93a27eb99bb9718e98e320d401b51578",
+            "networkId": "65968376",
+            "deployer": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "salt": "773",
+            "revision": "0",
+            "storage": {
+              "owner": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+              "count": "0"
+            },
+            "mappings": {
+              "high": [],
+              "low": []
+            },
+            "stateRoot": "cdee650bce3c689261241bc9db6dc6affce944cbff6e7ab50fd1c7a378efd061"
+          }
+        }
+      ],
+      "receipts": [
+        {
+          "eventId": "e6503026e8680c48a6c8d67869aabbcb716524171b805b666ef2f09228b9ed3a",
+          "contractId": "b22dc5c453c416b7f83afacff1ceb56e93a27eb99bb9718e98e320d401b51578",
+          "caller": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+          "method": "$deploy",
+          "result": null,
+          "gasUsed": 2,
+          "events": [],
+          "contractStateRoot": "cdee650bce3c689261241bc9db6dc6affce944cbff6e7ab50fd1c7a378efd061"
+        }
+      ],
+      "contractsRoot": "ad0425bf6970efd6e5e4424bf09141dc15b8b4d887e4a086b658a5756642a2f1",
+      "receiptsRoot": "1a3793725c03aa85bd12c499c933226eeece596b811ab3320c01ec93f3fd69e0",
+      "root": "a0231a7dce1ef68a7d0ff0fcf22ced43ac9b24587e48564244461b6d0d8bffb5"
+    },
+    "events": [
+      "VkxPQ0s3U0lOL0tPLUVWRU5UL3YxCnsiZW52ZWxvcGUiOnsicGF5bG9hZCI6eyJhcmdzIjpbIjMyODA2NzI0NTk4NDg1MzQ4MjU5NTcxNzgwODcyNTA2MzU1NTY1NyIsIjI2MDc4NTMxNDI0MjYxMzQ1MjE3MTk5MzY5ODA2ODE4MTI3MjQ5NiJdLCJjb250cmFjdElkIjoiYjIyZGM1YzQ1M2M0MTZiN2Y4M2FmYWNmZjFjZWI1NmU5M2EyN2ViOTliYjk3MThlOThlMzIwZDQwMWI1MTU3OCIsImV4cGVjdGVkUmV2aXNpb24iOiIwIiwiZXhwZWN0ZWRTdGF0ZVJvb3QiOiJjZGVlNjUwYmNlM2M2ODkyNjEyNDFiYzlkYjZkYzZhZmZjZTk0NGNiZmY2ZTdhYjUwZmQxYzdhMzc4ZWZkMDYxIiwiZ2FzTGltaXQiOjEwMDAwLCJtZXRob2QiOiJyZWNvcmQiLCJuZXR3b3JrSWQiOiI2NTk2ODM3NiIsInByb2dyYW1TaGEyNTYiOiJhMTExZjMwMTlhNzk2OGJmOTA4ZjFiYWUxZDAxODM4MTA1ZGQyNmZhZjBmNjgzN2I4MzFmMzM1NWZhMTUwNWJjIn0sInB1YmxpY0tleSI6ImUyZmM4ZDU4M2VhODdlM2NiYWM5NjIzZmIzMmYxMmIzMzliN2NiNDcwOGNmY2U5ZGYwZDIyMTU2ODg5NzJiODAiLCJzY2hlbWEiOiJrb25hZXQua28tcHJvZ3JhbS1zaWduZWQtY2FsbC52MSIsInNpZ25hdHVyZSI6IjBkYzIzMWYyYmRiMWEyMWNjOWUxNzIzNjViYTE5ZDk1MzI4MjI3YTMyZmNiZmVmOWIyZjk5ZjE5MDdiNzU4ZmFiM2JhMTg2NGE2NGE3ZWNkZDM5MTM2ZmU2YjE2OWZlNTA5MjI2ZDQ5MDE4YmE2NzFjOWZkM2I2YmI2YTM5NzA0In0sInNvdXJjZSI6bnVsbCwic2VxdWVuY2UiOiIyIiwibm9uY2UiOiIyIiwicHJldmlvdXNSb290IjoiYTAyMzFhN2RjZTFlZjY4YTdkMGZmMGZjZjIyY2VkNDNhYzliMjQ1ODdlNDg1NjQyNDQ0NjFiNmQwZDhiZmZiNSIsInNpZ25hdHVyZSI6IjBkYTFmMTYxMGY5YTY1YWJkNTE0M2JlY2I2NzM4ZDNhZTI4ODU0ZTNjNWJmN2NlYzlmNjVjNzkxNzFjYjJhZTNkYWY2ZjU0ZWJiM2IyMjVhOTVhZDg1YWY2MGQ5N2NiNzdkYmQ0MWFhYzE5ZmUzNTE4OTkxNDBhOTUxNmZkNjBmIn0="
+    ],
+    "proposal": {
+      "networkId": "65968376",
+      "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+      "sequence": "2",
+      "constellationId": "d8aee0bfff8eacfa27dda9dde43ff760ffedec00a8f1e1c806d2d7e002c8a595",
+      "previousRoot": "a0231a7dce1ef68a7d0ff0fcf22ced43ac9b24587e48564244461b6d0d8bffb5",
+      "nextRoot": "2098e1852d24b8883c63e171cd8b4730f85b18a0724d2e2eebde575c3a03d002",
+      "transitionTrace": "108cedf4ca131ff9c01a08e4d995131ce95ec47e33b21a11bfc8b6ad5cfb83e0",
+      "pcc": "15ac81b22b161068baa25253d5c2839330c25ad08ebd51910454ed5653b8583b"
+    },
+    "certificate": {
+      "allowlistRoot": "e73befe692df992d01c41d9742754cc6b6e6ae700dbb23522220154c06690235",
+      "id": "3faabc35b0cdc696b1413d52e4a5417f5c527742e7d20b9f11fde93587e56dd0",
+      "policy": "PERMISSIONED_K_OF_N_V1",
+      "scope": "permissioned-k-of-n",
+      "signatures": [
+        {
+          "signature": "f9a786d7c70b9ed7e8e47d443f78e7ec71e70e907d8f75e87374b66d75b2fffa777fdaafd6cbe66b8f4bf349722dff83b0b5b57341405f77570ad7bc181a8c0b",
+          "signerId": "validator-0"
+        },
+        {
+          "signature": "25e16bdfc2285d8ad7bc658a0b0d6caea3e6d7d6dd7a549ab71547f32a07de67c225f257ef501fabedf9738a3a226941756d05a399c7df0f8888666db699e907",
+          "signerId": "validator-1"
+        },
+        {
+          "signature": "1b45e67af68be3440f078f1af169e0c3575b5d7b784eb618822fcd811c837ffc7731f0dea057b2213b7bdb5326c897d691bbad887a3eb04b3f30c0de3c9f3108",
+          "signerId": "validator-2"
+        }
+      ],
+      "statement": {
+        "constellationId": "d8aee0bfff8eacfa27dda9dde43ff760ffedec00a8f1e1c806d2d7e002c8a595",
+        "networkId": "65968376",
+        "nextRoot": "2098e1852d24b8883c63e171cd8b4730f85b18a0724d2e2eebde575c3a03d002",
+        "pcc": "15ac81b22b161068baa25253d5c2839330c25ad08ebd51910454ed5653b8583b",
+        "previousRoot": "a0231a7dce1ef68a7d0ff0fcf22ced43ac9b24587e48564244461b6d0d8bffb5",
+        "protocolVersion": "0.7.0-sovereign-ko-admission.1",
+        "sequence": "2",
+        "transitionTrace": "108cedf4ca131ff9c01a08e4d995131ce95ec47e33b21a11bfc8b6ad5cfb83e0"
+      },
+      "statementHash": "054dca74fa6a4d0ddff51d9c80f5cacb338505144812516c507ebe18a15e3cad",
+      "threshold": 3,
+      "validatorCount": 4,
+      "version": 1
+    },
+    "afterState": {
+      "format": "vlock7sin-ko-state-v2",
+      "deploymentPolicy": {
+        "schema": "konaet.contract-deployment-policy.v1",
+        "deployers": [
+          {
+            "address": "v76uybtvo5gi7ri65cndqul56l2hqy2asy",
+            "maxContracts": 64
+          },
+          {
+            "address": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "maxContracts": 64
+          }
+        ]
+      },
+      "accountState": {
+        "format": "vlock7sin-state-js-v1",
+        "networkId": 65968376,
+        "suite": 1,
+        "sequence": "2",
+        "parametersRoot": "69d1f309d274eed92deb099e9dccab8ab36b8b1b9a9d4f7d6d8d6afcd726d422",
+        "identitiesRoot": "03611f878f992c5aa7df91b9dbb4e820dc7a359e80254faa7173858092f4b84d",
+        "replayRoot": "b3d0af54e954fc825f1cfeefda80dd7a1718a45eeb0994bdbcde94d10fba3ab3",
+        "root": "2bd143b940730b22b7cc4830c3a2923625350264f109795be334917dfc3f281c",
+        "accounts": [
+          {
+            "address": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "balance": "1000000000000000000",
+            "nonce": "2"
+          }
+        ]
+      },
+      "contracts": [
+        {
+          "artifact": {
+            "schema": "konaet.ko-program.v1",
+            "profile": "KONAET_KO_PROGRAM_V1",
+            "source": "contract SocialReceiptRegistry v1\nruntime: KONAET_KO_PROGRAM_V1\n\nstorage owner: address = caller;\nstorage count: u128 = 0;\nmapping high: u128 => u128;\nmapping low: u128 => u128;\n\nevent Recorded(index: u128, digestHigh: u128, digestLow: u128);\n\nfn record(digestHigh: u128, digestLow: u128) -> u128 {\n  require caller == owner;\n  require count < 128;\n  let index: u128 = count + 1;\n  set high[index] = digestHigh;\n  set low[index] = digestLow;\n  set count = index;\n  emit Recorded(index, digestHigh, digestLow);\n  return index;\n}\n\nview fn readHigh(index: u128) -> u128 {\n  require index > 0;\n  require index <= count;\n  return high[index];\n}\n\nview fn readLow(index: u128) -> u128 {\n  require index > 0;\n  require index <= count;\n  return low[index];\n}\nend\n",
+            "sourceSha256": "ebb9d9d1cd13dee22e73923d5f4cf35dc48973943f0631cfcf02460639fe46fa",
+            "programSha256": "a111f3019a7968bf908f1bae1d01838105dd26faf0f6837b831f3355fa1505bc",
+            "program": {
+              "profile": "KONAET_KO_PROGRAM_V1",
+              "contract": "SocialReceiptRegistry",
+              "version": "1",
+              "storage": [
+                {
+                  "name": "owner",
+                  "type": "address",
+                  "initial": {
+                    "kind": "name",
+                    "name": "caller",
+                    "depth": 1
+                  }
+                },
+                {
+                  "name": "count",
+                  "type": "u128",
+                  "initial": {
+                    "kind": "literal",
+                    "type": "u128",
+                    "value": "0",
+                    "depth": 1
+                  }
+                }
+              ],
+              "mappings": [
+                {
+                  "name": "high",
+                  "keyType": "u128",
+                  "type": "u128"
+                },
+                {
+                  "name": "low",
+                  "keyType": "u128",
+                  "type": "u128"
+                }
+              ],
+              "events": [
+                {
+                  "name": "Recorded",
+                  "fields": [
+                    {
+                      "name": "index",
+                      "type": "u128"
+                    },
+                    {
+                      "name": "digestHigh",
+                      "type": "u128"
+                    },
+                    {
+                      "name": "digestLow",
+                      "type": "u128"
+                    }
+                  ]
+                }
+              ],
+              "functions": [
+                {
+                  "name": "record",
+                  "internal": false,
+                  "view": false,
+                  "args": [
+                    {
+                      "name": "digestHigh",
+                      "type": "u128"
+                    },
+                    {
+                      "name": "digestLow",
+                      "type": "u128"
+                    }
+                  ],
+                  "returns": "u128",
+                  "body": [
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "==",
+                        "left": {
+                          "kind": "name",
+                          "name": "caller",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "name",
+                          "name": "owner",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "<",
+                        "left": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "128",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "let",
+                      "name": "index",
+                      "type": "u128",
+                      "value": {
+                        "kind": "binary",
+                        "operator": "+",
+                        "left": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "1",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "set",
+                      "name": "high",
+                      "key": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      },
+                      "value": {
+                        "kind": "name",
+                        "name": "digestHigh",
+                        "depth": 1
+                      }
+                    },
+                    {
+                      "kind": "set",
+                      "name": "low",
+                      "key": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      },
+                      "value": {
+                        "kind": "name",
+                        "name": "digestLow",
+                        "depth": 1
+                      }
+                    },
+                    {
+                      "kind": "set",
+                      "name": "count",
+                      "key": null,
+                      "value": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      }
+                    },
+                    {
+                      "kind": "emit",
+                      "name": "Recorded",
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        {
+                          "kind": "name",
+                          "name": "digestHigh",
+                          "depth": 1
+                        },
+                        {
+                          "kind": "name",
+                          "name": "digestLow",
+                          "depth": 1
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "return",
+                      "value": {
+                        "kind": "name",
+                        "name": "index",
+                        "depth": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "readHigh",
+                  "internal": false,
+                  "view": true,
+                  "args": [
+                    {
+                      "name": "index",
+                      "type": "u128"
+                    }
+                  ],
+                  "returns": "u128",
+                  "body": [
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": ">",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "0",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "<=",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "return",
+                      "value": {
+                        "kind": "map",
+                        "name": "high",
+                        "key": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "readLow",
+                  "internal": false,
+                  "view": true,
+                  "args": [
+                    {
+                      "name": "index",
+                      "type": "u128"
+                    }
+                  ],
+                  "returns": "u128",
+                  "body": [
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": ">",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "literal",
+                          "type": "u128",
+                          "value": "0",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "require",
+                      "condition": {
+                        "kind": "binary",
+                        "operator": "<=",
+                        "left": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "right": {
+                          "kind": "name",
+                          "name": "count",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    },
+                    {
+                      "kind": "return",
+                      "value": {
+                        "kind": "map",
+                        "name": "low",
+                        "key": {
+                          "kind": "name",
+                          "name": "index",
+                          "depth": 1
+                        },
+                        "depth": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "state": {
+            "schema": "konaet.ko-program-state.v1",
+            "programSha256": "a111f3019a7968bf908f1bae1d01838105dd26faf0f6837b831f3355fa1505bc",
+            "contractId": "b22dc5c453c416b7f83afacff1ceb56e93a27eb99bb9718e98e320d401b51578",
+            "networkId": "65968376",
+            "deployer": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+            "salt": "773",
+            "revision": "1",
+            "storage": {
+              "owner": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+              "count": "1"
+            },
+            "mappings": {
+              "high": [
+                {
+                  "key": "1",
+                  "value": "328067245984853482595717808725063555657"
+                }
+              ],
+              "low": [
+                {
+                  "key": "1",
+                  "value": "260785314242613452171993698068181272496"
+                }
+              ]
+            },
+            "stateRoot": "afe24e545959f2cb90032a0cb0f1b244ef33ad34deec1512270ee543bc7bd6b8"
+          }
+        }
+      ],
+      "receipts": [
+        {
+          "eventId": "525506c4bfb282b294238547d8bdd78ae4e9da908d69c182f191597091b6d9b7",
+          "contractId": "b22dc5c453c416b7f83afacff1ceb56e93a27eb99bb9718e98e320d401b51578",
+          "caller": "v7mnn5ool3gjudvxg2gxavs73fez2kuvg2",
+          "method": "record",
+          "result": "1",
+          "gasUsed": 96,
+          "events": [
+            {
+              "name": "Recorded",
+              "values": [
+                "1",
+                "328067245984853482595717808725063555657",
+                "260785314242613452171993698068181272496"
+              ]
+            }
+          ],
+          "contractStateRoot": "afe24e545959f2cb90032a0cb0f1b244ef33ad34deec1512270ee543bc7bd6b8"
+        }
+      ],
+      "contractsRoot": "89a9f8d1ec2612cae43e20b368d919de19e3f2b48bf60e757d583653c8ce2ff3",
+      "receiptsRoot": "aecdb1fdbf27537fac0e12a1bdcca1a5f25f2083d23c3ef502e636c998a03a45",
+      "root": "2098e1852d24b8883c63e171cd8b4730f85b18a0724d2e2eebde575c3a03d002"
+    }
+  },
+  "scope": "commitment-interoperability-plus-existing-node-finality-verifier"
+}

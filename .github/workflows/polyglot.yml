@@ -1,0 +1,45 @@
+name: Konaet polyglot conformance
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  conformance:
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [c, cpp, csharp, python, rust, perl, go, shell, node]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      KONAET_TOOL_CC: clang
+      KONAET_TOOL_CXX: clang++
+      KONAET_TOOL_PYTHON: python3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Use the pinned Rust compiler
+        if: matrix.language == 'rust'
+        run: rustup default 1.85.1
+      - name: Verify publication before building clients
+        run: npm run verify
+      - name: Execute vectors, malformed inputs, mismatch checks and real .ko finality
+        env:
+          LANGUAGE: ${{ matrix.language }}
+        run: |
+          export KONAET_POLYGLOT_REPORT="$RUNNER_TEMP/konaet-polyglot-$LANGUAGE.json"
+          node polyglot/conformance.mjs "$LANGUAGE"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: konaet-polyglot-${{ matrix.language }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/konaet-polyglot-${{ matrix.language }}.json
+          if-no-files-found: warn
+          retention-days: 30

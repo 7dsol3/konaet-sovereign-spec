@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=25mm]{geometry}
+\title{Konaet Portable Receipt Kit\\KRP-0001: Exact Commitment Interoperability}
+\author{Adilson Oliveira / 7dsol3}
+\date{31 October 2026}
+\begin{document}
+\maketitle
+\section{Scope}
+This specification defines application commitment interoperability for
+\texttt{SocialReceiptRegistry.ko}. It does not define a new hash function,
+replace validator software or independently prove network finality.
+\section{Commitment}
+Let $S\in\{0,1\}^{256}$ be a uniformly generated private salt and let
+$D$ be the exact, already normalized document bytes, with
+$2\leq |D|\leq 16384$. Define the domain
+\[
+ P=\operatorname{ASCII}(\texttt{KONAET/SOCIAL-RECEIPT/v1})\mathbin\Vert 00.
+\]
+The public commitment is
+\[
+ C=\operatorname{SHA256}(P\mathbin\Vert S\mathbin\Vert D).
+\]
+\section{Lossless contract arguments}
+Write the digest bytes as $c_0,\ldots,c_{31}$. The two unsigned arguments are
+\[
+ h=\sum_{i=0}^{15}c_i256^{15-i},\qquad
+ l=\sum_{i=16}^{31}c_i256^{31-i}.
+\]
+Both lie in $[0,2^{128}-1]$ and the represented 256-bit integer is
+$h\,2^{128}+l$. Decimal strings retain all bits without floating-point
+rounding. Reversing byte order, changing Unicode representation or parsing
+decimal values through floating-point types changes the commitment input.
+\section{Framing and rejection}
+The input is exactly three ASCII lines terminated by LF: salt hex, document
+hex and expected digest hex (or one dash). Only lowercase hex is accepted.
+The maximum input is 32900 bytes. Invalid, oversized and trailing data
+produce no digest output and exit status two. A mismatch yields status one;
+a matching reference or computation-only request yields status zero.
+\section{Trust}
+Opening equality and ledger inclusion are distinct statements. Finality
+requires replaying the transition and checking a quorum certificate against
+the expected genesis and contract. The reference Node verifier performs that
+check. C, C++, C\#, Python, Rust, Perl and Go clients implement the commitment
+operation; the Shell entry point executes the C client. Wikitext and this
+TeX document specify the format and are not executable validators.
+\section{Attribution}
+Konaet integration code is licensed under ISC, copyright 2026 Adilson
+Oliveira / 7dsol3. Cryptographic libraries retain their original authorship
+and licenses. Permission to copy code does not confer an existing network's
+private signing identity or validator membership.
+\end{document}
