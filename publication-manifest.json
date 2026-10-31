@@ -16,6 +16,11 @@
       "sha256": "2faa6fe37a3cd61b3027a061980633f1d413dbe040e08b86b6bd52c735a04b29"
     },
     {
+      "path": ".github/workflows/remote-endurance.yml",
+      "bytes": 4111,
+      "sha256": "e5ca62c16ac8ec0e400961ba620c6d888c5cb9afe9403180e175829040ae11c0"
+    },
+    {
       "path": ".gitignore",
       "bytes": 279,
       "sha256": "98042d861c018c10208adc0724b634f24c022de48bded8061f65b5b71e8bb6af"
@@ -104,6 +109,11 @@
       "path": "RECOVERY.md",
       "bytes": 6175,
       "sha256": "cae086a9eebedb83a25985e4768f960946925b775e67a3f97b26f0ec9d81ca0f"
+    },
+    {
+      "path": "REMOTE-VALIDATION.md",
+      "bytes": 3994,
+      "sha256": "f02eaafa2cdda748030eabf511e738bbcbf1b45da305f6029aac6c63498920cb"
     },
     {
       "path": "SECURITY.md",
@@ -222,8 +232,8 @@
     },
     {
       "path": "chain/network/sovereign/SovereignNode.js",
-      "bytes": 48535,
-      "sha256": "9bff0c818fae63cc2c8bf8aa8e5ea4b80425b97d937fa0a9a73696b823fe2ee6"
+      "bytes": 48635,
+      "sha256": "0539c931b1405a9ff8462f392653e246c91d60f2db300be3bdf4d3d0367f8a3d"
     },
     {
       "path": "chain/network/sovereign/VlockWebSocketTransport.js",
@@ -507,8 +517,8 @@
     },
     {
       "path": "deploy/validator/README.md",
-      "bytes": 7859,
-      "sha256": "95ce5d98ae51fb6906b97a2208d6e1bc136508e866f9d53818d06c072cd67985"
+      "bytes": 7963,
+      "sha256": "e6a67ce7e1d3086c762daec6cfceb2c9acd6f5f83895f71e7f81da4ae40681c1"
     },
     {
       "path": "deploy/validator/konaet-gateway.service",
@@ -761,6 +771,11 @@
       "sha256": "921de2e94eb61da45fb13b5b9d3c4b09fed30b5dc90fd05d8c48059399e3b6a5"
     },
     {
+      "path": "tests/remote-validation.test.mjs",
+      "bytes": 5405,
+      "sha256": "9c6cac27d9320174bbcc1a0ae67d45ceeee43f3e33152b142eac209f80104e6a"
+    },
+    {
       "path": "tools/build-program-browser.mjs",
       "bytes": 2156,
       "sha256": "29d366c7dee3794fbba364dc3b1530dad59fb9fcdf0e9bf532589ace165d53f9"
@@ -777,8 +792,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 7774,
-      "sha256": "d36eaf96d914544894324cdb642a8425e1feb53d1cafd0579f506b0bc6bc3c7f"
+      "bytes": 8070,
+      "sha256": "da2d7193a70b0aa8f60f7ca7a646bbe11cca0f1c4194b5dddc3877023fc9a5b3"
     },
     {
       "path": "tools/ko.mjs",
@@ -804,6 +819,36 @@
       "path": "tools/publication-checks.mjs",
       "bytes": 1788,
       "sha256": "5801ee04641b4622a68e8afaee21edc410b612277d642ebbad33c4d67b135806"
+    },
+    {
+      "path": "tools/remote/agent.mjs",
+      "bytes": 10732,
+      "sha256": "2f00febf9383def74ea89400a406296485564bf5d567439b951b2feedc8cdfad"
+    },
+    {
+      "path": "tools/remote/common.mjs",
+      "bytes": 6710,
+      "sha256": "f3b77581c6e2d6cf5f5d4cc9e3b42e8417027ba9d83ebe4b850d654c3a486817"
+    },
+    {
+      "path": "tools/remote/controller.mjs",
+      "bytes": 13104,
+      "sha256": "d05c9ecc008cb55b198ca2c23c922b9860911df011a352645fe376c1ecf7ca0f"
+    },
+    {
+      "path": "tools/remote/participant.mjs",
+      "bytes": 7923,
+      "sha256": "14e7cdf4c3f491f867def7a553432a6c9e30fda32fc749219fa8e4fb2e79d7a7"
+    },
+    {
+      "path": "tools/remote/relay.mjs",
+      "bytes": 2126,
+      "sha256": "cb50c00d2c6141903feb91c170866cb45010e12b016670d4a06f5b474aca5e74"
+    },
+    {
+      "path": "tools/remote/verify-report.mjs",
+      "bytes": 4145,
+      "sha256": "1990ef8efffe256f0e8aec85456ce7a27da3eb9f30da6a7a35a669f0c9c8e753"
     },
     {
       "path": "tools/validator-worker.cjs",

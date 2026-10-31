@@ -2,7 +2,7 @@
 
 O template mantém um operador VLOCK em execução, reinicia o processo quando
 ele falha e envia SIGTERM no desligamento. Ele serve para uma máquina Linux
-com systemd 250+ e Node.js 24.7+ da série 24 instalado em `/usr/bin/node`.
+com systemd 250+ e Node.js 24.22.2+ da série 24 instalado em `/usr/bin/node`.
 O arquivo é um template de operação; a publicação dele não provisiona uma
 máquina nem comprova que uma rede esteja online.
 
@@ -37,8 +37,9 @@ para perfis anteriores; v7 usa a seed Ed25519 e a configuração v7 deve omitir
 A seed, a chave TLS e o token de submissão permanecem no host do operador.
 
 Use `chain/scripts/buildIndependentGenesis.js` para gerar a gênese a partir
-do roster público acordado, com `contractRuntime` igual a `PROFILE` em
-`chain/vlock7sin-js/src/koConsensusProfile.js` e a política nativa `.ko`.
+do roster público acordado, com `contractRuntime` igual a `AUTHORIZED_PROFILE`
+em `chain/vlock7sin-js/src/koConsensusProfile.js`, a `deploymentPolicy` com
+cotas reservadas e a política nativa `.ko`. Veja a [configuração v8](../../RECOVERY.md).
 Confiram o mesmo `genesisSha256` e `genesisId` entre os quatro operadores.
 Guarde `operator-config.json`, gênese e material TLS dentro da pasta do
 operador. Todos os caminhos do JSON são relativos a essa pasta, sem links

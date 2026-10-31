@@ -5,6 +5,15 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  ".github/workflows/remote-endurance.yml",
+  "REMOTE-VALIDATION.md",
+  "tools/remote/common.mjs",
+  "tools/remote/relay.mjs",
+  "tools/remote/agent.mjs",
+  "tools/remote/participant.mjs",
+  "tools/remote/controller.mjs",
+  "tools/remote/verify-report.mjs",
+  "tests/remote-validation.test.mjs",
   "RECOVERY.md",
   "tests/recovery-and-capacity.test.cjs",
   "tools/publication-checks.mjs",
