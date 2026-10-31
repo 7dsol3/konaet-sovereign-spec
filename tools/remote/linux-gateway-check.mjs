@@ -21,7 +21,8 @@ const data = JSON.parse(status.body); check(data.schema === 'konaet.gateway-stat
   && !status.body.includes('network-nonce') && !status.body.includes('submit.token'), 'INTERNAL_STATUS_EXPOSED');
 const readiness = await request('/health/ready'); check(readiness.status === 503 && JSON.parse(readiness.body).reason === 'QUORUM_UNAVAILABLE', 'READINESS_SHOULD_REPORT_NO_QUORUM');
 check((await request('/api/transactions', { method: 'POST' })).status === 401, 'HTTPS_SUBMISSION_AUTH_NOT_ENFORCED');
-check((await request('/api/transactions', { method: 'POST', authorized: true })).status === 403, 'READ_ONLY_GATEWAY_WAS_BYPASSED');
+const submission = await request('/api/transactions', { method: 'POST', authorized: true });
+check(submission.status === 403, 'READ_ONLY_GATEWAY_EXPECTED_403_GOT_' + submission.status);
 check((await request('/submit', { method: 'POST', authorized: true })).status === 404, 'RAW_OPERATOR_ROUTE_WAS_EXPOSED');
 check(status.headers['x-content-type-options'] === 'nosniff', 'PROXY_SECURITY_HEADER_MISSING');
 const result = { schema: 'konaet.linux-gateway-validation.v1', passed: true, commit: process.env.GITHUB_SHA,

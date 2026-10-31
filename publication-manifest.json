@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/linux-service.yml",
-      "bytes": 4027,
-      "sha256": "a3b1f2db5c0fd9d91963edf32371ecda5e5c77ffbb19eada0c40f3d45f74e8d5"
+      "bytes": 4100,
+      "sha256": "dda9c3ae3ccdee23068f5606472e47a89841db751a4a16f85fb0e850994a2443"
     },
     {
       "path": ".github/workflows/remote-endurance.yml",
@@ -877,8 +877,8 @@
     },
     {
       "path": "tools/remote/linux-gateway-check.mjs",
-      "bytes": 2755,
-      "sha256": "a2538e331aca29b0bf1c60cab19a8ba9ae70243c259b36095ddcd138552899aa"
+      "bytes": 2809,
+      "sha256": "7c667b0d9c564b5a4719f20162eece0d1be51b3714353b9c035fce1d7a80215a"
     },
     {
       "path": "tools/remote/linux-service-check.mjs",
@@ -887,8 +887,8 @@
     },
     {
       "path": "tools/remote/linux-service-fixture.mjs",
-      "bytes": 6055,
-      "sha256": "86ee6fa851be6bfd1fb395465eb0193b61d5b311e776c6f040fd24aa4f4b9dcd"
+      "bytes": 6216,
+      "sha256": "09f1825f7076eebec03791e3f895d4a6b3afaca895d2efeee3ad82042ff828f2"
     },
     {
       "path": "tools/remote/participant.mjs",

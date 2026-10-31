@@ -42,6 +42,7 @@ jobs:
           sudo chown -R root:konaet-validator /var/lib/konaet/validator-0
           sudo chown -R konaet-validator:konaet-validator /var/lib/konaet/validator-0/data
           sudo chown -R root:konaet-gateway /etc/konaet
+          sudo chown root:www-data /etc/nginx/konaet-validation.htpasswd
           sudo -u konaet-validator /usr/bin/node /opt/konaet/chain/scripts/runIndependentValidator.js check /var/lib/konaet/validator-0/operator-config.json
           sudo install -m 0644 deploy/validator/konaet-validator@.service /etc/systemd/system/konaet-validator@.service
           sudo systemd-analyze verify /etc/systemd/system/konaet-validator@.service
