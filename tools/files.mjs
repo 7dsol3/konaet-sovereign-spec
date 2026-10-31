@@ -5,6 +5,10 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "tests/startup-stress.mjs",
+  "AUDIT-1.8.1.md",
+  "tests/reserved-ports.mjs",
+  "tests/reserved-ports.test.mjs",
   ".github/workflows/polyglot.yml",
   "evidence/polyglot-2026-10-31/c.json",
   "evidence/polyglot-2026-10-31/cpp.json",

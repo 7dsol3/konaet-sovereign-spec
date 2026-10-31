@@ -1,4 +1,4 @@
-KONAET CONSOLE 1.8.0 — WINDOWS X64
+KONAET CONSOLE 1.8.1 — WINDOWS X64
 
 1. Extraia TODO o ZIP antes de executar.
 2. Abra Iniciar-Konaet.bat com dois cliques.

@@ -8,7 +8,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.8.0 · .ko Studio · Consenso v8**
+**Native Chain · Console 1.8.1 · .ko Studio · Consenso v8**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -53,7 +53,7 @@ não autorizada não ocupa o catálogo de contratos. Redes v7 existentes mantêm
 suas regras e seus dados; não há migração automática de saldos ou gênese.
 [Recuperação, capacidade e mudanças da edição 1.7](RECOVERY.md).
 
-A edição 1.8.0 retoma automaticamente trabalho pendente quando o quórum
+A edição 1.8.1 retoma automaticamente trabalho pendente quando o quórum
 volta a se conectar. A homologação inclui VMs separadas com mTLS de ponta
 a ponta, perda de quórum e recuperação de processo interrompido.
 [Roteiro e critérios verificáveis](REMOTE-VALIDATION.md).
@@ -77,6 +77,16 @@ principal Konaet não são migrados para esses exemplos.
 ## Operação e entrada HTTPS
 
 ## Recibos da rede social
+
+## Integração em várias linguagens
+
+## Correções de inicialização
+
+A edição 1.8.1 corrige uma corrida na criação concorrente do journal e a
+reserva de portas dos testes mTLS. A verificação da publicação passa a
+exigir os checks mais recentes, incluindo resultados de tags, sem aceitar
+uma aprovação antiga no lugar de uma falha posterior.
+[Causas, regressões e escopo da revisão](AUDIT-1.8.1.md).
 
 ## Integração em várias linguagens
 
@@ -156,7 +166,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.8.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.8.1.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 

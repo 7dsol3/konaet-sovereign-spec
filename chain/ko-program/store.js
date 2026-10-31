@@ -57,9 +57,19 @@ function createStore(input, contract, options, signed = false) {
   // A crash before publication may leave an empty directory or unpublished
   // temporary files. A committed deployment or any unrelated file is never replaced.
   const entries = fs.readdirSync(absolute);
-  if (entries.length > 16 || entries.some(name => !/^\.pending-[0-9a-f-]{36}\.json$/.test(name)
-    || !fs.lstatSync(path.join(absolute, name)).isFile() || fs.lstatSync(path.join(absolute, name)).isSymbolicLink())) {
-    fail('KO_STORE_EXISTS', 'Deployment directory contains committed or unrelated data.');
+  if (entries.length > 16) fail('KO_STORE_EXISTS', 'Deployment directory contains too many entries.');
+  for (const name of entries) {
+    if (!/^\.pending-[0-9a-f-]{36}\.json$/.test(name)) fail('KO_STORE_EXISTS', 'Deployment directory contains committed or unrelated data.');
+    let stat;
+    try { stat = fs.lstatSync(path.join(absolute, name)); }
+    catch (error) {
+      // Another initializer may unlink its own unpublished temporary after our
+      // directory snapshot. Only that recognized, now-absent temporary is safe
+      // to ignore. Publishing deployment.json remains an exclusive hard link.
+      if (error.code === 'ENOENT') continue;
+      throw error;
+    }
+    if (!stat.isFile() || stat.isSymbolicLink()) fail('KO_STORE_EXISTS', 'Deployment directory contains non-regular temporary data.');
   }
   try {
     // One exclusive commit publishes program, intent and initial state together.
