@@ -90,6 +90,10 @@ o resultado de cada cliente ao contrato real em quatro processos
 validadores. A finalização é conferida pelo verificador Node do consenso.
 Os clientes não contêm chaves ou privilégios de operador.
 
+**Nove jobs aprovados no Linux**, com vetores comuns, limites de entrada
+e registros `.ko` finalizados. Os certificados arquivados são conferidos
+novamente por `npm run verify`. [Matriz e reprodução](polyglot/RESULTS.md).
+
 ## Recibos da rede social
 
 `SocialReceiptRegistry.ko` recebe compromissos criptográficos de eventos

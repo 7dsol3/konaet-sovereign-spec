@@ -6,6 +6,17 @@ import { fileURLToPath } from 'node:url';
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
   ".github/workflows/polyglot.yml",
+  "evidence/polyglot-2026-10-31/c.json",
+  "evidence/polyglot-2026-10-31/cpp.json",
+  "evidence/polyglot-2026-10-31/csharp.json",
+  "evidence/polyglot-2026-10-31/python.json",
+  "evidence/polyglot-2026-10-31/rust.json",
+  "evidence/polyglot-2026-10-31/perl.json",
+  "evidence/polyglot-2026-10-31/go.json",
+  "evidence/polyglot-2026-10-31/shell.json",
+  "evidence/polyglot-2026-10-31/node.json",
+  "evidence/polyglot-2026-10-31/provenance.json",
+  "polyglot/RESULTS.md",
   "polyglot/README.md",
   "polyglot/DEPENDENCIES.md",
   "polyglot/c/receipt.h",

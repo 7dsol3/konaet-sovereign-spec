@@ -117,8 +117,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13143,
-      "sha256": "032c72fe7f50b896d8da05054704c54186824afe0b838111c64bea99acf6b081"
+      "bytes": 13369,
+      "sha256": "284fcbae7892cf6f01ec8f751520e685a251442cabcfb0a35bf2aba584d821d0"
     },
     {
       "path": "RECOVERY.md",
@@ -686,6 +686,56 @@
       "sha256": "efe4fa56457ee249577f7a5fa921456b30ab47a76cca86bc43f8717fc90f4d46"
     },
     {
+      "path": "evidence/polyglot-2026-10-31/c.json",
+      "bytes": 42214,
+      "sha256": "a355e649411a715dec21012fc392e55087e1279be04030d84859efb83f292b06"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/cpp.json",
+      "bytes": 42227,
+      "sha256": "ad93af75e81476ff90f8b9fc58df3f876369eb3f53237304e05302bab1bd1c82"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/csharp.json",
+      "bytes": 42183,
+      "sha256": "3257a3b3b67d38df85d5c90be2928651f3e65f705cf49bb7d4161de3efb96af2"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/go.json",
+      "bytes": 42221,
+      "sha256": "185ba7b66a3a978fcd741d7dd7dafe9c7f93cbdef2d5ebd032f1157421a1ac02"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/node.json",
+      "bytes": 42201,
+      "sha256": "0a514912ee60b28c513fd9ca30c766ff44471b9589b02bdd3004a67b13c33a9d"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/perl.json",
+      "bytes": 42189,
+      "sha256": "1b204911bf1003173e20b8b6228f737f62808fd49131967e0447202d179f2384"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/provenance.json",
+      "bytes": 4135,
+      "sha256": "3973bf271fcec1fcbcb2632135c83491b692adba98d3cbcb2ddbfe291f1c7b43"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/python.json",
+      "bytes": 42208,
+      "sha256": "92c56a648acbc06bd98ad44d81d93407953367cd9ae80c45d118005174dfda05"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/rust.json",
+      "bytes": 42225,
+      "sha256": "49a691273bc863003dcc60aae71d52dfb05a09c17cf5f123a2ca57d83bb7f87d"
+    },
+    {
+      "path": "evidence/polyglot-2026-10-31/shell.json",
+      "bytes": 42287,
+      "sha256": "493d30764cbed31c2d707fea548045a7e8555f57d3558ad57fa81154216b3a69"
+    },
+    {
       "path": "evidence/remote-hour-2026-10-31/controller.json",
       "bytes": 63295,
       "sha256": "992d8990ce2defbd296f081cde84c7a9aa6bafa7e0631573568f8f350b892932"
@@ -809,6 +859,11 @@
       "path": "polyglot/README.md",
       "bytes": 5715,
       "sha256": "6ebb0beab970c87451e5bfd2f4d1d921d5d06f9da91ce9efbb820d714f9a3859"
+    },
+    {
+      "path": "polyglot/RESULTS.md",
+      "bytes": 3411,
+      "sha256": "44ca8cd6403b58e1dc6580e7db92aa14ea39dbe071a7ebdf5015c144641c6d54"
     },
     {
       "path": "polyglot/c/receipt.c",
@@ -997,8 +1052,8 @@
     },
     {
       "path": "tests/polyglot.test.mjs",
-      "bytes": 1838,
-      "sha256": "fdeac676f8df8f11fc44efe0ba01153023998fd92c5cbc0eb43343d158b0237e"
+      "bytes": 2570,
+      "sha256": "438f3a550012f8341aeb089a344a305c6d27ea83c41fdd9d62343752efb7c39e"
     },
     {
       "path": "tests/publication.test.mjs",
@@ -1037,8 +1092,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 10177,
-      "sha256": "36534b8bd1a453dd322de54e6a6ad8e992c80f51c2f9a5719e044dc7e67b6c63"
+      "bytes": 10647,
+      "sha256": "ada97e025e9f3affffca3c6f59e2906e0dc508a272ca422f66c6527bc941aaf7"
     },
     {
       "path": "tools/ko.mjs",
@@ -1142,8 +1197,8 @@
     },
     {
       "path": "tools/verify-publication.mjs",
-      "bytes": 2523,
-      "sha256": "00c838b67eb951d2dda1c296448d9eb703e6eca88ca7dfa1a41d3cfbc75b4a75"
+      "bytes": 2940,
+      "sha256": "cdce70c12d5eaf04e4211de36cfd964d75ee2551094ff944075d99d3105d7008"
     },
     {
       "path": "tools/verify-transfer.mjs",
