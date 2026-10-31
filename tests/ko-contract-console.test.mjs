@@ -37,6 +37,8 @@ test('the console finalizes stateful .ko across four OS processes and exports a 
   assert.throws(() => verifyContractReceipt(bundle, { ...trust, expectedGenesisId: '0'.repeat(64) }), /RECEIPT_UNEXPECTED_GENESIS/);
   assert.throws(() => verifyContractReceipt(bundle, { ...trust, expectedPreviousRoot: '0'.repeat(64) }), /RECEIPT_UNEXPECTED_PREVIOUS_ROOT/);
   const receiptFile = path.join(directory, 'receipt.json'); fs.writeFileSync(receiptFile, JSON.stringify(bundle));
+  const wrongPolicy = structuredClone(bundle); wrongPolicy.beforeState.deploymentPolicy.deployers[0].maxContracts++;
+  assert.throws(() => verifyContractReceipt(wrongPolicy));
   const verifier = new URL('../tools/verify-contract-receipt.cjs', import.meta.url);
   const cli = spawnSync(process.execPath, [fileURLToPath(verifier), receiptFile,
     '--genesis-id', trust.expectedGenesisId, '--previous-root', trust.expectedPreviousRoot], { encoding: 'utf8', windowsHide: true });

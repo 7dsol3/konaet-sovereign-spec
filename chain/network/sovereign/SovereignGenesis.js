@@ -13,7 +13,8 @@ const { publicKeyObject } = require('../../vlock7sin-js/src/quorum');
 const { normalizePublicIdentity } = require('../../vlock7sin-js/src/hybridCrypto');
 const { validateKoPolicy } = require('../../vlock7sin-js/src/koPolicy');
 const { KoGlobalState } = require('../../vlock7sin-js/src/koState');
-const { FORMAT: KO_PROGRAM_FORMAT, PROTOCOL: KO_PROGRAM_PROTOCOL, PROFILE: KO_PROGRAM_PROFILE } = require('../../vlock7sin-js/src/koConsensusProfile');
+const { FORMAT: KO_PROGRAM_FORMAT, PROTOCOL: KO_PROGRAM_PROTOCOL, PROFILE: KO_PROGRAM_PROFILE,
+  AUTHORIZED_FORMAT, AUTHORIZED_PROTOCOL, AUTHORIZED_PROFILE, normalizeDeploymentPolicy } = require('../../vlock7sin-js/src/koConsensusProfile');
 
 const FORMAT = 'konaet-sovereign-genesis-v1';
 const HYBRID_FORMAT = 'konaet-sovereign-genesis-v2-hybrid';
@@ -61,6 +62,7 @@ const KO_EXACT_FIELDS = Object.freeze([
   'transportSignatureProfile', 'nativePolicy', ...EXACT_FIELDS.slice(6),
 ]);
 const KO_PROGRAM_EXACT_FIELDS = Object.freeze([...KO_EXACT_FIELDS, 'contractRuntime']);
+const AUTHORIZED_EXACT_FIELDS = Object.freeze([...KO_PROGRAM_EXACT_FIELDS, 'deploymentPolicy']);
 
 class SovereignGenesisError extends Error {
   constructor(code, message, details = undefined) {
@@ -232,10 +234,15 @@ function canonicalCreatedAt(value) {
 }
 
 function materialize(options) {
-  const programs = options.format === KO_PROGRAM_FORMAT || options.contractRuntime != null;
-  if (programs && !canonicalBytes(options.contractRuntime).equals(canonicalBytes(KO_PROGRAM_PROFILE))) {
+  const authorized = options.format === AUTHORIZED_FORMAT || options.contractRuntime?.deploymentAuthorization === AUTHORIZED_PROFILE.deploymentAuthorization;
+  const programs = authorized || options.format === KO_PROGRAM_FORMAT || options.contractRuntime != null;
+  const programProfile = authorized ? AUTHORIZED_PROFILE : KO_PROGRAM_PROFILE;
+  const programProtocol = authorized ? AUTHORIZED_PROTOCOL : KO_PROGRAM_PROTOCOL;
+  if (programs && !canonicalBytes(options.contractRuntime).equals(canonicalBytes(programProfile))) {
     throw new SovereignGenesisError('KO_PROGRAM_PROFILE_MISMATCH', 'Contract runtime must match the supported consensus profile.');
   }
+  if (!authorized && options.deploymentPolicy != null) throw new SovereignGenesisError('KO_DEPLOYMENT_POLICY_VERSION', 'Deployment authorization requires a v8 genesis.');
+  const deploymentPolicy = authorized ? normalizeDeploymentPolicy(options.deploymentPolicy) : null;
   const nativePolicy = options.nativePolicy == null ? null : validateKoPolicy(options.nativePolicy);
   if ((options.format === KO_POLICY_FORMAT || programs) && !nativePolicy) {
     throw new SovereignGenesisError('KO_POLICY_REQUIRED', 'The .ko genesis requires its executable source and commitments.');
@@ -263,9 +270,9 @@ function materialize(options) {
     throw new SovereignGenesisError('INVALID_TRANSPORT_SIGNATURE_PROFILE', 'Hybrid transport requires hybrid consensus and transfer authorization.');
   }
   if (programs && (consensusSignatureProfile !== ED25519_PROFILE || transferAuthorizationProfile || transportSignatureProfile)) {
-    throw new SovereignGenesisError('KO_PROGRAM_SIGNATURE_PROFILE', 'v7 currently requires the Ed25519 identity profile.');
+    throw new SovereignGenesisError('KO_PROGRAM_SIGNATURE_PROFILE', 'Contract consensus currently requires the Ed25519 identity profile.');
   }
-  const expectedFormat = programs ? KO_PROGRAM_FORMAT : nativePolicy ? KO_POLICY_FORMAT
+  const expectedFormat = authorized ? AUTHORIZED_FORMAT : programs ? KO_PROGRAM_FORMAT : nativePolicy ? KO_POLICY_FORMAT
     : transportSignatureProfile === HYBRID_BINARY_TRANSPORT_PROFILE ? HYBRID_BINARY_TRANSPORT_FORMAT
       : transportSignatureProfile ? HYBRID_TRANSPORT_FORMAT : transferAuthorizationProfile ? HYBRID_TRANSFER_FORMAT
         : consensusSignatureProfile === HYBRID_PROFILE ? HYBRID_FORMAT : FORMAT;
@@ -274,14 +281,14 @@ function materialize(options) {
   }
   const networkId = u32(options.networkId ?? NETWORK_ID, 'networkId');
   const protocolVersion = safeId(options.protocolVersion
-    ?? (programs ? KO_PROGRAM_PROTOCOL : nativePolicy ? KO_PROTOCOL_VERSION
+    ?? (programs ? programProtocol : nativePolicy ? KO_PROTOCOL_VERSION
       : transportSignatureProfile === HYBRID_BINARY_TRANSPORT_PROFILE ? DEFAULT_HYBRID_BINARY_TRANSPORT_PROTOCOL_VERSION
         : transportSignatureProfile ? DEFAULT_HYBRID_TRANSPORT_PROTOCOL_VERSION
           : transferAuthorizationProfile ? DEFAULT_HYBRID_TRANSFER_PROTOCOL_VERSION
             : consensusSignatureProfile === HYBRID_PROFILE ? DEFAULT_HYBRID_PROTOCOL_VERSION : DEFAULT_PROTOCOL_VERSION), 'protocolVersion', 32);
-  if ((programs && protocolVersion !== KO_PROGRAM_PROTOCOL)
+  if ((programs && protocolVersion !== programProtocol)
     || (!programs && ((nativePolicy && protocolVersion !== KO_PROTOCOL_VERSION)
-      || (!nativePolicy && [KO_PROTOCOL_VERSION, KO_PROGRAM_PROTOCOL].includes(protocolVersion))))) {
+      || (!nativePolicy && [KO_PROTOCOL_VERSION, KO_PROGRAM_PROTOCOL, AUTHORIZED_PROTOCOL].includes(protocolVersion))))) {
     throw new SovereignGenesisError('KO_PROTOCOL_MISMATCH', 'The .ko protocol and policy must be activated together.');
   }
   const validators = normalizeValidators(options.validators, consensusSignatureProfile, transportSignatureProfile);
@@ -317,16 +324,19 @@ function materialize(options) {
   if (transferAuthorizationProfile) base.transferAuthorizationProfile = transferAuthorizationProfile;
   if (transportSignatureProfile) base.transportSignatureProfile = transportSignatureProfile;
   if (nativePolicy) Object.assign(base, { consensusSignatureProfile, transferAuthorizationProfile, transportSignatureProfile, nativePolicy });
-  if (programs) base.contractRuntime = KO_PROGRAM_PROFILE;
+  if (programs) base.contractRuntime = programProfile;
+  if (authorized) base.deploymentPolicy = deploymentPolicy;
   const parametersRoot = hash(DOMAIN_PARAMETERS, { networkId: base.networkId, protocolVersion, asset, parameters,
     ...(nativePolicy ? { nativePolicy: { profile: nativePolicy.profile, sourceSha256: nativePolicy.sourceSha256,
       programSha256: nativePolicy.programSha256 } } : {}),
-    ...(programs ? { contractRuntime: KO_PROGRAM_PROFILE } : {}),
+    ...(programs ? { contractRuntime: programProfile } : {}),
+    ...(authorized ? { deploymentPolicy } : {}),
   });
   const identitiesRoot = hash(DOMAIN_IDENTITIES, { networkId: base.networkId, validators, threshold });
   const replayRoot = hash(DOMAIN_REPLAY, { networkId: base.networkId, protocolVersion, createdAt: base.createdAt });
   const State = programs ? KoGlobalState : GlobalState;
   const state = new State({
+    ...(authorized ? { deploymentPolicy } : {}),
     networkId,
     balances: allocations.map(({ address, amountAtomic }) => [address, BigInt(amountAtomic)]),
     parametersRoot,
@@ -341,7 +351,7 @@ function materialize(options) {
     stateRoot: state.root().toString('hex'),
   });
   return { body, state, genesisId: hash(
-    programs ? Buffer.from('KONAET/SOVEREIGN/GENESIS/v7-ko-program\0', 'ascii') : nativePolicy ? DOMAIN_KO_GENESIS
+    authorized ? Buffer.from('KONAET/SOVEREIGN/GENESIS/v8-ko-admission\0', 'ascii') : programs ? Buffer.from('KONAET/SOVEREIGN/GENESIS/v7-ko-program\0', 'ascii') : nativePolicy ? DOMAIN_KO_GENESIS
       : transportSignatureProfile === HYBRID_BINARY_TRANSPORT_PROFILE ? DOMAIN_HYBRID_BINARY_TRANSPORT_GENESIS
         : transportSignatureProfile ? DOMAIN_HYBRID_TRANSPORT_GENESIS
           : transferAuthorizationProfile ? DOMAIN_HYBRID_TRANSFER_GENESIS
@@ -356,7 +366,8 @@ function createGenesis(options = {}) {
 }
 
 function validateGenesis(genesis) {
-  const programs = genesis?.format === KO_PROGRAM_FORMAT;
+  const authorized = genesis?.format === AUTHORIZED_FORMAT;
+  const programs = authorized || genesis?.format === KO_PROGRAM_FORMAT;
   const koNative = genesis?.format === KO_POLICY_FORMAT || programs;
   const binaryTransportHybrid = genesis?.format === HYBRID_BINARY_TRANSPORT_FORMAT
     || (koNative && genesis.transportSignatureProfile === HYBRID_BINARY_TRANSPORT_PROFILE);
@@ -365,7 +376,7 @@ function validateGenesis(genesis) {
     || (koNative && genesis.transferAuthorizationProfile === HYBRID_TRANSFER_PROFILE);
   const hybrid = genesis?.format === HYBRID_FORMAT || transferHybrid
     || (koNative && genesis.consensusSignatureProfile === HYBRID_PROFILE);
-  exactObject(genesis, programs ? KO_PROGRAM_EXACT_FIELDS : koNative ? KO_EXACT_FIELDS : transportHybrid ? HYBRID_TRANSPORT_EXACT_FIELDS
+  exactObject(genesis, authorized ? AUTHORIZED_EXACT_FIELDS : programs ? KO_PROGRAM_EXACT_FIELDS : koNative ? KO_EXACT_FIELDS : transportHybrid ? HYBRID_TRANSPORT_EXACT_FIELDS
     : transferHybrid ? HYBRID_TRANSFER_EXACT_FIELDS : hybrid ? HYBRID_EXACT_FIELDS : EXACT_FIELDS, 'genesis');
   if (hybrid && genesis.consensusSignatureProfile !== HYBRID_PROFILE) {
     throw new SovereignGenesisError('INVALID_SIGNATURE_PROFILE', 'Hybrid genesis signature profile is unsupported.');
@@ -394,8 +405,9 @@ function validateGenesis(genesis) {
 
 function stateFromGenesis(genesis) {
   const canonical = validateGenesis(genesis);
-  const State = canonical.format === KO_PROGRAM_FORMAT ? KoGlobalState : GlobalState;
+  const State = [KO_PROGRAM_FORMAT, AUTHORIZED_FORMAT].includes(canonical.format) ? KoGlobalState : GlobalState;
   return new State({
+    ...(canonical.deploymentPolicy ? { deploymentPolicy: canonical.deploymentPolicy } : {}),
     networkId: Number(canonical.networkId),
     balances: canonical.allocations.map(({ address, amountAtomic }) => [address, BigInt(amountAtomic)]),
     parametersRoot: canonical.parametersRoot,
@@ -406,6 +418,8 @@ function stateFromGenesis(genesis) {
 
 module.exports = Object.freeze({
   KO_PROGRAM_FORMAT,
+  AUTHORIZED_FORMAT,
+  AUTHORIZED_PROTOCOL,
   KO_PROGRAM_PROTOCOL,
   KO_POLICY_FORMAT,
   KO_PROTOCOL_VERSION,

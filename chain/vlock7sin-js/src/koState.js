@@ -7,10 +7,11 @@ const { normalizeAct, TransferEvent } = require('./event');
 const { ContractEvent } = require('./contractEvent');
 const { canonicalBytes, compareUtf8 } = require('./causalGraph');
 const { runtime, auth } = require('./koProgramRuntime');
-const { PROFILE, PROFILE_HASH } = require('./koConsensusProfile');
+const { PROFILE, PROFILE_HASH, AUTHORIZED_PROFILE, AUTHORIZED_PROFILE_HASH, normalizeDeploymentPolicy, deploymentPolicyHash } = require('./koConsensusProfile');
 const DOMAIN = Buffer.from('VLOCK7SIN/KO-STATE/v1\0', 'ascii');
+const AUTHORIZED_DOMAIN = Buffer.from('VLOCK7SIN/KO-STATE/v2\0', 'ascii');
 const knownRecords = new WeakSet();
-function fail(message) { const error = Error(message); error.code = 'KO_CONSENSUS_STATE'; throw error; }
+function fail(message, code = 'KO_CONSENSUS_STATE') { const error = Error(message); error.code = code; throw error; }
 function exact(value, fields) { if (!value || typeof value !== 'object' || Array.isArray(value)
   || Object.keys(value).sort().join(',') !== [...fields].sort().join(',')) fail('Unexpected state snapshot fields.'); }
 function freeze(value) { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; }
@@ -28,9 +29,10 @@ function contractRecord(input, networkId) {
   const record = freeze({ artifact, state }); knownRecords.add(record); return record;
 }
 class KoGlobalState extends GlobalState {
-  #contracts; #receipts; #executionCache = new WeakMap();
+  #contracts; #receipts; #deploymentPolicy; #executionCache = new WeakMap();
   constructor(options = {}) {
     super(options.baseState ? baseOptions(options.baseState) : options);
+    this.#deploymentPolicy = options.deploymentPolicy == null ? null : normalizeDeploymentPolicy(options.deploymentPolicy);
     const contracts = options.contracts ?? [];
     if (!Array.isArray(contracts) || contracts.length > PROFILE.contracts) fail('Contract count exceeds profile.');
     this.#contracts = new Map(); let previous = null;
@@ -39,30 +41,47 @@ class KoGlobalState extends GlobalState {
       if (previous !== null && previous >= id) fail('Contracts must be uniquely sorted.');
       previous = id; this.#contracts.set(id, record);
     }
+    if (this.#deploymentPolicy) {
+      const counts = new Map();
+      for (const { state } of this.#contracts.values()) counts.set(state.deployer, (counts.get(state.deployer) ?? 0) + 1);
+      for (const [deployer, count] of counts) {
+        const quota = this.#deploymentPolicy.deployers.find(row => row.address === deployer)?.maxContracts ?? 0;
+        if (count > quota) fail('Contract snapshot exceeds its genesis-authorized deployer quota.');
+      }
+    }
     this.#receipts = freeze(JSON.parse(JSON.stringify(options.receipts ?? [])));
     if (!Array.isArray(this.#receipts) || this.#receipts.length > LIMITS.NEXUS_COUNT) fail('Invalid receipt collection.');
     if (canonicalBytes(this.contracts()).length + canonicalBytes(this.#receipts).length > PROFILE.stateBytes) fail('Contract state exceeds profile byte limit.');
   }
-  get contractRuntimeHash() { return PROFILE_HASH; }
+  get contractRuntimeHash() { return this.#deploymentPolicy ? AUTHORIZED_PROFILE_HASH : PROFILE_HASH; }
+  get deploymentPolicy() { return this.#deploymentPolicy; }
   contracts() { return Object.freeze([...this.#contracts.values()]); }
   contract(id) { return this.#contracts.get(id) ?? null; }
   receipts() { return this.#receipts; }
   contractsRoot() { return sha3(Buffer.concat([Buffer.from('VLOCK7SIN/KO-CONTRACTS/v1\0'), canonicalBytes(this.contracts().map(({ artifact, state }) =>
     ({ contractId: state.contractId, programSha256: artifact.programSha256, sourceSha256: artifact.sourceSha256, stateRoot: state.stateRoot })))])); }
   receiptsRoot() { return sha3(Buffer.concat([Buffer.from('VLOCK7SIN/KO-RECEIPTS/v1\0'), canonicalBytes(this.#receipts)])); }
-  commitmentBytes() { return Buffer.concat([DOMAIN, sha3(super.commitmentBytes()), this.contractsRoot(), this.receiptsRoot()]); }
+  commitmentBytes() { return Buffer.concat([this.#deploymentPolicy ? AUTHORIZED_DOMAIN : DOMAIN, sha3(super.commitmentBytes()), this.contractsRoot(), this.receiptsRoot(),
+    ...(this.#deploymentPolicy ? [Buffer.from(deploymentPolicyHash(this.#deploymentPolicy), 'hex')] : [])]); }
   canonicalBytes() { return canonicalBytes(this.snapshot()); }
   #accounts() { return new GlobalState(baseOptions(this)); }
-  clone() { return new KoGlobalState({ baseState: this, contracts: this.contracts(), receipts: this.#receipts }); }
+  clone() { return new KoGlobalState({ baseState: this, contracts: this.contracts(), receipts: this.#receipts, deploymentPolicy: this.#deploymentPolicy }); }
   createInclusionProof(address) { return this.#wrapProof(this.#accounts().createInclusionProof(address)); }
   createAbsenceProof(address) { return this.#wrapProof(this.#accounts().createAbsenceProof(address)); }
-  #wrapProof(accountProof) { return freeze({ format: 'vlock7sin-ko-account-proof-v1', accountProof,
+  #wrapProof(accountProof) { return freeze({ format: this.#deploymentPolicy ? 'vlock7sin-ko-account-proof-v2' : 'vlock7sin-ko-account-proof-v1', accountProof,
+    ...(this.#deploymentPolicy ? { deploymentPolicyHash: deploymentPolicyHash(this.#deploymentPolicy) } : {}),
     contractsRoot: this.contractsRoot().toString('hex'), receiptsRoot: this.receiptsRoot().toString('hex'), stateRoot: this.root().toString('hex') }); }
   validateContractEvent(event) {
     if (!(event instanceof ContractEvent)) fail('Typed contract event required.');
     if (this.#executionCache.has(event)) return this.#executionCache.get(event);
     let receipt;
     if (event.kind === 'KONAET_KO_DEPLOY_V1') {
+      if (this.#deploymentPolicy) {
+        const quota = this.#deploymentPolicy.deployers.find(row => row.address === event.senderAddress)?.maxContracts ?? 0;
+        if (!quota) fail('Deployer is not authorized by genesis.', 'KO_DEPLOYER_NOT_AUTHORIZED');
+        const used = [...this.#contracts.values()].filter(record => record.state.deployer === event.senderAddress).length;
+        if (used >= quota) fail('Genesis-authorized deployer quota exhausted.', 'KO_DEPLOYER_QUOTA_EXHAUSTED');
+      }
       if (this.#contracts.has(event.contractId) || this.#contracts.size >= PROFILE.contracts) fail('Contract already deployed or count limit reached.');
       receipt = auth.deploySignedContract(event.artifact, event.envelope);
     } else {
@@ -103,25 +122,30 @@ class KoGlobalState extends GlobalState {
     const writer = new BinaryWriter(LIMITS.RECORD_BYTES); writer.write(this.replayRoot).u16(events.length);
     for (const event of events) writer.write(event.id()).write(event.transitionTrace());
     const nextBase = new GlobalState({ ...baseOptions(accounts), sequence: this.sequence + 1n, replayRoot: domainHash(DOMAINS.REPLAY, writer.finish()) });
-    return new KoGlobalState({ baseState: nextBase, contracts: [...contracts.values()].sort((a, b) => compareUtf8(a.state.contractId, b.state.contractId)), receipts });
+    return new KoGlobalState({ baseState: nextBase, contracts: [...contracts.values()].sort((a, b) => compareUtf8(a.state.contractId, b.state.contractId)), receipts, deploymentPolicy: this.#deploymentPolicy });
   }
-  snapshot() { return freeze({ format: PROFILE.stateFormat, accountState: this.#accounts().snapshot(), contracts: this.contracts(), receipts: this.#receipts,
+  snapshot() { return freeze({ format: this.#deploymentPolicy ? AUTHORIZED_PROFILE.stateFormat : PROFILE.stateFormat,
+    ...(this.#deploymentPolicy ? { deploymentPolicy: this.#deploymentPolicy } : {}), accountState: this.#accounts().snapshot(), contracts: this.contracts(), receipts: this.#receipts,
     contractsRoot: this.contractsRoot().toString('hex'), receiptsRoot: this.receiptsRoot().toString('hex'), root: this.root().toString('hex') }); }
   static fromSnapshot(snapshot) {
-    exact(snapshot, ['format', 'accountState', 'contracts', 'receipts', 'contractsRoot', 'receiptsRoot', 'root']);
-    if (snapshot.format !== PROFILE.stateFormat || snapshot.accountState?.format !== 'vlock7sin-state-js-v1') fail('Unsupported state snapshot.');
+    const authorized = snapshot?.format === AUTHORIZED_PROFILE.stateFormat;
+    exact(snapshot, ['format', 'accountState', 'contracts', 'receipts', 'contractsRoot', 'receiptsRoot', 'root', ...(authorized ? ['deploymentPolicy'] : [])]);
+    if ((!authorized && snapshot.format !== PROFILE.stateFormat) || snapshot.accountState?.format !== 'vlock7sin-state-js-v1') fail('Unsupported state snapshot.');
     const baseState = require('./ledger').stateFromSnapshot(snapshot.accountState); // eslint-disable-line global-require
-    const state = new KoGlobalState({ baseState, contracts: snapshot.contracts, receipts: snapshot.receipts });
+    const state = new KoGlobalState({ baseState, contracts: snapshot.contracts, receipts: snapshot.receipts, deploymentPolicy: snapshot.deploymentPolicy });
     if (!canonicalBytes(state.snapshot()).equals(canonicalBytes(snapshot))) fail('State snapshot roots or canonical data differ.');
     return state;
   }
 }
 function verifyKoAccountProof(proof, expectedRoot) {
   try {
-    exact(proof, ['format', 'accountProof', 'contractsRoot', 'receiptsRoot', 'stateRoot']);
-    if (proof.format !== 'vlock7sin-ko-account-proof-v1' || ![proof.contractsRoot, proof.receiptsRoot, proof.stateRoot, expectedRoot].every(value => typeof value === 'string' && /^[0-9a-f]{64}$/.test(value))) return false;
+    const authorized = proof?.format === 'vlock7sin-ko-account-proof-v2';
+    exact(proof, ['format', 'accountProof', 'contractsRoot', 'receiptsRoot', 'stateRoot', ...(authorized ? ['deploymentPolicyHash'] : [])]);
+    if ((!authorized && proof.format !== 'vlock7sin-ko-account-proof-v1') || ![proof.contractsRoot, proof.receiptsRoot, proof.stateRoot, expectedRoot,
+      ...(authorized ? [proof.deploymentPolicyHash] : [])].every(value => typeof value === 'string' && /^[0-9a-f]{64}$/.test(value))) return false;
     const valid = proof.accountProof.type === 'inclusion' ? verifyInclusionProof(proof.accountProof) : verifyAbsenceProof(proof.accountProof);
-    const root = sha3(Buffer.concat([DOMAIN, Buffer.from(proof.accountProof.stateRoot, 'hex'), Buffer.from(proof.contractsRoot, 'hex'), Buffer.from(proof.receiptsRoot, 'hex')])).toString('hex');
+    const root = sha3(Buffer.concat([authorized ? AUTHORIZED_DOMAIN : DOMAIN, Buffer.from(proof.accountProof.stateRoot, 'hex'), Buffer.from(proof.contractsRoot, 'hex'), Buffer.from(proof.receiptsRoot, 'hex'),
+      ...(authorized ? [Buffer.from(proof.deploymentPolicyHash, 'hex')] : [])])).toString('hex');
     return valid && root === expectedRoot && root === proof.stateRoot;
   } catch { return false; }
 }

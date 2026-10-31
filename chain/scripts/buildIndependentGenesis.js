@@ -34,6 +34,7 @@ function build(roster) {
     ...(hybridTransport ? { transportSignatureProfile: roster.transportSignatureProfile } : {}),
     ...(roster.nativePolicy ? { nativePolicy: roster.nativePolicy } : {}),
     ...(roster.contractRuntime ? { contractRuntime: roster.contractRuntime } : {}),
+    ...(roster.deploymentPolicy ? { deploymentPolicy: roster.deploymentPolicy } : {}),
     validators: roster.validators.map(row => ({ id: row.id, publicKey: row.publicKey,
       ...(hybridTransfers ? { publicIdentity: row.publicIdentity } : {}) })),
     allocations: roster.allocations, parameters: roster.parameters });

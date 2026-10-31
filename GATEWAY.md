@@ -113,13 +113,16 @@ administradores, localização das máquinas ou finalização de uma transação
 ## Escrita controlada
 
 O padrão `allowSubmissions: false` retorna HTTP 403 para todas as submissões.
-O perfil v7 tem capacidade finita, incluindo 128 contratos, e não cobra tarifa
-de mercado. Antes de configurar `true`, instale autenticação e regras de
-admissão no ingresso HTTPS para evitar ocupação abusiva dessa capacidade.
+Os perfis têm capacidade finita, incluindo 128 contratos, e não cobram tarifa
+de mercado. Novas redes v8 exigem uma lista de implantadores e cotas reservadas
+na gênese, verificadas por todos os validadores. Redes v7 existentes mantêm
+suas regras anteriores; o gateway não as converte para v8. Antes de configurar
+`true`, instale autenticação e controles de ingresso. Para novos operadores,
+use o [perfil v8 de implantação autorizada](RECOVERY.md).
 Uma assinatura válida, sozinha, não é autorização para consumir toda a rede.
 
 Com o ingresso autorizado e `allowSubmissions: true`, envie os bytes
-canônicos de `TransferEvent` ou `ContractEvent` Ed25519 do perfil v7:
+canônicos de `TransferEvent` ou `ContractEvent` Ed25519 dos perfis v7/v8:
 
 ```sh
 curl --request POST \

@@ -2,20 +2,20 @@
 
 ## Console pronto para executar
 
-A edição 1.6.1 inclui os nós e o console v7. No Windows, extraia o asset
+A edição 1.7.0 inclui os nós e o console com novas redes v8. No Windows, extraia o asset
 `Konaet-Console-Windows-x64.zip` e abra `Iniciar-Konaet.bat`. Pelo código,
-use `npm ci --ignore-scripts` e `npm start` com Node.js 24.7+ da série 24.
+use `npm ci --ignore-scripts` e `npm start` com Node.js 24.22.2+ da série 24.
 Não é necessário criar um roster para essa demonstração.
 
 O console gera quatro identidades de validador e duas contas de teste. São
-quatro processos no mesmo computador, com uma gênese v7, política `.ko`,
+quatro processos no mesmo computador, com uma nova gênese v8, política `.ko`,
 listeners loopback e diretórios WAL individuais. Não representam quatro
 operadores administrativamente independentes. O botão Encerrar console fecha
 os processos; o próximo início recupera o mesmo estado. Preserve
 `.konaet-console-v7/` para recuperar essa instância. Os dados das versões
 anteriores em `.konaet-demo/` ficam separados, sem migração automática.
 
-O console v7 implanta e chama contratos `.ko` no consenso. Cada nó executa
+O console implanta e chama contratos `.ko` no consenso. Cada nó executa
 as regras e o certificado exige três assinaturas em quatro validadores.
 O [guia de contratos no consenso](KO-CONSENSUS.md) descreve a execução e a
 verificação dos recibos.

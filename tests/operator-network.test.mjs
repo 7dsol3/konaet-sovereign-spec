@@ -12,7 +12,7 @@ import { startGateway } from '../tools/operator-gateway.mjs';
 const require = createRequire(import.meta.url);
 const { crypto: vcrypto, UNIT, PermissionedQuorum, recoverWal } = require('../chain/vlock7sin-js/src');
 const { compileKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
-const { PROFILE } = require('../chain/vlock7sin-js/src/koConsensusProfile');
+const { PROFILE, AUTHORIZED_PROFILE } = require('../chain/vlock7sin-js/src/koConsensusProfile');
 const { ContractEvent } = require('../chain/vlock7sin-js/src/contractEvent');
 const { runtime, auth } = require('../chain/vlock7sin-js/src/koProgramRuntime');
 const { build } = require('../chain/scripts/buildIndependentGenesis');
@@ -25,7 +25,7 @@ async function eventually(check, description, timeout = 20000) {
   assert.fail(description);
 }
 
-test('signed .ko passes the gateway, finalizes over real operator mTLS, and recovers quorum after restart', { timeout: 90000 }, async t => {
+for (const authorized of [false, true]) test(`v${authorized ? 8 : 7} signed .ko passes the gateway, finalizes over real operator mTLS, and recovers quorum after restart`, { timeout: 90000 }, async t => {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'konaet-gateway-network-'));
   const nodes = [], configs = [], ports = new Set(); let gateway;
   t.after(async () => {
@@ -63,7 +63,8 @@ test('signed .ko passes the gateway, finalizes over real operator mTLS, and reco
   const owner = vcrypto.IdentityKeypair.generate();
   const nativePolicy = compileKoPolicy(fs.readFileSync(path.join(ROOT, 'chain/contracts-ko/SindraRuntime.ko'), 'utf8'));
   const genesis = build({ scope: 'private-testnet-no-value', networkId: 77111234, createdAt: '2026-10-30T00:00:00.000Z',
-    contractRuntime: PROFILE, nativePolicy,
+    contractRuntime: authorized ? AUTHORIZED_PROFILE : PROFILE, nativePolicy,
+    ...(authorized ? { deploymentPolicy: { schema: 'konaet.contract-deployment-policy.v1', deployers: [{ address: owner.address(), maxContracts: 1 }] } } : {}),
     validators: identities.map((identity, index) => ({ id: `validator-${index}`, administratorId: `test-admin-${index}`, publicKey: identity.publicBytes().toString('hex') })),
     allocations: [{ address: owner.address(), amountAtomic: UNIT.initialSupplyAtomic.toString() }] });
   const genesisBytes = Buffer.from(JSON.stringify(genesis)), meshPorts = await Promise.all(identities.map(() => port()));
@@ -91,6 +92,14 @@ test('signed .ko passes the gateway, finalizes over real operator mTLS, and reco
   assert.equal((await get('/api/genesis')).genesisId, genesis.genesisId);
   assert.equal((await get('/health/ready')).ready, true);
   const source = fs.readFileSync(path.join(ROOT, 'chain/ko-program/examples/Counter.ko'), 'utf8'), artifact = runtime.compileContract(source);
+  if (authorized) {
+    const stranger = vcrypto.IdentityKeypair.generate(), packet = auth.signDeployment(artifact, { networkId: genesis.networkId, salt: '0', gasLimit: 10000 }, stranger.privateKeyObject());
+    const status = await get('/api/status');
+    const event = new ContractEvent({ envelope: packet, source, nonce: '1', sequence: '1', previousRoot: status.root, signature: '' }).sign(stranger);
+    const response = await fetch(gateway.url + '/api/transactions', { method: 'POST', headers: { 'Content-Type': 'application/octet-stream' }, body: event.canonicalBytes() });
+    assert.equal(response.status, 400); assert.equal((await response.json()).code, 'TRANSACTION_REFUSED');
+    assert.ok(nodes.every(node => node.status().sequence === '0'));
+  }
   async function submit(envelope, sourceText, nonce) {
     const status = await get('/api/status');
     const event = new ContractEvent({ envelope, source: sourceText, nonce: String(nonce), sequence: String(BigInt(status.sequence) + 1n), previousRoot: status.root, signature: '' }).sign(owner);

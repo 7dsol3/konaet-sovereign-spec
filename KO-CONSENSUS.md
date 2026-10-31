@@ -1,4 +1,11 @@
-# .ko no consenso VLOCK7SIN v7
+# .ko no consenso VLOCK7SIN v7 e v8
+
+A edição 1.7 cria novas redes de console com o perfil **v8**, protocolo
+`0.7.0-sovereign-ko-admission.1`. Ele acrescenta implantação autorizada e
+cotas reservadas por endereço, comprometidas na gênese e no estado. As
+transações continuam usando os eventos tipados abaixo. O perfil v7 e seus
+dados anteriores permanecem legíveis com as mesmas regras.
+[Configurar v8 e recuperar falhas](RECOVERY.md).
 
 O perfil `KONAET_KO_PROGRAM_V1` participa de transações tipadas de implantação
 e chamada em uma gênese **v7**, com protocolo `0.6.0-sovereign-ko-program.1`.
@@ -19,7 +26,7 @@ flowchart LR
 
 ## Usar no console
 
-Baixe a versão 1.6.1, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
+Baixe a versão 1.7.0, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
 No código-fonte, execute `npm ci --ignore-scripts` e `npm start`.
 O console abre apenas em `127.0.0.1`, inicia quatro processos e usa uma
 instância própria em `.konaet-console-v7/`.
@@ -130,7 +137,8 @@ explícita e controle de acesso na entrada HTTPS. O serviço precisa ser
 instalado nos hosts dos operadores para manter os validadores online.
 
 O Studio público em GitHub Pages executa a VM na sessão do navegador.
-O console Windows/Node executa o consenso v7 em quatro processos locais.
+O console Windows/Node cria redes v8 em quatro processos locais. Diretórios
+existentes continuam recuperando sua própria gênese, inclusive v7.
 Esses processos têm identidades diferentes, sob a administração de quem
 inicia a demonstração. Isso não comprova operação por quatro organizações.
 

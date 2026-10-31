@@ -101,6 +101,12 @@ Reinícios rápidos repetidos atingem o limite de cinco tentativas em cinco
 minutos; investigue os logs e a configuração antes de executar
 `systemctl reset-failed konaet-validator@0.service`.
 
+A edição 1.7 recupera locks reconhecidos de processos comprovadamente mortos
+somente após validar o WAL, preservando os tokens em arquivos `.abandoned-*`.
+Locks vivos, tokens desconhecidos e dados corrompidos continuam bloqueando
+o início. Siga o [procedimento de recuperação](../../RECOVERY.md); não
+transforme o reinício do serviço em uma rotina de apagar locks.
+
 O procedimento de backup mais simples usa parada controlada de um único
 operador, cópia consistente de sua gênese/configuração e de todo `data/`, e
 reinício antes de fazer o mesmo no próximo operador. Proteja separadamente

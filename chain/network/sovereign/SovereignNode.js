@@ -11,6 +11,7 @@ const {
   VlockLedger,
   WalStore,
   recoverWal,
+  recoverAbandonedWriterLock,
   createTransfer,
   decodeEvent,
   normalizeAct,
@@ -134,6 +135,9 @@ class SovereignNode extends EventEmitter {
         validators: this.genesis.validators,
       });
     this.ledgerPath = path.join(this.dataDir, 'ledger.v7wal');
+    try {
+    this.lockRecoveries = Object.freeze(['ledger.v7wal', 'votes.v7wal', 'round-changes.v7wal']
+      .map(name => recoverAbandonedWriterLock(path.join(this.dataDir, name))).filter(Boolean));
     const recovery = fs.existsSync(this.ledgerPath)
       ? recoverWal(this.ledgerPath, { decodeRecords: true })
       : null;
@@ -162,6 +166,11 @@ class SovereignNode extends EventEmitter {
       maxBytes: this.genesis.parameters.maxBytes,
     });
     if (recovery && recovery.frames.length) this.ledger.recover(recovery);
+    this.closureFrames = new Map();
+    for (const frame of recovery?.frames ?? []) {
+      if (frame.record?.kind === CLOSURE_KIND) this.closureFrames.set(String(frame.record.sequence),
+        Object.freeze({ offset: frame.offset, endOffset: frame.endOffset, length: frame.length, hash: frame.hash }));
+    }
     this.voteJournal = new VoteJournal(path.join(this.dataDir, 'votes.v7wal'), { allowedRoot: this.dataDir });
     this.roundChangeJournal = new RoundChangeJournal(path.join(this.dataDir, 'round-changes.v7wal'), {
       allowedRoot: this.dataDir,
@@ -209,6 +218,12 @@ class SovereignNode extends EventEmitter {
     });
     this.transport.on('denied', (event) => this.emit('transportDenied', event));
     this.transport.on('socketError', (event) => this.emit('socketError', event));
+    } catch (error) {
+      for (const resource of [this.roundChangeJournal, this.voteJournal, this.ledgerWal]) {
+        try { resource?.close(); } catch { /* Preserve the initialization error. */ }
+      }
+      throw error;
+    }
   }
 
   expectedLeader(sequence = this.ledger.sequence + 1n, round = 0) {
@@ -645,6 +660,7 @@ class SovereignNode extends EventEmitter {
   handleVote(senderId, payload) {
     const proposal = payload?.proposal;
     const sequence = canonicalU64(proposal?.sequence, 'vote proposal sequence', 1n);
+    if (BigInt(sequence) <= this.ledger.sequence) return;
     const roundNumber = canonicalRound(payload?.round, this.genesis.validators.length);
     if (this.expectedLeader(BigInt(sequence), roundNumber) !== this.validatorId) return;
     const round = this.rounds.get(this.roundKey(sequence, roundNumber));
@@ -820,7 +836,9 @@ class SovereignNode extends EventEmitter {
   }
 
   afterCommit(closure) {
-    for (const id of closure.actIds) this.actBytes.delete(id);
+    if (closure.walFrame) this.closureFrames.set(String(closure.sequence), closure.walFrame);
+    for (const id of [...closure.actIds, ...(closure.expiredActIds ?? [])]) this.actBytes.delete(id);
+    for (const [key, round] of this.rounds) if (BigInt(round.proposal.sequence) <= BigInt(closure.sequence)) this.rounds.delete(key);
     this.prepared.clear();
     this.pendingSince.delete(String(closure.sequence));
     for (const [timerKey, timer] of this.consensusTimers) {
@@ -837,13 +855,20 @@ class SovereignNode extends EventEmitter {
     }));
   }
 
-  closureRecords(fromSequence) {
+  closureRecords(fromSequence, limit = this.genesis.parameters.stateSyncChunk) {
     const from = BigInt(canonicalU64(fromSequence, 'fromSequence', 1n));
-    const report = recoverWal(this.ledgerPath, { decodeRecords: true });
-    if (!report.clean) throw new SovereignNodeError('UNCLEAN_WAL', 'Cannot serve state from an unclean WAL.');
-    return report.frames.map(({ record }) => record).filter((record) => (
-      record?.kind === CLOSURE_KIND && BigInt(record.sequence) >= from
-    ));
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > this.genesis.parameters.stateSyncChunk) throw new SovereignNodeError('STATE_CHUNK_TOO_LARGE', 'Invalid state read limit.');
+    const frames = []; let bytes = 0;
+    for (let sequence = from; sequence <= this.ledger.sequence && frames.length < limit; sequence++) {
+      const frame = this.closureFrames.get(String(sequence));
+      if (!frame) throw new SovereignNodeError('STATE_INDEX_GAP', 'Closure index is incomplete.');
+      if (bytes + frame.length + 36 > 4 * 1024 * 1024) {
+        if (!frames.length) throw new SovereignNodeError('STATE_SYNC_RECORD_LIMIT', 'One closure exceeds the synchronization byte budget.');
+        break;
+      }
+      frames.push(frame); bytes += frame.length + 36;
+    }
+    return this.ledgerWal.readFrames(frames, { maxBytes: 4 * 1024 * 1024 });
   }
 
   requestState(peerId) {
@@ -859,14 +884,13 @@ class SovereignNode extends EventEmitter {
       throw new SovereignNodeError('INVALID_STATE_REQUEST', 'State request belongs to another protocol or genesis.');
     }
     const fromSequence = canonicalU64(payload.fromSequence, 'fromSequence', 1n);
-    const all = this.closureRecords(fromSequence);
-    const records = all.slice(0, this.genesis.parameters.stateSyncChunk);
+    const records = this.closureRecords(fromSequence);
     this.transport.sendTo(senderId, 'STATE_CHUNK', Object.freeze({
       kind: 'KONAET_STATE_CHUNK_V1',
       genesisId: this.genesis.genesisId,
       fromSequence,
       tipSequence: this.ledger.sequence.toString(10),
-      more: all.length > records.length,
+      more: records.length > 0 && BigInt(records.at(-1).sequence) < this.ledger.sequence,
       records: Object.freeze(records),
     }));
   }
@@ -909,6 +933,7 @@ class SovereignNode extends EventEmitter {
     if (payload.records.length > this.genesis.parameters.stateSyncChunk) {
       throw new SovereignNodeError('STATE_CHUNK_TOO_LARGE', 'State chunk exceeds the genesis limit.');
     }
+    if (payload.more && !payload.records.length) throw new SovereignNodeError('INVALID_STATE_CHUNK', 'A continuation must advance synchronization.');
     for (const record of payload.records) this.applyClosureRecord(record);
     const tip = BigInt(canonicalU64(payload.tipSequence, 'tipSequence'));
     if (payload.more || this.ledger.sequence < tip) this.requestState(senderId);

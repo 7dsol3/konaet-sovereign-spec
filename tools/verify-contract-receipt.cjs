@@ -4,7 +4,7 @@ const { PermissionedQuorum, decodeEvent, VlockLedger } = require('../chain/vlock
 const { canonicalBytes } = require('../chain/vlock7sin-js/src/causalGraph');
 const { validateGenesis } = require('../chain/network/sovereign');
 const { KoGlobalState } = require('../chain/vlock7sin-js/src/koState');
-const { PROTOCOL } = require('../chain/vlock7sin-js/src/koConsensusProfile');
+const { PROTOCOL, AUTHORIZED_PROTOCOL } = require('../chain/vlock7sin-js/src/koConsensusProfile');
 function requireTrue(value, message) { if (!value) throw Error(message); }
 function verificationTrust(input = {}) {
   requireTrue(input && typeof input === 'object' && !Array.isArray(input)
@@ -26,10 +26,11 @@ function parseTrustArguments(args) {
 function verifyContractReceipt(bundle, options = {}) {
   const trust = verificationTrust(options);
   requireTrue(bundle && bundle.schema === 'konaet.ko-consensus-receipt.v1', 'RECEIPT_FORMAT_INVALID');
-  const genesis = validateGenesis(bundle.genesis); requireTrue(genesis.protocolVersion === PROTOCOL, 'CONTRACT_GENESIS_REQUIRED');
+  const genesis = validateGenesis(bundle.genesis); requireTrue([PROTOCOL, AUTHORIZED_PROTOCOL].includes(genesis.protocolVersion), 'CONTRACT_GENESIS_REQUIRED');
   if (trust.expectedGenesisId !== undefined) requireTrue(genesis.genesisId === trust.expectedGenesisId, 'RECEIPT_UNEXPECTED_GENESIS');
   requireTrue(Array.isArray(bundle.events) && bundle.events.length > 0 && bundle.events.length <= genesis.parameters.maxActs, 'RECEIPT_EVENT_LIMIT');
   const previous = KoGlobalState.fromSnapshot(bundle.beforeState);
+  requireTrue(canonicalBytes(previous.deploymentPolicy).equals(canonicalBytes(genesis.deploymentPolicy ?? null)), 'RECEIPT_DEPLOYMENT_POLICY_MISMATCH');
   if (trust.expectedPreviousRoot !== undefined) requireTrue(previous.root().toString('hex') === trust.expectedPreviousRoot, 'RECEIPT_UNEXPECTED_PREVIOUS_ROOT');
   requireTrue(previous.networkId === Number(genesis.networkId) && previous.parametersRoot.toString('hex') === genesis.parametersRoot
     && previous.identitiesRoot.toString('hex') === genesis.identitiesRoot, 'RECEIPT_GENESIS_MISMATCH');

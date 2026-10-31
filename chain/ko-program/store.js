@@ -24,6 +24,13 @@ function read(file) {
   const bytes = fs.readFileSync(file); if (bytes.length > MAX_FILE) fail('KO_STORE_FILE_INVALID', 'Store file exceeds limit.');
   return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
 }
+function syncDirectory(input) {
+  let descriptor;
+  try { descriptor = fs.openSync(input, 'r'); fs.fsyncSync(descriptor); }
+  catch (error) {
+    if (process.platform !== 'win32' || !['EACCES', 'EPERM', 'EISDIR', 'EINVAL', 'ENOTSUP'].includes(error.code)) throw error;
+  } finally { if (descriptor !== undefined) fs.closeSync(descriptor); }
+}
 function durableCreate(file, value) {
   const bytes = Buffer.from(JSON.stringify(value, null, 2) + '\n');
   if (bytes.length > MAX_FILE) fail('KO_STORE_FILE_LIMIT', 'Commit exceeds file limit.');
@@ -34,6 +41,7 @@ function durableCreate(file, value) {
     // Publishing a fully written hard link is exclusive and atomic: no partial
     // final record and no overwrite when two calls target the same revision.
     fs.linkSync(temporary, file);
+    syncDirectory(path.dirname(file));
   } finally {
     if (descriptor !== undefined) fs.closeSync(descriptor);
     if (fs.existsSync(temporary)) fs.unlinkSync(temporary);
@@ -43,17 +51,32 @@ function createStore(input, contract, options, signed = false) {
   const artifact = validateContract(contract);
   const result = signed ? deploySignedContract(artifact, options) : deployContract(artifact, options);
   const deployment = signed ? validateEnvelope(options) : JSON.parse(JSON.stringify(options)), absolute = directory(input);
-  if (fs.existsSync(absolute)) fail('KO_STORE_EXISTS', 'Deployment directory already exists.');
-  fs.mkdirSync(absolute, { mode: 0o700 });
-  durableCreate(path.join(absolute, 'program.json'), artifact);
-  durableCreate(path.join(absolute, 'deployment.json'), { schema: signed ? 'konaet.ko-program-authenticated-deployment.v1' : 'konaet.ko-program-deployment.v1', options: deployment, state: result.state });
+  try { fs.mkdirSync(absolute, { mode: 0o700 }); syncDirectory(path.dirname(absolute)); }
+  catch (error) { if (error.code !== 'EEXIST') throw error; }
+  if (!fs.lstatSync(absolute).isDirectory()) fail('KO_STORE_EXISTS', 'Deployment path is not a directory.');
+  // A crash before publication may leave an empty directory or unpublished
+  // temporary files. A committed deployment or any unrelated file is never replaced.
+  const entries = fs.readdirSync(absolute);
+  if (entries.length > 16 || entries.some(name => !/^\.pending-[0-9a-f-]{36}\.json$/.test(name)
+    || !fs.lstatSync(path.join(absolute, name)).isFile() || fs.lstatSync(path.join(absolute, name)).isSymbolicLink())) {
+    fail('KO_STORE_EXISTS', 'Deployment directory contains committed or unrelated data.');
+  }
+  try {
+    // One exclusive commit publishes program, intent and initial state together.
+    durableCreate(path.join(absolute, 'deployment.json'), { schema: signed ? 'konaet.ko-program-authenticated-deployment.v2' : 'konaet.ko-program-deployment.v2',
+      artifact, options: deployment, state: result.state });
+  } catch (error) {
+    if (error.code === 'EEXIST') fail('KO_STORE_EXISTS', 'Another writer published this deployment.');
+    throw error;
+  }
   return result;
 }
 function recoverStore(input) {
-  const absolute = directory(input), artifact = validateContract(read(path.join(absolute, 'program.json')));
+  const absolute = directory(input);
   const deployment = read(path.join(absolute, 'deployment.json'));
-  const authenticated = deployment.schema === 'konaet.ko-program-authenticated-deployment.v1';
-  if (!authenticated && deployment.schema !== 'konaet.ko-program-deployment.v1') fail('KO_STORE_INVALID', 'Unknown deployment record.');
+  const authenticated = ['konaet.ko-program-authenticated-deployment.v1', 'konaet.ko-program-authenticated-deployment.v2'].includes(deployment.schema);
+  if (!authenticated && !['konaet.ko-program-deployment.v1', 'konaet.ko-program-deployment.v2'].includes(deployment.schema)) fail('KO_STORE_INVALID', 'Unknown deployment record.');
+  const artifact = validateContract(deployment.schema.endsWith('.v2') ? deployment.artifact : read(path.join(absolute, 'program.json')));
   let state = (authenticated ? deploySignedContract(artifact, deployment.options) : deployContract(artifact, deployment.options)).state;
   if (JSON.stringify(state) !== JSON.stringify(deployment.state)) fail('KO_STORE_GENESIS_MISMATCH', 'Deployment state differs from recomputed state.');
   const records = fs.readdirSync(absolute).filter(name => /^[0-9]{20}\.json$/.test(name)).sort();

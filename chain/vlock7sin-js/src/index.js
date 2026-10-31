@@ -97,6 +97,7 @@ module.exports = Object.freeze({
   WalStore: persistence.WalStore,
   SnapshotStore: persistence.SnapshotStore,
   recoverWal: persistence.recoverWal,
+  recoverAbandonedWriterLock: persistence.recoverAbandonedWriterLock,
   readSnapshot: persistence.readSnapshot,
   writeSnapshotAtomic: persistence.writeSnapshotAtomic,
 

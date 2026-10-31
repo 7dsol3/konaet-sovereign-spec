@@ -1,12 +1,12 @@
 {
   "name": "konaet-sovereign-spec",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Konaet Native Chain: executable VLOCK7SIN nodes, .ko runtime and portable console",
   "private": true,
   "type": "module",
   "license": "ISC",
   "engines": {
-    "node": ">=24.7 <25"
+    "node": ">=24.22.2 <25"
   },
   "scripts": {
     "start": "node tools/console.mjs",

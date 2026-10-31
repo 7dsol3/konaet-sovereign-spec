@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "RECOVERY.md",
+  "tests/recovery-and-capacity.test.cjs",
   "tools/publication-checks.mjs",
   "GATEWAY.md",
   "deploy/validator/README.md",

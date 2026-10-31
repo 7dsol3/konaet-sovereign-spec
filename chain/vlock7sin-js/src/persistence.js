@@ -294,6 +294,44 @@ function releaseWriterLock(lock) {
   }
 }
 
+function recoverAbandonedWriterLock(targetPath) {
+  const resolved = path.resolve(targetPath), lockPath = `${resolved}.lock`;
+  if (!fs.existsSync(lockPath)) return null;
+  // Serialize recovery attempts. Never reclaim an unknown/live owner, and never
+  // delete the lock: preserve the exact abandoned token alongside the WAL.
+  const recoveryPath = `${lockPath}.recovery`;
+  let recoveryFd;
+  try { recoveryFd = fs.openSync(recoveryPath, 'wx', 0o600); }
+  catch (error) {
+    if (error.code === 'EEXIST') throw new PersistenceError('LOCK_RECOVERY_BUSY', 'Another recovery or abandoned recovery marker requires inspection.');
+    throw error;
+  }
+  try {
+    if (!fs.existsSync(lockPath)) return null;
+    const stat = fs.lstatSync(lockPath, { bigint: true });
+    if (stat.isSymbolicLink() || !stat.isFile() || stat.size > 256n) throw new PersistenceError('LOCK_RECOVERY_REFUSED', 'Writer lock is not a bounded regular token.');
+    const token = fs.readFileSync(lockPath);
+    if (!Buffer.from(token.toString('ascii'), 'ascii').equals(token)) throw new PersistenceError('LOCK_RECOVERY_REFUSED', 'Writer token must be canonical ASCII.');
+    const match = /^v2:([1-9][0-9]{0,9}):([0-9]{1,16}):([0-9a-f]{48})\n$/.exec(token.toString('ascii'));
+    if (!match || !Number.isSafeInteger(Number(match[1]))) throw new PersistenceError('LOCK_RECOVERY_REFUSED', 'Unknown writer token; automatic recovery is forbidden.');
+    try { process.kill(Number(match[1]), 0); throw new PersistenceError('WRITER_LOCKED', 'Writer PID is alive; its lock was preserved.'); }
+    catch (error) { if (error.code !== 'ESRCH') throw error; }
+    const walStat = fs.lstatSync(resolved);
+    if (walStat.isSymbolicLink() || !walStat.isFile()) throw new PersistenceError('LOCK_RECOVERY_REFUSED', 'Recovery requires a regular WAL.');
+    const report = recoverWal(resolved, { decodeRecords: true });
+    if (!report.clean) throw new PersistenceError('LOCK_RECOVERY_REFUSED', 'WAL is incomplete or corrupt; preserve it for explicit recovery.');
+    if (sourceFingerprint(resolved) !== report.scannedFingerprint
+      || fingerprintFromStat(fs.lstatSync(lockPath, { bigint: true })) !== fingerprintFromStat(stat)
+      || !fs.readFileSync(lockPath).equals(token)) throw new PersistenceError('LOCK_RECOVERY_REFUSED', 'WAL or lock changed during recovery.');
+    const archive = `${lockPath}.abandoned-${randomBytes(16).toString('hex')}`;
+    fs.renameSync(lockPath, archive);
+    return Object.freeze({ recovered: true, archive: path.basename(archive), walBytes: report.scannedSize });
+  } finally {
+    fs.closeSync(recoveryFd);
+    fs.unlinkSync(recoveryPath);
+  }
+}
+
 class WalStore {
   constructor(filePath, options = {}) {
     if (!filePath) throw new PersistenceError('INVALID_PATH', 'WAL path is required');
@@ -368,6 +406,31 @@ class WalStore {
   }
 
   appendRecord(record, options = {}) { return this.append(encodeRecord(record), options); }
+
+  readFrames(indexes, options = {}) {
+    if (this.fd == null) throw new PersistenceError('WAL_CLOSED', 'WAL is closed');
+    const maxBytes = validateDecodeLimit(options.maxBytes, 4 * 1024 * 1024, 1, DEFAULT_MAX_FRAME_BYTES, 'maxBytes');
+    if (!Array.isArray(indexes) || indexes.length > 256) throw new PersistenceError('RECORD_LIMIT_EXCEEDED', 'Bounded WAL frame index required');
+    let budget = 0;
+    for (const frame of indexes) {
+      if (!frame || !Number.isSafeInteger(frame.offset) || frame.offset < WAL_MAGIC.length
+        || !Number.isSafeInteger(frame.length) || frame.length < 1
+        || frame.endOffset !== frame.offset + FRAME_HEADER_BYTES + frame.length
+        || frame.endOffset > this.endOffset || !/^[0-9a-f]{64}$/.test(frame.hash)) throw new PersistenceError('INVALID_FRAME_INDEX', 'Invalid WAL index entry');
+      budget += FRAME_HEADER_BYTES + frame.length;
+      if (budget > maxBytes) throw new PersistenceError('RECORD_LIMIT_EXCEEDED', 'Indexed WAL read exceeds byte budget');
+    }
+    if (fs.fstatSync(this.fd).size !== this.endOffset) throw new PersistenceError('WAL_CHANGED', 'WAL size changed outside its writer');
+    const magic = Buffer.alloc(WAL_MAGIC.length);
+    if (readAtMost(this.fd, magic, 0) !== magic.length || !magic.equals(WAL_MAGIC)) throw new PersistenceError('INVALID_WAL_MAGIC', 'Invalid WAL header');
+    return indexes.map(frame => {
+      const bytes = Buffer.alloc(FRAME_HEADER_BYTES + frame.length);
+      if (readAtMost(this.fd, bytes, frame.offset) !== bytes.length || bytes.readUInt32BE(0) !== frame.length) throw new PersistenceError('WAL_CHANGED', 'Indexed WAL frame changed');
+      const payload = bytes.subarray(FRAME_HEADER_BYTES), hash = digestFrame(DOMAIN_WAL_FRAME, bytes.subarray(0, 4), payload);
+      if (!hash.equals(bytes.subarray(4, FRAME_HEADER_BYTES)) || hash.toString('hex') !== frame.hash) throw new PersistenceError('INVALID_RECORD', 'Indexed WAL checksum mismatch');
+      return decodeRecord(payload, { maxBytes });
+    });
+  }
 
   recover(options = {}) { return recoverWal(this.path, { maxFrameBytes: this.maxFrameBytes, ...options }); }
 
@@ -592,6 +655,7 @@ module.exports = {
   encodeRecord,
   decodeRecord,
   recoverWal,
+  recoverAbandonedWriterLock,
   truncateIncompleteWal,
   readSnapshot,
   writeSnapshotAtomic,

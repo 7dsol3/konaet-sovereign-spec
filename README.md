@@ -8,7 +8,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.6.1 · .ko Studio · Consenso v7**
+**Native Chain · Console 1.7.0 · .ko Studio · Consenso v8**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -46,6 +46,12 @@ e chamada. Cada validador executa o programa; contas, contratos e recibos
 entram na raiz antes do voto e da persistência. O console roda quatro
 processos e exporta recibos com certificado de quórum.
 [Usar contratos no consenso](KO-CONSENSUS.md).
+
+Novas redes do console usam a **gênese v8**: permissões de implantação e cotas
+por participante ficam comprometidas na gênese e na raiz do estado. Uma conta
+não autorizada não ocupa o catálogo de contratos. Redes v7 existentes mantêm
+suas regras e seus dados; não há migração automática de saldos ou gênese.
+[Recuperação, capacidade e mudanças da edição 1.7](RECOVERY.md).
 
 Ao conferir um certificado recebido, fixe a identidade da rede com
 `--genesis-id` e, quando disponível, a raiz anterior com `--previous-root`.
@@ -102,7 +108,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.6.1.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.7.0.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
@@ -125,7 +131,7 @@ O aplicativo pronto para Windows é o asset **Konaet-Console-Windows-x64.zip**.
 
 ## Executar pelo código — Windows, Linux e macOS
 
-Com Node.js 24.7 ou superior da série 24:
+Com Node.js 24.22.2 ou superior da série 24:
 
 ```sh
 git clone https://github.com/7dsol3/konaet-sovereign-spec.git

@@ -9,7 +9,9 @@ import { startDemo } from './demo-network.mjs';
 const require = createRequire(import.meta.url);
 const { compileKoPolicy, executeKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export async function startConsole({ dataDirectory = path.join(root, '.konaet-console-v7'), port = 0 } = {}) {
+export async function startConsole({ dataDirectory = path.join(root, '.konaet-console-v7'), port = 0, shutdownGraceMs = 1000, bodyTimeoutMs = 5000 } = {}) {
+  if (!Number.isSafeInteger(shutdownGraceMs) || shutdownGraceMs < 10 || shutdownGraceMs > 5000
+    || !Number.isSafeInteger(bodyTimeoutMs) || bodyTimeoutMs < 50 || bodyTimeoutMs > 10000) throw Error('INVALID_CONSOLE_TIMEOUT');
   const demo = await startDemo({ directory: dataDirectory, programs: true });
   const token = crypto.randomBytes(32).toString('hex');
   let origin;
@@ -45,7 +47,10 @@ export async function startConsole({ dataDirectory = path.join(root, '.konaet-co
       }
       if (req.headers['content-type'] !== 'application/json') { req.resume(); json(415, { code: 'JSON_REQUIRED' }); return; }
       const chunks = []; let size = 0;
-      for await (const chunk of req) { size += chunk.length; if (size > 65536) { json(413, { code: 'BODY_TOO_LARGE' }); req.resume(); return; } chunks.push(chunk); }
+      const deadline = setTimeout(() => req.destroy(Error('BODY_TIMEOUT')), bodyTimeoutMs); deadline.unref?.();
+      try {
+        for await (const chunk of req) { size += chunk.length; if (size > 65536) { json(413, { code: 'BODY_TOO_LARGE' }); req.resume(); return; } chunks.push(chunk); }
+      } finally { clearTimeout(deadline); }
       const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
       if (req.url === '/api/shutdown') { json(200, { closed: true }); setTimeout(() => { void close(); }, 30); return; }
       if (req.url === '/api/transfer') {
@@ -62,10 +67,20 @@ export async function startConsole({ dataDirectory = path.join(root, '.konaet-co
       const policy = compileKoPolicy(body.source); executeKoPolicy(policy, body.phase, body.context);
       json(200, { accepted: true, programSha256: policy.programSha256,
         rulesExecuted: policy.program.rules.filter(rule => rule.phase === body.phase).length });
-    } catch (error) { if (!res.writableEnded) json(422, { accepted: false, code: error.code || error.message }); }
+    } catch (error) { if (!res.writableEnded && !res.destroyed) json(422, { accepted: false, code: error.code || error.message }); }
   });
-  let closing = false;
-  async function close() { if (closing) return; closing = true; await new Promise(resolve => server.close(resolve)); await demo.close(); }
+  server.headersTimeout = 3000; server.requestTimeout = 10000;
+  server.keepAliveTimeout = 1000; server.maxRequestsPerSocket = 100; server.maxConnections = 64;
+  let closing;
+  function close() {
+    if (closing) return closing;
+    closing = (async () => {
+      const deadline = setTimeout(() => server.closeAllConnections(), shutdownGraceMs); deadline.unref?.();
+      try { await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve())); }
+      finally { clearTimeout(deadline); await demo.close(); }
+    })();
+    return closing;
+  }
   try {
     await new Promise((resolve, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', resolve); });
     origin = `http://127.0.0.1:${server.address().port}`;

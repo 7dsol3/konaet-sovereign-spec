@@ -10,7 +10,7 @@ const { compileKoPolicy } = require('../chain/vlock7sin-js/src/koPolicy');
 const { createGenesis, validateGenesis } = require('../chain/network/sovereign');
 const { ContractEvent } = require('../chain/vlock7sin-js/src/contractEvent');
 const { runtime: koRuntime, auth: koAuth } = require('../chain/vlock7sin-js/src/koProgramRuntime');
-const { PROFILE, FORMAT } = require('../chain/vlock7sin-js/src/koConsensusProfile');
+const { AUTHORIZED_PROFILE: PROFILE, AUTHORIZED_FORMAT: FORMAT } = require('../chain/vlock7sin-js/src/koConsensusProfile');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function atomic(text) {
   if (typeof text !== 'string' || !/^(?:0|[1-9][0-9]{0,17})(?:\.[0-9]{1,9})?$/.test(text)) throw Error('INVALID_AMOUNT');
@@ -62,7 +62,8 @@ export async function startDemo({ directory = path.join(root, '.konaet-demo'), p
           identities.push(vcrypto.IdentityKeypair.fromSeed(seed)); } finally { seed.fill(0); }
       }
       const nativePolicy = compileKoPolicy(fs.readFileSync(path.join(root, 'chain/contracts-ko/SindraRuntime.ko'), 'utf8'));
-      const genesis = createGenesis({ ...(programs ? { format: FORMAT, contractRuntime: PROFILE } : {}), networkId: crypto.randomInt(1000000, 0x7fffffff), createdAt: new Date().toISOString(),
+      const genesis = createGenesis({ ...(programs ? { format: FORMAT, contractRuntime: PROFILE,
+        deploymentPolicy: { schema: 'konaet.contract-deployment-policy.v1', deployers: identities.slice(4).map(key => ({ address: key.address(), maxContracts: 64 })) } } : {}), networkId: crypto.randomInt(1000000, 0x7fffffff), createdAt: new Date().toISOString(),
         validators: identities.slice(0, 4).map((key, index) => ({ id: `validator-${index}`, publicKey: key.publicBytes() })),
         threshold: 3, allocations: [{ address: identities[4].address(), amountAtomic: UNIT.initialSupplyAtomic }],
         parameters: { maxActs: 64, maxBytes: 262144, stateSyncChunk: 4, messageRateLimit: 512 }, nativePolicy });

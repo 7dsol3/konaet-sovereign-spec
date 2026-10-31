@@ -8,7 +8,10 @@ verifyFilePolicy(inventory());
 const node = path.resolve(process.argv[2] || process.execPath);
 if (path.basename(node).toLowerCase() !== 'node.exe') throw Error('NODE_EXE_REQUIRED');
 const runtime = spawnSync(node, ['--version'], { encoding: 'utf8', windowsHide: true });
-if (runtime.status !== 0 || !/^v24\./.test(runtime.stdout)) throw Error('NODE_24_REQUIRED');
+const minimum = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8')).engines.node.match(/^>=24\.(\d+)\.(\d+) <25$/);
+const selected = runtime.stdout.trim().match(/^v24\.(\d+)\.(\d+)$/);
+if (runtime.status !== 0 || !minimum || !selected || Number(selected[1]) < Number(minimum[1])
+  || (Number(selected[1]) === Number(minimum[1]) && Number(selected[2]) < Number(minimum[2]))) throw Error('SUPPORTED_NODE_24_PATCH_REQUIRED');
 const stageRoot = path.join(ROOT, '.packaging');
 fs.mkdirSync(stageRoot, { recursive: true });
 const stage = path.join(fs.mkdtempSync(path.join(stageRoot, 'build-')), 'Konaet-Console');

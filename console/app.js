@@ -2,7 +2,8 @@
 const el = id => document.getElementById(id);
 const token = document.querySelector('meta[name="konaet-token"]').content;
 const initial = { 'transfer.amountAtomic': '7', 'transfer.nonce': '1', 'transfer.networkId': '28673', 'transfer.previousRoot': 'a'.repeat(64), 'state.senderBalance': '100', 'state.nextNonce': '1', 'state.networkId': '28673', 'state.root': 'a'.repeat(64) };
-const errors = { KO_RULE_REJECTED: 'A política .ko rejeitou a entrada.', INVALID_AMOUNT: 'Informe um valor positivo com até 9 casas decimais.', INSUFFICIENT_BALANCE: 'Saldo insuficiente.', TRANSFER_IN_PROGRESS: 'Aguarde a transferência anterior.' };
+const errors = { KO_RULE_REJECTED: 'A política .ko rejeitou a entrada.', INVALID_AMOUNT: 'Informe um valor positivo com até 9 casas decimais.', INSUFFICIENT_BALANCE: 'Saldo insuficiente.', TRANSFER_IN_PROGRESS: 'Aguarde a transferência anterior.',
+  KO_DEPLOYER_NOT_AUTHORIZED: 'Esta conta não tem permissão para implantar contratos nesta rede.', KO_DEPLOYER_QUOTA_EXHAUSTED: 'Esta conta atingiu sua cota de contratos nesta rede.' };
 let timer;
 let programExamples = {}, programReceipt, programAccounts = [], programBusy = false;
 async function post(url, body) { const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Konaet-Token': token }, body: JSON.stringify(body) }); const result = await response.json(); if (!response.ok) throw Error(errors[result.code] || result.code || 'Falha na execução.'); return result; }

@@ -1,6 +1,6 @@
 # Contratos .ko com estado
 
-**KONAET_KO_PROGRAM_V1 · distribuição 1.6.1**
+**KONAET_KO_PROGRAM_V1 · distribuição 1.7.0**
 
 [Abrir o .ko Studio](https://7dsol3.github.io/konaet-sovereign-spec/) ·
 [Exemplo Counter](chain/ko-program/examples/Counter.ko) ·
@@ -49,7 +49,7 @@ da sessão; não atesta um consenso entre operadores.
 
 ## Usar com assinatura e persistência no Node
 
-Node.js 24.7 ou superior da série 24. No pacote portátil Windows, substitua
+Node.js 24.22.2 ou superior da série 24. No pacote portátil Windows, substitua
 `node` por `bin\node.exe`.
 
 ```sh
@@ -158,8 +158,12 @@ recursão. O orçamento máximo da VM é de 1.000.000 unidades; o Studio limita
 a 100.000 e 100 chamadas por sessão.
 
 O journal Node suporta até 1.024 revisões e 10.000.000 unidades acumuladas
-de replay, com arquivos até 2 MiB. Publica registros completos por hard link
-exclusivo; o filesystem precisa suportar essa operação. Ainda não há
+de replay, com arquivos até 2 MiB. Uma implantação nova publica fonte,
+opções e estado inicial em um único registro exclusivo. Falhas anteriores
+à publicação podem ser repetidas em um diretório vazio ou com temporários
+não publicados. Implantações válidas nunca são sobrescritas; o formato
+anterior com dois arquivos continua legível. Registros completos usam hard
+link exclusivo; o filesystem precisa suportar essa operação. Ainda não há
 checkpoints ou coleta de histórico nesse utilitário.
 
 ## Integração com a rede Konaet

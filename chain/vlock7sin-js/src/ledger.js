@@ -17,7 +17,7 @@ const { decodeRecord } = require('./persistence');
 const { validateKoPolicy, executeKoPolicy } = require('./koPolicy');
 const { KoGlobalState } = require('./koState');
 const { ContractEvent } = require('./contractEvent');
-const { PROFILE: KO_PROGRAM_PROFILE, PROTOCOL: KO_PROGRAM_PROTOCOL } = require('./koConsensusProfile');
+const { PROFILE: KO_PROGRAM_PROFILE, PROTOCOL: KO_PROGRAM_PROTOCOL, AUTHORIZED_PROFILE, AUTHORIZED_PROTOCOL } = require('./koConsensusProfile');
 const { CausalGraph: KoCausalGraph } = require('./koCausalGraph');
 
 const DOMAIN_PREPARATION = Buffer.from('VLOCK7SIN/LEDGER-PREPARATION/v1\0', 'ascii');
@@ -75,7 +75,7 @@ function canonicalHash(value, label) {
 }
 
 function stateFromSnapshot(snapshot) {
-  if (snapshot?.format === KO_PROGRAM_PROFILE.stateFormat) return KoGlobalState.fromSnapshot(snapshot);
+  if ([KO_PROGRAM_PROFILE.stateFormat, AUTHORIZED_PROFILE.stateFormat].includes(snapshot?.format)) return KoGlobalState.fromSnapshot(snapshot);
   assertExactKeys(snapshot, [
     'format', 'networkId', 'suite', 'sequence', 'parametersRoot', 'identitiesRoot',
     'replayRoot', 'root', 'accounts',
@@ -157,10 +157,11 @@ class VlockLedger {
       throw new LedgerError('WRONG_NETWORK', 'ledger network and state network differ');
     }
     const protocolVersion = String(options.protocolVersion ?? VERSION_STRING);
-    if ((['0.5.0-sovereign-ko.1', KO_PROGRAM_PROTOCOL].includes(protocolVersion)) !== Boolean(this.#nativePolicy)) {
+    if ((['0.5.0-sovereign-ko.1', KO_PROGRAM_PROTOCOL, AUTHORIZED_PROTOCOL].includes(protocolVersion)) !== Boolean(this.#nativePolicy)) {
       throw new LedgerError('KO_POLICY_REQUIRED', 'This protocol requires its genesis-bound .ko policy.');
     }
-    if ((protocolVersion === KO_PROGRAM_PROTOCOL) !== (this.#state instanceof KoGlobalState)) {
+    if (([KO_PROGRAM_PROTOCOL, AUTHORIZED_PROTOCOL].includes(protocolVersion)) !== (this.#state instanceof KoGlobalState)
+      || (this.#state instanceof KoGlobalState && (protocolVersion === AUTHORIZED_PROTOCOL) !== Boolean(this.#state.deploymentPolicy))) {
       throw new LedgerError('KO_PROGRAM_PROFILE_REQUIRED', 'Contract state and protocol must be activated together.');
     }
     Object.defineProperties(this, {
@@ -763,7 +764,7 @@ class VlockLedger {
 
   static fromSnapshot(snapshot, options = {}) {
     assertExactKeys(snapshot, ['format', 'networkId', 'protocolVersion', 'state', 'graph', 'root',
-      ...(['0.5.0-sovereign-ko.1', KO_PROGRAM_PROTOCOL].includes(snapshot?.protocolVersion) ? ['nativePolicyHash'] : [])], 'ledger snapshot');
+      ...(['0.5.0-sovereign-ko.1', KO_PROGRAM_PROTOCOL, AUTHORIZED_PROTOCOL].includes(snapshot?.protocolVersion) ? ['nativePolicyHash'] : [])], 'ledger snapshot');
     if (snapshot.format !== 'vlock7sin-ledger-js-v1') throw new LedgerError('INVALID_LEDGER_SNAPSHOT', 'unsupported ledger snapshot');
     if (typeof snapshot.networkId !== 'string' || typeof snapshot.protocolVersion !== 'string'
       || !/^[0-9a-f]{64}$/.test(String(snapshot.root))) {
