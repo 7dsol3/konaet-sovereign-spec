@@ -11,6 +11,7 @@ const { compileKoPolicy } = require('../../chain/vlock7sin-js/src/koPolicy');
 if (process.env.GITHUB_ACTIONS !== 'true' || process.platform !== 'linux' || process.getuid() !== 0) throw Error('ISOLATED_ROOT_CI_REQUIRED');
 const directory = '/var/lib/konaet/validator-0';
 if (fs.existsSync(directory)) throw Error('NEW_SERVICE_DIRECTORY_REQUIRED');
+fs.mkdirSync('/var/lib/konaet', { recursive: true, mode: 0o755 });
 fs.mkdirSync(directory, { recursive: true, mode: 0o750 }); fs.mkdirSync(path.join(directory, 'data'), { mode: 0o700 });
 const seed = crypto.randomBytes(32), identity = vcrypto.IdentityKeypair.fromSeed(seed);
 fs.writeFileSync(path.join(directory, 'own.seed'), seed.toString('hex'), { flag: 'wx', mode: 0o640 }); seed.fill(0);

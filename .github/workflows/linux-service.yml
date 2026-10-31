@@ -34,6 +34,7 @@ jobs:
           sudo env GITHUB_ACTIONS=true RUNNER_TEMP="$RUNNER_TEMP" /usr/bin/node /opt/konaet/tools/remote/linux-service-fixture.mjs
           sudo chown -R root:konaet-validator /var/lib/konaet/validator-0
           sudo chown -R konaet-validator:konaet-validator /var/lib/konaet/validator-0/data
+          sudo -u konaet-validator /usr/bin/node /opt/konaet/chain/scripts/runIndependentValidator.js check /var/lib/konaet/validator-0/operator-config.json
           sudo install -m 0644 deploy/validator/konaet-validator@.service /etc/systemd/system/konaet-validator@.service
           sudo systemd-analyze verify /etc/systemd/system/konaet-validator@.service
           sudo systemctl daemon-reload

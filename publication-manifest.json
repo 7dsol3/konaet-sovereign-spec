@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/linux-service.yml",
-      "bytes": 2443,
-      "sha256": "2eaeddb43f03136987d53ebec175b561099939f46e84f6bd574048f6cb1581ec"
+      "bytes": 2600,
+      "sha256": "1ca975e2db5d8c9beca874639faab8e053c87f3cbebb5683c2efc4474f8e5686"
     },
     {
       "path": ".github/workflows/remote-endurance.yml",
@@ -847,8 +847,8 @@
     },
     {
       "path": "tools/remote/linux-service-fixture.mjs",
-      "bytes": 3929,
-      "sha256": "9cbee41a68f785d0fd9fe13f1c653b1935aac7224de9bdf8a9f9caf430f55bd0"
+      "bytes": 3996,
+      "sha256": "0e30b00df9fd6846571b226a623bee48c78043cc7d6ab490fa33795d32de7393"
     },
     {
       "path": "tools/remote/participant.mjs",
