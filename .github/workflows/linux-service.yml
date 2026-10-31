@@ -38,6 +38,7 @@ jobs:
           sudo useradd --system --user-group --home-dir /nonexistent --no-create-home --shell /usr/sbin/nologin konaet-validator
           sudo useradd --system --user-group --home-dir /nonexistent --no-create-home --shell /usr/sbin/nologin konaet-gateway
           sudo env GITHUB_ACTIONS=true RUNNER_TEMP="$RUNNER_TEMP" /usr/bin/node /opt/konaet/tools/remote/linux-service-fixture.mjs
+          sudo chown "$(id -u):$(id -g)" "$RUNNER_TEMP/konaet-nginx/client-password"
           sudo chown -R root:konaet-validator /var/lib/konaet/validator-0
           sudo chown -R konaet-validator:konaet-validator /var/lib/konaet/validator-0/data
           sudo chown -R root:konaet-gateway /etc/konaet

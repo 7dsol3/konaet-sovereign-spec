@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/linux-service.yml",
-      "bytes": 3942,
-      "sha256": "1f3f745a6d45174df8e91796ab23184b11edd4864f6bfb2bc7059c9a4ae5c843"
+      "bytes": 4027,
+      "sha256": "a3b1f2db5c0fd9d91963edf32371ecda5e5c77ffbb19eada0c40f3d45f74e8d5"
     },
     {
       "path": ".github/workflows/remote-endurance.yml",
