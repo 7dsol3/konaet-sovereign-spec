@@ -1,3 +1,5 @@
+<img width="1536" height="1024" alt="O puzzle do dia — Konaet .ko" src="assets/puzzle-do-dia.png" />
+
 <div align="center">
   <img src="assets/konaet-native-cover.svg" width="100%" alt="Konaet Soberana — tecnologia com identidade própria">
 
@@ -206,8 +208,3 @@ o caminho do fonte `.ko` até a execução pelos validadores.
 
 Projeto de [7dsol3](https://github.com/7dsol3). As edições anteriores permanecem
 nas tags.
-
-<details>
-  <summary>O puzzle do dia — material visual da Konaet</summary>
-  <img src="assets/puzzle-do-dia.png" width="100%" alt="Konaet .ko — o puzzle do dia e o recibo verificável">
-</details>
