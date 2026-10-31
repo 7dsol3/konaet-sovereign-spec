@@ -1,6 +1,6 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.7.2",
+  "edition": "1.8.0",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
@@ -19,6 +19,11 @@
       "path": ".github/workflows/linux-service.yml",
       "bytes": 4100,
       "sha256": "dda9c3ae3ccdee23068f5606472e47a89841db751a4a16f85fb0e850994a2443"
+    },
+    {
+      "path": ".github/workflows/polyglot.yml",
+      "bytes": 1518,
+      "sha256": "8658a1c9e2f02cca8b1ea55fbf247a98701178d89384d3b20a353e77c4757571"
     },
     {
       "path": ".github/workflows/remote-endurance.yml",
@@ -48,7 +53,7 @@
     {
       "path": "DEPLOYMENT.md",
       "bytes": 5645,
-      "sha256": "3245e987957a10dd1b3119a5333cc4f0ba20ec577f24125a82a782973375df00"
+      "sha256": "0840c1e9ced20ed5adacd804311800d786b17b547099cf3b4183f39fde255545"
     },
     {
       "path": "ECOSYSTEM.md",
@@ -73,12 +78,12 @@
     {
       "path": "KO-CONSENSUS.md",
       "bytes": 7162,
-      "sha256": "05528b8199bcbd2232723396d86da7b584a65a02f9aef53af20267148c20217d"
+      "sha256": "9f3325dfd0876bb3823b2b8f244db5695324c7066e9c6f416ca10b4e8041e9f8"
     },
     {
       "path": "KO-PROGRAM.md",
       "bytes": 7951,
-      "sha256": "a4802707c9132475072da4ae36bea8821e9b92737276dfa33c650f821b6e9d8a"
+      "sha256": "16b113ac67f28262d733a2a2c89be032c4337f011cbaee7f13f7f783142a6ca7"
     },
     {
       "path": "KO-QUICKSTART.md",
@@ -93,7 +98,7 @@
     {
       "path": "LEIA-ME.txt",
       "bytes": 1921,
-      "sha256": "3f4b9d202e8de7fb03cf5e9318a70fe335c484213e0cee2b0be5322ad8c672df"
+      "sha256": "a19d7de10c3672f94f0c2dccfbef62b6ac5c141a59e92ae470c501574c2952a7"
     },
     {
       "path": "LICENSE",
@@ -112,8 +117,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 12500,
-      "sha256": "60f340566bf17af95a4a5f9942d2c8379bdd47eed97a335b5b5fb4c9ac850cce"
+      "bytes": 13143,
+      "sha256": "032c72fe7f50b896d8da05054704c54186824afe0b838111c64bea99acf6b081"
     },
     {
       "path": "RECOVERY.md",
@@ -122,8 +127,8 @@
     },
     {
       "path": "RELEASE-NOTES.md",
-      "bytes": 1053,
-      "sha256": "49596c0875d969bb1c8bd69d78006b9b274938c1cfcf22c822929a35081eadcc"
+      "bytes": 1259,
+      "sha256": "be33582c19e6468e79b3e16c6bd62df745adccd82dd6cb84716b71f1df8e74b1"
     },
     {
       "path": "REMOTE-VALIDATION.md",
@@ -133,7 +138,7 @@
     {
       "path": "SECURITY.md",
       "bytes": 3923,
-      "sha256": "d9fa60f5362bc811751b3e710eac465e744718b33c723d370606652ccd91325f"
+      "sha256": "d1cad09dc8387a013d23355a43dcf1d935419ae2ccb4520cf715f756019a09e1"
     },
     {
       "path": "SOCIAL-RECEIPTS.md",
@@ -288,7 +293,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "1834a81aac8896ac4aadf3e92423903d74a19e5bdbe1ac088aa2e80e8b090235"
+      "sha256": "16c25f602cb3bf3eeb5748aa481693a02328bacaa4f7f53fbbd29a926083d264"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -543,7 +548,7 @@
     {
       "path": "console/index.html",
       "bytes": 4983,
-      "sha256": "a7221eb7d8e0532283e31a06173b846adf5497cf5e2c406a62db051930325547"
+      "sha256": "538ee36795a0d53c59859def88b1d39ccc5c3ca6373abe50c947395a90c570d0"
     },
     {
       "path": "console/style.css",
@@ -598,7 +603,7 @@
     {
       "path": "docs/index.html",
       "bytes": 5919,
-      "sha256": "f7f1a9d7e105b8132237dc6669a76638a374e03a477e15a18e325aae34dee12b"
+      "sha256": "2cb54cb7cc9c204b023eab2d919ec171baecaa7894668865e01ddef5cefafa76"
     },
     {
       "path": "docs/program-auth.mjs",
@@ -788,12 +793,122 @@
     {
       "path": "package-lock.json",
       "bytes": 839,
-      "sha256": "ff1d735db23347317dd890bb1be82e4e37e69309ba94f3a777ad8648ea20a03a"
+      "sha256": "f7b1feb718a6056cf81756e670e4c7644f22c3b3b4f23a44a59abcc2f7b6cf7e"
     },
     {
       "path": "package.json",
       "bytes": 697,
-      "sha256": "9518646ca37b48d18df591a0bad57c966c45455877fff97523abfbb038cc6cf9"
+      "sha256": "6633b55511c75a748baba9e13c6f5354141e65da433a654970c75c3b3d18c02c"
+    },
+    {
+      "path": "polyglot/DEPENDENCIES.md",
+      "bytes": 1425,
+      "sha256": "641ad5569ab4cab2401158f0451347a38e0a94b30d49f811c5dfe221eeaf4296"
+    },
+    {
+      "path": "polyglot/README.md",
+      "bytes": 5715,
+      "sha256": "6ebb0beab970c87451e5bfd2f4d1d921d5d06f9da91ce9efbb820d714f9a3859"
+    },
+    {
+      "path": "polyglot/c/receipt.c",
+      "bytes": 3681,
+      "sha256": "b95b8d82ba16a5d6f2341dd6eb0cddbbe95910eec09bd276049cd76ed3a098fe"
+    },
+    {
+      "path": "polyglot/c/receipt.h",
+      "bytes": 509,
+      "sha256": "8958f234a366c275b702f897fd905d0a3a0118913728848a4d91161c44489bf5"
+    },
+    {
+      "path": "polyglot/conformance.mjs",
+      "bytes": 8005,
+      "sha256": "1ece1ab3c33fa823ff569d7592313dedbd8bb8ead52a56cdf062e10233612779"
+    },
+    {
+      "path": "polyglot/cpp/receipt.cpp",
+      "bytes": 3837,
+      "sha256": "c942277d6b9319b2f7d36d8882982ab7ab73b9841a2cc1d750f4e3035275a8eb"
+    },
+    {
+      "path": "polyglot/csharp/Konaet.Receipt.csproj",
+      "bytes": 383,
+      "sha256": "62e311a078b9bf3aaf7ce5bfaa3ae8d720a4e2852f788aa474d5c9b608e79d32"
+    },
+    {
+      "path": "polyglot/csharp/Program.cs",
+      "bytes": 2143,
+      "sha256": "92c0fca89d4dbab5edb8c49b4679cb8ec5709ae6c8e9998bb9cc616d55e818d4"
+    },
+    {
+      "path": "polyglot/generate-vectors.mjs",
+      "bytes": 1643,
+      "sha256": "398d26056c38ec7c9a1739a80788c625c870ab3afd81354d70af2a9c812dc098"
+    },
+    {
+      "path": "polyglot/go/main.go",
+      "bytes": 1662,
+      "sha256": "3f0b49436f035217ef7b539de70a638f07dfddd8b1effd05b3c37b9f1a8fce03"
+    },
+    {
+      "path": "polyglot/node/export-frame.cjs",
+      "bytes": 733,
+      "sha256": "26dbd788a5a58be58718da3a20835710d2c49cc0468dc0181cd4b7255af67013"
+    },
+    {
+      "path": "polyglot/node/receipt.cjs",
+      "bytes": 1651,
+      "sha256": "4d5295e482e8abc93e59789e21c7221c273b3c218fdf0a84079365ab35d7449b"
+    },
+    {
+      "path": "polyglot/perl/receipt.pl",
+      "bytes": 1401,
+      "sha256": "5ebc7d951275125942e1b65129b0c9f4c92940ec3cd2a32d8546b5f621304648"
+    },
+    {
+      "path": "polyglot/python/receipt.py",
+      "bytes": 1417,
+      "sha256": "d220c2d41225bff0e615f0b157065511a7aa6dfcec20a2c4ef90cbfe21e2c1ed"
+    },
+    {
+      "path": "polyglot/rust/Cargo.lock",
+      "bytes": 2388,
+      "sha256": "43a8696ea2c824d32eda6deaf99d13b32440f0ae6adecafafa6854a177110ab5"
+    },
+    {
+      "path": "polyglot/rust/Cargo.toml",
+      "bytes": 251,
+      "sha256": "d837c239f36bc38a7293daa8ee28da878d20f0f78fa2e15cf5f8a35e0f6985f5"
+    },
+    {
+      "path": "polyglot/rust/src/main.rs",
+      "bytes": 1826,
+      "sha256": "5fc763f361e90e1108b4b6e88f3cf7ffd001d640d84a16826bb82b4e8eebf569"
+    },
+    {
+      "path": "polyglot/shell/receipt.sh",
+      "bytes": 428,
+      "sha256": "983e2450bc5773eef996cc99f8a0d7daa6d3794315bb3822de8a7934c0a2a71b"
+    },
+    {
+      "path": "polyglot/spec/KRP-0001.mediawiki",
+      "bytes": 3353,
+      "sha256": "9e7cb096f0080541970ffc9119a417f86b0d6253dc9c3af74d6b4b2a4d94aaa9"
+    },
+    {
+      "path": "polyglot/spec/krp-0001.tex",
+      "bytes": 2557,
+      "sha256": "9fab0c62edeee06fa6788ec77840cbd3ddccb0a23069f420a8c7ba0d7a35174b"
+    },
+    {
+      "path": "polyglot/vectors.json",
+      "bytes": 22154,
+      "sha256": "529d864a7ea3022b4edeb5284f5d9562530451b08a4baf0537e742ccfc6d0984"
+    },
+    {
+      "path": "polyglot/verify-report.cjs",
+      "bytes": 1239,
+      "sha256": "3475be29d398a21e91f608b830fe4b242ffd9cb9ccd998ab4ca6a34c048fd4f5"
     },
     {
       "path": "runtime/LICENSE",
@@ -881,6 +996,11 @@
       "sha256": "de66c3e0b55e4c3b54340c914a99bae5f3739139362481e0970f1e959060690c"
     },
     {
+      "path": "tests/polyglot.test.mjs",
+      "bytes": 1838,
+      "sha256": "fdeac676f8df8f11fc44efe0ba01153023998fd92c5cbc0eb43343d158b0237e"
+    },
+    {
       "path": "tests/publication.test.mjs",
       "bytes": 3201,
       "sha256": "5c0b632e46124722d2c83f7d5308aded22214be46d5eb364dc6b0c4842972880"
@@ -917,8 +1037,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 9431,
-      "sha256": "14a8809fd6309a19ccbb211ea059fe1babb04206bf5bf7834f3e266163daf7e7"
+      "bytes": 10177,
+      "sha256": "36534b8bd1a453dd322de54e6a6ad8e992c80f51c2f9a5719e044dc7e67b6c63"
     },
     {
       "path": "tools/ko.mjs",
@@ -997,8 +1117,8 @@
     },
     {
       "path": "tools/social-receipt.cjs",
-      "bytes": 5102,
-      "sha256": "08d1df3dbfcd2a3af75f8ee7d3891c29e858b64a260f03f59bd45165d2a0432d"
+      "bytes": 5467,
+      "sha256": "edadb526da090e12b18ded2a624b9a860888a1b5550accf3233ba388c5aef6a7"
     },
     {
       "path": "tools/validator-worker.cjs",

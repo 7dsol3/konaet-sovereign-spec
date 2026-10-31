@@ -8,7 +8,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.7.2 · .ko Studio · Consenso v8**
+**Native Chain · Console 1.8.0 · .ko Studio · Consenso v8**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -53,7 +53,7 @@ não autorizada não ocupa o catálogo de contratos. Redes v7 existentes mantêm
 suas regras e seus dados; não há migração automática de saldos ou gênese.
 [Recuperação, capacidade e mudanças da edição 1.7](RECOVERY.md).
 
-A edição 1.7.2 retoma automaticamente trabalho pendente quando o quórum
+A edição 1.8.0 retoma automaticamente trabalho pendente quando o quórum
 volta a se conectar. A homologação inclui VMs separadas com mTLS de ponta
 a ponta, perda de quórum e recuperação de processo interrompido.
 [Roteiro e critérios verificáveis](REMOTE-VALIDATION.md).
@@ -75,6 +75,20 @@ o consenso na sua instância local. Os saldos existentes da instalação
 principal Konaet não são migrados para esses exemplos.
 
 ## Operação e entrada HTTPS
+
+## Recibos da rede social
+
+## Integração em várias linguagens
+
+O **[Konaet Polyglot Receipt Kit](polyglot/README.md)** prepara e confere
+compromissos para `.ko` em **C, C++, C#, Python, Rust, Perl, Go e Node.js**,
+com entrada Shell e especificação Wikitext/TeX. Os clientes preservam os
+256 bits do compromisso em dois argumentos `u128`, sem arredondamento.
+
+O harness compara vetores canônicos, rejeita entradas malformadas e envia
+o resultado de cada cliente ao contrato real em quatro processos
+validadores. A finalização é conferida pelo verificador Node do consenso.
+Os clientes não contêm chaves ou privilégios de operador.
 
 ## Recibos da rede social
 
@@ -138,7 +152,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.7.2.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.8.0.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 

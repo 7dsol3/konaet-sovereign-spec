@@ -2,7 +2,7 @@
 
 ## Console pronto para executar
 
-A edição 1.7.2 inclui os nós e o console com novas redes v8. No Windows, extraia o asset
+A edição 1.8.0 inclui os nós e o console com novas redes v8. No Windows, extraia o asset
 `Konaet-Console-Windows-x64.zip` e abra `Iniciar-Konaet.bat`. Pelo código,
 use `npm ci --ignore-scripts` e `npm start` com Node.js 24.22.2+ da série 24.
 Não é necessário criar um roster para essa demonstração.

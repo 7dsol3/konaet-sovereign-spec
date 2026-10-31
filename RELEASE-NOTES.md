@@ -1,12 +1,14 @@
-Recibos da Konaet Social e distribuição assinada
-================================================
+Konaet Polyglot Receipt Kit e distribuição assinada
+==================================================
 
-- Novo SocialReceiptRegistry.ko: compromissos de eventos autorizados, com salt,
-  sem conteúdo privado na chamada e com capacidade explícita por instância.
-- SDK Node para preparar compromissos e verificar inclusão, execução e
-  finalização com gênese e contrato fixados.
-- Integração testada em quatro processos, incluindo autorização, adulteração,
-  preservação de saldos e recuperação do registro após reinício.
+- Clientes para C, C++, C#, Python, Rust, Perl, Go e Node.js, com entrada Shell,
+  para preparar e conferir compromissos destinados ao SocialReceiptRegistry.ko.
+- Especificação KRP-0001 em Wikitext e TeX; os documentos não são validadores.
+- Vetores comuns, limites de entrada, comparação exata dos dois u128 e
+  integração de cada cliente com finalização real em quatro processos.
+- Rust com dependências fixadas e C/C++ exercitados com sanitizadores em CI.
+- Documentos e salts privados ficam fora da cadeia. A verificação de inclusão,
+  execução e finalização continua no verificador Node, com referências fixadas.
 - Windows ZIP construído e testado pelo GitHub Actions, com proveniência
   Sigstore assinada pela identidade do workflow e bundle para conferência.
 - main protegida por pull request, CI Windows/Linux, bloqueio de force push

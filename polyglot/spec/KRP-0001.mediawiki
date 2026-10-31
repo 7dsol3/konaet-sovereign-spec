@@ -1,0 +1,71 @@
+<pre>
+  KRP: 0001
+  Title: Konaet Portable Social Commitment Frame
+  Author: Adilson Oliveira / 7dsol3
+  Version: 1
+  Type: Application interoperability
+  License: ISC
+</pre>
+
+== Purpose ==
+Encode a private social opening as exact bytes and derive the two u128
+arguments accepted by SocialReceiptRegistry.ko. This is a Konaet application
+format; it is not a Bitcoin BIP and does not change the consensus protocol.
+
+== Input ==
+An ASCII stream of exactly three LF-terminated lines, with no CR, BOM,
+whitespace suffixes or trailing records:
+# A salt of exactly 64 lowercase hexadecimal characters (32 bytes).
+# Opaque canonical document bytes encoded as 4 to 32768 lowercase hex characters,
+  with even length (2 to 16384 bytes).
+# An expected digest of exactly 64 lowercase hex characters, or a single dash.
+
+The complete stream is bounded at 32900 bytes. Hex decoding MUST reject
+uppercase, non-hex symbols and odd length. Implementations MUST reject
+malformed input before producing any result. The SDK, not these clients,
+performs JSON normalization. Salt generation for real openings MUST use a
+cryptographically secure random generator and MUST produce 32 bytes.
+
+== Commitment ==
+Let S be the decoded salt and D the decoded document. Let P be the ASCII
+bytes of KONAET/SOCIAL-RECEIPT/v1 followed by one zero byte.
+
+<pre>
+C = SHA-256(P || S || D)
+high = unsigned big-endian integer C[0..15]
+low  = unsigned big-endian integer C[16..31]
+</pre>
+
+Both integers are printed as exact decimal strings in the interval
+0 through 2^128-1. No floating-point conversion, truncation or signed
+interpretation is permitted. Every bit of C is retained by the pair.
+
+== Output and exit status ==
+The output is one JSON object with commitment (64 lowercase hex characters),
+args (two decimal strings) and matches (true, false or null). Output key
+order is not significant. With a dash reference matches is null and exit
+status is zero. A correct reference yields true and zero. A different
+reference yields false and one. Invalid input yields exit two, no standard
+output and a bounded error on standard error.
+
+== Security boundary ==
+The stream contains the private opening material; do not expose it in logs
+or process arguments. Use stdin. A matching hash proves an opening matches
+the supplied digest, not inclusion in a ledger, legal authorship or truth
+of the document. Inclusion and finality require the separate consensus
+verifier with trusted genesis and contract identifiers. The salt does not
+hide the operator's public signing address. SHA-256 is used from existing
+cryptographic libraries; this specification introduces no new hash function.
+
+== Conformance ==
+All executable clients share 12 SDK-generated synthetic vectors, mismatch
+checks, 20 malformed-input cases and the 16 KiB boundary test. Their output
+is submitted to the real .ko registry in a four-process permissioned network
+and its quorum certificate is checked by the existing Node verifier.
+C and C++ checks additionally use address and undefined-behavior sanitizers.
+
+== Node membership ==
+Public code does not grant a validator identity. An existing network's
+genesis and its configured validator roster determine consensus membership.
+The registry owner controls write authorization. The ISC software license
+continues to apply to copying, use and modification of this distribution.

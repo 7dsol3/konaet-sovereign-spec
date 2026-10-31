@@ -1,0 +1,15 @@
+[package]
+name = "konaet-receipt"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.85"
+license = "ISC"
+authors = ["Adilson Oliveira / 7dsol3"]
+publish = false
+
+[dependencies]
+sha2 = "=0.10.9"
+
+[profile.release]
+overflow-checks = true
+strip = true
