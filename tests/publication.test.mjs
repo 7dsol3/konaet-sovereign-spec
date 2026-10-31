@@ -3,6 +3,23 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { ROOT, inventory, verifyFilePolicy } from '../tools/files.mjs';
+import { verifyVersionAgreement, verifyDocumentLinks, verifyPublicationMetadata } from '../tools/publication-checks.mjs';
+
+test('distribution versions and documentation agree with the publication manifest', () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'publication-manifest.json'), 'utf8'));
+  verifyPublicationMetadata(ROOT, manifest);
+});
+
+test('documentation verification catches broken HTML images and references outside the package', () => {
+  assert.throws(() => verifyDocumentLinks(ROOT, 'README.md', '<img src="assets/missing-cover.png">'), /DOCUMENT_LINK_MISSING/);
+  assert.throws(() => verifyDocumentLinks(ROOT, 'README.md', '[outside](../outside.md)'), /DOCUMENT_LINK_OUTSIDE_PUBLICATION/);
+  verifyDocumentLinks(ROOT, 'README.md', '<img src="assets/puzzle-do-dia.png">');
+});
+
+test('a mismatched distribution version cannot be presented as the current edition', () => {
+  assert.throws(() => verifyVersionAgreement({ package: '1.6.1', chain: '1.6.0' }), /PUBLICATION_VERSION_MISMATCH/);
+  assert.throws(() => verifyVersionAgreement({ package: 'not-a-version' }), /PACKAGE_VERSION_INVALID/);
+});
 
 test('publication uses an explicit file set and refuses unplanned content', () => {
   const rows = inventory();

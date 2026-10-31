@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { ROOT, inventory, verifyFilePolicy } from './files.mjs';
 import { verifyTransferVector } from '../lib/event.mjs';
+import { verifyPublicationMetadata } from './publication-checks.mjs';
 
 try {
   const files = inventory();
@@ -12,6 +13,7 @@ try {
   assert.equal(manifest.publicNetworkDeployed, false);
   assert.equal(manifest.containsProductionKeys, false);
   assert.deepEqual(manifest.files, files, 'PUBLICATION_INTEGRITY_MISMATCH');
+  verifyPublicationMetadata(ROOT, manifest);
   for (const row of files) {
     if (row.path.endsWith('.png')) continue;
     const text = fs.readFileSync(path.join(ROOT, row.path), 'utf8');

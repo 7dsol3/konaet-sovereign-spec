@@ -75,7 +75,8 @@ export async function startConsole({ dataDirectory = path.join(root, '.konaet-co
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const app = await startConsole();
-    console.log(`\nKONAET CONSOLE 1.6.0\n\nConsole: ${app.url}\nQuatro processos validadores v7. Dados de teste em .konaet-console-v7\nFeche pelo console ou pressione Ctrl+C para encerrar.\n`);
+    const version = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version;
+    console.log(`\nKONAET CONSOLE ${version}\n\nConsole: ${app.url}\nQuatro processos validadores v7. Dados de teste em .konaet-console-v7\nFeche pelo console ou pressione Ctrl+C para encerrar.\n`);
     const stop = () => { void app.close().then(() => process.exit(0)); };
     process.on('SIGINT', stop); process.on('SIGTERM', stop);
     if (!process.argv.includes('--no-browser')) {

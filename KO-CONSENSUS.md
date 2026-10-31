@@ -19,7 +19,7 @@ flowchart LR
 
 ## Usar no console
 
-Baixe a versão 1.6.0, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
+Baixe a versão 1.6.1, extraia o pacote Windows e abra `Iniciar-Konaet.bat`.
 No código-fonte, execute `npm ci --ignore-scripts` e `npm start`.
 O console abre apenas em `127.0.0.1`, inicia quatro processos e usa uma
 instância própria em `.konaet-console-v7/`.
@@ -33,6 +33,20 @@ instância própria em `.konaet-console-v7/`.
 ```sh
 node tools/verify-contract-receipt.cjs konaet-contrato-recibo.json
 ```
+
+Para conferir a rede e o ponto de partida pretendidos, use hashes obtidos
+por um canal confiável, separado do próprio recibo:
+
+```sh
+node tools/verify-contract-receipt.cjs konaet-contrato-recibo.json --genesis-id GENESIS_ID_ESPERADO --previous-root RAIZ_ANTERIOR_ESPERADA
+```
+
+Os valores são hashes de 64 caracteres hexadecimais minúsculos. Uma gênese
+ou raiz diferente é recusada. O resultado informa `genesisPinned` e
+`previousStatePinned`. Sem essas opções, `verified` significa consistência
+criptográfica com a gênese incluída; não identifica por si só a rede que o
+usuário pretendia consultar. Copiar os hashes do mesmo recibo recebido não
+estabelece uma fonte independente de confiança.
 
 O verificador recompila o fonte, verifica os dois níveis de assinatura,
 reexecuta o ledger com a política da gênese, confere a raiz e valida o

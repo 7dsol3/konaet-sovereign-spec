@@ -46,7 +46,7 @@ process.on('message', async message => {
       const proposal = Object.fromEntries(['networkId', 'protocolVersion', 'sequence', 'constellationId', 'previousRoot', 'nextRoot', 'transitionTrace', 'pcc'].map(key => [key, record[key]]));
       result = { schema: 'konaet.ko-consensus-receipt.v1', genesis: node.genesis, beforeState: message.beforeState,
         events: record.events.map(bytes => Buffer.from(bytes).toString('base64')), proposal, certificate: record.certificate, afterState: node.ledger.getState().snapshot() };
-      verifyContractReceipt(result);
+      verifyContractReceipt(result, { expectedGenesisId: node.genesis.genesisId, expectedPreviousRoot: record.previousRoot });
     }
     else if (message.command === 'wait') result = await node.waitForSequence(BigInt(message.sequence), 15000).then(() => true);
     else if (message.command === 'close') { await close(); return; }

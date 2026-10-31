@@ -1,6 +1,6 @@
 # Segurança
 
-## Console 1.6.0
+## Console 1.6.1
 
 O console abre HTTP e quatro listeners WebSocket em `127.0.0.1`, com portas
 automáticas. As requisições que assinam transferências exigem um token aleatório
@@ -37,6 +37,12 @@ de rede passa a ser verificado também no caminho do cache.
 
 ## Verificador e runtime
 
+O verificador de certificados aceita `--genesis-id` e `--previous-root`
+para comparar os hashes esperados da rede e do estado anterior. Obtenha
+essas referências por um canal confiável independente. A saída explicita
+se cada referência foi fixada; um recibo autocontido de outra rede pode
+ser criptograficamente consistente sem pertencer à rede desejada.
+
 O verificador público confere o perfil de evento descrito em PROTOCOL.md.
 O interpretador `.ko` limita fonte, regras e contexto, sem avaliação de código
 arbitrário. No nó, a política complementa as regras obrigatórias do ledger.
@@ -51,4 +57,4 @@ Abra uma issue com versão, entradas de teste, passos e resultado esperado.
 Para vulnerabilidades sensíveis, utilize os advisories privados do repositório
 quando disponíveis. Não publique seeds, credenciais ou dados reais.
 
-Artefatos suportados nesta edição: nós, runtime, console, gateway e documentação 1.6.0.
+Artefatos suportados nesta edição: nós, runtime, console, gateway e documentação 1.6.1.

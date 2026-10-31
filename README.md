@@ -1,8 +1,3 @@
-
-<img width="1536" height="1024" alt="exec-4b8918de-ec29-4ba1-96e0-626d1e516cde" src="https://github.com/user-attachments/assets/496ecf58-b3c9-4b6e-b2a4-8f41c0e34eab" />
-
-
-
 <div align="center">
   <img src="assets/konaet-native-cover.svg" width="100%" alt="Konaet Soberana — tecnologia com identidade própria">
 
@@ -11,7 +6,7 @@
 
 # Konaet Soberana
 
-**Native Chain · Console 1.6.0 · .ko Studio · Consenso v7**
+**Native Chain · Console 1.6.1 · .ko Studio · Consenso v7**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -49,6 +44,11 @@ e chamada. Cada validador executa o programa; contas, contratos e recibos
 entram na raiz antes do voto e da persistência. O console roda quatro
 processos e exporta recibos com certificado de quórum.
 [Usar contratos no consenso](KO-CONSENSUS.md).
+
+Ao conferir um certificado recebido, fixe a identidade da rede com
+`--genesis-id` e, quando disponível, a raiz anterior com `--previous-root`.
+Essas referências devem vir de um canal confiável independente do recibo.
+[Assinaturas, certificados e referências de confiança](KO-CONSENSUS.md#usar-no-console).
 
 O Studio público executa a VM no navegador. O console Windows/Node executa
 o consenso na sua instância local. Os saldos existentes da instalação
@@ -100,7 +100,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.6.0.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.6.1.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 
@@ -173,6 +173,10 @@ assinadas, verifica convergência, rejeita gasto sem saldo, encerra os processos
 e recupera os mesmos saldos e raiz depois de reiniciar. Também testa o bloqueio
 de requisições sem autorização local e a aplicação de `.ko`.
 O CI executa os testes em Windows e Linux.
+`npm run verify` também confere versões dos pacotes, manifesto e links
+relativos da documentação, incluindo as imagens HTML no README.
+Depois de editar um arquivo distribuído, execute `npm run manifest` e
+`npm run verify` antes de publicar.
 
 ## Executar `.ko` pela linha de comando
 
@@ -201,5 +205,9 @@ Consulte a [arquitetura e os recursos da Konaet](COMPARISON.md) para acompanhar
 o caminho do fonte `.ko` até a execução pelos validadores.
 
 Projeto de [7dsol3](https://github.com/7dsol3). As edições anteriores permanecem
-nas tags. O [puzzle do dia](assets/puzzle-do-dia.png) continua como material de
-humor do projeto.
+nas tags.
+
+<details>
+  <summary>O puzzle do dia — material visual da Konaet</summary>
+  <img src="assets/puzzle-do-dia.png" width="100%" alt="Konaet .ko — o puzzle do dia e o recibo verificável">
+</details>
