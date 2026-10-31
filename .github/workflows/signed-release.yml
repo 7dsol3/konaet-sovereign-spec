@@ -1,0 +1,87 @@
+name: Konaet signed Windows release
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag on the protected main history
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: konaet-signed-release
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.repository == '7dsol3/konaet-sovereign-spec' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - name: Require an immutable tag at this protected source revision
+        shell: pwsh
+        run: |
+          if ($env:RELEASE_TAG -notmatch '^v[0-9]+\.[0-9]+\.[0-9]+$') { throw 'Invalid release tag' }
+          $tagged = git rev-parse --verify "refs/tags/$env:RELEASE_TAG^{commit}"
+          if ($LASTEXITCODE -ne 0 -or $tagged -ne $env:GITHUB_SHA) { throw 'Tag must point to this workflow source commit' }
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($env:RELEASE_TAG -ne "v$version") { throw 'Version mismatch' }
+          gh release view $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY 2>$null
+          if ($LASTEXITCODE -eq 0) { throw 'Published releases are never overwritten' }
+          $global:LASTEXITCODE = 0
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: npm run verify
+      - name: Build the allowlisted Windows distribution
+        run: node tools/package-windows.mjs
+      - name: Check hashes and execute the extracted distribution
+        shell: pwsh
+        run: |
+          Expand-Archive -LiteralPath dist/Konaet-Console-Windows-x64.zip -DestinationPath "$env:RUNNER_TEMP/konaet-release-check"
+          Push-Location "$env:RUNNER_TEMP/konaet-release-check/Konaet-Console"
+          try {
+            & .\bin\node.exe tools/verify-package.mjs
+            if ($LASTEXITCODE -ne 0) { throw 'Package integrity failed' }
+            & .\bin\node.exe tools/verify-publication.mjs
+            if ($LASTEXITCODE -ne 0) { throw 'Publication verification failed' }
+            & .\bin\node.exe --test 'tests/*.test.mjs' 'tests/*.test.cjs' 'chain/vlock7sin-js/tests/*.test.js'
+            if ($LASTEXITCODE -ne 0) { throw 'Extracted package tests failed' }
+          } finally { Pop-Location }
+      - name: Sign build provenance with the workflow identity
+        id: provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6
+        with:
+          subject-path: dist/Konaet-Console-Windows-x64.zip
+      - name: Verify the signature before publishing
+        shell: pwsh
+        env:
+          BUNDLE_PATH: ${{ steps.provenance.outputs.bundle-path }}
+        run: |
+          Copy-Item -LiteralPath $env:BUNDLE_PATH -Destination dist/Konaet-Console-Windows-x64.zip.sigstore.json
+          gh attestation verify dist/Konaet-Console-Windows-x64.zip --repo $env:GITHUB_REPOSITORY --bundle dist/Konaet-Console-Windows-x64.zip.sigstore.json --signer-workflow "$env:GITHUB_REPOSITORY/.github/workflows/signed-release.yml" --source-digest $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { throw 'Attestation verification failed' }
+      - name: Publish the verified package and its signature
+        shell: pwsh
+        run: |
+          gh release create $env:RELEASE_TAG dist/Konaet-Console-Windows-x64.zip dist/Konaet-Console-Windows-x64.zip.sha256 dist/Konaet-Console-Windows-x64.zip.sigstore.json --repo $env:GITHUB_REPOSITORY --verify-tag --title "Konaet Soberana — .ko $($env:RELEASE_TAG.TrimStart('v'))" --notes-file RELEASE-NOTES.md
+          if ($LASTEXITCODE -ne 0) { throw 'Release creation failed' }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: konaet-signed-release-${{ github.run_id }}
+          path: dist/*
+          if-no-files-found: warn
+          retention-days: 7

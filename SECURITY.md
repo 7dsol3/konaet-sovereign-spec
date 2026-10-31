@@ -1,6 +1,6 @@
 # Segurança
 
-## Console 1.7.1
+## Console 1.7.2
 
 O console abre HTTP e quatro listeners WebSocket em `127.0.0.1`, com portas
 automáticas. As requisições que assinam transferências exigem um token aleatório
@@ -53,8 +53,24 @@ pelo operador.
 
 ## Relatar problemas
 
+## Distribuição assinada e proteção do repositório
+
+A `main` exige pull request e os checks `verify (ubuntu-latest)` e
+`verify (windows-latest)` do GitHub Actions, inclusive para administradores.
+Force push e exclusão estão bloqueados. Não é exigida uma aprovação humana
+independente quando não há outro revisor designado.
+
+O workflow `signed-release.yml` exige uma tag na mesma revisão da `main`
+que executa a publicação, confere a versão, testa os fontes e o ZIP extraído
+e gera proveniência Sigstore com identidade OIDC. O bundle é publicado junto
+ao ZIP. A assinatura atesta a origem do build; não representa auditoria
+independente, exclusividade do código ou aprovação de segurança absoluta.
+Releases existentes não são sobrescritas por esse workflow.
+
+## Relatar problemas
+
 Abra uma issue com versão, entradas de teste, passos e resultado esperado.
 Para vulnerabilidades sensíveis, utilize os advisories privados do repositório
 quando disponíveis. Não publique seeds, credenciais ou dados reais.
 
-Artefatos suportados nesta edição: nós, runtime, console, gateway e documentação 1.7.1.
+Artefatos suportados nesta edição: nós, runtime, console, gateway e documentação 1.7.2.

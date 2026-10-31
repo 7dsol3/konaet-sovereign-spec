@@ -5,6 +5,13 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  ".github/workflows/signed-release.yml",
+  "RELEASE-NOTES.md",
+  "SOCIAL-RECEIPTS.md",
+  "chain/ko-program/examples/SocialReceiptRegistry.ko",
+  "docs/examples/SocialReceiptRegistry.ko",
+  "tests/social-receipt.test.mjs",
+  "tools/social-receipt.cjs",
   "VALIDATION-RESULTS.md",
   "assets/remote-endurance.svg",
   "evidence/remote-hour-2026-10-31/controller.json",
