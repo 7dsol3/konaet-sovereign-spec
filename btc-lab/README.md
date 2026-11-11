@@ -7,7 +7,7 @@ Não se atribui a esta integração a invenção de secp256k1, SHA-256 ou Bitcoi
 
 ## Executar no Windows
 
-Instale o SDK .NET 8 e execute na pasta da especificação:
+Instale o SDK .NET 8.0.101 validado e execute na pasta da especificação:
 
 ```powershell
 ./btc-lab/Start-KonaetPuzzle.ps1 -ValidateOnly
@@ -23,7 +23,7 @@ com timeout de dez segundos por processo. O máximo configurável é 60 minutos.
 Não instala serviço nem inicia automaticamente com o Windows.
 
 O estado fica na pasta de dados local do usuário, em
-`Konaet/PuzzleWorker/state`. `checkpoint.json` registra somente intervalos
+`Konaet/PuzzleWorker/v1/state`. `checkpoint.json` registra somente intervalos
 inteiramente conferidos. Um resultado parcial mantém o início para repetir
 o trecho; a contagem agregada nunca é interpretada como prefixo completo.
 `worker.lock` impede sessões simultâneas no mesmo estado. Crie um arquivo

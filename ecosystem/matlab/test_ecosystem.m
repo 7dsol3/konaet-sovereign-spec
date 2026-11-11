@@ -8,6 +8,8 @@ for i=1:numel(vectors.cases)
     v=vectors.cases(i); frame=sprintf('%s\n%s\n%s\n',v.salt,v.documentHex,v.commitment);
     result=konaet_receipt_frame(frame);
     assert(result.matches && isequal(result.args,reshape(cellstr(string(v.args)),1,[]))); checks=checks+1;
+    mismatch=frame; if mismatch(end-1)=='0', mismatch(end-1)='1'; else, mismatch(end-1)='0'; end
+    compared=konaet_receipt_frame(mismatch); assert(~compared.matches); checks=checks+1;
     changed=frame; changed(end-1)='g'; rejects(@() konaet_receipt_frame(changed)); checks=checks+1;
 end
 first=vectors.cases(1); frame=sprintf('%s\n%s\n%s\n',first.salt,first.documentHex,first.commitment);
@@ -72,6 +74,8 @@ function value=revision(root)
 previous=pwd; guard=onCleanup(@() cd(previous)); cd(root); %#ok<NASGU>
 [code,text]=system('git rev-parse HEAD'); value=strtrim(text);
 assert(code==0 && ~isempty(regexp(value,'^[0-9a-f]{40}$','once')),'Full source revision required.');
+[code,status]=system('git status --porcelain --untracked-files=normal');
+assert(code==0 && isempty(strtrim(status)),'Konaet:DirtySource','Commit sources before generating execution evidence.');
 end
 function rejects(operation)
 denied=false; try, operation(); catch exception, denied=startsWith(exception.identifier,'Konaet:'); end

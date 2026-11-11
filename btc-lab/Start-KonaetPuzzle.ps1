@@ -1,6 +1,6 @@
 param(
     [ValidateRange(1,60)][int]$Minutes=10,
-    [string]$StateDirectory=(Join-Path $env:LOCALAPPDATA 'Konaet/PuzzleWorker/state'),
+    [string]$StateDirectory=(Join-Path $env:LOCALAPPDATA 'Konaet/PuzzleWorker/v1/state'),
     [switch]$ValidateOnly
 )
 $ErrorActionPreference='Stop'
@@ -65,6 +65,7 @@ if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) { throw 'Window
 $root=$PSScriptRoot; $registry=Join-Path $root 'data/puzzle_addresses.json'
 if ((Get-FileHash -LiteralPath $registry -Algorithm SHA256).Hash.ToLowerInvariant() -cne $script:KonaetCatalog) { throw 'Public catalog hash mismatch' }
 $lockFile=Join-Path $root 'source-lock.json'
+$sourceDigest=(Get-FileHash -LiteralPath $lockFile).Hash.ToLowerInvariant()
 $sourceLock=Get-Content -LiteralPath $lockFile -Raw | ConvertFrom-Json
 foreach($entry in $sourceLock.files) {
     if ($entry.path -notmatch '^(src/Konaet\.BtcLab/[A-Za-z0-9./_-]+|data/[A-Za-z0-9._-]+|tests/[A-Za-z0-9._-]+)$' -or $entry.path.Contains('..')) { throw 'Invalid source lock path' }
@@ -86,6 +87,8 @@ $lease=[IO.File]::Open((Join-Path $statePath 'worker.lock'),[IO.FileMode]::OpenO
 try {
     $installation=Split-Path $statePath -Parent; $binary=Join-Path $installation 'bin'
     $build=Join-Path $installation 'build.log'
+    $sdk=(& dotnet --version).Trim()
+    if ($sdk -cne '8.0.101') { throw 'Use the validated .NET SDK 8.0.101 for this worker' }
     & dotnet build (Join-Path $root 'src/Konaet.BtcLab/Konaet.BtcLab.csproj') -c Release --nologo -o $binary *> $build
     if ($LASTEXITCODE -ne 0) { throw 'Build failed; inspect local build.log' }
     $dll=Join-Path $binary 'Konaet.BtcLab.dll'; $digest=(Get-FileHash -LiteralPath $dll).Hash.ToLowerInvariant()
@@ -93,17 +96,20 @@ try {
     if (Test-Path -LiteralPath $checkpoint) {
         $state=Get-Content -LiteralPath $checkpoint -Raw | ConvertFrom-Json
         if ($state.schema -cne 'konaet.public-puzzle-checkpoint.v1' -or $state.puzzle -ne 71 -or $state.address -cne $script:KonaetAddress -or
-            $state.catalogSha256 -cne $script:KonaetCatalog -or $state.binarySha256 -cne $digest -or
+            $state.catalogSha256 -cne $script:KonaetCatalog -or $state.sourceSha256 -cne $sourceDigest -or $state.sdk -cne $sdk -or
             $state.keysCompleted -notmatch '^(0|[1-9][0-9]*)$') { throw 'Checkpoint belongs to a different validated worker' }
         $next=Read-KonaetInteger $state.nextHex
         if ($next -lt $minimum -or $next -gt $end) { throw 'Checkpoint outside public interval' }
+        if ([Numerics.BigInteger]::Parse([string]$state.keysCompleted) -gt $minimum) { throw 'Checkpoint count outside public interval' }
         if (Test-Path -LiteralPath (Join-Path $statePath 'solution.dpapi')) { throw 'Protected result already exists; search remains stopped' }
+        $state.binarySha256=$digest
     } else {
         $entropy=New-Object byte[] 10; $rng=[Security.Cryptography.RandomNumberGenerator]::Create()
         try { $rng.GetBytes($entropy) } finally { $rng.Dispose() }; $entropy[9]=0
         $offset=[Numerics.BigInteger]::new($entropy)%($minimum-32768)
         $state=[pscustomobject]@{schema='konaet.public-puzzle-checkpoint.v1';puzzle=71;address=$script:KonaetAddress;
-            catalogSha256=$script:KonaetCatalog;binarySha256=$digest;nextHex=(Format-KonaetInteger ($minimum+$offset));keysCompleted='0';status='ready'}
+            catalogSha256=$script:KonaetCatalog;sourceSha256=$sourceDigest;sdk=$sdk;binarySha256=$digest;
+            nextHex=(Format-KonaetInteger ($minimum+$offset));keysCompleted='0';status='ready'}
     }
     $clock=[Diagnostics.Stopwatch]::StartNew(); $sessionKeys=[Numerics.BigInteger]::Zero
     while ($clock.Elapsed.TotalMinutes -lt $Minutes -and !(Test-Path -LiteralPath (Join-Path $statePath 'STOP'))) {

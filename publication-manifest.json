@@ -207,13 +207,13 @@
     },
     {
       "path": "btc-lab/README.md",
-      "bytes": 3348,
-      "sha256": "bb01d98c0e7e02bc49aef03e30c697b98144303d42a889ac7de4cb456bd33f8f"
+      "bytes": 3366,
+      "sha256": "5a61a8bb6532fd244756f4958e368cbe2cb5634c7fc71053b62245f545f66f81"
     },
     {
       "path": "btc-lab/Start-KonaetPuzzle.ps1",
-      "bytes": 10327,
-      "sha256": "430d51983535d3f4fa34e8f7b7d719b426a7d2c1f5e502f696552e3f9b78a6d6"
+      "bytes": 10789,
+      "sha256": "a5777b7e6c916c4c7eb10c24d89a90b41e3646c105f4503e1efcbbb29a577d77"
     },
     {
       "path": "btc-lab/Test-KonaetWorker.ps1",
@@ -787,8 +787,8 @@
     },
     {
       "path": "ecosystem/matlab/konaet_ecosystem_visual.m",
-      "bytes": 2566,
-      "sha256": "3c1c0b4a0e75326d62dd04c56a88c55e913fa8bf48ee9d77b59378123dc0dd61"
+      "bytes": 2585,
+      "sha256": "38eaa7774d9eab924b1397bde92497570554604e2b65bcbf47ff54bf0a8ff635"
     },
     {
       "path": "ecosystem/matlab/konaet_receipt_frame.m",
@@ -802,8 +802,8 @@
     },
     {
       "path": "ecosystem/matlab/test_ecosystem.m",
-      "bytes": 5959,
-      "sha256": "758592c8e239ca3127e7af209d25e0524d42353e4bc47bbcdb9a43d9aa656e48"
+      "bytes": 6339,
+      "sha256": "4e0052835423f18285aadc621621311a4a68fffc3cd051245a822383eb532753"
     },
     {
       "path": "evidence/ko-runtime.json",

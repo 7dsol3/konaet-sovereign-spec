@@ -24,8 +24,9 @@ text(ax,75,60,['SOURCE  ' report.sources.sovereign(1:12) '    /    NO PHYSICAL O
 curve=plot(ax,750+12*x,150+800*probability,'Color',violet,'LineWidth',2);
 dot=plot(ax,270,390,'o','Color',cyan,'MarkerFaceColor',cyan,'MarkerSize',12);
 for k=1:24
-    phase=(k-1)/24; set(dot,'XData',270+900*phase);
-    set(curve,'YData',150+800*circshift(probability,round(phase*60)));
+    phase=(k-1)/23; set(dot,'XData',270+900*phase);
+    [~,density]=free_wavepacket(x,2,0.6,3*phase);
+    set(curve,'YData',150+800*density);
     drawnow;
     rgb=print(f,'-RGBImage','-r100'); [indices,map]=rgb2ind(rgb,192);
     file=fullfile(output,'konaet-ecosystem.gif');
