@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/ecosystem.yml",
-      "bytes": 3723,
-      "sha256": "936705624aa76287156c7d70d052f6a70a48c2f760ba9408d7ab53e377b47134"
+      "bytes": 3996,
+      "sha256": "76ed745b51183c79b79112053b344fe0df2641ed9b1303c752d6e1151ba5e129"
     },
     {
       "path": ".github/workflows/linux-service.yml",
@@ -207,8 +207,8 @@
     },
     {
       "path": "btc-lab/Build-KonaetBtc.ps1",
-      "bytes": 7725,
-      "sha256": "271637ca57624e1c0dae993edb8ff0a86d7beec1715fb15a9484f3924b3ca7bb"
+      "bytes": 7813,
+      "sha256": "a7bc6dfcf508b6ce6475b6fc4c508d30dc519f514d42481fccb7373bed30d9da"
     },
     {
       "path": "btc-lab/README.md",

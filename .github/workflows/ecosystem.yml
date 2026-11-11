@@ -86,3 +86,10 @@ jobs:
             dotnet "$env:RUNNER_TEMP/btc/Konaet.BtcLab.dll" selftest
             if ($LASTEXITCODE -ne 0) { throw 'BTC known-answer tests failed' }
           } finally { Pop-Location }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: btc-isolated-build-${{ github.run_id }}
+          path: ${{ runner.temp }}/btc/
+          if-no-files-found: warn
+          retention-days: 14

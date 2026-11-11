@@ -90,9 +90,9 @@ function Build-KonaetBtc([string]$Root,[string]$Output,[string]$Sdk='dotnet') {
         Push-Location $isolated
         try {
             & $Sdk restore $projectFile --configfile (Join-Path $isolated 'NuGet.Config') --disable-parallel @properties *> $buildLog
-            if($LASTEXITCODE -ne 0){throw 'Isolated BTC restore failed; inspect build.log'}
+            if($LASTEXITCODE -ne 0){throw ('Isolated BTC restore failed: '+((Get-Content -LiteralPath $buildLog -Tail 12) -join "`n"))}
             & $Sdk build $projectFile --no-restore -c Release --nologo --disable-build-servers -o $target @properties *>> $buildLog
-            if($LASTEXITCODE -ne 0){throw 'Isolated BTC build failed; inspect build.log'}
+            if($LASTEXITCODE -ne 0){throw ('Isolated BTC build failed: '+((Get-Content -LiteralPath $buildLog -Tail 12) -join "`n"))}
         } finally { Pop-Location }
         $dll=Join-Path $target 'Konaet.BtcLab.dll'
         $provenance=[ordered]@{schema='konaet.btc-isolated-build.v1';sourceLockSha256=$script:KonaetBtcLock;
