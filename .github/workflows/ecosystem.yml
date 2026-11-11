@@ -54,7 +54,7 @@ jobs:
       - name: Finalize this MATLAB event using the unchanged Sovereign runtime
         shell: pwsh
         run: ./ecosystem/Test-KonaetReceipt.ps1 -OutputDirectory artifacts/ecosystem -TrustFile "$env:RUNNER_TEMP/konaet-receipt-trust.json"
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()
         with:
           name: konaet-ecosystem-${{ github.run_id }}-${{ github.run_attempt }}
@@ -87,7 +87,7 @@ jobs:
             dotnet "$env:RUNNER_TEMP/btc/Konaet.BtcLab.dll" selftest
             if ($LASTEXITCODE -ne 0) { throw 'BTC known-answer tests failed' }
           } finally { Pop-Location }
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()
         with:
           name: btc-isolated-build-${{ github.run_id }}

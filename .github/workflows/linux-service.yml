@@ -67,7 +67,7 @@ jobs:
           sudo journalctl -u konaet-gateway.service --no-pager -n 20
           sudo systemctl stop konaet-validator@0.service konaet-gateway.service || true
           if test -f "$RUNNER_TEMP/konaet-nginx/nginx.pid"; then sudo nginx -s quit -c "$RUNNER_TEMP/konaet-nginx/nginx.conf"; fi
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()
         with:
           name: konaet-linux-service-${{ github.run_id }}
