@@ -1,4 +1,7 @@
 node_modules/
+obj/
+.dependencies/
+artifacts/
 .DS_Store
 Thumbs.db
 *.log

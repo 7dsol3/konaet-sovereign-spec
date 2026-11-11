@@ -16,6 +16,11 @@
       "sha256": "afb6606afd0e59e04379303a70d299a20035ccba946948a7b94a14e2b06aa66a"
     },
     {
+      "path": ".github/workflows/ecosystem.yml",
+      "bytes": 3306,
+      "sha256": "a11baf8712c078b5806f1c144e1125e7efb6eecf29ff6daf894e08b5aa4ce941"
+    },
+    {
       "path": ".github/workflows/linux-service.yml",
       "bytes": 4100,
       "sha256": "dda9c3ae3ccdee23068f5606472e47a89841db751a4a16f85fb0e850994a2443"
@@ -37,8 +42,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 279,
-      "sha256": "98042d861c018c10208adc0724b634f24c022de48bded8061f65b5b71e8bb6af"
+      "bytes": 310,
+      "sha256": "58b96a2dd2ea8abf71fb4a9a82806b5953bd34b7c899fc9f4f19003e721bb3f1"
     },
     {
       "path": "AUDIT-1.8.1.md",
@@ -122,8 +127,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13786,
-      "sha256": "fbdfa3cc0fb6245a1cecb9895d547f8cf51067f22e8230cb0d4a63d4632873d1"
+      "bytes": 13951,
+      "sha256": "cc561dbed4a70fa4b70816bf64d19f257f11dd9fbe8d8c72e51c9880ba59d368"
     },
     {
       "path": "RECOVERY.md",
@@ -199,6 +204,101 @@
       "path": "assets/snd.svg",
       "bytes": 1076,
       "sha256": "07904a30c3cc89b98566a0d039593abd0447799af876fe6521d089c420e60725"
+    },
+    {
+      "path": "btc-lab/README.md",
+      "bytes": 3348,
+      "sha256": "bb01d98c0e7e02bc49aef03e30c697b98144303d42a889ac7de4cb456bd33f8f"
+    },
+    {
+      "path": "btc-lab/Start-KonaetPuzzle.ps1",
+      "bytes": 10223,
+      "sha256": "be904691f1188047bc5d1383b1023ede97750e9921d070a97406cc74ad8c8230"
+    },
+    {
+      "path": "btc-lab/Test-KonaetWorker.ps1",
+      "bytes": 2562,
+      "sha256": "63a231538cda5cfbf10f0a6bee6f15d350c7f645dcd4c78627844a74f91f4a6f"
+    },
+    {
+      "path": "btc-lab/data/puzzle_addresses.json",
+      "bytes": 19139,
+      "sha256": "97ad3092f01c37049bf7ef461f740d34187c4244aa5223e5f16a4772743365e0"
+    },
+    {
+      "path": "btc-lab/data/tx71.json",
+      "bytes": 26447,
+      "sha256": "86a4ae3f597e70358112c5b8a8d37d11e7b0e194fb77f779f944d14df44b87b1"
+    },
+    {
+      "path": "btc-lab/source-lock.json",
+      "bytes": 4002,
+      "sha256": "604d5d7aa6eaed1a0f86c287c34be434f98efa28c8d8ab2b3132b5a0ecf63682"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Audit/BinaryAudit.cs",
+      "bytes": 36488,
+      "sha256": "d234e606297e21abd6af2b90df320e1037d842f0f440450fd9d10157102e548a"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Chain/Mempool.cs",
+      "bytes": 31249,
+      "sha256": "6d61940d37cb859b833f07459caf35c5b8133467fa11bb66ef1633fd3d0515b8"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Chain/Puzzles.cs",
+      "bytes": 7741,
+      "sha256": "573a5422e53ea654dc62434750ff7995a81d564211816d41a2a4f2785adc8b31"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Chain/Scripts.cs",
+      "bytes": 2044,
+      "sha256": "732451c4cd63b3ca9e10bcfa282b2672ee1fbb582bae18b1edc9aec7ed2fccb7"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Core/BtcHash.cs",
+      "bytes": 8624,
+      "sha256": "e24b2db2badb1e703ec67f51fce16a1af0479c39329c2776531d00cb342c3f13"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Core/Curve.cs",
+      "bytes": 6081,
+      "sha256": "91692041e0a380f7a0b011f18dc13364bcb0d659345ac6f1f4bcb27f7dcf2345"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Core/Ref.cs",
+      "bytes": 3146,
+      "sha256": "13a779b26edf15ab7560061022a87b93a82bb2619c0e5bc6da45034e56ebc83e"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Core/U256.cs",
+      "bytes": 9584,
+      "sha256": "8a470812c1dd562a6e5c9f60fc29568deddad19b2345d8dd4556eabe8cf17ecc"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Konaet.BtcLab.csproj",
+      "bytes": 252,
+      "sha256": "8d5bb1bf8634e3fab11f1f50d464ec6ce923222265ffb946f26faa9528008b2c"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Program.cs",
+      "bytes": 95862,
+      "sha256": "69b5f5d7472ed522587ce21f025a1e260bd9951bac0273ff11f8cc9b12b39fb6"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Solver/KeyHunter.cs",
+      "bytes": 10372,
+      "sha256": "f6cd879d238f0bde95575ba71d0520bf4caa237a12ae721170e5abc1557f5d06"
+    },
+    {
+      "path": "btc-lab/src/Konaet.BtcLab/Solver/RoundtripKit.cs",
+      "bytes": 1479,
+      "sha256": "656d12208950ff3bc8b1e2f6eb0aa6520574a240c089aeb05c153f64687eeb57"
+    },
+    {
+      "path": "btc-lab/tests/ripemd160_kat.txt",
+      "bytes": 8148,
+      "sha256": "bca5ab74e68d8f56b49e36399f3add56cb90e64a4d60d4239ae0c611a97fe573"
     },
     {
       "path": "chain/contracts-ko/SindraRuntime.ko",
@@ -676,6 +776,36 @@
       "sha256": "b611e93928b698835e80caf90e3386b1be8675d43319c8f330f0a07266c9dc78"
     },
     {
+      "path": "ecosystem/README.md",
+      "bytes": 3901,
+      "sha256": "35defa829fcfe17948cf49d9d8037172e89f04c64605a317abd92d53d8d2b10a"
+    },
+    {
+      "path": "ecosystem/Test-KonaetReceipt.ps1",
+      "bytes": 1623,
+      "sha256": "d53abb4f802dc4893b9ab03338c575d9033d55fc72466e64a88a01f17478a16e"
+    },
+    {
+      "path": "ecosystem/matlab/konaet_ecosystem_visual.m",
+      "bytes": 2566,
+      "sha256": "3c1c0b4a0e75326d62dd04c56a88c55e913fa8bf48ee9d77b59378123dc0dd61"
+    },
+    {
+      "path": "ecosystem/matlab/konaet_receipt_frame.m",
+      "bytes": 1968,
+      "sha256": "a6caa7dd05367abe07faadd8e113c0936cb2f4036ca67ba1331a9700bda69b52"
+    },
+    {
+      "path": "ecosystem/matlab/konaet_run_event.m",
+      "bytes": 2993,
+      "sha256": "b376cdfdfdc2280701a8a06750a2316d28e6acba1eb393ae672323a4f640702b"
+    },
+    {
+      "path": "ecosystem/matlab/test_ecosystem.m",
+      "bytes": 5959,
+      "sha256": "758592c8e239ca3127e7af209d25e0524d42353e4bc47bbcdb9a43d9aa656e48"
+    },
+    {
       "path": "evidence/ko-runtime.json",
       "bytes": 710,
       "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
@@ -1112,8 +1242,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 10762,
-      "sha256": "7627fcc9f6e6b8a64931311a29bd8986509ff83f839b504556fc1846c5c7a043"
+      "bytes": 11875,
+      "sha256": "1d7c034d6789a379740743c7ca78eb5edbe5fac43b85413900e03f069e1c1ebb"
     },
     {
       "path": "tools/ko.mjs",

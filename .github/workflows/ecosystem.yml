@@ -1,0 +1,81 @@
+name: KONAET ecosystem receipts
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths: ['ecosystem/**', 'btc-lab/**', '.github/workflows/ecosystem.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: konaet-ecosystem-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  receipt:
+    name: Three-repository receipt
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: 7dsolv/RealidadeQuantica
+          ref: 0ab2c52060d7bded63104093a63c0a61dac8f060
+          path: .dependencies/laboratory
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: 7dsolv/konaet-bot
+          ref: 7506bfda2a6fb503e0457132e149f560fd83295a
+          path: .dependencies/bot
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d
+        with:
+          release: R2026b
+      - uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5
+        with:
+          command: addpath('ecosystem/matlab'); test_ecosystem(pwd,fullfile(pwd,'.dependencies/laboratory'),fullfile(pwd,'.dependencies/bot'),fullfile(pwd,'artifacts/ecosystem'));
+      - name: Finalize this MATLAB event using the unchanged Sovereign runtime
+        shell: pwsh
+        run: ./ecosystem/Test-KonaetReceipt.ps1 -OutputDirectory artifacts/ecosystem
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: konaet-ecosystem-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/ecosystem
+          if-no-files-found: error
+          retention-days: 30
+  btc-tests:
+    name: BTC cryptography and checkpoints
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+        with:
+          dotnet-version: '8.0.101'
+      - name: Verify byte-preserved imported source and supervisor regressions
+        shell: powershell
+        run: |
+          ./btc-lab/Start-KonaetPuzzle.ps1 -ValidateOnly
+          ./btc-lab/Test-KonaetWorker.ps1
+      - name: Build and test known cryptographic vectors only
+        shell: pwsh
+        run: |
+          dotnet build btc-lab/src/Konaet.BtcLab -c Release --nologo -o "$env:RUNNER_TEMP/btc" "-p:BaseIntermediateOutputPath=$env:RUNNER_TEMP/btc-obj/"
+          if ($LASTEXITCODE -ne 0) { throw 'BTC build failed' }
+          Push-Location btc-lab
+          try {
+            dotnet "$env:RUNNER_TEMP/btc/Konaet.BtcLab.dll" selftest
+            if ($LASTEXITCODE -ne 0) { throw 'BTC known-answer tests failed' }
+          } finally { Pop-Location }

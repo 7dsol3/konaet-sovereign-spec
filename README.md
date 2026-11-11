@@ -8,6 +8,9 @@
 
 # Konaet Soberana
 
+[KONAET: integração com o laboratório científico e o bot](ecosystem/README.md)
+· [BTC Lab: testes e puzzles públicos com checkpoint local](btc-lab/README.md)
+
 **Native Chain · Console 1.8.1 · .ko Studio · Consenso v8**
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
