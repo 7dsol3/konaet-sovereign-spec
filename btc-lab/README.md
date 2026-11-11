@@ -18,8 +18,9 @@ Instale o SDK .NET 8.0.101 validado e execute na pasta da especificação:
 O launcher compila o núcleo, confere seus hashes e pesquisa um trecho do
 **puzzle público #71**, no intervalo `[2^70, 2^71)`, usando um worker de
 baixa prioridade. O início é sorteado na primeira sessão; as seguintes
-retomam o checkpoint. A sessão encerra em até dez minutos por padrão,
-com timeout de dez segundos por processo. O máximo configurável é 60 minutos.
+retomam o checkpoint. A sessão usa dez minutos por padrão e conclui o trecho
+em andamento antes de encerrar, com timeout de dez segundos por processo.
+O máximo configurável é 60 minutos, além da compilação e desse último trecho.
 Não instala serviço nem inicia automaticamente com o Windows.
 
 O estado fica na pasta de dados local do usuário, em
