@@ -61,6 +61,10 @@ incluindo domínio, salt de 32 bytes e divisão em dois `u128` sem arredondar.
 As aberturas publicadas contêm somente metadados públicos e hashes.
 
 O recibo comprova inclusão e finalização na rede de teste identificada.
+`konaet_verify_events` relê os três arquivos, recalcula eventos e compromissos,
+confere a cadeia de predecessores e exige revisões e execução esperadas de
+um contexto de confiança independente. A suíte rejeita mudanças em arquivo,
+compromisso, parent, revisão, execução e representação dos inteiros.
 Não transforma metadados em fatos verdadeiros, não autentica uma App que
 não participou da execução e não comprova superioridade geral. Esta ponte
 exercita a finalização existente; não anuncia segurança pós-quântica nova.

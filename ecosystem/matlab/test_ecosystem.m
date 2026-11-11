@@ -55,9 +55,26 @@ metadata.artifactName='causal-inputs.txt'; joined=uint8(sprintf('%s\n%s\n',scien
 write(fullfile(output,metadata.artifactName),joined);
 integration=konaet_run_event(metadata,joined,automation.eventId);
 events={science,automation,integration};
+sources=struct('sovereign',specSha,'laboratory',labSha,'bot',botSha);
+trust=struct('sources',sources,'executionRepository',executionRepo,'executionCommit',executionSha,'runId',runId,'runAttempt',attempt);
+verification=konaet_verify_events(events,output,trust); checks=checks+1;
+changed=events; changed{2}.document.parentEventId=repmat('0',1,64);
+rejects(@() konaet_verify_events(changed,output,trust)); checks=checks+1;
+changed=events; changed{1}.commitment=repmat('0',1,64);
+rejects(@() konaet_verify_events(changed,output,trust)); checks=checks+1;
+changed=events; changed{3}.args=[1 2];
+rejects(@() konaet_verify_events(changed,output,trust)); checks=checks+1;
+changedTrust=trust; changedTrust.sources.bot=repmat('0',1,40);
+rejects(@() konaet_verify_events(events,output,changedTrust)); checks=checks+1;
+changedTrust=trust; changedTrust.runId=[runId '0'];
+rejects(@() konaet_verify_events(events,output,changedTrust)); checks=checks+1;
+csvPath=fullfile(output,'wavepacket.csv'); write(csvPath,uint8([csv 'altered']));
+restore=onCleanup(@() write(csvPath,uint8(csv)));
+rejects(@() konaet_verify_events(events,output,trust)); checks=checks+1; clear restore;
+konaet_verify_events(events,output,trust); checks=checks+1;
 report=struct('schema','konaet.ecosystem-validation.v1','checksPassed',checks, ...
     'knownAnswerVectors',numel(vectors.cases),'botContracts',botReport.passed,'botActivation',activation.passed, ...
-    'sources',struct('sovereign',specSha,'laboratory',labSha,'bot',botSha), ...
+    'sources',sources,'causalVerification',verification, ...
     'events',{events},'appAuthenticationTested',false,'physicalHardwareTested',false, ...
     'postQuantumFinalityTested',false);
 write(fullfile(output,'ecosystem-report.json'),uint8(jsonencode(report,PrettyPrint=true)));

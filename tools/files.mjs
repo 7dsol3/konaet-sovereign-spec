@@ -28,6 +28,7 @@ export const ALLOWED_FILES = Object.freeze([
   "ecosystem/matlab/konaet_ecosystem_visual.m",
   "ecosystem/matlab/konaet_receipt_frame.m",
   "ecosystem/matlab/konaet_run_event.m",
+  "ecosystem/matlab/konaet_verify_events.m",
   "ecosystem/matlab/test_ecosystem.m",
   "ecosystem/README.md",
   "ecosystem/Test-KonaetReceipt.ps1",

@@ -777,8 +777,8 @@
     },
     {
       "path": "ecosystem/README.md",
-      "bytes": 3901,
-      "sha256": "35defa829fcfe17948cf49d9d8037172e89f04c64605a317abd92d53d8d2b10a"
+      "bytes": 4214,
+      "sha256": "a10bd60a91a23e0b0b61320c2bdfb1a402e184be84bbcb8b83655f6a7ec5df63"
     },
     {
       "path": "ecosystem/Test-KonaetReceipt.ps1",
@@ -801,9 +801,14 @@
       "sha256": "b376cdfdfdc2280701a8a06750a2316d28e6acba1eb393ae672323a4f640702b"
     },
     {
+      "path": "ecosystem/matlab/konaet_verify_events.m",
+      "bytes": 3060,
+      "sha256": "72ad06cb49b3ec5acb4c208528fa25fd59f3a2fb3b2a4bae47e7d589a7565de7"
+    },
+    {
       "path": "ecosystem/matlab/test_ecosystem.m",
-      "bytes": 6339,
-      "sha256": "4e0052835423f18285aadc621621311a4a68fffc3cd051245a822383eb532753"
+      "bytes": 7538,
+      "sha256": "e0498edf24e901522fce4a6466cb1dfb5b4fd283db19d1855b06b3b80edb0e51"
     },
     {
       "path": "evidence/ko-runtime.json",
@@ -1242,8 +1247,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 11875,
-      "sha256": "1d7c034d6789a379740743c7ca78eb5edbe5fac43b85413900e03f069e1c1ebb"
+      "bytes": 11920,
+      "sha256": "d91d845bd86a4f57ad9652b8de9272557aecedfb4177d29c0a3742f7783e1f1a"
     },
     {
       "path": "tools/ko.mjs",
