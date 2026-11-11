@@ -1,0 +1,82 @@
+{
+    "catalogSha256":  "97ad3092f01c37049bf7ef461f740d34187c4244aa5223e5f16a4772743365e0",
+    "schema":  "konaet.btc-import.v1",
+    "files":  [
+                  {
+                      "path":  "src/Konaet.BtcLab/Solver/KeyHunter.cs",
+                      "sha256":  "f6cd879d238f0bde95575ba71d0520bf4caa237a12ae721170e5abc1557f5d06",
+                      "bytes":  10372
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Core/U256.cs",
+                      "sha256":  "8a470812c1dd562a6e5c9f60fc29568deddad19b2345d8dd4556eabe8cf17ecc",
+                      "bytes":  9584
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Core/Ref.cs",
+                      "sha256":  "13a779b26edf15ab7560061022a87b93a82bb2619c0e5bc6da45034e56ebc83e",
+                      "bytes":  3146
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Solver/RoundtripKit.cs",
+                      "sha256":  "656d12208950ff3bc8b1e2f6eb0aa6520574a240c089aeb05c153f64687eeb57",
+                      "bytes":  1479
+                  },
+                  {
+                      "path":  "tests/ripemd160_kat.txt",
+                      "sha256":  "bca5ab74e68d8f56b49e36399f3add56cb90e64a4d60d4239ae0c611a97fe573",
+                      "bytes":  8148
+                  },
+                  {
+                      "path":  "data/tx71.json",
+                      "sha256":  "86a4ae3f597e70358112c5b8a8d37d11e7b0e194fb77f779f944d14df44b87b1",
+                      "bytes":  26447
+                  },
+                  {
+                      "path":  "data/puzzle_addresses.json",
+                      "sha256":  "97ad3092f01c37049bf7ef461f740d34187c4244aa5223e5f16a4772743365e0",
+                      "bytes":  19139
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Core/Curve.cs",
+                      "sha256":  "91692041e0a380f7a0b011f18dc13364bcb0d659345ac6f1f4bcb27f7dcf2345",
+                      "bytes":  6081
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Audit/BinaryAudit.cs",
+                      "sha256":  "d234e606297e21abd6af2b90df320e1037d842f0f440450fd9d10157102e548a",
+                      "bytes":  36488
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Program.cs",
+                      "sha256":  "69b5f5d7472ed522587ce21f025a1e260bd9951bac0273ff11f8cc9b12b39fb6",
+                      "bytes":  95862
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Konaet.BtcLab.csproj",
+                      "sha256":  "8d5bb1bf8634e3fab11f1f50d464ec6ce923222265ffb946f26faa9528008b2c",
+                      "bytes":  252
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Chain/Mempool.cs",
+                      "sha256":  "6d61940d37cb859b833f07459caf35c5b8133467fa11bb66ef1633fd3d0515b8",
+                      "bytes":  31249
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Core/BtcHash.cs",
+                      "sha256":  "e24b2db2badb1e703ec67f51fce16a1af0479c39329c2776531d00cb342c3f13",
+                      "bytes":  8624
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Chain/Scripts.cs",
+                      "sha256":  "732451c4cd63b3ca9e10bcfa282b2672ee1fbb582bae18b1edc9aec7ed2fccb7",
+                      "bytes":  2044
+                  },
+                  {
+                      "path":  "src/Konaet.BtcLab/Chain/Puzzles.cs",
+                      "sha256":  "573a5422e53ea654dc62434750ff7995a81d564211816d41a2a4f2785adc8b31",
+                      "bytes":  7741
+                  }
+              ],
+    "origin":  "maintainer-supplied konaet-sovereign-spec-main/btc-lab"
+}

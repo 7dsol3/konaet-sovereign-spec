@@ -5,6 +5,53 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "assets/konaet-ecosystem.png",
+  "assets/konaet-ecosystem.gif",
+  "evidence/ecosystem-2026-11-11/ecosystem-report.json",
+  "evidence/ecosystem-2026-11-11/sovereign-finality.json",
+  "evidence/ecosystem-2026-11-11/receipt-vector.json",
+  "evidence/ecosystem-2026-11-11/frame.txt",
+  "evidence/ecosystem-2026-11-11/wavepacket.csv",
+  "evidence/ecosystem-2026-11-11/bot-validation.json",
+  "evidence/ecosystem-2026-11-11/causal-inputs.txt",
+  "evidence/ecosystem-2026-11-11/provenance.json",
+  ".github/CODEOWNERS",
+  ".github/dependabot.yml",
+  "btc-lab/Build-KonaetBtc.ps1",
+  "btc-lab/Test-KonaetBuild.ps1",
+  "ecosystem/Receipt-Library.ps1",
+  "ecosystem/New-KonaetReceiptTrust.ps1",
+  "ecosystem/Test-KonaetEvidence.ps1",
+  "infra/setup-ubuntu/action.yml",
+  "infra/setup-ubuntu/setup.sh",
+  "infra/setup-ubuntu/test.sh",
+  ".github/workflows/ecosystem.yml",
+  "btc-lab/data/puzzle_addresses.json",
+  "btc-lab/data/tx71.json",
+  "btc-lab/README.md",
+  "btc-lab/source-lock.json",
+  "btc-lab/src/Konaet.BtcLab/Audit/BinaryAudit.cs",
+  "btc-lab/src/Konaet.BtcLab/Chain/Mempool.cs",
+  "btc-lab/src/Konaet.BtcLab/Chain/Puzzles.cs",
+  "btc-lab/src/Konaet.BtcLab/Chain/Scripts.cs",
+  "btc-lab/src/Konaet.BtcLab/Core/BtcHash.cs",
+  "btc-lab/src/Konaet.BtcLab/Core/Curve.cs",
+  "btc-lab/src/Konaet.BtcLab/Core/Ref.cs",
+  "btc-lab/src/Konaet.BtcLab/Core/U256.cs",
+  "btc-lab/src/Konaet.BtcLab/Konaet.BtcLab.csproj",
+  "btc-lab/src/Konaet.BtcLab/Program.cs",
+  "btc-lab/src/Konaet.BtcLab/Solver/KeyHunter.cs",
+  "btc-lab/src/Konaet.BtcLab/Solver/RoundtripKit.cs",
+  "btc-lab/Start-KonaetPuzzle.ps1",
+  "btc-lab/Test-KonaetWorker.ps1",
+  "btc-lab/tests/ripemd160_kat.txt",
+  "ecosystem/matlab/konaet_ecosystem_visual.m",
+  "ecosystem/matlab/konaet_receipt_frame.m",
+  "ecosystem/matlab/konaet_run_event.m",
+  "ecosystem/matlab/konaet_verify_events.m",
+  "ecosystem/matlab/test_ecosystem.m",
+  "ecosystem/README.md",
+  "ecosystem/Test-KonaetReceipt.ps1",
   "tests/startup-stress.mjs",
   "AUDIT-1.8.1.md",
   "tests/reserved-ports.mjs",
@@ -275,7 +322,7 @@ export function inventory(root = ROOT) {
   const files = [];
   function walk(directory) {
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-      if (['.git', 'node_modules', '.konaet-demo', '.konaet-console-v7', '.packaging', 'dist', 'bin'].includes(entry.name)) continue;
+      if (['.git', 'node_modules', '.konaet-demo', '.konaet-console-v7', '.packaging', 'dist', 'bin', 'obj', '.dependencies', 'artifacts'].includes(entry.name)) continue;
       const absolute = path.join(directory, entry.name);
       if (entry.isSymbolicLink()) throw new Error('PUBLICATION_SYMLINK_FORBIDDEN');
       if (entry.isDirectory()) { walk(absolute); continue; }

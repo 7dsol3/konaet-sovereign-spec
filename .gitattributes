@@ -1,3 +1,5 @@
 * text=auto eol=lf
+btc-lab/** -text
+evidence/ecosystem-2026-11-11/** -text
 *.png binary
 *.bat -text
