@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  ".github/CODEOWNERS",
+  ".github/dependabot.yml",
   "btc-lab/Build-KonaetBtc.ps1",
   "btc-lab/Test-KonaetBuild.ps1",
   "ecosystem/Receipt-Library.ps1",

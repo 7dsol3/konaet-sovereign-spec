@@ -11,6 +11,16 @@
       "sha256": "eafa31282f50b509ebe1142f122bec1da9b300495f67aed536cc8506a552be65"
     },
     {
+      "path": ".github/CODEOWNERS",
+      "bytes": 89,
+      "sha256": "cffcc7ddd76cafdd4b610e1448d00ff6de58b6771908af27806f551084e9d6da"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "bytes": 257,
+      "sha256": "73e3be8665ccd9641b73c93acc2ca8850b67e2aa82583a7e7b01762d02ca78ee"
+    },
+    {
       "path": ".github/workflows/check.yml",
       "bytes": 727,
       "sha256": "afb6606afd0e59e04379303a70d299a20035ccba946948a7b94a14e2b06aa66a"
@@ -1287,8 +1297,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 12203,
-      "sha256": "98fc47fd64108c5403091f2c776ae3f0ec015876b6f0c12503de2b01f1c43610"
+      "bytes": 12255,
+      "sha256": "25c4d28c4c0aafda0f9c811c0e6f1e1674395ace9c8f3991f135c1ccc4ecc6b6"
     },
     {
       "path": "tools/ko.mjs",
