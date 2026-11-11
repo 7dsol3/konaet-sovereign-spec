@@ -83,7 +83,12 @@ function Build-KonaetBtc([string]$Root,[string]$Output,[string]$Sdk='dotnet') {
     $buildLog=Join-Path $target 'build.log'
     $saved=@{}; $variables=@('DOTNET_CLI_HOME','NUGET_PACKAGES','DOTNET_CLI_TELEMETRY_OPTOUT','DOTNET_NOLOGO',
         'DOTNET_STARTUP_HOOKS','DOTNET_ADDITIONAL_DEPS','MSBUILD_EXE_PATH','MSBuildSDKsPath','MSBuildExtensionsPath')
-    foreach($name in $variables){$saved[$name]=[Environment]::GetEnvironmentVariable($name);[Environment]::SetEnvironmentVariable($name,$null)}
+    foreach($name in $variables){
+        $saved[$name]=[Environment]::GetEnvironmentVariable($name)
+        # PowerShell on .NET 9+ preserves empty environment values. Remove the
+        # variable rather than passing an empty MSBuildSDKsPath to the resolver.
+        if(Test-Path -LiteralPath "Env:$name"){Remove-Item -LiteralPath "Env:$name"}
+    }
     try {
         $env:DOTNET_CLI_HOME=Join-Path $isolated '.dotnet'; $env:NUGET_PACKAGES=Join-Path $isolated '.packages'
         $env:DOTNET_CLI_TELEMETRY_OPTOUT='1'; $env:DOTNET_NOLOGO='1'
@@ -101,7 +106,10 @@ function Build-KonaetBtc([string]$Root,[string]$Output,[string]$Sdk='dotnet') {
         [IO.File]::WriteAllText((Join-Path $target 'build-provenance.json'),($provenance | ConvertTo-Json -Depth 5),$utf8)
         return $provenance
     } finally {
-        foreach($name in $variables){[Environment]::SetEnvironmentVariable($name,$saved[$name])}
+        foreach($name in $variables){
+            if($null -eq $saved[$name]){Remove-Item -LiteralPath "Env:$name" -ErrorAction SilentlyContinue}
+            else {[Environment]::SetEnvironmentVariable($name,$saved[$name])}
+        }
         # Keep this source-only build directory for diagnostics. It contains no
         # puzzle results or credentials and is outside the repository.
     }

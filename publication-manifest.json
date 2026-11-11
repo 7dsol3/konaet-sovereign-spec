@@ -217,8 +217,8 @@
     },
     {
       "path": "btc-lab/Build-KonaetBtc.ps1",
-      "bytes": 7813,
-      "sha256": "a7bc6dfcf508b6ce6475b6fc4c508d30dc519f514d42481fccb7373bed30d9da"
+      "bytes": 8158,
+      "sha256": "4c66c37fe19215ca5e2a584ddd81bdb99c1ef9de971b4b22dd6cbf8e08058f06"
     },
     {
       "path": "btc-lab/README.md",
