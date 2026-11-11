@@ -47,6 +47,7 @@ jobs:
       - uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d
         with:
           release: R2026b
+          cache: true
       - uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5
         with:
           command: addpath('ecosystem/matlab'); test_ecosystem(pwd,fullfile(pwd,'.dependencies/laboratory'),fullfile(pwd,'.dependencies/bot'),fullfile(pwd,'artifacts/ecosystem'));

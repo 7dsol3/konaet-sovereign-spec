@@ -27,8 +27,8 @@
     },
     {
       "path": ".github/workflows/ecosystem.yml",
-      "bytes": 3996,
-      "sha256": "76ed745b51183c79b79112053b344fe0df2641ed9b1303c752d6e1151ba5e129"
+      "bytes": 4018,
+      "sha256": "9c5c6e299c1b587afd2aa49e58d57db3860d307bb995bcc93145d8eb1152f729"
     },
     {
       "path": ".github/workflows/linux-service.yml",
@@ -1017,13 +1017,13 @@
     },
     {
       "path": "infra/setup-ubuntu/setup.sh",
-      "bytes": 1605,
-      "sha256": "4e63940f10cfe7466efe7dc8ef8683b611e928d6638fbbaf6f8596a112f69069"
+      "bytes": 1954,
+      "sha256": "f4ad195da0674d897b43131460a1d70849fbe7324258d237fb49fca40cea9bf7"
     },
     {
       "path": "infra/setup-ubuntu/test.sh",
-      "bytes": 621,
-      "sha256": "56c377863d00d0ab74b3c673ace9dc334479cf56854fd82f07d6c9e22afd3902"
+      "bytes": 1015,
+      "sha256": "58f50a14f98b712712a9123211622dc8935290205044ac790d4d37ae4dfc273f"
     },
     {
       "path": "lib/event.mjs",
