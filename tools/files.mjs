@@ -5,6 +5,14 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "btc-lab/Build-KonaetBtc.ps1",
+  "btc-lab/Test-KonaetBuild.ps1",
+  "ecosystem/Receipt-Library.ps1",
+  "ecosystem/New-KonaetReceiptTrust.ps1",
+  "ecosystem/Test-KonaetEvidence.ps1",
+  "infra/setup-ubuntu/action.yml",
+  "infra/setup-ubuntu/setup.sh",
+  "infra/setup-ubuntu/test.sh",
   ".github/workflows/ecosystem.yml",
   "btc-lab/data/puzzle_addresses.json",
   "btc-lab/data/tx71.json",

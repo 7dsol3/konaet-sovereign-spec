@@ -1,0 +1,7 @@
+name: KONAET Ubuntu dependency transport
+description: Bound authenticated Ubuntu archive failover before numerical toolchain installation.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: bash "$GITHUB_ACTION_PATH/setup.sh"

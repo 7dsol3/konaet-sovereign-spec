@@ -21,8 +21,9 @@ O [workflow](../.github/workflows/ecosystem.yml) fixa as revisões dos outros
 dois projetos. Executa o pacote de onda do laboratório, os 52 contratos Git e
 os 19 testes do ativador, produz três eventos encadeados em MATLAB e leva o
 último compromisso ao contrato real em quatro processos locais. O harness
-Node original é reutilizado sem alterações; recebe o vetor desta execução,
-e o arquivo de vetores original é restaurado mesmo se o teste falhar.
+Node original é reutilizado sem alterações numa cópia isolada da revisão
+commitada. Recebe somente o vetor ligado aos três eventos conferidos; os
+vetores do checkout não são substituídos.
 
 Os novos módulos de cálculo são MATLAB. A especificação já usa Node, `.ko`
 e outros clientes; o BTC Lab C# fornecido no workspace foi importado sem
@@ -31,7 +32,14 @@ Não foi criada outra interface HTML/JavaScript para o laboratório.
 
 ## Reproduzir
 
-Com os três checkouts, MATLAB, Node e as dependências existentes instaladas:
+Com os três checkouts limpos e commitados, MATLAB e Node instalados, capture
+primeiro o contexto esperado fora da pasta de artefatos:
+
+```powershell
+./ecosystem/New-KonaetReceiptTrust.ps1 -Laboratory ../RealidadeQuantica -Bot ../konaet-bot -Sovereign . -TrustFile ../receipt-trust.json
+```
+
+Depois calcule os eventos:
 
 ```matlab
 addpath('ecosystem/matlab');
@@ -41,7 +49,7 @@ test_ecosystem(pwd, '../RealidadeQuantica', '../konaet-bot', fullfile(pwd,'artif
 Os testes Git exigem Linux. Depois, execute o verificador de finalização:
 
 ```powershell
-./ecosystem/Test-KonaetReceipt.ps1 -OutputDirectory artifacts/ecosystem
+./ecosystem/Test-KonaetReceipt.ps1 -OutputDirectory artifacts/ecosystem -TrustFile ../receipt-trust.json
 ```
 
 O artefato do workflow contém `ecosystem-report.json`, o CSV calculado,
@@ -70,6 +78,13 @@ não participou da execução e não comprova superioridade geral. Esta ponte
 exercita a finalização existente; não anuncia segurança pós-quântica nova.
 Cada operador deve fixar a gênese e o contrato confiáveis antes de aceitar
 recibos de outra instalação. Veja [recibos](../SOCIAL-RECEIPTS.md).
+
+O finalizador exige contexto independente capturado antes do cálculo,
+recalcula os três hashes e documentos canônicos e verifica o frame e os
+argumentos u128. Um vetor público válido com relatório ou arquivos alheios é
+recusado antes de iniciar a rede. `Test-KonaetEvidence.ps1 -Finalize` exercita
+15 casos de infraestrutura e a finalização real com dados sintéticos; não
+substitui a execução MATLAB das tarefas científicas.
 
 ## Puzzles
 

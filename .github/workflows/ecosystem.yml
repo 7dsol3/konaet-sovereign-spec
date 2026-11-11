@@ -37,6 +37,13 @@ jobs:
         with:
           node-version: '24.22.2'
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      - uses: ./infra/setup-ubuntu
+      - name: Capture expected revisions before calculation
+        shell: pwsh
+        run: ./ecosystem/New-KonaetReceiptTrust.ps1 -Laboratory .dependencies/laboratory -Bot .dependencies/bot -Sovereign . -TrustFile "$env:RUNNER_TEMP/konaet-receipt-trust.json"
+      - name: Reject substituted evidence and exercise isolated finality
+        shell: pwsh
+        run: ./ecosystem/Test-KonaetEvidence.ps1 -Finalize
       - uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d
         with:
           release: R2026b
@@ -45,7 +52,7 @@ jobs:
           command: addpath('ecosystem/matlab'); test_ecosystem(pwd,fullfile(pwd,'.dependencies/laboratory'),fullfile(pwd,'.dependencies/bot'),fullfile(pwd,'artifacts/ecosystem'));
       - name: Finalize this MATLAB event using the unchanged Sovereign runtime
         shell: pwsh
-        run: ./ecosystem/Test-KonaetReceipt.ps1 -OutputDirectory artifacts/ecosystem
+        run: ./ecosystem/Test-KonaetReceipt.ps1 -OutputDirectory artifacts/ecosystem -TrustFile "$env:RUNNER_TEMP/konaet-receipt-trust.json"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -63,17 +70,17 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
         with:
-          dotnet-version: '8.0.101'
+          dotnet-version: '10.0.404'
       - name: Verify byte-preserved imported source and supervisor regressions
         shell: powershell
         run: |
           ./btc-lab/Start-KonaetPuzzle.ps1 -ValidateOnly
           ./btc-lab/Test-KonaetWorker.ps1
+          ./btc-lab/Test-KonaetBuild.ps1 -Build
       - name: Build and test known cryptographic vectors only
         shell: pwsh
         run: |
-          dotnet build btc-lab/src/Konaet.BtcLab -c Release --nologo -o "$env:RUNNER_TEMP/btc" "-p:BaseIntermediateOutputPath=$env:RUNNER_TEMP/btc-obj/"
-          if ($LASTEXITCODE -ne 0) { throw 'BTC build failed' }
+          ./btc-lab/Build-KonaetBtc.ps1 -BuildDestination "$env:RUNNER_TEMP/btc"
           Push-Location btc-lab
           try {
             dotnet "$env:RUNNER_TEMP/btc/Konaet.BtcLab.dll" selftest

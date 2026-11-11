@@ -77,12 +77,6 @@ O Studio público executa a VM no navegador. O console Windows/Node executa
 o consenso na sua instância local. Os saldos existentes da instalação
 principal Konaet não são migrados para esses exemplos.
 
-## Operação e entrada HTTPS
-
-## Recibos da rede social
-
-## Integração em várias linguagens
-
 ## Correções de inicialização
 
 A edição 1.8.1 corrige uma corrida na criação concorrente do journal e a

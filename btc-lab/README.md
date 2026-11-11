@@ -7,11 +7,12 @@ Não se atribui a esta integração a invenção de secp256k1, SHA-256 ou Bitcoi
 
 ## Executar no Windows
 
-Instale o SDK .NET 8.0.101 validado e execute na pasta da especificação:
+Instale o SDK .NET **10.0.404** validado e execute na pasta da especificação:
 
 ```powershell
 ./btc-lab/Start-KonaetPuzzle.ps1 -ValidateOnly
 ./btc-lab/Test-KonaetWorker.ps1
+./btc-lab/Test-KonaetBuild.ps1 -Build
 ./btc-lab/Start-KonaetPuzzle.ps1 -Minutes 10
 ```
 
@@ -24,7 +25,8 @@ O máximo configurável é 60 minutos, além da compilação e desse último tre
 Não instala serviço nem inicia automaticamente com o Windows.
 
 O estado fica na pasta de dados local do usuário, em
-`Konaet/PuzzleWorker/v1/state`. `checkpoint.json` registra somente intervalos
+`Konaet/PuzzleWorker/v2/state`. Estados v1 permanecem preservados, sem migração
+automática entre runtimes. `checkpoint.json` registra somente intervalos
 inteiramente conferidos. Um resultado parcial mantém o início para repetir
 o trecho; a contagem agregada nunca é interpretada como prefixo completo.
 `worker.lock` impede sessões simultâneas no mesmo estado. Crie um arquivo
@@ -52,6 +54,14 @@ carteira dormente é convertida em alvo deste launcher. A autorização do
 desafio não autoriza acessar outras carteiras.
 
 ## Testes e núcleo existente
+
+O projeto importado continua preservado byte a byte, incluindo sua declaração
+original net8.0. O builder operacional compila os mesmos arquivos C# em net10.0
+com SDK fixado. Recusa entradas extras nos diretórios de origem, confere todos
+os hashes e copia somente os C# inventariados para uma pasta isolada. O projeto
+gerado desativa inclusão automática, imports por diretório, response files e
+fontes NuGet externas. `build-provenance.json` registra SDK e hash do binário.
+Controles de MSBuild acrescentados ao checkout não são executados.
 
 O CI usa o `selftest` original: vetores de campo, curva, hash, Base58, puzzles
 já resolvidos, regras de consulta e auditoria do binário. O supervisor tem

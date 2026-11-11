@@ -1,9 +1,11 @@
 param(
     [ValidateRange(1,60)][int]$Minutes=10,
-    [string]$StateDirectory=(Join-Path $env:LOCALAPPDATA 'Konaet/PuzzleWorker/v1/state'),
+    [string]$StateDirectory=(Join-Path $env:LOCALAPPDATA 'Konaet/PuzzleWorker/v2/state'),
+    [string]$DotnetPath='dotnet',
     [switch]$ValidateOnly
 )
 $ErrorActionPreference='Stop'
+. (Join-Path $PSScriptRoot 'Build-KonaetBtc.ps1')
 Add-Type -AssemblyName System.Numerics
 $script:KonaetAddress='1PWo3JeB9jrGwfHDNpdGK54CRas7fsVzXU'
 $script:KonaetCatalog='97ad3092f01c37049bf7ef461f740d34187c4244aa5223e5f16a4772743365e0'
@@ -42,7 +44,7 @@ function Write-KonaetAtomic([string]$Path,[byte[]]$Bytes) {
 function Invoke-KonaetChunk([string]$Dll,[string]$Registry,[string]$Start,[int]$Count) {
     foreach($path in @($Dll,$Registry)) { if ($path -match '["\r\n]') { throw 'Invalid process path' } }
     $info=New-Object Diagnostics.ProcessStartInfo
-    $info.FileName='dotnet'; $info.UseShellExecute=$false; $info.CreateNoWindow=$true
+    $info.FileName=$script:KonaetDotnetPath; $info.UseShellExecute=$false; $info.CreateNoWindow=$true
     $info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true
     $info.Arguments='"'+$Dll+'" solve-chunk --puzzle 71 --start '+$Start+' --count '+$Count+
         ' --jobs 1 --seconds 5 --registry "'+$Registry+'"'
@@ -66,11 +68,7 @@ $root=$PSScriptRoot; $registry=Join-Path $root 'data/puzzle_addresses.json'
 if ((Get-FileHash -LiteralPath $registry -Algorithm SHA256).Hash.ToLowerInvariant() -cne $script:KonaetCatalog) { throw 'Public catalog hash mismatch' }
 $lockFile=Join-Path $root 'source-lock.json'
 $sourceDigest=(Get-FileHash -LiteralPath $lockFile).Hash.ToLowerInvariant()
-$sourceLock=Get-Content -LiteralPath $lockFile -Raw | ConvertFrom-Json
-foreach($entry in $sourceLock.files) {
-    if ($entry.path -notmatch '^(src/Konaet\.BtcLab/[A-Za-z0-9./_-]+|data/[A-Za-z0-9._-]+|tests/[A-Za-z0-9._-]+)$' -or $entry.path.Contains('..')) { throw 'Invalid source lock path' }
-    if ((Get-FileHash -LiteralPath (Join-Path $root $entry.path)).Hash.ToLowerInvariant() -cne $entry.sha256) { throw 'Imported BTC source changed; revalidate before running' }
-}
+$sourceLock=Get-KonaetBtcSources $root
 if ($ValidateOnly) { Write-Output 'Pinned BTC sources and public puzzle catalog verified.'; return }
 $statePath=[IO.Path]::GetFullPath($StateDirectory)
 $repo=[IO.Path]::GetFullPath((Split-Path $root -Parent)).TrimEnd('\')+'\'
@@ -87,10 +85,9 @@ $lease=[IO.File]::Open((Join-Path $statePath 'worker.lock'),[IO.FileMode]::OpenO
 try {
     $installation=Split-Path $statePath -Parent; $binary=Join-Path $installation 'bin'
     $build=Join-Path $installation 'build.log'
-    $sdk=(& dotnet --version).Trim()
-    if ($sdk -cne '8.0.101') { throw 'Use the validated .NET SDK 8.0.101 for this worker' }
-    & dotnet build (Join-Path $root 'src/Konaet.BtcLab/Konaet.BtcLab.csproj') -c Release --nologo -o $binary *> $build
-    if ($LASTEXITCODE -ne 0) { throw 'Build failed; inspect local build.log' }
+    $script:KonaetDotnetPath=$DotnetPath
+    $built=Build-KonaetBtc $root $binary $DotnetPath
+    $sdk=$built.sdk
     $dll=Join-Path $binary 'Konaet.BtcLab.dll'; $digest=(Get-FileHash -LiteralPath $dll).Hash.ToLowerInvariant()
     $checkpoint=Join-Path $statePath 'checkpoint.json'; $minimum=[Numerics.BigInteger]::Pow(2,70); $end=[Numerics.BigInteger]::Pow(2,71)
     if (Test-Path -LiteralPath $checkpoint) {

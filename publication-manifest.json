@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/ecosystem.yml",
-      "bytes": 3306,
-      "sha256": "a11baf8712c078b5806f1c144e1125e7efb6eecf29ff6daf894e08b5aa4ce941"
+      "bytes": 3723,
+      "sha256": "936705624aa76287156c7d70d052f6a70a48c2f760ba9408d7ab53e377b47134"
     },
     {
       "path": ".github/workflows/linux-service.yml",
@@ -127,8 +127,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13951,
-      "sha256": "cc561dbed4a70fa4b70816bf64d19f257f11dd9fbe8d8c72e51c9880ba59d368"
+      "bytes": 13854,
+      "sha256": "88d7b86d246c8288101d95fb8c8e96bf87ccf8c5d1be1551907b56d52edab7a6"
     },
     {
       "path": "RECOVERY.md",
@@ -206,14 +206,24 @@
       "sha256": "07904a30c3cc89b98566a0d039593abd0447799af876fe6521d089c420e60725"
     },
     {
+      "path": "btc-lab/Build-KonaetBtc.ps1",
+      "bytes": 7725,
+      "sha256": "271637ca57624e1c0dae993edb8ff0a86d7beec1715fb15a9484f3924b3ca7bb"
+    },
+    {
       "path": "btc-lab/README.md",
-      "bytes": 3450,
-      "sha256": "2feac7146fbbbb361b6afeba11cac4462e4ceed3a2279e78a193a10db156b43a"
+      "bytes": 4121,
+      "sha256": "1c1edc56112b0e339d8ea5c9cc42ab1e25033d43fe459de598022fa452a845f8"
     },
     {
       "path": "btc-lab/Start-KonaetPuzzle.ps1",
-      "bytes": 10789,
-      "sha256": "a5777b7e6c916c4c7eb10c24d89a90b41e3646c105f4503e1efcbbb29a577d77"
+      "bytes": 10242,
+      "sha256": "6d0104d46b005fc7548ea2356d959c9a309c23bb4120429fcb4217f8112c9b95"
+    },
+    {
+      "path": "btc-lab/Test-KonaetBuild.ps1",
+      "bytes": 2679,
+      "sha256": "5da43f1425a5cf6744c89d7db1b27b2daef54acc5489e4cb2150dd270afd7f29"
     },
     {
       "path": "btc-lab/Test-KonaetWorker.ps1",
@@ -776,14 +786,29 @@
       "sha256": "b611e93928b698835e80caf90e3386b1be8675d43319c8f330f0a07266c9dc78"
     },
     {
+      "path": "ecosystem/New-KonaetReceiptTrust.ps1",
+      "bytes": 1668,
+      "sha256": "ee9f42b15a7854e96bf90fd03dd5b189d1e3bfb9efc83e0ef0cb0f124a408b8e"
+    },
+    {
       "path": "ecosystem/README.md",
-      "bytes": 4214,
-      "sha256": "a10bd60a91a23e0b0b61320c2bdfb1a402e184be84bbcb8b83655f6a7ec5df63"
+      "bytes": 4973,
+      "sha256": "f802b798e02548eef8ed774ebe5942b74b4d0ecfae11db1dd8cccc16ae1e8ecc"
+    },
+    {
+      "path": "ecosystem/Receipt-Library.ps1",
+      "bytes": 8281,
+      "sha256": "f518f64c0a2ff02ff14d3dd5109baff657acfe07856f34f066dac82afa10a11f"
+    },
+    {
+      "path": "ecosystem/Test-KonaetEvidence.ps1",
+      "bytes": 4747,
+      "sha256": "b2d83f03f3eb3626abb41e42c4fe7f62e6bb2c0f26cc4cdf845496a07ae29aab"
     },
     {
       "path": "ecosystem/Test-KonaetReceipt.ps1",
-      "bytes": 1623,
-      "sha256": "d53abb4f802dc4893b9ab03338c575d9033d55fc72466e64a88a01f17478a16e"
+      "bytes": 2844,
+      "sha256": "5040a9b1741fcee005ad68b0efda60ea3d431e717a50ca0ebdd8b75e10d8edee"
     },
     {
       "path": "ecosystem/matlab/konaet_ecosystem_visual.m",
@@ -974,6 +999,21 @@
       "path": "examples/signed-transfer.json",
       "bytes": 1859,
       "sha256": "bf18182e3712b3449432515e73b214f16f2ab70e284d4c3d7cee219fb77275ce"
+    },
+    {
+      "path": "infra/setup-ubuntu/action.yml",
+      "bytes": 238,
+      "sha256": "33c4231fdb358e8d3925cffcfe7f32f39d35f76d2f5b027f41b88e3ea59e0fa7"
+    },
+    {
+      "path": "infra/setup-ubuntu/setup.sh",
+      "bytes": 1605,
+      "sha256": "4e63940f10cfe7466efe7dc8ef8683b611e928d6638fbbaf6f8596a112f69069"
+    },
+    {
+      "path": "infra/setup-ubuntu/test.sh",
+      "bytes": 621,
+      "sha256": "56c377863d00d0ab74b3c673ace9dc334479cf56854fd82f07d6c9e22afd3902"
     },
     {
       "path": "lib/event.mjs",
@@ -1247,8 +1287,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 11920,
-      "sha256": "d91d845bd86a4f57ad9652b8de9272557aecedfb4177d29c0a3742f7783e1f1a"
+      "bytes": 12203,
+      "sha256": "98fc47fd64108c5403091f2c776ae3f0ec015876b6f0c12503de2b01f1c43610"
     },
     {
       "path": "tools/ko.mjs",
