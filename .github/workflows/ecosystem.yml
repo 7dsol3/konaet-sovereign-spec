@@ -33,7 +33,7 @@ jobs:
           ref: 7506bfda2a6fb503e0457132e149f560fd83295a
           path: .dependencies/bot
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: '24.22.2'
       - run: npm ci --ignore-scripts --no-audit --no-fund
