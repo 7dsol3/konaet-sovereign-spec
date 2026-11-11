@@ -1,14 +1,14 @@
 {
   "schema": "konaet.spec.publication-manifest.v1",
-  "edition": "1.8.1",
+  "edition": "1.9.0",
   "purpose": "Integrity inventory for executable nodes, console, runtime and documentation",
   "publicNetworkDeployed": false,
   "containsProductionKeys": false,
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 61,
-      "sha256": "eafa31282f50b509ebe1142f122bec1da9b300495f67aed536cc8506a552be65"
+      "bytes": 100,
+      "sha256": "75b06671e6cb05641a693d44e24f61fca48a0d712852f3fee775b0b4a56bc8b9"
     },
     {
       "path": ".github/CODEOWNERS",
@@ -47,8 +47,8 @@
     },
     {
       "path": ".github/workflows/signed-release.yml",
-      "bytes": 4322,
-      "sha256": "a0b538aa140d65c4dcbd461d6922a3b1398e8afbb11ea1569345f59f914f21fa"
+      "bytes": 4343,
+      "sha256": "0f47f3ebe2bfc00f3face6ea7e56e266c4ec848d5b678bdb39b54197c60c96a9"
     },
     {
       "path": ".gitignore",
@@ -118,7 +118,7 @@
     {
       "path": "LEIA-ME.txt",
       "bytes": 1921,
-      "sha256": "805bd19b039078ec2dacd8f84dc6c41cf40f77e48ee52610fd3833b62b55c012"
+      "sha256": "1191db9815c5cfb44ef437f6a5b6a4edce453fef78756d1c5be31bb6f1890d11"
     },
     {
       "path": "LICENSE",
@@ -137,8 +137,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13854,
-      "sha256": "88d7b86d246c8288101d95fb8c8e96bf87ccf8c5d1be1551907b56d52edab7a6"
+      "bytes": 14524,
+      "sha256": "518eda49eded931bbcf452c63abfbf13944b71d7ce5c20d7e75687f21bdf7276"
     },
     {
       "path": "RECOVERY.md",
@@ -147,8 +147,8 @@
     },
     {
       "path": "RELEASE-NOTES.md",
-      "bytes": 1332,
-      "sha256": "0c419254ee0b130e3f1d2819281c839ae8ce9826a23be770f304ab8b4b5f56bb"
+      "bytes": 3144,
+      "sha256": "ed6042b288d5f3acf7120091a6b6150ef27fb819e983aa28e4f743244ccd9ffa"
     },
     {
       "path": "REMOTE-VALIDATION.md",
@@ -184,6 +184,16 @@
       "path": "assets/konaet-architecture.svg",
       "bytes": 3856,
       "sha256": "fbf054670a08567c30ac1e8541db2c05a9b99f642a56cc843c0678476be9ff10"
+    },
+    {
+      "path": "assets/konaet-ecosystem.gif",
+      "bytes": 879433,
+      "sha256": "899333149daaa358de2d04acaae2a6382b3078798114af9199c72bcf49c4104c"
+    },
+    {
+      "path": "assets/konaet-ecosystem.png",
+      "bytes": 63380,
+      "sha256": "bc3f2352758a4c91017c687d082c335f99392d16400ba3cdedddb88cd347a91e"
     },
     {
       "path": "assets/konaet-native-cover.svg",
@@ -418,7 +428,7 @@
     {
       "path": "chain/package.json",
       "bytes": 99,
-      "sha256": "5c8c9350fb19cfcf6a66868eacdd8118252711eae469bc20bb92f088be17bb53"
+      "sha256": "53ed76f75bbfce68d513a71a27a70e95659724ddb49d2c2a8fa0c10d10324fc4"
     },
     {
       "path": "chain/scripts/buildIndependentGenesis.js",
@@ -846,6 +856,46 @@
       "sha256": "e0498edf24e901522fce4a6466cb1dfb5b4fd283db19d1855b06b3b80edb0e51"
     },
     {
+      "path": "evidence/ecosystem-2026-11-11/bot-validation.json",
+      "bytes": 7951,
+      "sha256": "160efdf5ea9c89eb143a587156721e7602cfc0c825887f6c36d6a72c9db579eb"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/causal-inputs.txt",
+      "bytes": 130,
+      "sha256": "2ae1dfa571d3a0d5195b112b10272f5f7d90b67505c9a6ca89bc9c53a9c79046"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/ecosystem-report.json",
+      "bytes": 7519,
+      "sha256": "9be703fb174649b7804626e9e6ef9c298b059267fa6f8223148ff93a1bc3ccd3"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/frame.txt",
+      "bytes": 1163,
+      "sha256": "496e84d0d0f876d1f357aa021f2620d221946b189a7f6cc54490fd45c7a01f83"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/provenance.json",
+      "bytes": 228,
+      "sha256": "f139a7793f6307dbc93204d0f3f9e40ae73af16d4340b9000bf07134dc0202c3"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/receipt-vector.json",
+      "bytes": 1383,
+      "sha256": "ddf0b93f9cbe3ff94b0626e7275b315fb8b75707a5f298ee7e80b40c5b949e66"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/sovereign-finality.json",
+      "bytes": 42186,
+      "sha256": "67216bff163ecc2b22c8d2c73c17f5eb7f7316c6f1d1071f6ffcafed6a963593"
+    },
+    {
+      "path": "evidence/ecosystem-2026-11-11/wavepacket.csv",
+      "bytes": 32597,
+      "sha256": "fcbe7c27d0175b07529431588ef964041630b2b55623f42f0be11dff588e5327"
+    },
+    {
       "path": "evidence/ko-runtime.json",
       "bytes": 710,
       "sha256": "1701ff2bbc6c5da6fae51feba49a77974e834184f6769c833cf37783d441355f"
@@ -1033,12 +1083,12 @@
     {
       "path": "package-lock.json",
       "bytes": 839,
-      "sha256": "647a86d370c88b250adf55e9f8f01c2c812aa9d9c276fb2d52ce87dcc78ebe26"
+      "sha256": "cbd0bfcec001313f4fad2317515bf0d6ad343350e8e204cc11cc78a1a77755dc"
     },
     {
       "path": "package.json",
-      "bytes": 697,
-      "sha256": "95115a2b74ac390e59fd8a2d2df5c3d5622879b554a4b15295c7785c8330e682"
+      "bytes": 718,
+      "sha256": "aa480f339af4662f3fc3e12c2db55cbe8b4a313b40c9de0d57aae8f3f87c9ace"
     },
     {
       "path": "polyglot/DEPENDENCIES.md",
@@ -1297,8 +1347,8 @@
     },
     {
       "path": "tools/files.mjs",
-      "bytes": 12255,
-      "sha256": "25c4d28c4c0aafda0f9c811c0e6f1e1674395ace9c8f3991f135c1ccc4ecc6b6"
+      "bytes": 12746,
+      "sha256": "33eaf00476bf8f68dc2dc35dc2820dab227dfe7dd93d5bcecc1d7497ada4837c"
     },
     {
       "path": "tools/ko.mjs",

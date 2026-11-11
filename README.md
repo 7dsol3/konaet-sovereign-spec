@@ -11,7 +11,16 @@
 [KONAET: integração com o laboratório científico e o bot](ecosystem/README.md)
 · [BTC Lab: testes e puzzles públicos com checkpoint local](btc-lab/README.md)
 
-**Native Chain · Console 1.8.1 · .ko Studio · Consenso v8**
+**Native Chain · Console 1.9.0 · .ko Studio · Consenso v8**
+
+![Trilha registrada dos três projetos, calculada e renderizada em MATLAB.](assets/konaet-ecosystem.gif)
+
+[Execução verificada de 11/11/2026](https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/43059464257):
+59 verificações de bytes/procedência, 52 contratos Git, 19 testes do ativador e
+finalização do compromisso em quatro processos validadores. [Dados e eventos](evidence/ecosystem-2026-11-11/ecosystem-report.json).
+Animação de uma execução registrada; autenticação de App real e bancada física
+não fazem parte desse ensaio. A versão 1.9 acrescenta validação causal ligada
+a arquivos/fontes e um builder isolado para o BTC Lab importado.
 
 Nós VLOCK7SIN, transações assinadas, consenso por quórum, sincronização,
 persistência WAL e regras nativas `.ko`. Esta edição publica o código dos nós
@@ -163,7 +172,7 @@ O projeto inclui fonte, contexto de transferência e contexto de fechamento.
 
 ## Usar no Windows
 
-1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release 1.8.1.
+1. Baixe **Konaet-Console-Windows-x64.zip** nos assets da release atual.
 2. Clique com o botão direito → **Extrair tudo**.
 3. Abra a pasta extraída e dê dois cliques em **Iniciar-Konaet.bat**.
 

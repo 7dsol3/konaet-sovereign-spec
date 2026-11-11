@@ -5,6 +5,16 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWED_FILES = Object.freeze([
+  "assets/konaet-ecosystem.png",
+  "assets/konaet-ecosystem.gif",
+  "evidence/ecosystem-2026-11-11/ecosystem-report.json",
+  "evidence/ecosystem-2026-11-11/sovereign-finality.json",
+  "evidence/ecosystem-2026-11-11/receipt-vector.json",
+  "evidence/ecosystem-2026-11-11/frame.txt",
+  "evidence/ecosystem-2026-11-11/wavepacket.csv",
+  "evidence/ecosystem-2026-11-11/bot-validation.json",
+  "evidence/ecosystem-2026-11-11/causal-inputs.txt",
+  "evidence/ecosystem-2026-11-11/provenance.json",
   ".github/CODEOWNERS",
   ".github/dependabot.yml",
   "btc-lab/Build-KonaetBtc.ps1",

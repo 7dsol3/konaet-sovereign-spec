@@ -57,7 +57,7 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw 'Package integrity failed' }
             & .\bin\node.exe tools/verify-publication.mjs
             if ($LASTEXITCODE -ne 0) { throw 'Publication verification failed' }
-            & .\bin\node.exe --test 'tests/*.test.mjs' 'tests/*.test.cjs' 'chain/vlock7sin-js/tests/*.test.js'
+            & .\bin\node.exe --test --test-concurrency=4 'tests/*.test.mjs' 'tests/*.test.cjs' 'chain/vlock7sin-js/tests/*.test.js'
             if ($LASTEXITCODE -ne 0) { throw 'Extracted package tests failed' }
           } finally { Pop-Location }
       - name: Sign build provenance with the workflow identity
