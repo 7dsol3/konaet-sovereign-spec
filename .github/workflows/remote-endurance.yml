@@ -43,7 +43,7 @@ jobs:
       - name: Generate local identity and ciphertext relay
         run: node tools/remote/participant.mjs init
       - name: Exchange public identity and CSR only
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: konaet-node-${{ matrix.node }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/konaet-remote-validation/public/node-${{ matrix.node }}.json
@@ -53,7 +53,7 @@ jobs:
         run: node tools/remote/participant.mjs network
       - name: Publish public genesis and certificates
         if: matrix.node == 0
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: konaet-network-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/konaet-remote-validation/public/network.json
@@ -66,7 +66,7 @@ jobs:
         run: node tools/remote/participant.mjs cleanup
       - name: Export signed public results only
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: konaet-result-${{ matrix.node }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
@@ -94,7 +94,7 @@ jobs:
           merge-multiple: true
       - name: Verify four host identities, signatures, finality and duration
         run: node tools/remote/verify-report.mjs "$RUNNER_TEMP/konaet-public-results"
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()
         with:
           name: konaet-verified-summary-${{ github.run_id }}-${{ github.run_attempt }}
