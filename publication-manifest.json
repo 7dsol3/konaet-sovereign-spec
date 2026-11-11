@@ -877,8 +877,8 @@
     },
     {
       "path": "evidence/ecosystem-2026-11-11/provenance.json",
-      "bytes": 228,
-      "sha256": "f139a7793f6307dbc93204d0f3f9e40ae73af16d4340b9000bf07134dc0202c3"
+      "bytes": 597,
+      "sha256": "fc259786876a336d388f1ae84d03ba0678bb4311dfb02c6fc0fe694b746c195d"
     },
     {
       "path": "evidence/ecosystem-2026-11-11/receipt-vector.json",

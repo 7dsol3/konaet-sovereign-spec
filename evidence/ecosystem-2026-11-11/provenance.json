@@ -1,6 +1,12 @@
 {
-    "run":  43059464257,
-    "artifact":  13872842202,
-    "source":  "4a38e19c0c82901bb2083d2d070b7675ea1a217d",
-    "url":  "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/43059464257/job/130658024495"
+    "schema":  "konaet.ecosystem-archive.v1",
+    "run_id":  "43059464257",
+    "artifact_id":  "13872842202",
+    "workflow_head_revision":  "4a38e19c0c82901bb2083d2d070b7675ea1a217d",
+    "checked_out_source_revision":  "7b08a33e9c4d256e2ca046f8dbda2efa304a32c5",
+    "execution_job_url":  "https://github.com/7dsol3/konaet-sovereign-spec/actions/runs/43059464257/job/130658024495",
+    "artifact_zip_sha256":  "bcdc1a89a2d9b71c9dec28176f7cceaa6e2b25192706ffd2b96a4974d3e27a6d",
+    "recorded_execution":  true,
+    "live_telemetry":  false,
+    "physical_hardware_tested":  false
 }
