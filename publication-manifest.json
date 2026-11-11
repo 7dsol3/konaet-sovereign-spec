@@ -7,8 +7,8 @@
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 44,
-      "sha256": "0caa9233114de0c24b33e3066211b67db3af0fc75f6c7b1cf493affa4d84fbff"
+      "bytes": 61,
+      "sha256": "eafa31282f50b509ebe1142f122bec1da9b300495f67aed536cc8506a552be65"
     },
     {
       "path": ".github/workflows/check.yml",
@@ -212,13 +212,13 @@
     },
     {
       "path": "btc-lab/Start-KonaetPuzzle.ps1",
-      "bytes": 10223,
-      "sha256": "be904691f1188047bc5d1383b1023ede97750e9921d070a97406cc74ad8c8230"
+      "bytes": 10327,
+      "sha256": "430d51983535d3f4fa34e8f7b7d719b426a7d2c1f5e502f696552e3f9b78a6d6"
     },
     {
       "path": "btc-lab/Test-KonaetWorker.ps1",
-      "bytes": 2562,
-      "sha256": "63a231538cda5cfbf10f0a6bee6f15d350c7f645dcd4c78627844a74f91f4a6f"
+      "bytes": 3147,
+      "sha256": "ca40c84e44a75fd435d82893d231041ec8ac62a8286490d2319654c8d0e8bdd7"
     },
     {
       "path": "btc-lab/data/puzzle_addresses.json",

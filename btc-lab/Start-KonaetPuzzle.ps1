@@ -77,10 +77,11 @@ if ($statePath.StartsWith($repo,[StringComparison]::OrdinalIgnoreCase)) { throw 
 [IO.Directory]::CreateDirectory($statePath) | Out-Null
 if ((Get-Item -LiteralPath $statePath).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'State directory cannot be a reparse point' }
 $owner=[Security.Principal.WindowsIdentity]::GetCurrent().User
-$acl=New-Object Security.AccessControl.DirectorySecurity
-$acl.SetOwner($owner); $acl.SetAccessRuleProtection($true,$false)
+$acl=[IO.Directory]::GetAccessControl($statePath,[Security.AccessControl.AccessControlSections]::Access)
+$acl.SetAccessRuleProtection($true,$false)
+foreach($entry in @($acl.Access)) { [void]$acl.RemoveAccessRuleAll($entry) }
 $rule=New-Object Security.AccessControl.FileSystemAccessRule($owner,'FullControl','ContainerInherit,ObjectInherit','None','Allow')
-$acl.AddAccessRule($rule); Set-Acl -LiteralPath $statePath -AclObject $acl
+$acl.AddAccessRule($rule); [IO.Directory]::SetAccessControl($statePath,$acl)
 $lease=[IO.File]::Open((Join-Path $statePath 'worker.lock'),[IO.FileMode]::OpenOrCreate,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)
 try {
     $installation=Split-Path $statePath -Parent; $binary=Join-Path $installation 'bin'

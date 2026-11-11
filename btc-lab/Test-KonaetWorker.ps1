@@ -33,4 +33,11 @@ try {
     Write-KonaetAtomic $temporary ([Text.Encoding]::UTF8.GetBytes('second'))
     if ([IO.File]::ReadAllText($temporary) -cne 'second') { throw 'Atomic checkpoint replacement failed' }; $checks++
 } finally { if ([IO.File]::Exists($temporary)) { [IO.File]::Delete($temporary) } }
+if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) {
+    Add-Type -AssemblyName System.Security
+    $sample=[Text.Encoding]::UTF8.GetBytes('synthetic-dpapi-fixture-no-key')
+    $cipher=[Security.Cryptography.ProtectedData]::Protect($sample,$null,[Security.Cryptography.DataProtectionScope]::CurrentUser)
+    $plain=[Security.Cryptography.ProtectedData]::Unprotect($cipher,$null,[Security.Cryptography.DataProtectionScope]::CurrentUser)
+    if ([Text.Encoding]::UTF8.GetString($plain) -cne 'synthetic-dpapi-fixture-no-key') { throw 'DPAPI roundtrip failed' }; $checks++
+}
 Write-Output "Worker checkpoint checks: $checks passed. No prize search performed."
